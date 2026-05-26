@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import "./Contact.css";
+import "./contact.css";
 import ContactForm from "../components/ContactForm";
 
 const Contact = () => {
