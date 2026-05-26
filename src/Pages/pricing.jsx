@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Pricing.css";
+import "./pricing.css";
 import speakers from "../assets/speakers.webp";
 
 const educationHeroImages = ["/Education1.jpg", "/Education2.jpg"];

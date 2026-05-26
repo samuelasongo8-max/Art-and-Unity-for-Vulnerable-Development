@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { FaBullseye, FaEye, FaHandsHoldingCircle, FaPeopleGroup, FaSeedling } from "react-icons/fa6";
-import "./About.css";
+import "./about.css";
 
 const beneficiaries = [
   "Refugees and displaced populations",
