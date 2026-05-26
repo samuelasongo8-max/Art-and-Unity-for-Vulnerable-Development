@@ -1,0 +1,1119 @@
+/* ===================== */
+/* GLOBAL SAFETY FIXES */
+/* ===================== */
+* {
+  box-sizing: border-box;
+}
+
+.programRoot {
+  width: 100%;
+  font-family: system-ui, Arial, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================== */
+/* TITLE */
+/* ===================== */
+.programMainTitle {
+  text-align: center;
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 900;
+  margin: 40px 15px;
+  line-height: 1.2;
+}
+
+/* ===================== */
+/* SECTION LAYOUT */
+/* ===================== */
+.danceHeroSection {
+  position: relative;
+  padding: clamp(72px, 10vw, 140px) clamp(18px, 5vw, 72px);
+  min-height: clamp(560px, 78vh, 860px);
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* GRID */
+.danceHeroGrid {
+  width: 100%;
+  max-width: 1240px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 60px);
+  align-items: center;
+  justify-items: start;
+}
+
+/* ===================== */
+/* TEXT AREA */
+/* ===================== */
+.danceHeroContent {
+  color: #ffffff;
+  width: 100%;
+  max-width: min(720px, 100%);
+  padding: clamp(24px, 4vw, 42px);
+}
+
+.dance-hero-content-animated {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.dance-hero-content-entered {
+  animation: danceHeroSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+}
+
+/* ANIMATED TITLE */
+.danceAnimatedTitle {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 900;
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  color: #ffffff;
+}
+
+/* LETTER ANIMATION */
+.danceAnimatedTitle span {
+  display: inline-block;
+  animation: danceWave 1.5s infinite ease-in-out;
+}
+
+/* ICON ROW */
+.danceIconRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+/* ICON */
+.dancePulseIcon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation: pulse 1.8s infinite;
+}
+
+/* DESCRIPTION */
+.danceDescription {
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 100%;
+}
+
+.danceHeroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.danceHeroButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.88rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.96rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.danceHeroButtonPrimary {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.2);
+}
+
+.danceHeroButtonSecondary {
+  background: #994208;
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(153, 66, 8, 0.24);
+}
+
+.danceHeroButton:hover,
+.danceHeroButton:focus-visible {
+  transform: translateY(-2px);
+}
+
+.danceHeroButtonPrimary:hover,
+.danceHeroButtonPrimary:focus-visible {
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.24);
+}
+
+.danceHeroButtonSecondary:hover,
+.danceHeroButtonSecondary:focus-visible {
+  background: #994208;
+  box-shadow: 0 18px 34px rgba(153, 66, 8, 0.3);
+}
+
+.danceHeroButton:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.28);
+  outline-offset: 4px;
+}
+
+/* ===================== */
+/* ACTIVITY BOX */
+/* ===================== */
+.danceActivityBox {
+  background: #994208;
+  width: min(100%, 580px);
+  padding: clamp(16px, 2vw, 22px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+ 
+}
+
+/* TITLE */
+.danceActivityTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+/* LIST */
+.danceActivityList {
+  padding-left: 18px;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.danceActivityList li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+/* ===================== */
+/* IMAGE */
+/* ===================== */
+/* ===================== */
+/* ANIMATIONS */
+/* ===================== */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes danceWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes danceHeroSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-132px);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateX(28px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .danceHeroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .danceHeroButton {
+    width: 100%;
+  }
+}
+
+/* ===================== */
+/* RESPONSIVE BREAKPOINTS */
+/* ===================== */
+
+/* TABLET */
+@media (max-width: 1200px) {
+  .danceHeroSection {
+    padding-inline: clamp(18px, 4vw, 42px);
+    min-height: clamp(520px, 72vh, 760px);
+    background-position: center;
+  }
+
+  .danceHeroContent {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 992px) {
+  .danceHeroSection {
+    min-height: clamp(500px, 68vh, 700px);
+    padding-top: 72px;
+    padding-bottom: 72px;
+    background-position: 58% center;
+  }
+
+  .danceHeroGrid {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .danceHeroContent {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .danceHeroSection {
+    min-height: 0;
+    padding: 68px 20px;
+    background-position: 62% center;
+  }
+
+  .danceHeroGrid {
+    justify-items: stretch;
+  }
+
+  .danceHeroContent {
+    padding: 22px 18px;
+  }
+
+  .danceAnimatedTitle {
+    font-size: clamp(24px, 6vw, 34px);
+    line-height: 1.12;
+  }
+
+  .danceDescription {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .danceActivityBox {
+    width: 100%;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .danceHeroSection {
+    min-height: 0;
+    padding: 56px 15px;
+    background-position: 64% center;
+  }
+
+  .programMainTitle {
+    margin: 25px 10px;
+  }
+
+  .danceHeroContent {
+    padding: 20px 16px;
+  }
+
+  .danceDescription {
+    font-size: 14px;
+  }
+
+  .danceActivityTitle {
+    font-size: 16px;
+  }
+
+  .danceActivityList {
+    padding-left: 16px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 400px) {
+  .danceAnimatedTitle {
+    font-size: 22px;
+  }
+
+  .dancePulseIcon {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* SECTION */
+.second {
+  width: 100%;
+  padding: clamp(60px, 8vw, 120px) 20px;
+  background: linear-gradient(180deg, #ffffff, #f1f5ff);
+  text-align: center;
+}
+
+/* LIMIT CONTENT WIDTH (VERY IMPORTANT FOR BIG SCREENS) */
+.second > * {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* TITLE */
+.second h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+/* INTRO TEXT */
+.second > p {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 50px;
+}
+
+/* CARD (OUR WHY) */
+.men {
+  margin: 0 auto 60px;
+  max-width: 750px;
+  padding: clamp(25px, 3vw, 35px);
+  border-radius: 20px;
+
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+
+  box-shadow: 0 20px 50px rgba(79, 70, 229, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.men:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(79, 70, 229, 0.35);
+}
+
+/* TITLE INSIDE CARD */
+.uncle {
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  margin-bottom: 15px;
+}
+
+/* TEXT */
+.on {
+  font-size: clamp(0.95rem, 1.1vw, 1rem);
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+/* ========================= */
+/* GRID SECTION */
+/* ========================= */
+
+.section\@ {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(15px, 3vw, 25px);
+  margin-top: 40px;
+}
+
+/* CARD ITEM */
+.part1 {
+  padding: 0;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* HOVER */
+.part1:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* IMAGE */
+.answer {
+  position: relative;
+  width: 100%;
+}
+
+.answer img {
+  width: 100%;
+  max-width: none;
+  height: min(72vh, 640px);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+  margin: 0;
+}
+
+.part1:hover img {
+  transform: scale(1.08);
+}
+
+.dance-feature-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: clamp(20px, 4vw, 34px);
+  background: linear-gradient(
+    180deg,
+    rgba(7, 23, 54, 0) 0%,
+    rgba(7, 23, 54, 0.2) 20%,
+    rgba(7, 23, 54, 0.72) 72%,
+    rgba(7, 23, 54, 0.9) 100%
+  );
+  text-align: left;
+}
+
+.dance-feature-overlay p {
+  margin: 0;
+  max-width: 720px;
+  color: #ffffff;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.65;
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dance-tiktok-frame-shell {
+  position: relative;
+  width: min(100%, 860px);
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  margin: 0 auto;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.18);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, width 0.35s ease;
+}
+
+.dance-tiktok-section {
+  margin-top: 42px;
+  display: flex;
+  justify-content: center;
+  padding: clamp(12px, 3vw, 24px) 0 0;
+}
+
+.dance-tiktok-frame-shell:hover,
+.dance-tiktok-frame-shell:focus-within {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 30px 66px rgba(15, 23, 42, 0.22);
+}
+
+.dance-tiktok-frame-shell-expanded {
+  width: min(100%, 1080px);
+}
+
+.dance-tiktok-expand {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  min-height: 40px;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(7, 23, 54, 0.72);
+  color: #ffffff;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.dance-tiktok-expand:hover,
+.dance-tiktok-expand:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(8, 71, 243, 0.82);
+}
+
+.dance-tiktok-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  background: #ffffff;
+}
+
+/* ========================= */
+/* EXTRA RESPONSIVE FIXES */
+/* ========================= */
+
+/* TABLETS */
+@media (max-width: 768px) {
+  .second {
+    padding: 60px 15px;
+  }
+
+  .men {
+    margin-bottom: 40px;
+  }
+}
+
+/* PHONES */
+@media (max-width: 768px) {
+  .dance-tiktok-frame-shell {
+    width: min(100%, 100%);
+    border-radius: 22px;
+  }
+
+  .dance-tiktok-frame {
+    min-height: 0;
+  }
+
+  .dance-tiktok-frame-shell-expanded {
+    width: min(100%, 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .second h1 {
+    font-size: 1.7rem;
+  }
+
+  .second > p {
+    font-size: 0.95rem;
+  }
+
+  .section\@ {
+    gap: 15px;
+  }
+
+  .answer img {
+    height: 420px;
+  }
+
+  .dance-tiktok-frame-shell {
+    width: 100%;
+    border-radius: 18px;
+  }
+
+  .dance-tiktok-expand {
+    top: 12px;
+    right: 12px;
+    min-height: 36px;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .dance-tiktok-frame-shell-expanded {
+    width: 100%;
+  }
+}
+
+/* VERY SMALL DEVICES */
+@media (max-width: 360px) {
+  .second h1 {
+    font-size: 1.5rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* BODY (important for consistency) */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* SECTION */
+.academy {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ========================= */
+/* IMAGE BANNER */
+/* ========================= */
+
+.academy-banner {
+  width: 100%;
+  height: clamp(180px, 26vw, 420px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* IMAGE */
+.academy-banner img {
+  width: 115%;                 /* balanced zoom */
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center 25%;
+
+  display: block;
+
+  /* smoother animation */
+  animation: imageZoomMove 14s ease-in-out infinite alternate;
+
+  will-change: transform;      /* performance boost */
+}
+
+/* IMAGE ANIMATION */
+@keyframes imageZoomMove {
+  0% {
+    transform: scale(1) translateX(0);
+  }
+  100% {
+    transform: scale(1.08) translateX(-2%);
+  }
+}
+
+/* OVERLAY */
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.05),
+    rgba(0,0,0,0.25)
+  );
+}
+
+/* ========================= */
+/* CONTENT */
+/* ========================= */
+
+.academy-content {
+  background: #f3f4f6;
+  padding: clamp(40px, 6vw, 80px) 20px;
+  text-align: center;
+}
+
+.academy-content-animated {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.academy-content-entered {
+  animation: danceAcademySweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+}
+
+/* LIMIT WIDTH (VERY IMPORTANT) */
+.academy-content > * {
+  max-width: 850px;
+  margin-inline: auto;
+}
+
+/* TITLE */
+.academy-content h1 {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  color: #3c4270;
+  margin-bottom: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* TEXT */
+.academy-content p {
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: #4b5563;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.academy-schedule-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto 24px;
+  padding: 0;
+  color: #ec6104;
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
+  font-weight: 700;
+}
+
+.academy-program-details {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto 28px;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff8ef 0%, #fff2e2 100%);
+  border: 1px solid rgba(236, 97, 4, 0.14);
+}
+
+.academy-program-details p {
+  margin-bottom: 0;
+}
+
+.academy-program-details strong {
+  color: #ec6104;
+}
+
+.academy-join-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.85rem 1.6rem;
+  margin-bottom: 20px;
+  border-radius: 999px;
+  background: #994208;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 16px 30px rgba(153, 66, 8, 0.22);
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.academy-join-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(153, 66, 8, 0.28);
+  background: #994208;
+}
+
+.academy-join-pill:focus-visible {
+  outline: 3px solid rgba(153, 66, 8, 0.24);
+  outline-offset: 4px;
+}
+
+.academy-closing-note {
+  max-width: 760px;
+  font-weight: 600;
+  color: #3c4270 !important;
+}
+
+/* DIVIDER */
+.divider {
+  width: 60px;
+  height: 20px;
+  margin: 35px auto;
+
+  background: linear-gradient(
+    to right,
+    transparent 10%,
+    #f59e0b 10%,
+    #f59e0b 30%,
+    transparent 30%,
+    transparent 40%,
+    #f59e0b 40%,
+    #f59e0b 60%,
+    transparent 60%,
+    transparent 70%,
+    #f59e0b 70%,
+    #f59e0b 90%,
+    transparent 90%
+  );
+}
+
+/* SUBTITLE */
+.academy-content h2 {
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  color: #3c4270;
+  font-weight: 700;
+}
+
+/* CONTENT ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes danceAcademySweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-132px);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateX(28px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================= */
+/* RESPONSIVE IMPROVEMENTS */
+/* ========================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .academy-banner {
+    height: 200px;
+  }
+
+  .academy-program-details {
+    padding: 18px 16px;
+  }
+
+  /* reduce animation for performance */
+  .academy-banner img {
+    animation-duration: 18s;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .academy-banner {
+    height: 160px;
+  }
+
+  .academy-content {
+    padding: 40px 15px;
+  }
+
+  .academy-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .academy-content p {
+    font-size: 0.95rem;
+  }
+
+  /* smoother on low-end devices */
+  .academy-banner img {
+    animation: none;
+    transform: scale(1.05);
+  }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+  .academy-banner {
+    height: 140px;
+  }
+}
+
+/* ========================= */
+/* ACCESSIBILITY */
+/* ========================= */
+
+/* Respect reduced motion setting */
+@media (prefers-reduced-motion: reduce) {
+  .academy-banner img {
+    animation: none;
+  }
+
+  .academy-content {
+    animation: none;
+  }
+}
+
+
+/* WRAPPER */
+.zigzag-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: clamp(20px, 5vw, 50px) 0; /* responsive spacing */
+}
+
+/* ICON */
+.zigzag-icon {
+  width: clamp(50px, 6vw, 80px); /* 👈 responsive size */
+  height: auto;
+
+  display: block;
+
+  transition: transform 0.3s ease;
+}
+
+/* HOVER (only for devices that support it) */
+@media (hover: hover) {
+  .zigzag-wrapper:hover .zigzag-icon {
+    transform: scale(1.1);
+  }
+}
+
+/* SMALL DEVICES */
+@media (max-width: 480px) {
+  .zigzag-wrapper {
+    padding: 20px 0;
+  }
+}
+
+/* VERY SMALL DEVICES */
+@media (max-width: 360px) {
+  .zigzag-icon {
+    width: 45px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CARD */
+.feature-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 18px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+
+/* IMAGE CONTAINER */
+.media-box {
+  width: 100%;
+  max-width: 260px;
+
+  border-radius: 12px;
+  overflow: hidden;
+
+  margin-bottom: 15px;
+
+  /* bottom gradient */
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    #e0e7ff 85%,
+    #c7d2fe 100%
+  );
+}
+
+/* ICON */
+.badge-icon {
+  width: 35px;
+  height: 35px;
+  background: #6366f1;
+  border-radius: 50%;
+  margin: 10px auto;
+}
+
+/* IMAGE (WIDE, NOT TALL) */
+.wide-image {
+  width: 100%;
+  height: 140px;        /* 👈 controls height */
+  object-fit: cover;    /* 👈 keeps it wide without stretching */
+  border-radius: 8px;
+}
+
+/* TEXT */
+.feature-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #334155;
+  max-width: 00px;
+}

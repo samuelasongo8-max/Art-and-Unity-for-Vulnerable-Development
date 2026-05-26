@@ -1,0 +1,707 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* MAIN CONTAINER */
+.pricing-container {
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(8, 71, 243, 0.08), transparent 22%),
+    linear-gradient(180deg, #f7fbff 0%, #eef5ff 44%, #f7fbff 100%);
+  color: #18344a;
+}
+
+/* ABOUT */
+.about {
+  padding: clamp(40px, 6vw, 80px) 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* PRICING SECTION (FIXED + CENTERED) */
+.pricing-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) 20px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(20px, 3vw, 30px);
+}
+
+/* CARD */
+.pricing-card {
+  background: white;
+  padding: clamp(20px, 3vw, 30px);
+  text-align: center;
+
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* HOVER */
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* TITLE / PRICE */
+.pricing-card h2 {
+  color: #1b8f4b;
+  font-size: clamp(26px, 4vw, 34px);
+  margin: 10px 0;
+}
+
+/* BUTTON */
+.pricing-card button {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border: none;
+  background: #1b8f4b;
+  color: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: background 0.3s ease;
+}
+
+.pricing-card button:hover {
+  background: #146c39;
+}
+
+/* FEATURED CARD */
+.featured {
+  border: 2px solid #1b8f4b;
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: clamp(50px, 6vw, 80px) 20px;
+  background: #1b8f4b;
+  color: white;
+}
+
+.cta h2 {
+  font-size: clamp(22px, 4vw, 32px);
+}
+
+.cta button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border: none;
+  background: white;
+  color: #1b8f4b;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.cta button:hover {
+  background: #f0f0f0;
+}
+
+/* ===== BREAKPOINT CONTROL ===== */
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  .pricing-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .pricing-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .pricing-section {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card button {
+    width: 100%;
+  }
+
+  .cta button {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.education-hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(460px, 78vh, 760px);
+  margin: 0;
+  padding: clamp(72px, 9vw, 120px) clamp(20px, 6vw, 88px) clamp(40px, 7vw, 64px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.education-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(7, 24, 60, 0.82) 0%, rgba(8, 71, 243, 0.38) 55%, rgba(236, 97, 4, 0.22) 100%);
+  z-index: 1;
+}
+
+.education-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.education-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1s ease, transform 5s ease;
+}
+
+.education-hero-image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.education-hero-copy {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 620px);
+  min-width: 280px;
+  padding: clamp(28px, 4vw, 42px);
+  background: linear-gradient(160deg, rgba(8, 71, 243, 0.78), rgba(10, 57, 168, 0.78));
+  color: #ffffff;
+  box-shadow: 0 28px 56px rgba(8, 71, 243, 0.18);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 1024px) {
+  .education-hero {
+    min-height: 620px;
+    padding: 88px 28px 32px;
+  }
+
+  .education-hero-copy {
+    width: min(100%, 560px);
+  }
+}
+
+.impact-right-animated {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.impact-right-entered {
+  animation: pricingEducationSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+}
+
+/* TEXT */
+.impact-subtitle {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+}
+
+.impact-title {
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 800;
+  margin-bottom: 14px;
+  line-height: 1.05;
+}
+
+.impact-description {
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+}
+
+.pricing-reveal {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.pricing-reveal-right {
+  transform: translate3d(38px, 0, 0);
+}
+
+.pricing-reveal-up {
+  transform: translate3d(0, 34px, 0);
+}
+
+.pricing-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 768px) {
+  .education-hero {
+    min-height: 520px;
+    padding: 92px 16px 22px;
+    align-items: end;
+  }
+
+  .education-hero-copy {
+    width: 100%;
+    padding: 24px 18px;
+    min-width: 0;
+  }
+
+  .impact-title {
+    font-size: clamp(2rem, 8vw, 2.7rem);
+  }
+
+  .impact-description {
+    font-size: 0.98rem;
+    line-height: 1.72;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-hero {
+    min-height: 540px;
+    padding: 88px 12px 18px;
+  }
+
+  .education-hero-copy {
+    padding: 20px 14px;
+  }
+
+  .impact-subtitle {
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+  }
+
+  .impact-title {
+    font-size: clamp(1.8rem, 10vw, 2.35rem);
+    line-height: 1.08;
+  }
+
+  .impact-description {
+    font-size: 0.92rem;
+    line-height: 1.66;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .education-hero-image {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .pricing-reveal,
+  .pricing-reveal-right,
+  .pricing-reveal-up,
+  .pricing-reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.education-focus-section,
+.approach-section,
+.impact-section {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(30px, 5vw, 56px) clamp(18px, 5vw, 44px) clamp(56px, 7vw, 84px);
+}
+
+.education-focus-header,
+.approach-container,
+.impact-container {
+  max-width: 980px;
+}
+
+.section-label {
+  margin-bottom: 12px;
+  color: #ec6104;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title,
+.approach-title,
+.impact-section .impact-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  margin-bottom: 14px;
+  color: white;
+}
+
+.section-intro,
+.approach-intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.education-focus-section .section-title {
+  color: #0847f3;
+}
+
+.education-focus-section .section-intro {
+  color: #0847f3;
+}
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 22px;
+}
+
+.education-card {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+ 
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(8, 71, 243, 0.08);
+  box-shadow: 0 18px 36px rgba(13, 50, 83, 0.08);
+}
+
+.education-card-animated {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.education-card-entered {
+  animation: pricingEducationSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+}
+
+@keyframes pricingEducationSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-132px);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateX(28px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.education-card-media {
+ 
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #edf4ff;
+}
+
+.education-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.education-card-content h3 {
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: #17324a;
+  margin-bottom: 10px;
+}
+
+.education-card-content p {
+  color: #5a7082;
+  line-height: 1.75;
+  font-size: 0.98rem;
+}
+
+.approach-section {
+  padding-top: 0;
+}
+
+.approach-container {
+  margin: 0;
+  text-align: left;
+  background-color: rgb(9, 102, 223);
+  padding: 100px;
+}
+
+.approach-container-animated {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.approach-container-entered {
+  animation: pricingEducationSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+}
+
+.impact-container {
+  margin: 0;
+  text-align: left;
+  background-color: rgb(9, 102, 223);
+  padding: clamp(34px, 4vw, 54px);
+  border-radius: 32px;
+}
+
+.impact-container-animated {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.impact-container-entered {
+  animation: pricingEducationSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+}
+
+.impact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+
+.impact-container--split {
+  display: block;
+}
+
+.impact-copy-block {
+  min-width: 0;
+}
+
+.approach-list,
+.impact-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.approach-list li {
+  background-color: #ec6104;
+  padding: 18px 20px;
+  border-radius: 18px;
+  font-size: 1rem;
+  color: white;
+  box-shadow: 0 12px 28px rgba(236, 97, 4, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .approach-list li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 34px rgba(236, 97, 4, 0.24);
+  }
+}
+
+.impact-section {
+  padding-top: 0;
+}
+
+.impact-image-panel {
+  min-width: 0;
+}
+
+.impact-study-image {
+  width: 100%;
+  min-height: 440px;
+  max-height: 680px;
+  object-fit: cover;
+  display: block;
+ 
+  box-shadow: 0 24px 52px rgba(13, 50, 83, 0.2);
+}
+
+.impact-list li {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #ffffff;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  line-height: 1.45;
+  position: relative;
+  padding-left: 28px;
+}
+
+.impact-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 12px;
+  height: 3px;
+ 
+  background: #ffffff;
+}
+
+/* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
+
+@media (max-width: 1024px) {
+  .small-image {
+    bottom: -6%;
+    right: 10%;
+  }
+}
+
+@media (max-width: 768px) {
+  .impact {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .impact-left,
+  .impact-right {
+    flex: 1 1 100%;
+  }
+
+  .impact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-container {
+    padding: 34px 22px;
+  }
+
+  .small-image {
+    right: 12%;
+    bottom: -6%;
+  }
+
+  .approach-title,
+  .impact-section .impact-title,
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .education-focus-section,
+  .approach-section,
+  .impact-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .impact-list li {
+    padding: 0 0 0 22px;
+    font-size: 1rem;
+  }
+
+  .impact-study-image {
+    min-height: 240px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .impact {
+    padding-top: 42px;
+  }
+
+  .impact-title {
+    font-size: 22px;
+  }
+
+  .impact-right {
+    padding: 22px 18px;
+  }
+
+  .small-image {
+    width: 90px;
+    height: 90px;
+    right: 14%;
+    bottom: -4%;
+  }
+
+  .education-card,
+  .approach-list li,
+  .impact-list li {
+    padding: 16px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 

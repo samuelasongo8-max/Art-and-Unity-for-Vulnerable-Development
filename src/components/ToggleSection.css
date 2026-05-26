@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.toggle-wrapper {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: min(100%, 320px);
+  padding: 15px 22px;
+  background-color:#994208;
+  color: #ffffff;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  border-radius: 999px;
+  box-shadow: 0 16px 28px rgba(8, 71, 243, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.toggle-button:hover {
+ 
+  transform: translateY(-2px);
+  box-shadow: 0 20px 34px rgba(8, 71, 243, 0.28);
+}
+
+.toggle-button:focus-visible {
+  outline: 3px solid rgba(8, 71, 243, 0.22);
+  outline-offset: 4px;
+}
+
+.toggle-button.open {
+  background: linear-gradient(135deg, #062f9f, #0847f3);
+}
+
+.toggle-button-label {
+  flex: 1;
+  text-align: left;
+}
+
+.toggle-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.toggle-button.open .toggle-button-icon {
+  transform: rotate(45deg);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.toggle-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.toggle-content.open {
+  max-height: 2200px;
+  opacity: 1;
+  margin-top: 20px;
+}
+
+.camp {
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  text-align: left;
+  color: white;
+  padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 36px);
+  overflow: hidden;
+  border-radius: 22px;
+
+  background: 
+    linear-gradient(rgba(10, 15, 40, 0.85), rgba(3, 7, 24, 0.6)),
+    url("/background.webp") center/cover no-repeat;
+
+  animation: fadeInUp 1s ease-out;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Content container */
+.camp .content {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+/* Heading */
+.camp h1 {
+  font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  margin: 0;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+/* Paragraph */
+.camp p {
+  max-width: 76ch;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.8;
+  margin: 0 auto;
+  animation: fadeInUp 1.4s ease-out;
+}
+
+/* Button */
+.camp .btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #ffffff;
+  color: #042aa5;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Button hover */
+.camp .btn:hover {
+  background: #042aa5;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Hover zoom effect for section */
+.camp:hover {
+  transform: scale(1.01);
+  transition: transform 0.4s ease;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .camp {
+    padding: 36px 24px;
+  }          
+
+  .camp h1 {
+    text-align: left;
+  }     
+
+  .camp p {
+    max-width: 100%;
+    margin: 0;
+  }
+}                    
+
+
+/* Phones */
+@media (max-width: 768px) {
+  .toggle-content.open {
+    max-height: 2800px;
+  }
+
+  .camp {
+    padding: 28px 18px;
+    border-radius: 18px;
+  }
+
+  .camp h1 {
+    font-size: 1.55rem;
+  }
+
+  .camp p {
+    font-size: 0.98rem;
+    line-height: 1.75;
+  }
+
+  .camp:hover {
+    transform: none;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .toggle-button {
+    min-width: 100%;
+    padding: 14px 18px;
+    font-size: 0.88rem;
+  }
+
+  .camp {
+    padding: 22px 14px;
+  }
+
+  .camp h1 {
+    font-size: 1.35rem;
+  }
+
+  .camp p {
+    font-size: 0.94rem;
+  }
+
+  .camp .btn {
+    padding: 10px 22px;
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+
+/* Main Toggle Section */
+.toggle-section {
+  font-family: 'Poppins', sans-serif;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 10px;
+  overflow: hidden;
+
+  /* Red background with overlay */
+  background: linear-gradient(rgba(120, 0, 0, 0.9), rgba(60, 0, 0, 0.95)),
+              url("/background.webp") center/cover no-repeat;
+
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Title/Header */
+.toggle-header {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+
+.toggle-header:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Content */
+.toggle-content {
+  padding: 20px 25px;
+  text-align: center;
+}
+
+/* Paragraphs */
+.toggle-content p {
+  color: white;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+
+  transition: transform 0.3s ease;
+}
+
+/* Hover zoom */
+.toggle-content p:hover {
+  transform: scale(1.03);
+}
+
+.therapy-toggle-content {
+  background: whitesmoke;
+  padding: 24px;
+  border-radius: 18px;
+}
+
+.therapy-toggle-content p {
+  color: #1f2937;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+.auvd-art-paragraph {
+  color: white;
+  font-size: 17px;
+  line-height: 1.8;
+  text-align: left;
+
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 850px;
+  border-radius: 10px;
+  background-color: #042aa5;
+ 
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+  /* Smooth animation */
+  animation: paragraphFadeIn 0.9s ease-in-out;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Hover effect */
+.auvd-art-paragraph:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Animation */
+@keyframes paragraphFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .auvd-art-paragraph {
+    font-size: 16px;
+    padding: 18px;
+  }
+}
+
+/* Phones */
+@media (max-width: 768px) {
+  .auvd-art-paragraph {
+    font-size: 15px;
+    padding: 16px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .auvd-art-paragraph {
+    font-size: 14px;
+    padding: 14px;
+  }
+}

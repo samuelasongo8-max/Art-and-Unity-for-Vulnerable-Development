@@ -1,0 +1,31 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="40" fill="url(#bg)"/>
+  <circle cx="199" cy="155" r="96" fill="#FFF3C4" fill-opacity="0.7"/>
+  <circle cx="996" cy="147" r="82" fill="#FDE68A" fill-opacity="0.75"/>
+  <path d="M0 654C102 617 214 610 326 648C454 691 552 776 675 793C833 815 963 719 1200 589V900H0V654Z" fill="url(#ground)"/>
+  <rect x="134" y="204" width="932" height="428" rx="28" fill="#FFFDF5" fill-opacity="0.18" stroke="rgba(255,255,255,0.35)"/>
+  <rect x="174" y="244" width="852" height="348" rx="24" fill="#FFFBEB" fill-opacity="0.95"/>
+  <path d="M242 310H957" stroke="#D97706" stroke-width="10" stroke-linecap="round"/>
+  <path d="M242 390H957" stroke="#D97706" stroke-width="10" stroke-linecap="round"/>
+  <path d="M242 470H957" stroke="#D97706" stroke-width="10" stroke-linecap="round"/>
+  <path d="M242 550H957" stroke="#D97706" stroke-width="10" stroke-linecap="round"/>
+  <path d="M378 338V474C378 493 363 508 344 508C325 508 310 493 310 474C310 455 325 440 344 440C357 440 369 447 378 456V338L480 314V450C480 469 465 484 446 484C427 484 412 469 412 450C412 431 427 416 446 416C459 416 471 423 480 432" stroke="#0F766E" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M696 343V476C696 494 682 508 664 508C646 508 632 494 632 476C632 458 646 444 664 444C677 444 688 449 696 458V343L788 326V459C788 477 774 491 756 491C738 491 724 477 724 459C724 441 738 427 756 427C769 427 780 432 788 441" stroke="#1D4ED8" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="886" cy="424" r="58" fill="#F59E0B" fill-opacity="0.18"/>
+  <path d="M873 385C852 385 835 402 835 423C835 445 852 462 873 462C884 462 894 458 901 451L926 476C931 481 940 481 945 476C950 471 950 462 945 457L920 432C924 425 926 417 926 409C926 388 909 371 887 371C875 371 865 376 858 383" stroke="#0F766E" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M855 421L874 440L911 404" stroke="#0F766E" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M197 704C257 655 324 629 386 631C450 633 505 663 571 667C646 672 705 643 771 590" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" stroke-opacity="0.34"/>
+  <text x="600" y="718" text-anchor="middle" fill="#FFFFFF" font-family="Georgia, serif" font-size="68" font-weight="700">Music Is In The Public</text>
+  <text x="600" y="782" text-anchor="middle" fill="#FFF7E0" font-family="Arial, sans-serif" font-size="30" letter-spacing="5">WORLD TEACHERS' DAY • JOY WITHIN MUSIC</text>
+  <defs>
+    <linearGradient id="bg" x1="86" y1="80" x2="1114" y2="847" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F766E"/>
+      <stop offset="0.48" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="600" y1="616" x2="600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF3C4" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#FFF3C4" stop-opacity="0.12"/>
+    </linearGradient>
+  </defs>
+</svg>
