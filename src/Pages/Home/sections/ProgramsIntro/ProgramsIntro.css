@@ -1,0 +1,31 @@
+.programs-cta {
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  margin-top: clamp(28px, 6vw, 72px);
+}
+
+.programs-cta .btn-go-about {
+  min-height: 52px;
+  box-shadow: 0 14px 30px rgba(153, 66, 8, 0.22);
+}
+
+.programs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: clamp(88px, 14vw, 190px);
+  margin-top: clamp(40px, 8vw, 100px);
+  padding: clamp(1rem, 3.5vw, 2.75rem) clamp(0.9rem, 3vw, 2rem);
+  background: #0847f3ea;
+  color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(31, 150, 230, 0.6);
+}
+
+.programs h1 {
+  max-width: 28ch;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(1.45rem, 2.5vw, 2.35rem);
+  line-height: 1.2;
+}

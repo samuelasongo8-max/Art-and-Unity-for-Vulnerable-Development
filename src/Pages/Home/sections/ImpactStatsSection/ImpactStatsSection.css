@@ -1,0 +1,125 @@
+.impactSection {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: clamp(50px, 6vw, 100px) 5%;
+  background: #ffffff;
+  color: #17324a;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.impactSection--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.impactWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid rgba(20, 50, 80, 0.08);
+  box-shadow: 0 20px 44px rgba(13, 50, 83, 0.07);
+}
+
+.impactHeading {
+  font-size: clamp(26px, 3.5vw, 46px);
+  font-weight: 900;
+  color: #12304b;
+  margin-bottom: 10px;
+}
+
+.impactText {
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: #52677d;
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.impactCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(16px, 2.2vw, 24px);
+}
+
+.impactBox {
+  background: #ffffff;
+  padding: clamp(18px, 2vw, 28px);
+  position: relative;
+  border: 1px solid rgba(20, 50, 80, 0.08);
+  box-shadow: 0 12px 24px rgba(14, 32, 54, 0.06);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.6s ease;
+}
+
+.impactBox--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.impactBox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: #994208;
+}
+
+.impactBox:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(14, 32, 54, 0.1);
+}
+
+.impactCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.impactIconBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: #f2f5f8;
+  color: #0847f3;
+  font-size: 1.35rem;
+}
+
+.impactValue {
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 900;
+  color: #0847f3;
+}
+
+.impactTitle {
+  font-size: clamp(16px, 1.5vw, 18px);
+  font-weight: 700;
+  color: #16324a;
+  margin-bottom: 10px;
+}
+
+.impactInfo {
+  font-size: clamp(13px, 1vw, 14px);
+  color: #52677d;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.impactBox--wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 992px) {
+  .impactBox--wide {
+    grid-column: span 1;
+  }
+}

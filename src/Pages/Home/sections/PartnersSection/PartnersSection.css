@@ -1,0 +1,99 @@
+.partners-section {
+  padding: 64px 20px;
+  background-color: #0847f3c2;
+  color: white;
+}
+
+.partners-section .container {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.partners-copy-animated {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.partners-copy-entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.partners-section .title {
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.partners-section .subtitle {
+  font-size: 16px;
+  margin-bottom: 34px;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.partner-card {
+  height: 140px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  padding: 0;
+  transition: transform 0.4s ease;
+}
+
+.partner-card span {
+  position: relative;
+  z-index: 2;
+  font-size: 14px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.partner-card:hover {
+  transform: translateY(-8px);
+}
+
+.partner-card.tsf { background: url("/tsf.png") center/contain no-repeat; }
+.partner-card.f2f { background: url("/f2f.png") center/contain no-repeat; }
+.partner-card.cammo { background: url("/cammo.png") center/contain no-repeat; }
+.partner-card.enrichment { background: url("/enrichment.png") center/contain no-repeat; }
+.partner-card.hungry { background: url("/hungry for music.png") center/contain no-repeat; }
+.partner-card.because { background: url("/because.png") center/contain no-repeat; }
+.partner-card.kakuma { background: url("/kakuma Sound.jpg") center/contain no-repeat; }
+.partner-card.bright { background: url("/Bright.png") center/contain no-repeat; }
+.partner-card.center { background: url("/center.jpg") center/contain no-repeat; }
+
+@media (min-width: 901px) {
+  .partners-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .partner-card {
+    height: 110px;
+  }
+}
+
+@media (max-width: 900px) {
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .partners-grid {
+    grid-template-columns: 1fr;
+  }
+}

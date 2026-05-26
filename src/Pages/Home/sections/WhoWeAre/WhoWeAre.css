@@ -1,0 +1,41 @@
+.mann {
+  padding: clamp(52px, 7vw, 88px) 20px;
+  background:
+    radial-gradient(circle at top left, rgba(8, 71, 243, 0.08), transparent 30%),
+    linear-gradient(180deg, #f7faff 0%, #eef3f9 100%);
+}
+
+.mann .welcome {
+  max-width: 1020px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mann .who-we-are-title {
+  margin-bottom: 1.5rem;
+}
+
+.mann .welcome-kicker {
+  margin-bottom: 0.75rem;
+  color: #994208;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mann .welcome-lead,
+.mann .welcome-body {
+  max-width: 70ch;
+  margin: 0 auto 1rem;
+  color: #445066;
+  font-family: "Inter", sans-serif;
+  line-height: 1.8;
+}
+
+.mann .welcome-lead {
+  color: #243746;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-weight: 600;
+}

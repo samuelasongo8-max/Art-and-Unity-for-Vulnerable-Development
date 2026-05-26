@@ -1,0 +1,67 @@
+.vocational {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px;
+  background: #f5f5f5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.vocational-text-content {
+  flex: 1 1 500px;
+  min-width: 250px;
+}
+
+.vocational-title {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2rem;
+  color: #1f96e6;
+  margin-bottom: 20px;
+}
+
+.vocational-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #994208;
+  margin-top: 8px;
+}
+
+.vocational-text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.vocational-explore-btn {
+  margin-top: 14px;
+}
+
+.vocational-image {
+  flex: 1 1 400px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.vocational-image-fade {
+  animation: vocationalImageFade 0.7s ease;
+}
+
+@keyframes vocationalImageFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .vocational {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+}

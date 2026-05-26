@@ -1,0 +1,104 @@
+.program-toggle-section {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 1100px);
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+}
+
+.program-toggle-section .therapy-toggle-content {
+  display: grid;
+  gap: 20px;
+  color: #364152;
+  font-family: "Inter", sans-serif;
+  line-height: 1.8;
+}
+
+.program-toggle-section .therapy-toggle-content span,
+.program-toggle-section .therapy-toggle-content strong {
+  color: #994208;
+}
+
+.program-toggle-section .therapy-toggle-gallery {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.program-toggle-section .therapy-toggle-gallery__frame {
+  position: relative;
+  width: min(100%, 560px);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #d8e1ea;
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16);
+}
+
+.program-toggle-section .therapy-toggle-gallery__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: therapyToggleCrossfade 16s infinite;
+}
+
+.program-toggle-section .therapy-toggle-gallery__image--1 {
+  animation-delay: 0s;
+}
+
+.program-toggle-section .therapy-toggle-gallery__image--2 {
+  animation-delay: 4s;
+}
+
+.program-toggle-section .therapy-toggle-gallery__image--3 {
+  animation-delay: 8s;
+}
+
+.program-toggle-section .therapy-toggle-gallery__image--4 {
+  animation-delay: 12s;
+}
+
+.program-toggle-section .camp {
+  color: #364152;
+}
+
+.program-toggle-section .content {
+  display: grid;
+  gap: 1rem;
+  font-family: "Inter", sans-serif;
+  line-height: 1.8;
+}
+
+.program-toggle-section .content h1 {
+  color: #0f2f4c;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.program-toggle-section .divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(8, 71, 243, 0.18);
+}
+
+@keyframes therapyToggleCrossfade {
+  0% { opacity: 0; }
+  6% { opacity: 1; }
+  23% { opacity: 1; }
+  29% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-toggle-section .therapy-toggle-gallery__image {
+    animation: none;
+    opacity: 0;
+  }
+
+  .program-toggle-section .therapy-toggle-gallery__image--1 {
+    opacity: 1;
+  }
+}

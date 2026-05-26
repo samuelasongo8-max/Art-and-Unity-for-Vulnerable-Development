@@ -1,0 +1,91 @@
+.need-section {
+  position: relative;
+  width: 100%;
+  padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 28px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background-image 0.8s ease-in-out;
+}
+
+.need-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.18), rgba(58, 130, 204, 0.68));
+}
+
+.need-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.need-section .why-container {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+}
+
+.need-section .why-container-no-image .why-content {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.need-section .why-title,
+.need-section .why-text,
+.need-section #why,
+.need-section .part2 {
+  color: #ffffff;
+}
+
+.need-section .why-title {
+  margin-bottom: 1rem;
+}
+
+.need-section .why-text,
+.need-section #why,
+.need-section .part2 {
+  font-family: "Inter", sans-serif;
+  line-height: 1.85;
+}
+
+.need-section #why {
+  padding: 1.5rem;
+  background: rgba(9, 18, 34, 0.32);
+  border-left: 4px solid #994208;
+}
+
+.need-section .part2 {
+  width: min(100%, 1100px);
+  margin: 1.5rem auto 0;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.need-section.why-content-animated .why-title,
+.need-section.why-content-animated .why-text,
+.need-section.why-content-animated #why,
+.need-section.why-content-animated .part2 {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.need-section.why-content-animated .why-title {
+  transform: translateY(24px);
+}
+
+.need-section.why-content-animated .why-text,
+.need-section.why-content-animated #why {
+  transform: translateX(-52px);
+}
+
+.need-section.why-content-animated .part2 {
+  transform: translateX(52px);
+}
+
+.need-section.why-content-entered .why-title,
+.need-section.why-content-entered .why-text,
+.need-section.why-content-entered #why,
+.need-section.why-content-entered .part2 {
+  opacity: 1;
+  transform: translate(0, 0);
+}

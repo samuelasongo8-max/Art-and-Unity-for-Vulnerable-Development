@@ -1,0 +1,78 @@
+.impact-section {
+  width: 100%;
+  padding: clamp(48px, 7vw, 80px) clamp(16px, 3vw, 24px);
+  display: flex;
+  justify-content: center;
+  background: #fff;
+}
+
+.impact-wrapper {
+  width: min(100%, 1200px);
+}
+
+.impact-text-area {
+  max-width: 760px;
+}
+
+.impact-heading {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #994208;
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.impact-paragraph-group {
+  display: grid;
+  gap: 14px;
+}
+
+.impact-paragraph {
+  font-size: clamp(0.95rem, 0.86rem + 0.3vw, 1.125rem);
+  line-height: 1.75;
+  color: #333;
+  font-family: "Inter", sans-serif;
+}
+
+.impact-explore-button {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.9rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: #994208;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(153, 66, 8, 0.22);
+}
+
+.impact-text-animated .impact-heading,
+.impact-text-animated .impact-paragraph-group,
+.impact-text-animated .impact-explore-button {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.impact-text-animated .impact-heading {
+  transform: translateY(22px);
+}
+
+.impact-text-animated .impact-paragraph-group {
+  transform: translateX(-54px);
+}
+
+.impact-text-animated .impact-explore-button {
+  transform: translateX(42px);
+}
+
+.impact-text-entered .impact-heading,
+.impact-text-entered .impact-paragraph-group,
+.impact-text-entered .impact-explore-button {
+  opacity: 1;
+  transform: translate(0, 0);
+}

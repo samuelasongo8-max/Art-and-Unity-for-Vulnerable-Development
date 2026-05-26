@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap");
+
+.btn-go-about,
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0.9rem 1.7rem;
+  border: none;
+  border-radius: 999px;
+  background: #994208;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(153, 66, 8, 0.24);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.btn-go-about:hover,
+.btn-go-about:focus-visible,
+.read-more-btn:hover,
+.read-more-btn:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(0.98);
+  box-shadow: 0 16px 34px rgba(153, 66, 8, 0.28);
+}
+
+.walking-text {
+  display: block;
+  text-align: center;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.walking-text span {
+  display: inline-block;
+  font-size: clamp(1.5rem, 8vw, 6rem);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  animation: wave 1.5s ease-in-out infinite;
+}
+
+.zigzag-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1rem;
+}
+
+.zigzag-icon {
+  width: min(160px, 100%);
+  height: 40px;
+}
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 0.12em;
+  animation: blink 1s step-end infinite;
+}
+
+.typing-cursor.is-complete {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -0.25em, 0);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walking-text span,
+  .typing-cursor {
+    animation: none !important;
+  }
+}

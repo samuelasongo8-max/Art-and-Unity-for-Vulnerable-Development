@@ -1,0 +1,68 @@
+.visual-arts-section {
+  background: #ffffff;
+  padding: 44px 20px;
+}
+
+.visual-arts-section .why-container {
+  display: flex;
+  width: min(100%, 1180px);
+  gap: clamp(20px, 4vw, 40px);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.visual-arts-section .why-image-wrapper {
+  flex: 0 1 560px;
+}
+
+.visual-arts-section .why-image {
+  width: min(100%, 560px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.visual-arts-section .why-content {
+  flex: 1 1 460px;
+  max-width: 600px;
+}
+
+.visual-arts-section .why-title {
+  color: #ec6104;
+  font-size: clamp(1.8rem, 3vw, 2.35rem);
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.visual-arts-section .why-text {
+  color: #050505;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.visual-arts-section .why-text span {
+  color: #994208;
+}
+
+.visual-arts-section .why-content-animated .why-title,
+.visual-arts-section .why-content-animated .why-text {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visual-arts-section .why-content-animated .why-title {
+  transform: translateY(24px);
+}
+
+.visual-arts-section .why-content-animated .why-text {
+  transform: translateX(-52px);
+}
+
+.visual-arts-section .why-content-entered .why-title,
+.visual-arts-section .why-content-entered .why-text {
+  opacity: 1;
+  transform: translate(0, 0);
+}

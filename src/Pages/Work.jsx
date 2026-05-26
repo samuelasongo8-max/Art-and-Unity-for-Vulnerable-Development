@@ -119,9 +119,9 @@ function Work() {
 	const programsHeadingRef = useRef(null);
 	const programCardRefs = useRef([]);
 	const impactHighlights = [
-		{ label: "Healing through creativity", targetId: "arts-healing" },
-		{ label: "Education and skills access", targetId: "education-youth" },
-		{ label: "Community dignity and inclusion", targetId: "peacebuilding" },
+		{ label: "Healing Through Creativity", targetId: "arts-healing" },
+		{ label: "Education and Skills Access", targetId: "education-youth" },
+		{ label: "Community Dignity and Inclusion", targetId: "peacebuilding" },
 	];
 	const heroTitle = "AUVD Programs in Kakuma Refugee Camp";
 	const heroLead =

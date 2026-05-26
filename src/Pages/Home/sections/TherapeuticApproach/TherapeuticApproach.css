@@ -1,0 +1,116 @@
+.impact-ngo-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 360px);
+  gap: clamp(18px, 2.4vw, 28px);
+  align-items: center;
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: clamp(22px, 3.5vw, 46px);
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.96), rgba(191, 219, 254, 0.98));
+}
+
+.impact-ngo-animated .impact-ngo-content,
+.impact-ngo-animated .impact-ngo-media {
+  opacity: 0;
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+
+.impact-ngo-animated .impact-ngo-content {
+  transform: translateX(-54px);
+}
+
+.impact-ngo-animated .impact-ngo-media {
+  transform: translateX(54px);
+}
+
+.impact-ngo-entered .impact-ngo-content,
+.impact-ngo-entered .impact-ngo-media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.impact-ngo-title,
+.impact-ngo-subtitle {
+  color: #10253d;
+  font-family: "Poppins", sans-serif;
+}
+
+.impact-ngo-subtitle {
+  margin: 0.8rem 0;
+}
+
+.impact-ngo-text,
+.impact-ngo-summary,
+.impact-toggle-point-text {
+  font-family: "Inter", sans-serif;
+  color: #334155;
+  line-height: 1.8;
+}
+
+.impact-ngo-list {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.impact-ngo-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+}
+
+.impact-toggle-point-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: #994208;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.impact-ngo-image-shell {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 44px rgba(15, 23, 42, 0.12);
+}
+
+.impact-ngo-image-stack {
+  position: relative;
+  aspect-ratio: 4 / 5;
+}
+
+.impact-ngo-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.impact-ngo-image-slide-secondary {
+  animation: therapeuticCrossfade 8s infinite;
+}
+
+.impact-ngo-caption {
+  margin-top: 0.75rem;
+  font-family: "Inter", sans-serif;
+  color: #52677d;
+}
+
+@keyframes therapeuticCrossfade {
+  0%,
+  45% { opacity: 0; }
+  55%,
+  100% { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .impact-ngo-section {
+    grid-template-columns: 1fr;
+  }
+}
