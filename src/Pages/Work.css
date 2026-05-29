@@ -1,5 +1,6 @@
 .work-page {
-	padding: 56px 20px 88px;
+	--work-nav-offset: 96px;
+	padding: var(--work-nav-offset) 20px 88px;
 	scroll-behavior: smooth;
 	overflow-x: hidden;
 	background:
@@ -18,32 +19,86 @@
 	margin: 0 0 52px -20px;
 	position: relative;
 	display: flex;
-	align-items: center;
-	min-height: 100dvh;
-	padding: 40px clamp(20px, 4vw, 40px);
-   background: rgb(13, 83, 212);
+	align-items: flex-end;
+	min-height: clamp(460px, 68vh, 620px);
+	padding: clamp(48px, 7vw, 88px) clamp(20px, 4vw, 40px);
+	background: #0f172a;
 	box-shadow: 0 30px 70px rgba(15, 23, 42, 0.3);
 	overflow: hidden;
 	animation: workHeroOpen 0.9s ease;
+}
+
+.work-hero-media {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.work-hero-media::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(180deg, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0.04) 24%, rgba(15, 23, 42, 0.2) 100%),
+		radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 52%);
+	pointer-events: none;
+}
+
+.work-hero-image {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 22%;
+	opacity: 0;
+	transform: scale(1.015);
+	filter: brightness(0.76) saturate(1.18) contrast(1.12) sepia(0.05);
+	transition: opacity 1s ease, transform 1.2s ease;
+}
+
+.work-hero-image.is-active {
+	opacity: 1;
+	transform: scale(1);
 }
 
 .work-hero::before {
 	content: "";
 	position: absolute;
 	inset: 0;
-	background:
-		radial-gradient(circle at top right, rgba(255, 255, 255, 0.22), transparent 22%),
-		radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.24), transparent 28%),
-		linear-gradient(180deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.18));
+	background: color-mix(in lch, lch(59.01% 72.48 55.58) 72%, transparent);
 	pointer-events: none;
 }
 
+.work-hero--blue::before {
+	background: rgba(13, 83, 212, 0.44);
+}
+
 .work-hero-copy {
-	max-width: 860px;
-	padding: 0;
+	max-width: 700px;
+	padding: clamp(18px, 2vw, 22px);
 	position: relative;
 	z-index: 1;
+	background: color-mix(in lch, lch(59.01% 72.48 55.58) 88%, transparent);
+	border: 1px solid color-mix(in lch, lch(59.01% 72.48 55.58) 72%, white);
+	border-radius: 28px;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	box-shadow: 0 22px 44px rgba(153, 66, 8, 0.2);
 	animation: workHeroContentIn 1.05s ease;
+}
+
+@media (min-width: 901px) {
+	.work-hero-copy {
+		max-width: 580px;
+		padding: 16px 18px;
+	}
+}
+
+.work-hero--blue .work-hero-copy {
+	background: rgba(13, 83, 212, 0.88);
+	border: 1px solid rgba(191, 219, 254, 0.28);
+	box-shadow: 0 18px 36px rgba(13, 83, 212, 0.2);
 }
 
 .work-eyebrow,
@@ -332,12 +387,13 @@
 	align-items: center;
 	justify-content: center;
 	align-self: flex-start;
-	padding: 0.95rem 1.6rem;
+	min-height: 42px;
+	padding: 0.72rem 1.2rem;
 	border-radius: 999px;
-	background: #994208;
+	background: lch(59.01% 72.48 55.58);
 	color: #ffffff;
-	font-size: 0.96rem;
-	font-weight: 800;
+	font-size: 0.86rem;
+	font-weight: 700;
 	letter-spacing: 0.02em;
 	text-decoration: none;
 	box-shadow: 0 16px 30px rgba(153, 66, 8, 0.28);
@@ -438,19 +494,24 @@
 
 @media (max-width: 900px) {
 	.work-page {
-		padding: 44px 16px 72px;
+		--work-nav-offset: 88px;
+		padding: var(--work-nav-offset) 16px 72px;
 	}
 
 	.work-hero {
 		width: calc(100% + 32px);
 		margin-left: -16px;
-		padding: 36px 22px;
+		padding: 108px 22px 42px;
 		align-items: flex-start;
-		min-height: 0;
+		min-height: 440px;
 	}
 
 	.work-hero-copy {
-		padding: 0;
+		padding: 24px;
+	}
+
+	.work-hero-image {
+		object-position: center 20%;
 	}
 
 	.work-program-card {
@@ -475,23 +536,31 @@
 
 	.work-program-button {
 		flex: 0 1 auto;
+		min-height: 40px;
+		padding: 0.68rem 1.05rem;
+		font-size: 0.82rem;
 	}
 }
 
 @media (max-width: 540px) {
 	.work-page {
-		padding: 36px 14px 56px;
+		--work-nav-offset: 82px;
+		padding: var(--work-nav-offset) 14px 56px;
 	}
 
 	.work-hero {
 		width: calc(100% + 28px);
 		margin: 0 0 40px -14px;
-		padding: 32px 18px;
-		min-height: 0;
+		padding: 96px 18px 32px;
+		min-height: 380px;
 	}
 
 	.work-hero-copy {
-		padding: 0;
+		padding: 20px;
+	}
+
+	.work-hero-image {
+		object-position: center 18%;
 	}
 
 	.work-lead {
@@ -562,9 +631,11 @@
 	}
 
 	.work-program-button {
-		width: 100%;
-		padding: 0.9rem 1.1rem;
-		font-size: 0.92rem;
+		width: auto;
+		max-width: 100%;
+		min-height: 38px;
+		padding: 0.62rem 0.96rem;
+		font-size: 0.78rem;
 	}
 
 	.work-program-actions {

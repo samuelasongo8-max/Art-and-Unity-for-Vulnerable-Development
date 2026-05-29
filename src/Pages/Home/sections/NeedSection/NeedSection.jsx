@@ -38,7 +38,7 @@ function NeedSection({ backgrounds }) {
                 <polyline
                   points="5,30 20,10 35,30 50,10 65,30 80,10 95,30"
                   fill="none"
-                  stroke="#994208"
+                  stroke="currentColor"
                   strokeWidth="5"
                   strokeLinecap="round"
                   strokeLinejoin="round"

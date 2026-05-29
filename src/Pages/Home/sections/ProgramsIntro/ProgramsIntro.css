@@ -2,12 +2,16 @@
   display: flex;
   justify-content: center;
   padding: 0 20px;
-  margin-top: clamp(28px, 6vw, 72px);
+  margin-top: clamp(24px, 5vw, 56px);
 }
 
 .programs-cta .btn-go-about {
-  min-height: 52px;
-  box-shadow: 0 14px 30px rgba(153, 66, 8, 0.22);
+  min-height: 44px;
+  padding: 0.72rem 1.3rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 12px 24px rgba(153, 66, 8, 0.16);
 }
 
 .programs {
@@ -15,17 +19,43 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: clamp(88px, 14vw, 190px);
-  margin-top: clamp(40px, 8vw, 100px);
-  padding: clamp(1rem, 3.5vw, 2.75rem) clamp(0.9rem, 3vw, 2rem);
-  background: #0847f3ea;
+  width: 100%;
+  min-height: clamp(82px, 11vw, 144px);
+  margin: clamp(28px, 5vw, 56px) 0 0;
+  padding: clamp(1rem, 2.5vw, 1.8rem) clamp(1rem, 3vw, 2.25rem);
+  background: linear-gradient(135deg, #0c3f9b 0%, #1160d4 55%, #2587f5 100%);
   color: #ffffff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(31, 150, 230, 0.6);
+  box-shadow: 0 22px 44px rgba(8, 46, 114, 0.22);
 }
 
 .programs h1 {
-  max-width: 28ch;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: clamp(1.45rem, 2.5vw, 2.35rem);
-  line-height: 1.2;
+  max-width: 22ch;
+  font-family: "Poppins", Helvetica, Arial, sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .programs-cta {
+    padding: 0 14px;
+  }
+
+  .programs-cta .btn-go-about {
+    min-height: 40px;
+    padding: 0.64rem 1rem;
+    font-size: 0.76rem;
+  }
+
+  .programs {
+    min-height: 74px;
+    padding: 1rem 0.95rem;
+  }
+
+  .programs h1 {
+    max-width: 18ch;
+    font-size: 1.08rem;
+    line-height: 1.18;
+  }
 }

@@ -131,7 +131,7 @@
   padding: 0 22px;
   border: 0;
   border-radius: 999px;
-  background: #994208;
+  background: lch(59.01% 72.48 55.58);
   color: #ffffff;
   font-size: 1rem;
   font-weight: 800;
@@ -145,7 +145,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.36) 50%, transparent 82%);
+  background: none;
   transform: translateX(-120%);
   transition: transform 0.45s ease;
 }

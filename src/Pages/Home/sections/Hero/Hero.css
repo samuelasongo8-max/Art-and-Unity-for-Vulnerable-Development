@@ -50,6 +50,9 @@
 .hero-section .hero-description {
   max-width: 62ch;
   margin-bottom: 1.5rem;
+  padding: 0.4rem 1.1rem;
+  border-left: 6px solid lch(59.01% 72.48 55.58);
+  border-right: 6px solid lch(59.01% 72.48 55.58);
   font-family: "Inter", sans-serif;
   font-size: clamp(1rem, 1.3vw, 1.18rem);
   line-height: 1.8;

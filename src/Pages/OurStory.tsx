@@ -79,7 +79,6 @@ function OurStory() {
     <section className="about-page">
       <section className="about-hero story-reveal story-reveal-hero" data-reveal>
         <div className="about-hero-copy story-reveal story-reveal-left" data-reveal>
-          <p className="about-kicker">Our Story</p>
           <h1 className="about-hero-title" aria-label={heroTitle}>
 			{typedTitle}
 			<span className={`about-typing-cursor${isTypingComplete ? " is-complete" : ""}`} aria-hidden="true">|</span>

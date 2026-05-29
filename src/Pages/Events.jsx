@@ -11,7 +11,6 @@ const workshopEvents = [
     image: "/muziki.jpg",
     alt: "Muziki image for World Teachers' Day",
     variant: "poster",
-    posterTag: "Youth Peace Week 2025",
     posterHeadline: "Celebrate teachers through music, gratitude, and community voices.",
     posterDetails: "Live performances, appreciation, and creative expression in Kakuma Refugee Camp.",
     description:
@@ -125,7 +124,6 @@ function Events() {
   return (
     <section className="events-page">
       <div className="events-hero events-reveal events-reveal-up" data-reveal>
-        <p className="events-kicker">2025 Events</p>
         <h1 className="events-hero-title" aria-label={heroTitle}>
           {typedTitle}
           <span className={`events-typing-cursor${isTypingComplete ? " is-complete" : ""}`} aria-hidden="true">|</span>

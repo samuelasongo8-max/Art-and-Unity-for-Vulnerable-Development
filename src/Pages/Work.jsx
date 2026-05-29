@@ -4,6 +4,14 @@ import "./Work.css";
 
 const womenLivelihoodImages = ["/women.png", "/tailoring.jpg", "/Cooking.webp"];
 const outreachImages = ["/Shoes.png", "/shoes2.webp"];
+const heroBackgroundImages = [
+	"/Education2.jpg",
+	"/donation.jpg",
+	"/Shoes.png",
+	"/tailoring.jpg",
+	"/Cooking.webp",
+];
+const heroBlueBackgroundImages = new Set(["/Shoes.png", "/tailoring.jpg", "/Cooking.webp"]);
 
 const programPillars = [
 	{
@@ -114,6 +122,7 @@ function Work() {
 	const location = useLocation();
 	const [womenImageIndex, setWomenImageIndex] = useState(0);
 	const [outreachImageIndex, setOutreachImageIndex] = useState(0);
+	const [heroImageIndex, setHeroImageIndex] = useState(0);
 	const [typedTitle, setTypedTitle] = useState("");
 	const [typedLead, setTypedLead] = useState("");
 	const programsHeadingRef = useRef(null);
@@ -126,6 +135,16 @@ function Work() {
 	const heroTitle = "AUVD Programs in Kakuma Refugee Camp";
 	const heroLead =
 		"Art and Unity for Vulnerable Development (AUVD) works in Kakuma Refugee Camp by creating safe, practical, and inclusive programs that help children, youth, women, and vulnerable families heal, learn, grow skills, and participate fully in community life. Our approach combines arts, education, livelihood support, peacebuilding, and humanitarian outreach so that people can rebuild dignity, strengthen resilience, and access real opportunities for a better future.";
+	const activeHeroImage = heroBackgroundImages[heroImageIndex];
+	const useBlueHeroBackground = heroBlueBackgroundImages.has(activeHeroImage);
+
+	useEffect(() => {
+		const interval = window.setInterval(() => {
+			setHeroImageIndex((previous) => (previous + 1) % heroBackgroundImages.length);
+		}, 10000);
+
+		return () => window.clearInterval(interval);
+	}, []);
 
 	useEffect(() => {
 		const interval = window.setInterval(() => {
@@ -241,20 +260,31 @@ function Work() {
 
 	return (
 		<main className="work-page">
-			<section className="work-hero">
+			<section className={`work-hero${useBlueHeroBackground ? " work-hero--blue" : ""}`}>
+				<div className="work-hero-media" aria-hidden="true">
+					{heroBackgroundImages.map((image, index) => (
+						<img
+							key={image}
+							src={image}
+							alt=""
+							className={`work-hero-image${index === heroImageIndex ? " is-active" : ""}`}
+						/>
+					))}
+				</div>
 				<div className="work-hero-copy">
-					<p className="work-eyebrow">WHAT WE DO</p>
 					<h1 className="work-type-title">{typedTitle}<span className="work-type-caret" aria-hidden="true"></span></h1>
 					<p className="work-lead">
 						{typedLead}
 					</p>
-					<div className="work-hero-highlights">
-						{impactHighlights.map((highlight) => (
-							<a className="work-highlight-pill" href={`#${highlight.targetId}`} key={highlight.targetId}>
-								{highlight.label}
-							</a>
-						))}
-					</div>
+					{!useBlueHeroBackground ? (
+						<div className="work-hero-highlights">
+							{impactHighlights.map((highlight) => (
+								<a className="work-highlight-pill" href={`#${highlight.targetId}`} key={highlight.targetId}>
+									{highlight.label}
+								</a>
+							))}
+						</div>
+					) : null}
 				</div>
 			</section>
 

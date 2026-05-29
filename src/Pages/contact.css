@@ -195,12 +195,12 @@
 }
 
 .contact-primary-section .form-box button {
-  background-color: #ffffff;
-  color: #0847f3;
+  background-color: lch(59.01% 72.48 55.58);
+  color: #ffffff;
 }
 
 .contact-primary-section .form-box button:hover {
-  background-color: #dbeafe;
+  background-color: lch(59.01% 72.48 55.58);
 }
 
 .contact-intro-panel {
@@ -538,7 +538,7 @@
 
 /* Submit button */
 .form-box button {
-  background-color: #0ccce6;
+  background-color: lch(59.01% 72.48 55.58);
   color: #fff;
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -556,7 +556,7 @@
 }
 
 .form-box button:hover {
-  background-color: #12e2f0;
+  background-color: lch(59.01% 72.48 55.58);
   transform: translateY(-3px);
   box-shadow: 0 16px 30px rgba(12, 204, 230, 0.22);
 }

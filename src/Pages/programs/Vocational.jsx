@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useState } from "react";
 
 import "./Vocational.css";
 
@@ -24,9 +23,26 @@ const initialTalentForm = {
   confirmNotRobot: false,
 };
 
-const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const locationPattern = /^[A-Za-z0-9\s/,'-]+$/;
+const web3FormsAccessKey = "720af78f-5c60-44e9-9ed4-2098092ebc40";
+
+const normalizeSubmitError = (error) => {
+  if (!(error instanceof Error)) {
+    return "Your submission could not be sent right now. Please try again in a moment.";
+  }
+
+  const message = error.message.trim();
+
+  if (!message) {
+    return "Your submission could not be sent right now. Please try again in a moment.";
+  }
+
+  if (message.startsWith("<!DOCTYPE html") || message.startsWith("<html")) {
+    return "The submission service returned an unexpected response. Please try again in a moment.";
+  }
+
+  return message;
+};
 
 const isValidHttpUrl = (value) => {
   try {
@@ -42,8 +58,6 @@ const validateTalentForm = (form) => {
 
   if (!form.artistName.trim()) {
     errors.artistName = "Full name or artist name is required.";
-  } else if (!namePattern.test(form.artistName.trim())) {
-    errors.artistName = "Name must contain text only, not numbers.";
   }
 
   if (form.age.trim() && !/^\d{1,2}$/.test(form.age.trim())) {
@@ -68,8 +82,6 @@ const validateTalentForm = (form) => {
 
   if (!form.location.trim()) {
     errors.location = "Location is required.";
-  } else if (!locationPattern.test(form.location.trim())) {
-    errors.location = "Location must use words, numbers, or / only.";
   }
 
   if (!form.artTitle.trim()) {
@@ -212,16 +224,8 @@ function App() {
   const [submitStatus, setSubmitStatus] = useState("idle");
   const [talentForm, setTalentForm] = useState(initialTalentForm);
   const [talentErrors, setTalentErrors] = useState({});
+  const [submitMessage, setSubmitMessage] = useState("");
   const selectedTheme = themeOptions.find((theme) => theme.color === themeColor) ?? themeOptions[0];
-  const emailJsConfig = useMemo(
-    () => ({
-      serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      recipientEmail: import.meta.env.VITE_CONTACT_RECIPIENT_EMAIL,
-    }),
-    []
-  );
 
   const handleTalentChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -311,6 +315,7 @@ function App() {
 
     if (submitStatus !== "idle") {
       setSubmitStatus("idle");
+      setSubmitMessage("");
     }
   };
 
@@ -320,23 +325,15 @@ function App() {
 
     if (Object.keys(validationErrors).length > 0) {
       setTalentErrors(validationErrors);
-      setSubmitStatus("invalid");
-      window.alert("You must complete the form correctly before submitting.");
-      return;
-    }
-
-    if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
       setSubmitStatus("error");
+      setSubmitMessage("Please complete the form correctly before submitting.");
       return;
     }
 
     setSubmitStatus("submitting");
+    setSubmitMessage("");
 
     try {
-      const recipientList = (emailJsConfig.recipientEmail || "samuelasongoinfoo@gmail.com")
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean);
       const artistSubmissionSummary = [
         "Artist Submission Details",
         "Full Name / Artist Name",
@@ -377,58 +374,35 @@ function App() {
         talentForm.confirmNotRobot ? "Confirmed" : "Not confirmed",
       ].join("\n");
 
-      await Promise.all(
-        recipientList.map((recipientEmail) =>
-          emailjs.send(
-            emailJsConfig.serviceId,
-            emailJsConfig.templateId,
-            {
-              to_email: recipientEmail,
-              cc_email: "",
-              recipient_list: recipientEmail,
-              from_name: talentForm.artistName.trim(),
-              from_email: talentForm.email.trim(),
-              reply_to: talentForm.email.trim(),
-              subject: "New AUVD artist submission",
-              submission_type: "Artist Submission Form",
-              name: talentForm.artistName.trim(),
-              email: talentForm.email.trim(),
-              user_name: talentForm.artistName.trim(),
-              user_email: talentForm.email.trim(),
-              artist_name: talentForm.artistName.trim(),
-              age: talentForm.age.trim() || "N/A",
-              gender: talentForm.gender.trim() || "N/A",
-              phone: talentForm.phone.trim(),
-              confirm_email: talentForm.confirmEmail.trim(),
-              location: talentForm.location.trim(),
-              art_title: talentForm.artTitle.trim(),
-              social_handle: talentForm.socialHandle.trim(),
-              art_category: talentForm.artCategory,
-              art_description: talentForm.artDescription.trim(),
-              artist_story: talentForm.artistStory.trim(),
-              portfolio_link: talentForm.portfolioLink.trim(),
-              artwork_link: talentForm.artworkLink.trim(),
-              experience_level: talentForm.experienceLevel,
-              message: artistSubmissionSummary,
-              additional_message: talentForm.message.trim(),
-              review_confirmation: talentForm.agreeToReview ? "Yes" : "No",
-              robot_confirmation: talentForm.confirmNotRobot ? "Confirmed" : "Not confirmed",
-              application_summary: artistSubmissionSummary,
-              email_body: artistSubmissionSummary,
-              formatted_message: artistSubmissionSummary,
-              submitted_application_details: artistSubmissionSummary,
-              artist_submission_summary: artistSubmissionSummary,
-            },
-            emailJsConfig.publicKey
-          )
-        )
-      );
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: web3FormsAccessKey,
+          subject: "New AUVD artist submission",
+          from_name: talentForm.artistName.trim(),
+          name: talentForm.artistName.trim(),
+          email: talentForm.email.trim(),
+          message: artistSubmissionSummary,
+        }),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok || payload.success === false) {
+        throw new Error(payload.message || "Your submission could not be sent right now.");
+      }
 
       setTalentForm(initialTalentForm);
       setTalentErrors({});
       setSubmitStatus("success");
-    } catch {
+      setSubmitMessage(payload.message || "Thank you for your submission. Our team will review it and will get back at you only if you have been selected. Thank you.");
+    } catch (error) {
       setSubmitStatus("error");
+      setSubmitMessage(normalizeSubmitError(error));
     }
   };
 
@@ -460,6 +434,7 @@ function App() {
                 type="button"
                 className={themeColor === theme.color ? "active" : ""}
                 onClick={() => setThemeColor(theme.color)}
+                style={{ "--theme-button-color": theme.color }}
               >
                 {theme.label}
               </button>
@@ -483,7 +458,7 @@ function App() {
           </div>
         </div>
 
-        <form className="artSubmissionForm" onSubmit={handleSubmit}>
+        <form className="artSubmissionForm" onSubmit={handleSubmit} noValidate>
           <h2 className="formTitle">Submit Your Talent</h2>
           <p className="formSubtitle">
             Complete the form below carefully. Our team will review the information and contact selected applicants.
@@ -745,21 +720,15 @@ function App() {
             {submitStatus === "submitting" ? "Submitting..." : "Submit Your Art"}
           </button>
 
-          {submitStatus === "invalid" ? (
-            <div className="formFeedback error" role="alert">
-              You must complete the form correctly before submitting.
-            </div>
-          ) : null}
-
           {submitStatus === "success" ? (
             <div className="formFeedback success" role="status">
-              Thank you for your submission. Our team will review it and will get back at you only if you have been selected. Thank you.
+              {submitMessage || "Thank you for your submission. Our team will review it and will get back at you only if you have been selected. Thank you."}
             </div>
           ) : null}
 
           {submitStatus === "error" ? (
             <div className="formFeedback error" role="alert">
-              Your submission could not be sent right now. Please try again in a moment.
+              {submitMessage || "Your submission could not be sent right now. Please try again in a moment."}
             </div>
           ) : null}
 

@@ -100,8 +100,6 @@ function Donate() {
 
         <section className="donate-hero">
           <div className="donate-left">
-            <span className="badge">Support AUVD Through Bank Transfer</span>
-
             <h1 className="donate-title">
               Give with confidence through a professional and verified donation process.
             </h1>
@@ -133,7 +131,6 @@ function Donate() {
                   <p className="section-label">Official Bank Details</p>
                   <h2>Donate by Bank Account</h2>
                 </div>
-                <span className="bank-status">Verified Details</span>
               </div>
 
               <div className="bank-detail-grid">

@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useState } from "react";
 import "./ContactForm.css";
+
+const web3FormsAccessKey = "720af78f-5c60-44e9-9ed4-2098092ebc40";
 
 const initialValues = {
   fullName: "",
@@ -10,6 +11,24 @@ const initialValues = {
 };
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const normalizeSubmitError = (error) => {
+  if (!(error instanceof Error)) {
+    return "Your message could not be sent right now. Please try again.";
+  }
+
+  const message = error.message.trim();
+
+  if (!message) {
+    return "Your message could not be sent right now. Please try again.";
+  }
+
+  if (message.startsWith("<!DOCTYPE html") || message.startsWith("<html")) {
+    return "The contact form returned an unexpected HTML response. Please check the form service configuration and try again.";
+  }
+
+  return message;
+};
 
 const validateValues = (values) => {
   const errors = {};
@@ -41,16 +60,6 @@ function ContactForm({ className = "", ...restProps }) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [submitState, setSubmitState] = useState({ status: "idle", message: "" });
-
-  const emailJsConfig = useMemo(
-    () => ({
-      serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      recipientEmail: import.meta.env.VITE_CONTACT_RECIPIENT_EMAIL,
-    }),
-    []
-  );
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -88,79 +97,40 @@ function ContactForm({ className = "", ...restProps }) {
       return;
     }
 
-    if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey) {
-      setSubmitState({
-        status: "error",
-        message:
-          "Email service is not fully configured yet. Add your EmailJS template ID in the Vite environment file.",
-      });
-      return;
-    }
-
     setSubmitState({ status: "submitting", message: "" });
 
     try {
-      const trimmedFullName = values.fullName.trim();
-      const trimmedEmail = values.email.trim();
-      const trimmedSubject = values.subject.trim();
-      const trimmedMessage = values.message.trim();
-      const formattedMessage = [
-        `Full Name: ${trimmedFullName}`,
-        `Email Address: ${trimmedEmail}`,
-        `Subject: ${trimmedSubject}`,
-        "",
-        "Message:",
-        trimmedMessage,
-      ].join("\n");
-      const recipientList = (emailJsConfig.recipientEmail || "samuelasongoinfoo@gmail.com")
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean);
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: web3FormsAccessKey,
+          name: values.fullName.trim(),
+          email: values.email.trim(),
+          subject: values.subject.trim(),
+          message: values.message.trim(),
+        }),
+      });
 
-      await Promise.all(
-        recipientList.map((recipientEmail) =>
-          emailjs.send(
-            emailJsConfig.serviceId,
-            emailJsConfig.templateId,
-            {
-              from_name: trimmedFullName,
-              from_email: trimmedEmail,
-              subject: trimmedSubject,
-              message: trimmedMessage,
-              reply_to: trimmedEmail,
-              to_email: recipientEmail,
-              cc_email: "",
-              recipient_list: recipientEmail,
-              name: trimmedFullName,
-              email: trimmedEmail,
-              user_name: trimmedFullName,
-              user_email: trimmedEmail,
-              title: trimmedSubject,
-              contact_subject: trimmedSubject,
-              contact_message: trimmedMessage,
-              email_body: formattedMessage,
-              formatted_message: formattedMessage,
-            },
-            emailJsConfig.publicKey
-          )
-        )
-      );
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok || payload.success === false) {
+        throw new Error(payload.message || "Message delivery failed.");
+      }
 
       setValues(initialValues);
       setErrors({});
       setSubmitState({
         status: "success",
-        message: "Message sent successfully. We will get back to you soon.",
+        message: payload.message || "Message sent successfully. We will get back to you soon.",
       });
     } catch (error) {
-      const errorText =
-        typeof error?.text === "string" && error.text.trim()
-          ? ` (${error.text.trim()})`
-          : "";
-
       setSubmitState({
         status: "error",
-        message: `Your message could not be sent right now. Please check your EmailJS template fields and try again.${errorText}`,
+        message: normalizeSubmitError(error),
       });
     }
   };

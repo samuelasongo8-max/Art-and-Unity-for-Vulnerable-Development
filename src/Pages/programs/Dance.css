@@ -137,13 +137,13 @@
 }
 
 .danceHeroButtonPrimary {
-  background: #ffffff;
-  color: #0f172a;
+  background: lch(59.01% 72.48 55.58);
+  color: #ffffff;
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.2);
 }
 
 .danceHeroButtonSecondary {
-  background: #994208;
+  background: lch(59.01% 72.48 55.58);
   color: #ffffff;
   box-shadow: 0 14px 30px rgba(153, 66, 8, 0.24);
 }
@@ -160,7 +160,7 @@
 
 .danceHeroButtonSecondary:hover,
 .danceHeroButtonSecondary:focus-visible {
-  background: #994208;
+  background: lch(59.01% 72.48 55.58);
   box-shadow: 0 18px 34px rgba(153, 66, 8, 0.3);
 }
 
@@ -173,7 +173,7 @@
 /* ACTIVITY BOX */
 /* ===================== */
 .danceActivityBox {
-  background: #994208;
+  background: lch(59.01% 72.48 55.58);
   width: min(100%, 580px);
   padding: clamp(16px, 2vw, 22px);
   border-radius: 12px;

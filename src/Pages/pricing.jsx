@@ -199,6 +199,8 @@ const Pricing = () => {
             </article>
           ))}
         </div>
+
+        <div className="education-grid-divider" aria-hidden="true"></div>
       </section>
 
       <section className="approach-section">

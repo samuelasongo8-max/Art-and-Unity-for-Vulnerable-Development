@@ -249,6 +249,9 @@
 .events-intro {
 	max-width: 760px;
 	margin: 0;
+	padding: 0.4rem 1.1rem;
+	border-left: 6px solid lch(59.01% 72.48 55.58);
+	border-right: 6px solid lch(59.01% 72.48 55.58);
 	font-size: clamp(1rem, 1.6vw, 1.14rem);
 	line-height: 1.85;
 	color: rgba(255, 247, 238, 0.88);
@@ -745,6 +748,10 @@
 		margin-right: 0;
 	}
 
+	.events-hero h1 {
+		margin-top: 1.9rem;
+	}
+
 	.events-feature {
 		padding-inline: 1rem;
 	}
@@ -819,6 +826,7 @@
 	}
 
 	.events-hero h1 {
+		margin-top: 2.2rem;
 		font-size: clamp(2.3rem, 11vw, 3.4rem);
 	}
 

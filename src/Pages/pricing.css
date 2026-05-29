@@ -63,7 +63,7 @@
   margin-top: 12px;
   padding: 10px 18px;
   border: none;
-  background: #1b8f4b;
+  background: lch(59.01% 72.48 55.58);
   color: white;
   border-radius: 25px;
   cursor: pointer;
@@ -73,7 +73,7 @@
 }
 
 .pricing-card button:hover {
-  background: #146c39;
+  background: lch(59.01% 72.48 55.58);
 }
 
 /* FEATURED CARD */
@@ -97,15 +97,15 @@
   margin-top: 15px;
   padding: 12px 25px;
   border: none;
-  background: white;
-  color: #1b8f4b;
+  background: lch(59.01% 72.48 55.58);
+  color: #ffffff;
   font-weight: bold;
   border-radius: 25px;
   cursor: pointer;
 }
 
 .cta button:hover {
-  background: #f0f0f0;
+  background: lch(59.01% 72.48 55.58);
 }
 
 /* ===== BREAKPOINT CONTROL ===== */
@@ -390,6 +390,13 @@
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.08;
   margin-bottom: 14px;
+}
+
+.approach-title {
+  color: #000000;
+}
+
+.impact-section .impact-title {
   color: white;
 }
 
@@ -397,8 +404,11 @@
 .approach-intro {
   font-size: 1rem;
   line-height: 1.75;
-  color: white;
   margin-bottom: 30px;
+}
+
+.approach-intro {
+  color: #000000;
 }
 
 .education-focus-section .section-title {
@@ -415,13 +425,63 @@
   gap: 22px;
 }
 
+.education-grid-divider {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  margin: 34px auto 0;
+  border-radius: 999px;
+  background: lch(59.01% 72.48 55.58);
+  opacity: 0;
+  transform: scaleX(0.08);
+  transform-origin: center;
+  animation: pricingDividerReveal 0.9s cubic-bezier(0.18, 0.9, 0.22, 1.08) 10s forwards;
+}
+
+@media (min-width: 1200px) {
+  .education-grid-divider::before,
+  .education-grid-divider::after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 10px;
+    border-radius: 999px;
+    background: lch(59.01% 72.48 55.58);
+    pointer-events: none;
+    top: -58px;
+    opacity: 0;
+  }
+
+  .education-grid-divider::before {
+    left: 0;
+    transform-origin: left center;
+    transform: rotate(32deg);
+    animation: pricingDividerBranchLeft 0.75s cubic-bezier(0.18, 0.9, 0.22, 1.08) 10s forwards;
+  }
+
+  .education-grid-divider::after {
+    right: 0;
+    transform-origin: right center;
+    transform: rotate(-32deg);
+    animation: pricingDividerBranchRight 0.75s cubic-bezier(0.18, 0.9, 0.22, 1.08) 10s forwards;
+  }
+}
+
+@media (max-width: 768px) {
+  .education-grid-divider {
+    width: min(100%, 320px);
+    margin-top: 28px;
+  }
+}
+
 .education-card {
   display: grid;
   gap: 18px;
   padding: 22px;
- 
+
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(8, 71, 243, 0.08);
+  border: 5px solid lch(59.01% 72.48 55.58);
   box-shadow: 0 18px 36px rgba(13, 50, 83, 0.08);
 }
 
@@ -451,11 +511,53 @@
   }
 }
 
+@keyframes pricingDividerReveal {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.08);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scaleX(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pricingDividerBranchLeft {
+  0% {
+    opacity: 0;
+    transform: rotate(32deg) scaleX(0.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(32deg) scaleX(1);
+  }
+}
+
+@keyframes pricingDividerBranchRight {
+  0% {
+    opacity: 0;
+    transform: rotate(-32deg) scaleX(0.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(-32deg) scaleX(1);
+  }
+}
+
 .education-card-media {
- 
+
   overflow: hidden;
   aspect-ratio: 16 / 10;
   background: #edf4ff;
+  border-radius: 18px;
 }
 
 .education-card-media img {
@@ -485,8 +587,9 @@
 .approach-container {
   margin: 0;
   text-align: left;
-  background-color: rgb(9, 102, 223);
+  background-color: #cfeeff;
   padding: 100px;
+  border-radius: 32px;
 }
 
 .approach-container-animated {
@@ -584,19 +687,6 @@
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 700;
   line-height: 1.45;
-  position: relative;
-  padding-left: 28px;
-}
-
-.impact-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.7em;
-  width: 12px;
-  height: 3px;
- 
-  background: #ffffff;
 }
 
 /* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
@@ -643,6 +733,29 @@
   .impact-section {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .approach-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .approach-list li {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    color: #000000;
+    padding: 0 0 12px;
+    border-bottom: 1px solid rgba(23, 50, 74, 0.16);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .approach-list li:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 
   .impact-list li {

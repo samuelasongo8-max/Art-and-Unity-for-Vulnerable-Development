@@ -138,8 +138,7 @@ function Navbar() {
         {/* Brand Utility Label for Mobile Viewports */}
         <div className="nav-utility">
           <NavLink to="/" className="nav-brand-small" onClick={closeMenus}>
-            <span className="logo-text">A<span className="text-U">U</span>V<span className="text-D">D</span></span>
-            <span className="logo-dot">.</span>
+            AUVD
           </NavLink>
         </div>
 

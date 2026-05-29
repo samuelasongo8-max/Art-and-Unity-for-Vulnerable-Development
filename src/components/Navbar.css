@@ -7,8 +7,8 @@
   --font-sans: 'Plus Jakarta Sans', sans-serif;
   
   /* Premium Palette Tokens */
-  --brand-primary:  #994208;
-  --brand-primary-hover: #b35a1f;
+  --brand-primary: lch(59.01% 72.48 55.58);
+  --brand-primary-hover: lch(59.01% 72.48 55.58);
  
   
   --text-main: #0f172a;
@@ -127,6 +127,14 @@
 
 .nav-utility {
   display: none;
+}
+
+.nav-brand-small {
+  text-decoration: none;
+  font-family: "Murecho", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 /* ==========================================================================
@@ -434,6 +442,21 @@
 }
 
 @media (max-width: 1024px) {
+  .logo {
+    display: none;
+  }
+
+  .nav-utility {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    padding-left: 12px;
+  }
+
+  .nav-brand-small {
+    color: #117acf;
+  }
+
   .menu-toggle {
     display: block;
     z-index: 120;

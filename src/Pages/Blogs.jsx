@@ -54,7 +54,6 @@ const blogNotes = [
   "Field reflections from Kakuma Refugee Camp and partner collaborations",
 ];
 
-const topicTags = ["Music", "Peacebuilding", "Education", "Partnerships", "Youth Voices", "Creative Healing"];
 const blogsHeroTitle = "Voices from the Community";
 
 function Blogs() {
@@ -118,7 +117,6 @@ function Blogs() {
     <main className="blogs-page">
       <section className="blogs-hero">
         <div className="blogs-hero-copy blogs-reveal blogs-reveal-up" data-blogs-reveal>
-          <span className="blogs-hero-kicker">AUVD Blog</span>
           <h1 aria-label={blogsHeroTitle}>
             {typedHeroTitle}
             <span className={`blogs-typing-cursor${isTypingComplete ? " is-complete" : ""}`} aria-hidden="true">|</span>
@@ -127,11 +125,6 @@ function Blogs() {
             A deeper look into our work through stories of music, peacebuilding, education,
             partnerships, and creative empowerment in Kakuma.
           </p>
-          <div className="blogs-hero-tags">
-            {topicTags.map((tag) => (
-              <span key={tag} className="blogs-topic-pill">{tag}</span>
-            ))}
-          </div>
         </div>
       </section>
 

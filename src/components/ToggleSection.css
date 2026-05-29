@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 .toggle-wrapper {
-  margin: 30px 0;
+  margin: 22px 0;
   text-align: center;
 }
 
@@ -9,60 +9,67 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  min-width: min(100%, 320px);
-  padding: 15px 22px;
-  background-color:#994208;
+  gap: 10px;
+  min-width: min(100%, 286px);
+  max-width: 100%;
+  padding: 11px 16px;
+  
+  background: lch(59.01% 72.48 55.58);
   color: #ffffff;
+  
   font-family: 'Poppins', 'Segoe UI', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  border: 1px solid rgba(113, 47, 8, 0.2);
   cursor: pointer;
-  border-radius: 999px;
-  box-shadow: 0 16px 28px rgba(8, 71, 243, 0.22);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(114, 50, 16, 0.16);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
 }
 
 .toggle-button:hover {
- 
-  transform: translateY(-2px);
-  box-shadow: 0 20px 34px rgba(8, 71, 243, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(114, 50, 16, 0.22);
+  border-color: rgba(113, 47, 8, 0.34);
 }
 
 .toggle-button:focus-visible {
-  outline: 3px solid rgba(8, 71, 243, 0.22);
-  outline-offset: 4px;
+  outline: 3px solid rgba(148, 66, 8, 0.18);
+  outline-offset: 3px;
 }
 
 .toggle-button.open {
-  background: linear-gradient(135deg, #062f9f, #0847f3);
+  background: lch(59.01% 72.48 55.58);
+  border-color: rgba(10, 60, 136, 0.28);
 }
 
 .toggle-button-label {
   flex: 1;
   text-align: left;
+  text-wrap: balance;
 }
 
 .toggle-button-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
-  font-size: 1.2rem;
-  font-weight: 500;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 0.92rem;
+  font-weight: 600;
   line-height: 1;
-  transition: transform 0.25s ease, background 0.25s ease;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: transform 0.22s ease, background 0.22s ease;
 }
 
 .toggle-button.open .toggle-button-icon {
   transform: rotate(45deg);
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .toggle-content {
@@ -78,21 +85,21 @@
   margin-top: 20px;
 }
 
-.camp {
+.camp .btn {
   font-family: 'Poppins', sans-serif;
   position: relative;
   text-align: left;
   color: white;
   padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 36px);
   overflow: hidden;
-  border-radius: 22px;
-
+  background: lch(59.01% 72.48 55.58);
+  color: #ffffff;
   background: 
     linear-gradient(rgba(10, 15, 40, 0.85), rgba(3, 7, 24, 0.6)),
     url("/background.webp") center/cover no-repeat;
 
   animation: fadeInUp 1s ease-out;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: lch(59.01% 72.48 55.58);
 }
 
 /* Content container */
@@ -205,8 +212,16 @@
 @media (max-width: 480px) {
   .toggle-button {
     min-width: 100%;
-    padding: 14px 18px;
-    font-size: 0.88rem;
+    padding: 9px 12px;
+    font-size: 0.76rem;
+    border-radius: 14px;
+    gap: 8px;
+  }
+
+  .toggle-button-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 0.8rem;
   }
 
   .camp {

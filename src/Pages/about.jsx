@@ -50,7 +50,6 @@ const EducationAccess = () => {
     <section className="about-page">
       <section className="about-hero">
         <div className="about-hero-copy">
-          <p className="about-kicker">About AUVD</p>
           <h1>Creative empowerment for vulnerable communities in Kakuma.</h1>
           <p className="about-intro">
             Art and Unity for Vulnerable Development (AUVD) is a nonprofit community-based and
@@ -148,7 +147,7 @@ const EducationAccess = () => {
           </div>
 
           <div className="content-section">
-            <p className="about-section-label">Target Beneficiaries</p>
+            <p className="about-section-label about-section-label-highlight">Target Beneficiaries</p>
             <h4>Who We Serve</h4>
             <p className="desc">
               AUVD programs are designed to meet people where they are and strengthen dignity,
