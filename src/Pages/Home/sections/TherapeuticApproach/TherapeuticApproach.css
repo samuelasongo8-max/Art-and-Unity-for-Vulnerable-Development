@@ -1,12 +1,14 @@
 .impact-ngo-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 360px);
-  gap: clamp(18px, 2.4vw, 28px);
+  /* Testimonial-style wrapper: large image left, overlapping box on right */
+  display: flex;
   align-items: center;
-  width: min(100%, 1200px);
-  margin: 0 auto;
-  padding: clamp(22px, 3.5vw, 46px);
-  background: linear-gradient(135deg, rgba(224, 242, 254, 0.96), rgba(191, 219, 254, 0.98));
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 40px 20px;
+  gap: 24px;
+  background: transparent;
 }
 
 .impact-ngo-animated .impact-ngo-content,
@@ -16,17 +18,17 @@
 }
 
 .impact-ngo-animated .impact-ngo-content {
-  transform: translateX(-54px);
+  transform: translateY(18px);
 }
 
 .impact-ngo-animated .impact-ngo-media {
-  transform: translateX(54px);
+  transform: translateY(-18px);
 }
 
 .impact-ngo-entered .impact-ngo-content,
 .impact-ngo-entered .impact-ngo-media {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .impact-ngo-title,
@@ -73,23 +75,34 @@
   font-weight: 800;
 }
 
+
+.impact-ngo-media {
+  order: 2; /* place media on the right */
+  width: 65%; /* image takes ~65% like the design */
+}
+
 .impact-ngo-image-shell {
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* crop to aspect ratio and show a nice cover */
   box-shadow: 0 20px 44px rgba(15, 23, 42, 0.12);
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
 }
 
 .impact-ngo-image-stack {
   position: relative;
-  aspect-ratio: 4 / 5;
+  width: 100%;
+  height: 100%;
 }
 
 .impact-ngo-image {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* fill and crop neatly */
+  display: block;
+  border-radius: 12px;
 }
 
 .impact-ngo-image-slide-secondary {
@@ -102,6 +115,18 @@
   color: #52677d;
 }
 
+/* Content box overlapping the image */
+.impact-ngo-content {
+  order: 1; /* place content on the left */
+  width: 50%; /* content box ~50% */
+  background-color: #f2e6d9; /* light tan matching design */
+  padding: 45px;
+  margin-left: 0;
+  margin-right: -15%; /* overlap into the media on the right */
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 @keyframes therapeuticCrossfade {
   0%,
   45% { opacity: 0; }
@@ -111,6 +136,25 @@
 
 @media (max-width: 900px) {
   .impact-ngo-section {
-    grid-template-columns: 1fr;
+    display: block;
+    padding: 22px 16px;
+  }
+
+  .impact-ngo-media {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .impact-ngo-image-shell {
+    aspect-ratio: auto; /* let image flow naturally on small screens */
+    overflow: visible;
+  }
+
+  .impact-ngo-content {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: -60px; /* slight overlap on mobile */
+    padding: 28px;
   }
 }

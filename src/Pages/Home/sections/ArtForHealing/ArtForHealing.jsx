@@ -8,7 +8,7 @@ function ArtForHealing({ navigate }) {
     <section className="impact-section">
       <div className="impact-wrapper">
         <div ref={sectionRef} className="impact-text-area impact-text-animated">
-          <h2 className="impact-heading">🎨 Art for Healing</h2>
+          <h2 className="impact-heading"> Art for Healing</h2>
           <div className="impact-paragraph-group">
             <p className="impact-paragraph">
               This program is designed to support refugees in Kakuma Refugee Camp by using

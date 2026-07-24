@@ -1,68 +1,141 @@
-.visual-arts-section {
-  background: #ffffff;
-  padding: 44px 20px;
+.visual-section {
+  display: flex;
+  align-items: stretch;
+  max-width: 1000px;
+  margin: 50px auto;
+  font-family: "Inter", sans-serif;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-sizing: border-box;
 }
 
-.visual-arts-section .why-container {
+.visual-container {
   display: flex;
-  width: min(100%, 1180px);
-  gap: clamp(20px, 4vw, 40px);
+  width: 100%;
+  position: relative;
+}
+
+.visual-image-block {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-.visual-arts-section .why-image-wrapper {
-  flex: 0 1 560px;
+.visual-image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.visual-arts-section .why-image {
-  width: min(100%, 560px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
+.visual-text-block {
+  /* Rich, professional blue background */
+  background-color: #0056b3; 
+  /* Sets global text color to white for everything inside the box */
+  color: #ffffff;
+  padding: 40px;
+  
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: -85px;
+  width: 50%;
+  max-width: 520px;
+  
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
 
-.visual-arts-section .why-content {
-  flex: 1 1 460px;
-  max-width: 600px;
-}
-
-.visual-arts-section .why-title {
-  color: #ec6104;
-  font-size: clamp(1.8rem, 3vw, 2.35rem);
-  margin-bottom: 10px;
-  font-family: "Poppins", sans-serif;
-}
-
-.visual-arts-section .why-text {
-  color: #050505;
-  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-}
-
-.visual-arts-section .why-text span {
-  color: #994208;
-}
-
-.visual-arts-section .why-content-animated .why-title,
-.visual-arts-section .why-content-animated .why-text {
+  /* --- 5-SECOND DELAY ANIMATION ADDED HERE --- */
   opacity: 0;
+  transform: translateY(30px);
+  animation: slideInBox 0.8s ease forwards;
+  animation-delay: 5s; /* Waits 5 seconds before starting */
+}
+
+/* Keyframes for the 5-second delayed box entrance */
+@keyframes slideInBox {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Internal content animation helper */
+.visual-text-block .content-entered {
+  opacity: 0;
+  transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.visual-arts-section .why-content-animated .why-title {
-  transform: translateY(24px);
-}
-
-.visual-arts-section .why-content-animated .why-text {
-  transform: translateX(-52px);
-}
-
-.visual-arts-section .why-content-entered .why-title,
-.visual-arts-section .why-content-entered .why-text {
+.visual-section.visual-content-entered .content-entered {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: translateY(0);
+}
+
+.visual-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  /* Orange heading color */
+  color: #ff8c42; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.visual-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 20px;
+  line-height: 1.2;
+  color: #ff8c42; 
+  font-family: "Architects Daughter", cursive, sans-serif;
+  font-weight: 700;
+  word-break: break-word;
+}
+.author-details {
+  margin-top: 15px;
+  text-align: right;
+  font-family: "Inter", sans-serif;
+  color: #333;
+  line-height: 1.4;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.author-name { 
+  font-weight: bold; 
+}
+
+@media (max-width: 768px) {
+  .visual-section {
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .visual-container {
+    flex-direction: column;
+  }
+
+  .visual-text-block {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 30px;
+    box-shadow: none;
+    border-radius: 0;
+  }
 }

@@ -61,9 +61,6 @@ function TherapeuticApproach() {
             />
           </div>
         </div>
-        <figcaption className="impact-ngo-caption">
-          Creative healing sessions and community support moments in safe, structured spaces.
-        </figcaption>
       </figure>
     </section>
   );

@@ -10,8 +10,7 @@ function PartnersSection({ partnerCards }) {
         <div ref={introRef} className="partners-copy partners-copy-animated">
           <h2 className="title">Our Partners</h2>
           <p className="subtitle">
-            We are proud to collaborate with international organizations that empower music,
-            education, and community development worldwide.
+             
           </p>
         </div>
 
