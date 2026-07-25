@@ -26,7 +26,7 @@ const testimonialsData = [
     text: "Empowering refugee children and youth through music, storytelling, creative expression, and healing. | Partner : The Bridge Life Music Career Advancement, Inc",
 
 
-    author: "-Target Reach: 2,000 Children & Youth ",
+    author: "-Target Reach: 2,000 Children & Youth in Kakuma refugee Camp, Kenya",
 
 
   },
