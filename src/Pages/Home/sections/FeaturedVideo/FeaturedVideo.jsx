@@ -99,9 +99,9 @@ function FeaturedVideo({ partnerLinks }) {
                
         <h2 className="section-main-title">Our Upcoming Initiative</h2>
      
-        <h5 className="section-subtitle">Because International Shoe Distribution</h5>
+        <h5 className="section-subtitle">.Because International Shoe Distribution</h5>
   
-        <h5 className="section-subtitle">The Right to Be Free Project</h5>
+        <h5 className="section-subtitle">.The Right to Be Free Project</h5>
       </section>
 
       
@@ -145,7 +145,7 @@ function FeaturedVideo({ partnerLinks }) {
          Learn more about the shoes that Grow
     </button>
 </section>
-<br></br>
+ 
     </>
   );
 }
