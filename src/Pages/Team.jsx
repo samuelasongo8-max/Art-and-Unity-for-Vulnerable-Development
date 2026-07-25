@@ -63,9 +63,12 @@ const supportTeam = [
 
 function Team() {
   return (
-    <section className="team-page">
+    <div className="auvd-team-page">
       <div className="team-hero">
         <div className="team-hero-copy">
+        <br></br>
+        <br></br>
+        <br></br>
           <p className="team-intro">
             AUVD is led by community organizers committed to dignity, accountability, and
             practical support for vulnerable communities in Kakuma.
@@ -74,52 +77,60 @@ function Team() {
       </div>
 
       <section className="team-section">
-        <div className="team-layout">
-          <div className="team-leadership-panel">
-            <div className="team-section-heading">
-              <p className="team-section-kicker">Leadership</p>
-              <h2>Leadership</h2>
-              <p className="team-section-text">
-                This leadership team provides direction, accountability, and day-to-day coordination
-                for AUVD programs.
-              </p>
-            </div>
+        <div className="team-section-heading">
+          <p className="team-section-kicker">Leadership</p>
+          <h2>Leadership Team</h2>
+          <p className="team-section-text">
+            This leadership team provides direction, accountability, and day-to-day coordination
+            for AUVD programs.
+          </p>
+        </div>
 
-            <div className="team-list" role="list">
-              {leadershipTeam.map((member) => (
-                <article key={member.name} className="team-member-row" role="listitem">
-                  <img src={member.image} alt={member.name} className="member-image" />
-                  <div className="member-copy">
-                    <h3>{member.name}</h3>
-                    <p className="member-role">{member.role}</p>
-                  </div>
-                </article>
-              ))}
+        <div className="team-grid" role="list">
+          {leadershipTeam.map((member) => (
+            <div className="team-card" key={member.name} role="listitem">
+              <a href="#profile" className="team-image-wrapper">
+                <img src={member.image} alt={member.name} />
+                <div className="team-arrow-btn">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  </svg>
+                </div>
+              </a>
+              <h3 className="team-name">{member.name}</h3>
+              <span className="team-role">{member.role}</span>
             </div>
-          </div>
-
-          <aside className="team-side-column">
-            <p className="team-side-kicker">Members & Volunteers</p>
-            <h3>Support Team</h3>
-            <p className="team-side-text">
-              Additional members and volunteers who support AUVD programs and community work.
-            </p>
-
-            <div className="team-side-list" role="list">
-              {supportTeam.map((member) => (
-                <article key={member.name} className="team-side-row" role="listitem">
-                  <img src={member.image} alt={member.name} className="team-side-image" />
-                  <div className="team-side-copy">
-                    <h4>{member.name}</h4>
-                    <p>{member.role}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </aside>
+          ))}
         </div>
       </section>
-    </section>
+
+      <section className="team-section support-section">
+        <div className="team-section-heading">
+          <p className="team-section-kicker">Members & Volunteers</p>
+          <h2>Support Team</h2>
+          <p className="team-section-text">
+            Additional members and volunteers who support AUVD programs and community work.
+          </p>
+        </div>
+
+        <div className="team-grid" role="list">
+          {supportTeam.map((member) => (
+            <div className="team-card" key={member.name} role="listitem">
+              <a href="#profile" className="team-image-wrapper">
+                <img src={member.image} alt={member.name} />
+                <div className="team-arrow-btn">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  </svg>
+                </div>
+              </a>
+              <h3 className="team-name">{member.name}</h3>
+              <span className="team-role">{member.role}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
 

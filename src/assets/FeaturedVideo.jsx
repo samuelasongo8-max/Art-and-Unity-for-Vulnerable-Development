@@ -1,34 +1,36 @@
+import React from 'react';
+
+const FeaturedVideo = () => {
+    return (
+        <div>FeaturedVideo</div>
+    )
+}
+
+export default FeaturedVideo;
 import React, { useState } from "react";
 import "./FeaturedVideo.css";
 import useRevealClass from "../../hooks/useRevealClass";
 
 // Importing images properly in React (Ensure these match your path/assets structure)
-import img1 from "/Upcoming project  (2).jpg";
-import img2 from "/Upcoming project 1 (1).jpg";
-import img3 from "/Upcoming project 3.jpg";
+import img1 from "/samuel.png";
+import img2 from "/bilbwa.png";
+import img3 from "/kamikazi Rehema.png";
 
 const testimonialsData = [
   {
     image: img1,
-    text: "In partnership with Because International, AUVD will soon distribute the shoe That Grows to Vulnerable Children, helping protect their health, improve school attendence, and promote dignity.",
-    author: "- Statsu: Coming Soon School: Kismayo Light Academy, Location: Kakuma 2, Zone 1, Block 6",
-       buttonText: "View Initiative",
-          buttonLink: "#",
-
+    text: "Working with AUVD has made me a part of endless stories, of human generosity, of compassion. It changed the way I look at life. It is the need of the hour to stand up and take responsibility.",
+    author: "- Samuel Asongo, Chairperson",
   },
   {
     image: img2,
-    text: "More than a shoe distribution, this initiative is about protecting children's health, improving school attendance, and restoring dignity. The Shoe That Grows expands up to five sizes, allowing children to safely walk, learn, and play for years.",
-    author: "- Coming Soon",
+    text: "The dedication of this organization is remarkable. Seeing the direct impact on local communities inspires me to continue supporting their mission every single day.",
+    author: "- Matayo Bilibwa, Vice Chairperson",
   },
   {
     image: img3,
-    text: "Empowering refugee children and youth through music, storytelling, creative expression, and healing. | Partner : The Bridge Life Music Career Advancement, Inc",
-
-
-    author: "-Target Reach: 2,000 Children & Youth ",
-
-
+    text: "Being involved allowed me to witness genuine change firsthand. Transparency, empathy, and active participation define everything they achieve.",
+    author: "- Kamikazi Rehema, Treasurer",
   },
 ];
 
@@ -90,26 +92,10 @@ function FeaturedVideo({ partnerLinks }) {
           </div>
         </div>
       </section>
-     
+
       {/* Section 2: Overlapping Testimonial Slider */}
       <section className="featured-video-section">
- {/* Section 3: Upcoming Project */}
-
-      <section className="upcoming-section">
-               
-        <h2 className="section-main-title">Our Upcoming Initiative</h2>
-     
-        <h5 className="section-subtitle">Because International Shoe Distribution</h5>
-  
-        <h5 className="section-subtitle">The Right to Be Free Project</h5>
-      </section>
-
-      
-
- 
-
         <div className="testimonial-container">
-        
           {/* Left: Image Box */}
           <div className="testimonial-image-wrapper">
             <img src={currentTestimonial.image} alt={currentTestimonial.author} />
@@ -137,15 +123,9 @@ function FeaturedVideo({ partnerLinks }) {
       </section>
 
       {/* Section 3: Upcoming Project */}
-    <section>
-    <button 
-        className="testimonial-action-btn"
-        onClick={() => window.location.href = '/portfolio#top'}
-    >
-         Learn more about the shoes that Grow
-    </button>
-</section>
-<br></br>
+      <section className="upcoming-section">
+        
+      </section>
     </>
   );
 }

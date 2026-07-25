@@ -102,3 +102,251 @@
     width: 100%;
   }
 }
+
+
+/* Scoped Wrapper for Testimonial Slider */
+.testimonial-section {
+    width: 100%;
+    max-width: 1050px;
+    margin: 60px auto;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+.testimonial-section *, 
+.testimonial-section *::before, 
+.testimonial-section *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container using relative positioning to allow the text box to overlap */
+.testimonial-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+   background-color: white;
+    min-height: 480px;
+}
+
+/* Image Side */
+.testimonial-image-wrapper {
+    position: relative;
+    width: 55%;
+    height: 420px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.testimonial-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Content Side (Overlapping Text Box) */
+.testimonial-content-wrapper {
+    position: absolute;
+    right: 0;
+    width: 55%;
+     background-color: rgb(8, 79, 160);
+    padding: 50px 40px 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.testimonial-quote-container {
+    position: relative;
+}
+
+/* Large Background Quote Mark */
+.quote-icon {
+    font-size: 80px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.08);
+    font-family: Georgia, serif;
+    margin-bottom: -20px;
+    display: block;
+}
+
+.testimonial-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+}
+
+.testimonial-author {
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Navigation Buttons Bottom Right */
+.testimonial-nav {
+    display: flex;
+    gap: 2px;
+    margin-top: 30px;
+    align-self: flex-end;
+}
+
+.nav-btn {
+    width: 45px;
+    height: 45px;
+    background-color: #ff6600;
+    border: none;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.nav-btn:hover {
+    background-color: white;
+}
+
+/* Responsive Breakpoints for Tablet & Mobile */
+@media (max-width: 768px) {
+    .testimonial-container {
+        flex-direction: column;
+        position: static;
+    }
+    .testimonial-image-wrapper {
+        width: 100%;
+        height: 320px;
+    }
+    .testimonial-content-wrapper {
+        position: static;
+        width: 100%;
+        padding: 40px 25px;
+        box-shadow: none;
+    }
+    .testimonial-nav {
+        align-self: flex-start;
+    }
+}
+
+ /* --- Upcoming Section Styling --- */
+.upcoming-section {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #ffffff;
+}
+
+.upcoming-section .section-main-title {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: rgb(10, 84, 221);
+}
+
+/* Makes h5 appear small and centered */
+.upcoming-section .section-subtitle {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #106db9;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.upcoming-section .vs-badge {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #e8a87c;
+    margin: 8px 0;
+}
+
+ /* --- Dynamic Action Button Styling --- */
+.testimonial-btn-container {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 2rem;
+}
+
+.testimonial-action-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.testimonial-action-btn:focus {
+    outline: none;
+    border: none;
+}
+
+.testimonial-action-btn:hover {
+    background-color: #0e62e0;
+}
+
+/* Large Background Quote Mark */
+.quote-icon {
+    font-size: 80px;
+    line-height: 1;
+    color: #ffffff;
+    font-family: Georgia, serif;
+    margin-bottom: -20px;
+    display: block;
+}
+
+/* --- 3-Second Delayed Entrance Animation for Testimonial Container --- */
+.testimonial-container {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: testimonialEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 3s forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes testimonialEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Blue Box Hover Zoom Effect --- */
+.testimonial-content-wrapper {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-content-wrapper:hover {
+    transform: scale(1.03);
+}
+/* --- Fade Transition Effect for Slides --- */
+.fade-image, .testimonial-text {
+    animation: fadeInOut 4s infinite;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0.3; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
