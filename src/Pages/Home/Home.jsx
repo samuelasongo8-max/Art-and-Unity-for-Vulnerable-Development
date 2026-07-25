@@ -24,6 +24,7 @@ import VisualArts from "./sections/VisualArts/VisualArts";
 import VocationalSection from "./sections/VocationalSection/VocationalSection";
 import WhoWeAre from "./sections/WhoWeAre/WhoWeAre";
 
+
 function Home() {
   const navigate = useNavigate();
 
