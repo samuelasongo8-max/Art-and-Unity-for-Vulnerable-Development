@@ -1,41 +1,142 @@
-.mann {
-  padding: clamp(52px, 7vw, 88px) 20px;
-  background:
-    radial-gradient(circle at top left, rgba(8, 71, 243, 0.08), transparent 30%),
-    linear-gradient(180deg, #f7faff 0%, #eef3f9 100%);
+/* ==========================================================
+   TESTIMONIAL SECTION (Completely Scoped to Prevent Leaking)
+   ========================================================== */
+
+.testimonial-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 60px auto;
+    box-sizing: border-box;
+    padding: 0 20px;
 }
 
-.mann .welcome {
-  max-width: 1020px;
-  margin: 0 auto;
-  text-align: center;
+.testimonial-section *,
+.testimonial-section *::before,
+.testimonial-section *::after {
+    box-sizing: border-box;
 }
 
-.mann .who-we-are-title {
-  margin-bottom: 1.5rem;
+.testimonial-section .testimonial-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+ 
+    min-height: 480px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: testimonialEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    transition: transform 0.3s ease;
 }
 
-.mann .welcome-kicker {
-  margin-bottom: 0.75rem;
-  color: #994208;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.testimonial-section .testimonial-container:hover {
+    transform: scale(1.01);
 }
 
-.mann .welcome-lead,
-.mann .welcome-body {
-  max-width: 70ch;
-  margin: 0 auto 1rem;
-  color: #445066;
-  font-family: "Inter", sans-serif;
-  line-height: 1.8;
+.testimonial-section .testimonial-content-wrapper {
+    position: absolute;
+    left: 0;
+    width: 55%;
+    background-color: rgb(8, 79, 160);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    transition: transform 0.3s ease;
 }
 
-.mann .welcome-lead {
-  color: #243746;
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
-  font-weight: 600;
+.testimonial-section .testimonial-content-wrapper:hover {
+    transform: scale(1.03);
+}
+
+.testimonial-section .testimonial-image-wrapper {
+    position: relative;
+    width: 65%;
+    height: 420px;
+    overflow: hidden;
+    z-index: 1;
+    margin-left: auto;
+}
+
+.testimonial-section .testimonial-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+
+.testimonial-section .who-we-are-title {
+    font-family: "Plus Jakarta Sans", Arial, sans-serif;
+    font-size: clamp(2rem, 2.3vw, 2.3rem);
+    margin: 0 0 1rem;
+    color: #ffffff;
+    line-height: 1.05;
+}
+
+.testimonial-section .who-we-are-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #ffffff;
+    margin: 0 0 1rem;
+    max-width: 100%;
+}
+
+.testimonial-section .testimonial-btn-container {
+    margin-top: 1rem;
+}
+
+.testimonial-section .testimonial-action-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: none;
+    outline: none;
+   
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: "Plus Jakarta Sans", Arial, sans-serif;
+}
+
+.testimonial-section .testimonial-action-btn:focus {
+    outline: none;
+    border: none;
+}
+
+.testimonial-section .testimonial-action-btn:hover {
+    background-color: #0e62e0;
+}
+
+@keyframes testimonialEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonial-section .testimonial-container {
+        flex-direction: column;
+        position: static;
+    }
+
+    .testimonial-section .testimonial-image-wrapper {
+        width: 100%;
+        height: 320px;
+        margin-left: 0;
+    }
+
+    .testimonial-section .testimonial-content-wrapper {
+        position: static;
+        width: 100%;
+        padding: 40px 25px;
+    }
 }

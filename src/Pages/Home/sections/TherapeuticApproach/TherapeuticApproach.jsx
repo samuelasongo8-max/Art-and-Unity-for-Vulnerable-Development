@@ -12,18 +12,18 @@ function TherapeuticApproach() {
     >
       <div className="impact-ngo-content">
         <h3 id="impact-ngo-section-title" className="impact-ngo-title">
-          Within this program, we use creative expression as a therapeutic approach to:
+           creative expression as a therapeutic approach to:
         </h3>
 
-        <h4 className="impact-ngo-subtitle">
-          Creative expression that supports healing, confidence, and belonging
-        </h4>
+       <h4 className="impact-ngo-subtitle" style={{ color: "white" }}>
+  Creative expression that supports healing, confidence, and belonging
+</h4>
 
-        <p className="impact-ngo-text">
-          Creative expression is used intentionally to create safe, supportive spaces where
-          children and youth can process difficult experiences, rebuild confidence, and grow
-          through guided artistic activities.
-        </p>
+<p className="impact-ngo-text" style={{ color: "white" }}>
+  Creative expression is used intentionally to create safe, supportive spaces where
+  children and youth can process difficult experiences, rebuild confidence, and grow
+  through guided artistic activities.
+</p>
 
         <ul className="impact-ngo-list">
           {[
@@ -40,7 +40,7 @@ function TherapeuticApproach() {
           ))}
         </ul>
 
-        <p className="impact-ngo-summary">
+        <p className="impact-ngo-summary " style={{ color: "white" }}>
           By integrating art with inclusive and participatory learning approaches, AUVD creates
           environments where marginalized children and youth feel valued, heard, and connected.
         </p>
