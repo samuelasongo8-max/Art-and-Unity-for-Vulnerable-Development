@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import './App.css';
  
 // Pages
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/Home";
 import Dance from "./Pages/programs/Dance";
 import About from "./Pages/about";
 import Work from "./Pages/Work";
@@ -18,7 +18,7 @@ import Donate from "./Pages/donate";
 import Team from "./Pages/Team";
 import OurStory from "./Pages/OurStory";
 import Music from "./Pages/programs/Music";
- 
+
 import Vocational from "./Pages/programs/Vocational";
  
 function ScrollToTop() {
