@@ -27,7 +27,7 @@
 .impactHeading {
   font-size: clamp(26px, 3.5vw, 46px);
   font-weight: 900;
-  color: #12304b;
+  color: #0b70f3;
   margin-bottom: 10px;
 }
 
@@ -68,7 +68,8 @@
   left: 0;
   height: 4px;
   width: 100%;
-  background: #994208;
+   background: #e27f3e;
+     border: 6px solid #e27f3e;
 }
 
 .impactBox:hover {

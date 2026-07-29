@@ -1,208 +1,91 @@
-.program-toggle-section {
-  display: grid;
-  gap: 0.85rem;
-  width: min(100%, 1100px);
-  margin: 1.4rem auto 0;
-  padding: 0 1rem;
+ .event-card {
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  border: 1px solid #d9e7ff;
+  border-left: 6px solid #0d6efd;
+ 
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
+  animation: fadeUp 0.8s ease;
 }
 
-.program-toggle-section .therapy-toggle-content {
-  display: grid;
-  gap: 18px;
-  padding: clamp(16px, 2.8vw, 28px);
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  color: #364152;
-  font-family: "Inter", sans-serif;
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.event-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.event-card h3 {
+  color: #0d6efd;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.event-card p {
+  color: #555;
+  font-size: 1rem;
   line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
-.program-toggle-section .therapy-toggle-content p {
-  margin: 0;
-  font-size: clamp(0.94rem, 1.2vw, 1.02rem);
-}
-
-.program-toggle-section .therapy-toggle-content span,
-.program-toggle-section .therapy-toggle-content strong {
-  color: #994208;
-}
-
-.program-toggle-section .therapy-toggle-gallery {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.program-toggle-section .therapy-toggle-gallery__frame {
-  position: relative;
-  width: min(100%, 560px);
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-radius: 20px;
-  background: #d8e1ea;
-  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.14);
-}
-
-.program-toggle-section .therapy-toggle-gallery__image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  animation: therapyToggleCrossfade 16s infinite;
-}
-
-.program-toggle-section .therapy-toggle-gallery__image--1 {
-  animation-delay: 0s;
-}
-
-.program-toggle-section .therapy-toggle-gallery__image--2 {
-  animation-delay: 4s;
-}
-
-.program-toggle-section .therapy-toggle-gallery__image--3 {
-  animation-delay: 8s;
-}
-
-.program-toggle-section .therapy-toggle-gallery__image--4 {
-  animation-delay: 12s;
-}
-
-.program-toggle-section .camp {
-  color: #f8fafc;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  padding: clamp(16px, 2.8vw, 28px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 0;
-  background: url("/background.webp") center center / cover no-repeat;
-  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.2);
-}
-
-.program-toggle-section .camp::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(3, 7, 18, 0.82) 0%, rgba(7, 18, 37, 0.72) 46%, rgba(8, 22, 45, 0.6) 100%),
-    radial-gradient(circle at top right, rgba(37, 135, 245, 0.18) 0%, rgba(37, 135, 245, 0) 34%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.28) 100%);
-  z-index: 0;
-}
-
-.program-toggle-section .camp::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.program-toggle-section .content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  gap: 0.9rem;
-  font-family: "Inter", sans-serif;
-  line-height: 1.8;
-}
-
-@media (min-width: 769px) {
-  .program-toggle-section .camp {
-    min-height: 430px;
-    background-position: center center;
-  }
-
-  .program-toggle-section .camp .content {
-    max-width: 100%;
-    min-height: 100%;
-    justify-content: center;
-    align-content: center;
-  }
-}
-
-.program-toggle-section .content h1 {
-  color: #ffffff;
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(1.22rem, 2.2vw, 1.8rem);
-  line-height: 1.18;
-  margin: 0;
-}
-
-.program-toggle-section .camp .content p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.94);
-  font-family: "Poppins", "Inter", sans-serif;
-  font-size: clamp(1.02rem, 1.35vw, 1.16rem);
-  font-weight: 600;
-  line-height: 1.82;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
-}
-
-.program-toggle-section .divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-@keyframes therapyToggleCrossfade {
-  0% { opacity: 0; }
-  6% { opacity: 1; }
-  23% { opacity: 1; }
-  29% { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .program-toggle-section .therapy-toggle-gallery__image {
-    animation: none;
+@keyframes fadeUp {
+  from {
     opacity: 0;
+    transform: translateY(25px);
   }
 
-  .program-toggle-section .therapy-toggle-gallery__image--1 {
+  to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @media (max-width: 768px) {
-  .program-toggle-section {
-    gap: 0.72rem;
-    padding: 0 0.7rem;
+  .event-card {
+    padding: 25px 20px;
   }
 
-  .program-toggle-section .therapy-toggle-content,
-  .program-toggle-section .camp {
-    padding: 14px;
-    border-radius: 0;
+  .event-card h3 {
+    font-size: 1.5rem;
   }
 
-  .program-toggle-section .therapy-toggle-content {
-    gap: 14px;
+  .event-card p {
+    font-size: 0.95rem;
   }
 
-  .program-toggle-section .therapy-toggle-content p,
-  .program-toggle-section .camp .content p {
-    font-size: 0.9rem;
-    line-height: 1.72;
+  .event-icon {
+    font-size: 2.5rem;
   }
+}
 
-  .program-toggle-section .camp .content p {
-    font-size: 0.98rem;
-    font-weight: 700;
-    line-height: 1.76;
-  }
+ .toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
 
-  .program-toggle-section .content h1 {
-    font-size: 1.08rem;
-  }
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
 
-  .program-toggle-section .therapy-toggle-gallery__frame {
-    border-radius: 14px;
-  }
+  width: fit-content;
+  min-width: 220px;
+
+  border: 1px solid #0d6efd;
+  border-radius: 0;
+  background: #0d6efd;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button:hover {
+  background: #0b5ed7;
+  border-color: #0b5ed7;
 }

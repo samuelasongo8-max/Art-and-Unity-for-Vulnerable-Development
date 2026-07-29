@@ -23,9 +23,9 @@
   min-height: clamp(82px, 11vw, 144px);
   margin: clamp(28px, 5vw, 56px) 0 0;
   padding: clamp(1rem, 2.5vw, 1.8rem) clamp(1rem, 3vw, 2.25rem);
-  background: linear-gradient(135deg, #0c3f9b 0%, #1160d4 55%, #2587f5 100%);
-  color: #ffffff;
-  box-shadow: 0 22px 44px rgba(8, 46, 114, 0.22);
+  
+  color: #2b2929;
+ 
 }
 
 .programs h1 {

@@ -149,6 +149,181 @@
   transform: scale(1.02);
 }
 
+/* Programs grid and card styles (section-specific overrides and additions) */
+.programs-section {
+  display: block;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 40px 20px;
+}
+
+.programs-section .impact-ngo-content {
+  /* override previous content box styles for this layout */
+  width: 100%;
+  background: transparent;
+  padding: 0;
+  margin-right: 0;
+  box-shadow: none;
+  text-align: center;
+}
+
+.program-overline {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #d4a017; /* gold */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.program-intro {
+  max-width: 860px;
+  margin: 0 auto 18px;
+  color: #3b4b4a;
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 20px;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.program-card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 48px rgba(15, 23, 42, 0.14);
+}
+
+.program-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #f6f7f6;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.program-image img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+.stacked-images img {
+  height: 110px;
+}
+
+.program-card-body {
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+ 
+
+ 
+ 
+
+.badge-alt-2 {
+  background-color: #2c5e50;
+  color: #ffffff;
+}
+
+.program-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.35;
+  margin: 6px 0 12px;
+}
+
+.card-description {
+  font-size: 0.98rem;
+  color: #555555;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  flex: 1 1 auto;
+}
+
+.btn-read-more {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 9px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(44,94,80,0.12);
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background-color 0.22s ease, color 0.22s ease, transform 0.18s ease;
+}
+
+.btn-read-more:hover {
+  background-color: #0a7fdf;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+.btn-read-more {
+  background-color: #d67a11;
+}
+@media (max-width: 960px) {
+  .program-image {
+    height: 200px;
+  }
+
+  .programs-section {
+    padding: 28px 16px;
+    margin: 36px auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .programs-grid {
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+  }
+
+  .program-card:nth-child(3) {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .program-card:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .program-image {
+    height: 160px;
+  }
+
+  .program-title {
+    font-size: 1rem;
+  }
+}
+
 .impact-ngo-content h4,
 .impact-ngo-content p,
 .impact-ngo-list li {

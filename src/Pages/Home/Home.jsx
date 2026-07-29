@@ -8,9 +8,8 @@ import {
   partnerLinks,
   slides,
   vocationalImages,
-  whySectionBackgrounds,
+  whySectionBackgrounds, 
 } from "./data";
-import ArtForHealing from "./sections/ArtForHealing/ArtForHealing";
 import DanceSection from "./sections/DanceSection/DanceSection";
 import FeaturedVideo from "./sections/FeaturedVideo/FeaturedVideo";
 import Hero from "./sections/Hero/Hero";
@@ -24,28 +23,27 @@ import VisualArts from "./sections/VisualArts/VisualArts";
 import VocationalSection from "./sections/VocationalSection/VocationalSection";
 import WhoWeAre from "./sections/WhoWeAre/WhoWeAre";
  
- 
+   
 
 function Home() {
   const navigate = useNavigate();
 
-  return (
-    <>
+  return ( 
+    <> 
       <Hero navigate={navigate} heroTitleParts={heroTitleParts} slides={slides} />
       <FeaturedVideo partnerLinks={partnerLinks} />
       <WhoWeAre />
       <NeedSection backgrounds={whySectionBackgrounds} />
       <ProgramsIntro navigate={navigate} />
       <ProgramsToggleSection />
-      <ArtForHealing navigate={navigate} />
       <TherapeuticApproach />
       <VisualArts />
       <DanceSection navigate={navigate} danceParagraphs={danceParagraphs} />
       <VocationalSection navigate={navigate} vocationalImages={vocationalImages} />
       <ImpactStatsSection impactStats={impactStats} />
       <PartnersSection partnerCards={partnerCards} />
-    </>
-  );
+    </> 
+  ); 
 }
 
-export default Home;
+export default Home; 
