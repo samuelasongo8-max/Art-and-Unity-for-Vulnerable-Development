@@ -1,13 +1,19 @@
-/* ===================== */
-/* GLOBAL SAFETY FIXES */
-/* ===================== */
+/* ==========================================================
+   CLEAN HERO DESIGN SYSTEM (Optimized for PC & Mobile)
+   ========================================================== */
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .programRoot {
   width: 100%;
-  font-family: system-ui, Arial, sans-serif;
   background: #f8fafc;
   color: #0f172a;
   overflow-x: hidden;
@@ -15,51 +21,52 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===================== */
-/* TITLE */
-/* ===================== */
-.programMainTitle {
-  text-align: center;
-  font-size: clamp(24px, 3.5vw, 40px);
-  font-weight: 900;
-  margin: 40px 15px;
-  line-height: 1.2;
-}
-
-/* ===================== */
-/* SECTION LAYOUT */
-/* ===================== */
+/* Hero Section Container */
 .danceHeroSection {
   position: relative;
-  padding: clamp(72px, 10vw, 140px) clamp(18px, 5vw, 72px);
-  min-height: clamp(560px, 78vh, 860px);
+  width: 100%;
+  min-height: 100vh;
+  min-height: 600px;
+  background-image: url('water.jpg');
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  color: #ffffff;
+  padding: clamp(80px, 12vh, 120px) 0;
 }
 
-/* GRID */
-.danceHeroGrid {
+/* Dark/Teal Overlay */
+.danceHeroSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 1240px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(20px, 4vw, 60px);
-  align-items: center;
-  justify-items: start;
+  height: 100%;
+   
+  z-index: 1;
 }
 
-/* ===================== */
-/* TEXT AREA */
-/* ===================== */
+/* Grid Layout / Content Wrapper */
+.danceHeroGrid {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Text Area Wrapper */
 .danceHeroContent {
   color: #ffffff;
   width: 100%;
-  max-width: min(720px, 100%);
-  padding: clamp(24px, 4vw, 42px);
+  max-width: 580px;
+  padding: 0;
 }
 
 .dance-hero-content-animated {
@@ -71,97 +78,91 @@
   animation: danceHeroSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
 }
 
-/* ANIMATED TITLE */
+/* Title Styling */
 .danceAnimatedTitle {
-  font-size: clamp(26px, 4vw, 42px);
-  font-weight: 900;
-  margin-bottom: 18px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: block;
   color: #ffffff;
 }
 
-/* LETTER ANIMATION */
 .danceAnimatedTitle span {
   display: inline-block;
-  animation: danceWave 1.5s infinite ease-in-out;
+  animation: none;
 }
 
-/* ICON ROW */
+/* Icon Row & Pulse Icon */
 .danceIconRow {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
-/* ICON */
 .dancePulseIcon {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #f59e0b;
   animation: pulse 1.8s infinite;
 }
 
-/* DESCRIPTION */
+/* Description */
 .danceDescription {
-  font-size: clamp(14px, 1.1vw, 16px);
-  line-height: 1.7;
-  margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+  color: #e2e8f0;
   max-width: 100%;
+  font-weight: 400;
 }
 
+/* Actions & Buttons Container */
 .danceHeroActions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 22px;
+  margin-bottom: 0;
 }
 
-.danceHeroButton {
+/* Base Button Styles */
+.danceHeroButton,
+.danceHeroButtonPrimary,
+.danceHeroButtonSecondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
-  padding: 0.88rem 1.5rem;
-  border-radius: 999px;
-  border: none;
-  text-decoration: none;
+  padding: 0.85rem 1.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  font-size: 0.96rem;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-}
-
-.danceHeroButtonPrimary {
-  background: lch(59.01% 72.48 55.58);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: #ffffff;
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.2);
+  text-decoration: none;
+  border: 1px solid #ffffff;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  border-radius: 0;
+  min-height: 0;
+  box-shadow: none;
 }
 
-.danceHeroButtonSecondary {
-  background: lch(59.01% 72.48 55.58);
-  color: #ffffff;
-  box-shadow: 0 14px 30px rgba(153, 66, 8, 0.24);
-}
-
+/* Button Hover States */
 .danceHeroButton:hover,
-.danceHeroButton:focus-visible {
-  transform: translateY(-2px);
-}
-
 .danceHeroButtonPrimary:hover,
-.danceHeroButtonPrimary:focus-visible {
-  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.24);
-}
-
 .danceHeroButtonSecondary:hover,
+.danceHeroButton:focus-visible,
+.danceHeroButtonPrimary:focus-visible,
 .danceHeroButtonSecondary:focus-visible {
-  background: lch(59.01% 72.48 55.58);
-  box-shadow: 0 18px 34px rgba(153, 66, 8, 0.3);
+  background-color: #ffffff;
+  color: #0f323c;
+  transform: none;
+  box-shadow: none;
 }
 
 .danceHeroButton:focus-visible {
@@ -169,40 +170,38 @@
   outline-offset: 4px;
 }
 
-/* ===================== */
-/* ACTIVITY BOX */
-/* ===================== */
+/* Activity Box */
 .danceActivityBox {
-  background: lch(59.01% 72.48 55.58);
-  width: min(100%, 580px);
-  padding: clamp(16px, 2vw, 22px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
- 
+  background: rgba(7, 107, 221, 0.164);
+  width: 100%;
+  max-width: 580px;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: 4px;
+   
+  margin-top: 1.75rem;
 }
 
-/* TITLE */
 .danceActivityTitle {
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 0.75rem;
   color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* LIST */
 .danceActivityList {
-  padding-left: 18px;
-  color: rgba(255, 255, 255, 0.96);
+  padding-left: 1.25rem;
+  color: #e2e8f0;
 }
 
 .danceActivityList li {
-  margin-bottom: 6px;
+  margin-bottom: 0.4rem;
   line-height: 1.5;
+  font-size: 0.92rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-/* ===================== */
-/* IMAGE */
-/* ===================== */
 /* ===================== */
 /* ANIMATIONS */
 /* ===================== */
@@ -212,142 +211,45 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes danceWave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
 @keyframes danceHeroSweep {
   0% {
     opacity: 0;
-    transform: translateX(-132px);
+    transform: translateY(20px);
   }
-
-  62% {
-    opacity: 1;
-    transform: translateX(28px);
-  }
-
   100% {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .danceHeroActions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .danceHeroButton {
-    width: 100%;
+    transform: translateY(0);
   }
 }
 
 /* ===================== */
 /* RESPONSIVE BREAKPOINTS */
 /* ===================== */
-
-/* TABLET */
-@media (max-width: 1200px) {
-  .danceHeroSection {
-    padding-inline: clamp(18px, 4vw, 42px);
-    min-height: clamp(520px, 72vh, 760px);
-    background-position: center;
-  }
-
-  .danceHeroContent {
-    max-width: 680px;
-  }
-}
-
-@media (max-width: 992px) {
-  .danceHeroSection {
-    min-height: clamp(500px, 68vh, 700px);
-    padding-top: 72px;
-    padding-bottom: 72px;
-    background-position: 58% center;
-  }
-
-  .danceHeroGrid {
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-
-  .danceHeroContent {
-    max-width: 100%;
-  }
-}
-
 @media (max-width: 768px) {
   .danceHeroSection {
-    min-height: 0;
-    padding: 68px 20px;
-    background-position: 62% center;
+    min-height: auto;
+    padding: clamp(60px, 10vh, 90px) 0;
+    align-items: flex-start;
   }
 
   .danceHeroGrid {
-    justify-items: stretch;
+    padding: 0 1.25rem;
   }
 
-  .danceHeroContent {
-    padding: 22px 18px;
+  .danceHeroActions {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .danceAnimatedTitle {
-    font-size: clamp(24px, 6vw, 34px);
-    line-height: 1.12;
-  }
-
-  .danceDescription {
-    font-size: 15px;
-    line-height: 1.75;
+  .danceHeroButton,
+  .danceHeroButtonPrimary,
+  .danceHeroButtonSecondary {
+    width: 100%;
+    text-align: center;
   }
 
   .danceActivityBox {
-    width: 100%;
-  }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .danceHeroSection {
-    min-height: 0;
-    padding: 56px 15px;
-    background-position: 64% center;
-  }
-
-  .programMainTitle {
-    margin: 25px 10px;
-  }
-
-  .danceHeroContent {
-    padding: 20px 16px;
-  }
-
-  .danceDescription {
-    font-size: 14px;
-  }
-
-  .danceActivityTitle {
-    font-size: 16px;
-  }
-
-  .danceActivityList {
-    padding-left: 16px;
-  }
-}
-
-/* SMALL MOBILE */
-@media (max-width: 400px) {
-  .danceAnimatedTitle {
-    font-size: 22px;
-  }
-
-  .dancePulseIcon {
-    width: 8px;
-    height: 8px;
+    max-width: 100%;
   }
 }
 
@@ -590,7 +492,7 @@ body {
 .dance-tiktok-expand:hover,
 .dance-tiktok-expand:focus-visible {
   transform: translateY(-1px);
-  background: rgba(8, 71, 243, 0.82);
+   
 }
 
 .dance-tiktok-frame {

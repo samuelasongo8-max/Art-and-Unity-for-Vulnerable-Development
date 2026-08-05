@@ -1,37 +1,291 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero/Dance Section Container */
 .dance-section {
-  color: white;
-  padding: 80px 20px;
-  background: linear-gradient(135deg, rgba(7, 20, 43, 0.68), rgba(8, 71, 243, 0.48)),
-    url('/dance77.jpg');
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background-image: url('/dance77.jpg');
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  /* Reduces the overall brightness of the original image without altering its colors */
+  filter: brightness(0.85);
 }
 
-.dance-section .our-why-container {
+/* Professional Overlay for Contrast and Reduced Brightness */
+.dance-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Smooth dark tint to make text pop while keeping the background clean */
+  background: linear-gradient(90deg, rgba(5, 8, 15, 0.65) 0%, rgba(5, 8, 15, 0.35) 60%, rgba(5, 8, 15, 0.2) 100%);
+  z-index: 1;
+}
+
+/* Content Container */
+.dance-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
-.dance-section .our-why-content {
-  text-align: center;
+/* Text Wrapper */
+.dance-text-wrapper {
+  max-width: 620px;
 }
 
-.dance-section .our-why-text {
-  max-width: 70ch;
-  margin: 1rem auto;
-  color: #f0f0f0;
+/* Headings */
+.dance-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Description (Increased Font Size & Maximum Clarity) */
+.dance-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
   font-family: "Inter", sans-serif;
-  line-height: 1.85;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  font-weight: 400;
 }
 
-.dance-section .dance-highlights {
+/* Highlights Grid */
+.dance-highlights {
   display: grid;
   gap: 0.6rem;
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 2rem 0;
 }
 
-.dance-section .dance-highlights h3 {
+.dance-highlights h3 {
   font-family: "Poppins", sans-serif;
   font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  color: #f1f5f9;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Action Button */
+.dance-btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.dance-btn:hover {
+  background-color: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Scroll Indicator Arrow (Stopped Movement) */
+.dance-scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: none; /* Stopped walking/bouncing animation */
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dance-title {
+    font-size: 2.5rem;/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero/Dance Section Container */
+.dance-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background-image: url('/dance77.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  /* Reduces the overall brightness of the original image without altering its colors */
+  filter: brightness(0.85);
+}
+
+/* Professional Overlay for Contrast and Reduced Brightness */
+.dance-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Smooth dark tint to make text pop while keeping the background clean */
+  background: linear-gradient(90deg, rgba(5, 8, 15, 0.65) 0%, rgba(5, 8, 15, 0.35) 60%, rgba(5, 8, 15, 0.2) 100%);
+  z-index: 1;
+}
+
+/* Content Container */
+.dance-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Text Wrapper */
+.dance-text-wrapper {
+  max-width: 620px;
+}
+
+/* Headings */
+.dance-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Description (Increased Font Size & Maximum Clarity) */
+.dance-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  font-weight: 400;
+}
+
+/* Highlights Grid */
+.dance-highlights {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.dance-highlights h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  color: #f1f5f9;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Action Button */
+.dance-btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.dance-btn:hover {
+  background-color: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Scroll Indicator Arrow (Stopped Movement) */
+.dance-scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: none; /* Stopped walking/bouncing animation */
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dance-title {
+    font-size: 2.5rem;
+  }
+  
+  .dance-description {
+    font-size: 1.1rem;
+  }
+  
+  .dance-content {
+    padding: 0 1.5rem;
+  }
+
+  .dance-overlay {
+    background: rgba(5, 8, 15, 0.75);
+  }
+}
+  }
+  
+  .dance-description {
+    font-size: 1.1rem;
+  }
+  
+  .dance-content {
+    padding: 0 1.5rem;
+  }
+
+  .dance-overlay {
+    background: rgba(5, 8, 15, 0.75);
+  }
 }

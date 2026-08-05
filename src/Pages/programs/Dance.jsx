@@ -81,7 +81,7 @@ const Dance = () => {
   <section
     className="danceHeroSection"
     style={{
-      backgroundImage: `linear-gradient(rgba(7, 23, 54, 0.74), rgba(7, 23, 54, 0.72)), url(${speakers})`,
+      backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.68), rgba(15, 23, 42, 0.72)), url(${speakers})`,
     }}
   >
     <div className="danceHeroGrid">

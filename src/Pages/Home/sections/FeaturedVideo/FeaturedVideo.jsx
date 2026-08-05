@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./FeaturedVideo.css";
 import useRevealClass from "../../hooks/useRevealClass";
+import ToggleSection from "../../../../components/ToggleSection";
+ 
 
 // Importing images properly in React (Ensure these match your path/assets structure)
 import img1 from "/Upcoming project  (2).jpg";
@@ -32,7 +34,7 @@ const testimonialsData = [
   },
 ];
 
-function FeaturedVideo({ partnerLinks }) {
+function FeaturedVideo({ partnerLinks, eventsOpen, setEventsOpen }) {
   const sectionRef = useRevealClass("video-entered", 0.3);
   
   // Testimonial slider state
@@ -54,7 +56,7 @@ function FeaturedVideo({ partnerLinks }) {
       <section className="video-section">
         <div ref={sectionRef} className="video video-animated">
           <div className="video-copy">
-            <p className="video-kicker">Featured Video</p>
+       
             <h2>Music Across Youth Peace Week</h2>
             <p>
               Art and Unity for Vulnerable Development (AUVD), in partnership with{" "}
@@ -68,14 +70,50 @@ function FeaturedVideo({ partnerLinks }) {
               , successfully delivered three impactful workshops during Youth Peace Week in Kakuma
               Refugee Camp.
             </p>
-            <a
-              className="video-link"
-              href="https://www.youtube.com/watch?v=KC_okHjsXRw&t=2s"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open on YouTube
-            </a>
+
+            <div className="video-actions">
+              <a
+                className="video-link"
+                href="https://www.youtube.com/watch?v=KC_okHjsXRw&t=2s"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open on YouTube
+              </a>
+                   <br></br>
+                  <br></br>
+              {/* Moved toggle button for Upcoming Events (controls ProgramsToggleSection) */}
+              <button
+                className={`toggle-button ${eventsOpen ? "open" : ""}`}
+                onClick={() => setEventsOpen(!eventsOpen)}
+                aria-expanded={eventsOpen}
+                type="button"
+                style={{ marginLeft: "12px" }}
+              >
+            
+                <span className="toggle-button-label">2025 | 3 Workshops Conducted</span>
+                 
+              </button>
+                  
+                 <section className="program-toggle-section">
+      <ToggleSection title="2026 UPCOMING EVENTS">
+  <div className="event-card">
+     
+
+    <h3>No Events Scheduled Yet</h3>
+
+    <p>
+      We are currently planning our upcoming community activities,
+      workshops, performances, and outreach programs.
+      Please check back soon or follow our updates to stay informed
+      about future events.
+    </p>
+  
+  </div>
+</ToggleSection>
+    </section>
+            </div>
+
           </div>
 
           <div className="video-frame-wrapper">

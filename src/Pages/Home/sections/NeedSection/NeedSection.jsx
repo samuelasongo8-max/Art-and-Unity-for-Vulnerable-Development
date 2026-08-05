@@ -20,16 +20,19 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
     <>
       <style>{`
         /* ==========================================================
-           POOL PROMO BANNER SECTION (Mobile Image Full Visibility Fix)
-           ========================================================== */
+            POOL PROMO BANNER SECTION (Clean Split Layout)
+            ========================================================== */
 
         .pool-promo-section {
             width: 100%;
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 80px auto;
             box-sizing: border-box;
             padding: 0 20px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .pool-promo-section *, 
@@ -40,27 +43,35 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
             padding: 0;
         }
 
-        /* Main Container Wrapper with Background Image and Gradient */
+        /* Main Grid Container matching split layout */
         .pool-promo-section .promo-container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        /* Left Image Column */
+        .pool-promo-section .promo-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 400px;
+            height: 100%;
+            min-height: 450px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex;
-            align-items: flex-end;
-            padding: 0;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             transition: background-image 0.8s ease-in-out;
         }
 
-        /* Dark Navy Blue Overlay Box matching the exact layout style */
+        /* Right Content Column */
         .pool-promo-section .promo-card {
             width: 100%;
-            background-color: #0b1437; /* Deep Navy Blue */
-            padding: 50px 60px;
+            background-color: transparent;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -68,51 +79,70 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
             z-index: 2;
         }
 
-        /* Content Wrapper: Layout for Title and Paragraphs */
         .pool-promo-section .promo-text-wrapper {
             width: 100%;
-            max-width: 900px;
+            display: flex;
+            flex-direction: column;
         }
 
         .pool-promo-section .promo-title {
-            font-size: clamp(2rem, 2.7vw, 2.6rem);
-            font-weight: 700;
-            color: #ffffff;
+            font-family: "Poppins", sans-serif, -apple-system;
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: #d97706; /* Warm orange accent */
+            text-transform: uppercase;
             line-height: 1.2;
-            letter-spacing: -0.01em;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
         }
 
-        /* Normal styling for paragraph text */
+        .pool-promo-section .title-underline {
+            width: 60px;
+            height: 3px;
+            background-color: #d97706;
+            margin-bottom: 1.5rem;
+        }
+
         .pool-promo-section .orang {
-            color: #ffffff;
             font-size: 1rem;
             line-height: 1.7;
-            margin-bottom: 16px;
+            color: #475569;
+            margin-bottom: 1.2rem;
         }
 
-        .pool-promo-section .orang:last-child {
-            margin-bottom: 0;
+        .pool-promo-section .orang:last-of-type {
+            margin-bottom: 1.5rem;
         }
- 
+
+        .pool-promo-section .split-action-block {
+            width: 100%;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+        }
+
         .pool-promo-section .join-us-btn {
-            display: inline-flex;
-            margin-top: 24px;
-            padding: 12px 24px;
-            background-color: #ff6600;
-            color: #ffffff;
-            text-decoration: none;
+            display: inline-block;
+            font-family: "Poppins", sans-serif, -apple-system;
+            font-size: 0.85rem;
             font-weight: 700;
-            border-radius: 999px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #d97706;
+            text-decoration: none;
+            border: 2px solid #d97706;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            cursor: pointer;
         }
- 
+
         .pool-promo-section .join-us-btn:hover,
         .pool-promo-section .join-us-btn:focus-visible {
-            background-color: #ff8a33;
-            transform: translateY(-1px);
+            background-color: #d97706;
+            color: #ffffff;
         }
- 
+
         /* Animation Classes */
         .pool-promo-section.promo-content-animated .promo-title,
         .pool-promo-section.promo-content-animated .promo-text-wrapper {
@@ -136,40 +166,22 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
 
         /* Responsive Breakpoints for Tablets & Mobile */
         @media (max-width: 900px) {
-            .pool-promo-section .promo-card {
-                padding: 40px 30px;
-            }
-        }
-
-        @media (max-width: 550px) {
             .pool-promo-section {
-                padding: 0 10px;
-                margin: 20px auto;
+                padding: 0 20px;
+                margin: 40px auto;
             }
 
             .pool-promo-section .promo-container {
-                min-height: auto;
-                height: 240px; 
-                background-size: cover;
-                background-position: center;
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .pool-promo-section .promo-image-wrapper {
+                min-height: 350px;
             }
 
             .pool-promo-section .promo-card {
-                position: relative;
-                width: 100%;
-                background-color: #0b1437;
-                padding: 24px 20px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            }
-
-            .pool-promo-section .promo-title {
-                font-size: 1.5rem;
-                margin-bottom: 14px;
-            }
-
-            .pool-promo-section .orang {
-                font-size: 0.95rem;
-                line-height: 1.6;
+                text-align: left;
             }
         }
       `}</style>
@@ -178,34 +190,38 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
         ref={contentRef}
         className="pool-promo-section promo-content-animated"
       >
-        <div 
-          className="promo-container"
-          style={{
-            backgroundImage: `linear-gradient(rgba(10, 14, 23, 0.1), rgba(10, 14, 23, 0.3)), url(${backgrounds[currentBackground]})`,
-          }}
-        >
-          {/* Empty spacer area for mobile so the background image is fully revealed */}
-        </div>
-        <div className="promo-card" style={{ marginTop: '-4px' }}>
-          <div className="promo-text-wrapper">
-            <h2 className="promo-title">
-              The Need
-            </h2>
-            
-            <p className="orang">
-              Children and young people in Kakuma Refugee Camp face many challenges caused by conflict, forced displacement, poverty, interrupted education, and prolonged uncertainty. These experiences can affect their mental health, emotional well-being, confidence, education, and future opportunities.
-            </p>
+        <div className="promo-container">
+          <div 
+            className="promo-image-wrapper"
+            style={{
+              backgroundImage: `url(${backgrounds[currentBackground]})`,
+            }}
+          ></div>
+          <div className="promo-card">
+            <div className="promo-text-wrapper">
+              <h2 className="promo-title">
+                The Need
+              </h2>
+              <div className="title-underline"></div>
+              
+              <p className="orang">
+                Children and young people in Kakuma Refugee Camp face many challenges caused by conflict, forced displacement, poverty, interrupted education, and prolonged uncertainty. These experiences can affect their mental health, emotional well-being, confidence, education, and future opportunities.
+              </p>
 
-            <p className="orang">
-              Many have limited access to safe spaces, quality education, psychosocial support, creative activities, and skills development that help them heal, learn, and reach their full potential.
-            </p>
+              <p className="orang">
+                Many have limited access to safe spaces, quality education, psychosocial support, creative activities, and skills development that help them heal, learn, and reach their full potential.
+              </p>
 
-            <p className="orang">
-              AUVD responds to these challenges by providing community-led programs that combine creative arts, music education, psychosocial support, inclusive education, and life skills development. Through safe and inclusive spaces, we help children and young people build confidence, strengthen resilience, discover their talents, develop practical skills, and create positive pathways toward a brighter future.
-            </p>
-            <a href="/donate" className="join-us-btn">
-              Join us
-            </a>
+              <p className="orang">
+                AUVD responds to these challenges by providing community-led programs that combine creative arts, music education, psychosocial support, inclusive education, and life skills development. Through safe and inclusive spaces, we help children and young people build confidence, strengthen resilience, discover their talents, develop practical skills, and create positive pathways toward a brighter future.
+              </p>
+
+              <div className="split-action-block">
+                <a href="/donate" className="join-us-btn">
+                  Join us
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -31,16 +31,17 @@ function DanceSection({ navigate, danceParagraphs }) {
   }, [danceParagraphs.first.length, danceParagraphs.second.length, isVisible, typedChars.first, typedChars.second]);
 
   return (
-    <section className="our-why-section dance-section">
-      <div className="our-why-container">
-        <div ref={sectionRef} className="our-why-content">
-          <h2 className="walking-text">
+    <section className="dance-section">
+      <div className="dance-overlay"></div>
+      <div ref={sectionRef} className="dance-content">
+        <div className="dance-text-wrapper">
+          <h2 className="dance-title">
             {"Dance".split("").map((char, index) => (
               <span key={`${char}-${index}`}>{char}</span>
             ))}
           </h2>
 
-          <p className="our-why-text">
+          <p className="dance-description">
             {danceParagraphs.first.slice(0, typedChars.first)} In an environment where many youth
             face stress, trauma, unemployment, and limited recreational opportunities, dance
             creates hope, inspiration, and a sense of belonging. AUVD uses dance not only as
@@ -54,9 +55,15 @@ function DanceSection({ navigate, danceParagraphs }) {
             <h3>Where talent meets opportunity.</h3>
           </div>
 
-          <button className="read-more-btn" onClick={() => navigate("/dance")} type="button">
+          <button className="dance-btn" onClick={() => navigate("/dance")} type="button">
             Community dance
           </button>
+        </div>
+
+        <div className="dance-scroll-indicator">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
         </div>
       </div>
     </section>

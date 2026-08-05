@@ -1,61 +1,51 @@
 /* ==========================================================
-   TESTIMONIAL SECTION (Completely Scoped to Prevent Leaking)
+   TESTIMONIAL SECTION (Clean Split Layout with Slow Fade Animation)
    ========================================================== */
 
 .testimonial-section {
     width: 100%;
-    max-width: 1100px;
-    margin: 60px auto;
+    max-width: 1200px;
+    margin: 80px auto;
     box-sizing: border-box;
     padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .testimonial-section *,
 .testimonial-section *::before,
 .testimonial-section *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .testimonial-section .testimonial-container {
-    position: relative;
-    display: flex;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
- 
-    min-height: 480px;
+    position: relative;
     opacity: 0;
     transform: translateY(30px);
     animation: testimonialEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
     transition: transform 0.3s ease;
 }
 
-.testimonial-section .testimonial-container:hover {
-    transform: scale(1.01);
-}
-
-.testimonial-section .testimonial-content-wrapper {
-    position: absolute;
-    left: 0;
-    width: 55%;
-    background-color: rgb(8, 79, 160);
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 2;
-    transition: transform 0.3s ease;
-}
-
-.testimonial-section .testimonial-content-wrapper:hover {
-    transform: scale(1.03);
-}
-
+/* Image Column & Very Slow Sequential Transition */
 .testimonial-section .testimonial-image-wrapper {
     position: relative;
-    width: 65%;
-    height: 420px;
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
     overflow: hidden;
     z-index: 1;
-    margin-left: auto;
+    margin-left: 0;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .testimonial-section .testimonial-image-wrapper img {
@@ -63,52 +53,106 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 8px;
+    border-radius: 6px;
+    /* Very slow, smooth cross-fade transition when image changes */
+    transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
+}
+
+/* Class to handle the slow fade effect when swapping slides */
+.testimonial-section .testimonial-image-wrapper img.fade-image,
+.testimonial-section .testimonial-image-wrapper img.vocational-image-fade {
+    animation: verySlowFadeImage 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes verySlowFadeImage {
+    0% {
+        opacity: 0;
+        transform: scale(1.03) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Content Column */
+.testimonial-section .testimonial-content-wrapper {
+    position: static;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 2;
+    box-shadow: none;
+    transition: none;
+}
+
+.testimonial-section .testimonial-content-wrapper:hover {
+    transform: none;
 }
 
 .testimonial-section .who-we-are-title {
-    font-family: "Plus Jakarta Sans", Arial, sans-serif;
-    font-size: clamp(2rem, 2.3vw, 2.3rem);
-    margin: 0 0 1rem;
-    color: #ffffff;
-    line-height: 1.05;
+    font-family: "Poppins", sans-serif, -apple-system;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #d97706; /* Warm orange accent */
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.testimonial-section .title-underline {
+    width: 60px;
+    height: 3px;
+    background-color: #d97706;
+    margin-bottom: 1.5rem;
 }
 
 .testimonial-section .who-we-are-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.7;
-    color: #ffffff;
-    margin: 0 0 1rem;
+    color: #475569;
+    margin-bottom: 1.2rem;
     max-width: 100%;
+    /* Slow fade for text blocks matching the image cadence */
+    transition: opacity 2s ease-in-out;
 }
 
 .testimonial-section .testimonial-btn-container {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.5rem;
 }
 
 .testimonial-section .testimonial-action-btn {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff6600;
-    color: #ffffff;
-    font-weight: bold;
+    font-family: "Poppins", sans-serif, -apple-system;
     font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d97706;
     text-decoration: none;
-    border: none;
-    outline: none;
-   
+    border: 2px solid #d97706;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: transparent;
     cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-family: "Plus Jakarta Sans", Arial, sans-serif;
+    outline: none;
 }
 
 .testimonial-section .testimonial-action-btn:focus {
     outline: none;
-    border: none;
+    border: 2px solid #d97706;
 }
 
 .testimonial-section .testimonial-action-btn:hover {
-    background-color: #0e62e0;
+    background-color: #d97706;
+    color: #ffffff;
 }
 
 @keyframes testimonialEntrance {
@@ -122,21 +166,28 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+    .testimonial-section {
+        padding: 0 20px;
+        margin: 40px auto;
+    }
+
     .testimonial-section .testimonial-container {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
         position: static;
     }
 
     .testimonial-section .testimonial-image-wrapper {
         width: 100%;
-        height: 320px;
+        min-height: 350px;
         margin-left: 0;
     }
 
     .testimonial-section .testimonial-content-wrapper {
         position: static;
         width: 100%;
-        padding: 40px 25px;
+        padding: 0;
+        text-align: left;
     }
 }

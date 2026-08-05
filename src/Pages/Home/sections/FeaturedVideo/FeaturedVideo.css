@@ -1,24 +1,41 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section Layout (Refined to match the split info section template) */
 .video-section {
-  padding: clamp(2.5rem, 6vw, 5rem) 0;
+  width: 100%;
+  padding: clamp(2.5rem, 6vw, 5rem) 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 }
 
 .video {
-  width: min(100%, 1400px);
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 clamp(1rem, 3vw, 2rem);
+  padding: 0;
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
   align-items: center;
 }
 
+/* Copy Column Layout */
 .video-copy {
   color: #1f2937;
+  display: flex;
+  flex-direction: column;
 }
 
 .video-kicker {
   margin-bottom: 0.75rem;
-  color: #994208;
+  color: #d97706; /* Updated to warm orange accent */
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -26,15 +43,21 @@
 }
 
 .video-copy h2 {
+  font-family: "Poppins", sans-serif, -apple-system;
   margin-bottom: 1rem;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.05;
-  color: #0847f3;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #d97706; /* Updated to warm orange accent */
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .video-copy p {
+  font-size: 1rem;
+  line-height: 1.7;
   margin-bottom: 1.2rem;
-  color: #4b5563;
+  color: #475569; /* Unified neutral text color */
   max-width: 60ch;
 }
 
@@ -45,27 +68,39 @@
 }
 
 .video-partner-link {
-  color: #994208;
+  color: #d97706;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.18em;
 }
 
+/* Action Button Layout */
 .video-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 48px;
-  padding: 0.85rem 1.4rem;
-  border-radius: 999px;
-  background: lch(59.01% 72.48 55.58);
-  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-family: "Poppins", sans-serif, -apple-system;
+  background: transparent;
+  color: #d97706;
+  border: 2px solid #d97706;
+  font-size: 0.85rem;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-decoration: none;
   width: fit-content;
   opacity: 0;
   transform: translateX(56px);
-  transition: opacity 0.85s ease, transform 0.85s ease;
+  transition: all 0.3s ease;
+}
+
+.video-link:hover {
+  background-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .video-entered .video-copy > p:not(.video-kicker),
@@ -74,13 +109,15 @@
   transform: translateX(0);
 }
 
+/* Frame Wrapper Column */
 .video-frame-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #000;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .video-frame {
@@ -91,9 +128,153 @@
   border: 0;
 }
 
-@media (min-width: 980px) {
+/* Responsive Design */
+@media (max-width: 900px) {
   .video {
-    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-link {
+    width: 100%;
+  }
+}/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section Layout (Refined to match the split info section template) */
+.video-section {
+  width: 100%;
+  padding: clamp(2.5rem, 6vw, 5rem) 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+}
+
+.video {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Copy Column Layout */
+.video-copy {
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-kicker {
+  margin-bottom: 0.75rem;
+  color: #d97706; /* Updated to warm orange accent */
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.video-copy h2 {
+  font-family: "Poppins", sans-serif, -apple-system;
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #d97706; /* Updated to warm orange accent */
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.video-copy p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  color: #475569; /* Unified neutral text color */
+  max-width: 60ch;
+}
+
+.video-animated .video-copy > p:not(.video-kicker) {
+  opacity: 0;
+  transform: translateX(-56px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.video-partner-link {
+  color: #d97706;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Action Button Layout */
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-family: "Poppins", sans-serif, -apple-system;
+  background: transparent;
+  color: #d97706;
+  border: 2px solid #d97706;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: fit-content;
+  opacity: 0;
+  transform: translateX(56px);
+  transition: all 0.3s ease;
+}
+
+.video-link:hover {
+  background-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.video-entered .video-copy > p:not(.video-kicker),
+.video-entered .video-link {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Frame Wrapper Column */
+.video-frame-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.video-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .video {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 }
 

@@ -15,30 +15,42 @@ function VocationalSection({ navigate, vocationalImages }) {
   }, [vocationalImages.length]);
 
   return (
-    <section className="vocational">
-      <div className="vocational-text-content">
-        <h2 className="vocational-title">Vocational Education Training (VET)</h2>
-        <p className="vocational-text">
-          Our Vocational Education and Training (VET) programs empower youth, women, and
-          vulnerable community members with practical skills for self-reliance and personal
-          development.
-        </p>
+    <section className="split-info-section vocational-section">
+      <div className="split-container">
+        
+        {/* Left Column: Image with Fading Carousel */}
+        <div className="split-image-col">
+          <img
+            key={vocationalImages[currentImage].src}
+            src={vocationalImages[currentImage].src}
+            alt={vocationalImages[currentImage].alt}
+            className="vocational-image-fade"
+          />
+        </div>
 
-        <button
-          className="btn-go-about vocational-explore-btn"
-          onClick={() => navigate("/Work#livelihoods-women")}
-          type="button"
-        >
-          Explore more
-        </button>
+        {/* Right Column: Content */}
+        <div className="split-content-col">
+          <h2 className="split-title">Vocational Education Training (VET)</h2>
+          <div className="title-underline"></div>
+
+          <p className="split-description">
+            Our Vocational Education and Training (VET) programs empower youth, women, and
+            vulnerable community members with practical skills for self-reliance and personal
+            development.
+          </p>
+
+          <div className="split-action-block">
+            <button
+              className="split-btn vocational-explore-btn"
+              onClick={() => navigate("/Work#livelihoods-women")}
+              type="button"
+            >
+              Explore more
+            </button>
+          </div>
+        </div>
+
       </div>
-
-      <img
-        key={vocationalImages[currentImage].src}
-        src={vocationalImages[currentImage].src}
-        alt={vocationalImages[currentImage].alt}
-        className="vocational-image vocational-image-fade"
-      />
     </section>
   );
 }
