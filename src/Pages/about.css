@@ -232,8 +232,43 @@ FOUNDED CARD
 
     font-size:.95rem;
 
+
+/*==================================
+ Small Phones
+==================================*/
+
+@media(max-width:480px){
+
+.testimonial-image{
+
+min-height:250px;
+
 }
 
+.card-heading{
+
+font-size:1.7rem;
+
+}
+
+.card-body{
+
+font-size:15px;
+
+}
+
+.icon-circle{
+
+width:52px;
+
+height:52px;
+
+font-size:22px;
+
+}
+
+}
+}
 /* ===========================================================
 SECTION LABELS
 =========================================================== */
@@ -760,6 +795,133 @@ PHONE
 
     }
 
+}
+
+/* ==============================
+     Split Info Section (Mission & Vision)
+     ============================== */
+
+.split-info-section{
+    width:100%;
+    padding:80px 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.split-container{
+    width:100%;
+    max-width:1200px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4rem;
+    align-items:center;
+}
+
+.split-image-col{
+    width:100%;
+    height:100%;
+    min-height:500px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.split-image-col img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.split-content-col{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.split-title{
+    font-family:"Poppins", sans-serif, -apple-system;
+    font-size:clamp(2rem,3vw,2.5rem);
+    font-weight:800;
+    color:#d97706;
+    text-transform:uppercase;
+    line-height:1.2;
+    margin-bottom:1rem;
+}
+
+.title-underline{
+    width:60px;
+    height:3px;
+    background-color:#d97706;
+    margin-bottom:1.5rem;
+}
+
+.split-description{
+    font-size:1rem;
+    line-height:1.7;
+    color:#475569;
+    margin-bottom:1.5rem;
+}
+
+.split-metrics{ display:none; }
+
+.split-action-block{ border-top:1px solid #e2e8f0; padding-top:1.5rem; }
+
+.split-btn{ }
+
+.split-subtext{ }
+
+/* reuse .icon-circle, .icon-text, .card-heading, .card-body, .divider */
+
+@media (max-width:900px){
+    .split-container{
+        grid-template-columns:1fr;
+        gap:2.5rem;
+    }
+
+    .split-image-col{
+        min-height:350px;
+    }
+
+    .split-content-col{ padding:0 4px; }
+}
+
+/* Mission slideshow under split section */
+.mission-slideshow{
+    width:100%;
+    max-width:1200px;
+    margin:28px auto 0 auto;
+    position:relative;
+    height:300px;
+    overflow:hidden;
+    border-radius:6px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+}
+
+.mission-slide{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    animation:missionFade 18s infinite;
+}
+
+.mission-slide:nth-child(1){ z-index:6; }
+.mission-slide:nth-child(2){ z-index:5; }
+.mission-slide:nth-child(3){ z-index:4; }
+
+@keyframes missionFade{
+    0%{ opacity:0; transform:scale(1.06); }
+    6%{ opacity:1; transform:scale(1); }
+    30%{ opacity:1; transform:scale(1); }
+    36%{ opacity:0; transform:scale(1.04); }
+    100%{ opacity:0; transform:scale(1.06); }
+}
+
+@media(max-width:768px){
+    .mission-slideshow{ height:220px; }
 }
 
 
@@ -1785,3 +1947,130 @@ PRINT
 /*=========================================================
 END OF ABOUT.CSS
 =========================================================*/
+
+
+
+/*==================================
+  Split Image Column
+==================================*/
+
+.split-image-col{
+    position:relative;
+    width:100%;
+    min-height:560px;
+    overflow:hidden;
+    border-radius:8px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+/*==================================
+  Slideshow
+==================================*/
+
+.mission-slideshow{
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:560px;
+}
+
+/*==================================
+  Slides
+==================================*/
+
+.mission-slide{
+
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transform:scale(1.08);
+
+    animation:missionFade 16s infinite ease-in-out;
+
+    will-change:opacity, transform;
+
+    backface-visibility:hidden;
+
+}
+
+/*==================================
+  Animation
+==================================*/
+
+@keyframes missionFade{
+
+    /* Hidden */
+    0%{
+        opacity:0;
+        transform:scale(1.08);
+    }
+
+    /* Fade In */
+    8%{
+        opacity:1;
+        transform:scale(1.05);
+    }
+
+    /* Stay Visible */
+    42%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+    /* Fade Out */
+    50%{
+        opacity:0;
+        transform:scale(.98);
+    }
+
+    /* Hidden */
+    100%{
+        opacity:0;
+        transform:scale(.98);
+    }
+
+}
+
+/*==================================
+  Responsive
+==================================*/
+
+@media (max-width:900px){
+
+    .split-image-col,
+    .mission-slideshow{
+
+        min-height:420px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .split-image-col,
+    .mission-slideshow{
+
+        min-height:320px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .split-image-col,
+    .mission-slideshow{
+
+        min-height:240px;
+
+    }
+
+}

@@ -65,32 +65,91 @@ const EducationAccess = () => {
           <p>Formally registered in 2025 to expand healing, education, and livelihoods support.</p>
         </div>
       </section>
+ <section className="mission-section">
+  <section className="split-info-section">
 
-      <section className="mission-section">
-        <div className="child mission-grid">
-          <div className="mission card-accent-blue">
-            <div className="about-card-icon">
-              <FaBullseye />
-            </div>
-            <h2>Our Mission</h2>
-            <p>
-              Empower vulnerable communities through creative arts, inclusive education, psychosocial
-              support, and sustainable development opportunities.
-            </p>
-          </div>
+    <div className="split-container">
 
-          <div className="vision card-accent-gold">
-            <div className="about-card-icon">
-              <FaEye />
-            </div>
-            <h2>Our Vision</h2>
-            <p>
-              A peaceful and inclusive community where vulnerable individuals thrive through art,
-              education, dignity, and sustainable livelihoods.
-            </p>
-          </div>
+      {/* LEFT IMAGE */}
+
+      <div className="split-image-col">
+
+        <div className="mission-slideshow">
+
+          <img
+            src="/Upcoming project 1 (1).jpg"
+            alt="Mission"
+            className="mission-slide"
+            style={{ animationDelay: "0s" }}
+          />
+
+          <img
+            src="/AUVD.education.jpg"
+            alt="Vision"
+            className="mission-slide"
+            style={{ animationDelay: "6s" }}
+          />
+
         </div>
-      </section>
+
+      </div>
+
+      {/* RIGHT CONTENT */}
+
+      <div className="split-content-col">
+
+        <div className="mission-block">
+
+          <div className="icon-circle mission-icon">
+            <FaBullseye />
+          </div>
+
+          <div className="icon-text">
+
+            <h3 className="card-heading">
+              OUR MISSION
+            </h3>
+
+            <p className="card-body">
+              Empower vulnerable communities through creative arts,
+              inclusive education, psychosocial support and sustainable
+              development opportunities.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div className="divider"></div>
+
+        <div className="vision-block">
+
+          <div className="icon-circle vision-icon">
+            <FaEye />
+          </div>
+
+          <div className="icon-text">
+
+            <h3 className="card-heading">
+              OUR VISION
+            </h3>
+
+            <p className="card-body">
+              A peaceful and inclusive community where vulnerable
+              individuals thrive through art, education, dignity and
+              sustainable livelihoods.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+</section>
 
       <section className="about-story">
         <div ref={aboutStoryCopyRef} className="about-story-copy about-story-copy-animated">

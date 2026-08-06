@@ -6,7 +6,7 @@ type StoryStat = {
   label: string;
 };
 
-const heroTitle: string = "AUVD began with a simple vision of using creativity and art to bring hope.";
+const heroTitle: string = " vision of using creativity and art to bring hope.";
 
 const storyStats: ReadonlyArray<StoryStat> = [
   { value: "2022", label: "Grassroots initiative launched" },
