@@ -1,126 +1,355 @@
-.impactSection {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: clamp(50px, 6vw, 100px) 5%;
-  background: #ffffff;
-  color: #17324a;
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* =====================================================
+   IMPACT SECTION
+===================================================== */
+
+.impactSection{
+    width:100%;
+    padding:90px 20px;
+    position:relative;
+    overflow:hidden;
+
+    background:#090e1a;
+
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity .8s ease, transform .8s ease;
 }
 
-.impactSection--visible {
-  opacity: 1;
-  transform: translateY(0);
+.impactSection--visible{
+    opacity:1;
+    transform:translateY(0);
 }
 
-.impactWrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: clamp(28px, 4vw, 44px);
-  border: 1px solid rgba(20, 50, 80, 0.08);
-  box-shadow: 0 20px 44px rgba(13, 50, 83, 0.07);
+/* =====================================================
+   WRAPPER
+===================================================== */
+
+.impactWrapper{
+    max-width:1250px;
+    margin:auto;
+    position:relative;
+    z-index:2;
 }
 
-.impactHeading {
-  font-size: clamp(26px, 3.5vw, 46px);
-  font-weight: 900;
-  color: #0b70f3;
-  margin-bottom: 10px;
+/* =====================================================
+   HEADING
+===================================================== */
+
+.impactHeading{
+
+    text-align:center;
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:clamp(2rem,4vw,3.2rem);
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    margin-bottom:20px;
+
+    line-height:1.2;
 }
 
-.impactText {
-  font-size: clamp(15px, 1.2vw, 17px);
-  color: #52677d;
-  max-width: 700px;
-  line-height: 1.7;
-  margin-bottom: 40px;
+.impactText{
+
+    max-width:760px;
+
+    margin:0 auto 70px;
+
+    text-align:center;
+
+    font-family:"Inter",sans-serif;
+
+    font-size:1.05rem;
+
+    line-height:1.9;
+
+    color:rgba(255,255,255,.82);
 }
 
-.impactCards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: clamp(16px, 2.2vw, 24px);
+/* =====================================================
+   GRID
+===================================================== */
+
+.impactCards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:55px;
 }
 
-.impactBox {
-  background: #ffffff;
-  padding: clamp(18px, 2vw, 28px);
-  position: relative;
-  border: 1px solid rgba(20, 50, 80, 0.08);
-  box-shadow: 0 12px 24px rgba(14, 32, 54, 0.06);
-  opacity: 0;
-  transform: translateY(24px);
-  transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.6s ease;
+/* =====================================================
+   ITEM (NO BOX)
+===================================================== */
+
+.impactBox{
+
+    background:none;
+
+    border:none;
+
+    box-shadow:none;
+
+    padding:0;
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+    opacity .7s ease,
+    transform .4s ease;
+
 }
 
-.impactBox--visible {
-  opacity: 1;
-  transform: translateY(0);
+.impactBox--visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+
 }
 
-.impactBox::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-   background: #e27f3e;
-     border: 6px solid #e27f3e;
+.impactBox:hover{
+
+    transform:translateY(-6px);
+
 }
 
-.impactBox:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 36px rgba(14, 32, 54, 0.1);
+/* Remove top line */
+
+.impactBox::before{
+
+    display:none;
+
 }
 
-.impactCardHeader {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 10px;
+/* =====================================================
+   HEADER
+===================================================== */
+
+.impactCardHeader{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:22px;
+
 }
 
-.impactIconBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  background: #f2f5f8;
-  color: #0847f3;
-  font-size: 1.35rem;
+/* =====================================================
+   ICON
+===================================================== */
+
+.impactIconBadge{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1.45rem;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    color:#d48a21;
+
+    flex-shrink:0;
+
+    transition:.35s;
+
 }
 
-.impactValue {
-  font-size: clamp(28px, 3vw, 44px);
-  font-weight: 900;
-  color: #0847f3;
+.impactBox:hover .impactIconBadge{
+
+    background:#d48a21;
+
+    color:#fff;
+
 }
 
-.impactTitle {
-  font-size: clamp(16px, 1.5vw, 18px);
-  font-weight: 700;
-  color: #16324a;
-  margin-bottom: 10px;
+/* =====================================================
+   VALUE
+===================================================== */
+
+.impactValue{
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:2.5rem;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    line-height:1;
+
 }
 
-.impactInfo {
-  font-size: clamp(13px, 1vw, 14px);
-  color: #52677d;
-  line-height: 1.6;
-  margin-bottom: 6px;
+/* =====================================================
+   TITLE
+===================================================== */
+
+.impactTitle{
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:1.25rem;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    margin-bottom:15px;
+
+    line-height:1.4;
+
 }
 
-.impactBox--wide {
-  grid-column: span 2;
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.impactInfo{
+
+    font-family:"Inter",sans-serif;
+
+    font-size:15px;
+
+    line-height:1.9;
+
+    color:rgba(255,255,255,.78);
+
 }
 
-@media (max-width: 992px) {
-  .impactBox--wide {
-    grid-column: span 1;
-  }
+/* =====================================================
+   WIDE ITEM
+===================================================== */
+
+.impactBox--wide{
+
+    grid-column:span 2;
+
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:992px){
+
+.impactSection{
+
+padding:80px 25px;
+
+}
+
+.impactCards{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:40px;
+
+}
+
+.impactBox--wide{
+
+grid-column:span 2;
+
+}
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+.impactSection{
+
+padding:70px 20px;
+
+}
+
+.impactHeading{
+
+font-size:2rem;
+
+}
+
+.impactText{
+
+font-size:1rem;
+
+margin-bottom:45px;
+
+}
+
+.impactCards{
+
+grid-template-columns:1fr;
+
+gap:35px;
+
+}
+
+.impactBox--wide{
+
+grid-column:span 1;
+
+}
+
+.impactCardHeader{
+
+gap:15px;
+
+}
+
+.impactIconBadge{
+
+width:54px;
+
+height:54px;
+
+font-size:1.3rem;
+
+}
+
+.impactValue{
+
+font-size:2rem;
+
+}
+
+.impactTitle{
+
+font-size:1.15rem;
+
+}
+
+.impactInfo{
+
+font-size:14px;
+
+line-height:1.8;
+
+}
+
 }

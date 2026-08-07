@@ -8,90 +8,159 @@ function TherapeuticApproach() {
   return (
     <section
       ref={sectionRef}
-      className="impact-ngo-section impact-ngo-animated programs-section"
-      aria-labelledby="impact-ngo-programs-title"
+      className="programs-section impact-ngo-animated"
     >
-
-
-    
       <div className="impact-ngo-content programs-header">
-     
-        <h3 id="impact-ngo-programs-title" className="impact-ngo-title">
+        <h3 className="impact-ngo-title">
           Art as Therapy and Social-Emotional Learning at AUVD in Kakuma
         </h3>
-         
       </div>
-      
 
-      <div className="programs-grid" role="list">
-        <article className="program-card" role="listitem">
+      <div className="programs-grid">
+
+        {/* CARD 1 */}
+
+        <article className="program-card">
+
           <div className="program-image">
-            <img src="/together1.jpg" alt="Group art activity at AUVD" />
+            <img
+              src="/together1.jpg"
+              alt="Art Therapy"
+            />
           </div>
+
           <div className="program-card-body">
 
-            <h4 className="program-title">Art as Therapy and Social-Emotional Learning</h4>
+            <div className="card-top">
+
+              <span className="program-badge">
+                Program
+              </span>
+
+              <span className="program-date">
+                AUVD
+              </span>
+
+            </div>
+
+            <h3 className="program-title">
+              Art as Therapy and Social-Emotional Learning
+            </h3>
+
             <p className="card-description">
-              This program is designed to support refugees in Kakuma Refugee Camp by using creative
-              expression as a powerful tool for emotional well-being, personal development, and
-              social connection. Through music, visual arts, and storytelling, participants reconnect
-              with their identities and build resilience.
+              This program supports refugees through music,
+              visual arts and storytelling, helping participants
+              improve emotional well-being, confidence and
+              resilience while strengthening community
+              relationships.
             </p>
-            <Link to="/Music" className="btn-read-more">Explore More</Link>
+
+            <Link
+              to="/Music"
+              className="btn-read-more"
+            >
+              Read more →
+            </Link>
+
           </div>
+
         </article>
 
-        <article className="program-card" role="listitem">
+        {/* CARD 2 */}
+
+        <article className="program-card">
+
           <div className="program-image">
-            <img src="/kakuma6.jpg" alt="Limited resources for arts in Kakuma" />
+            <img
+              src="/kakuma6.jpg"
+              alt="Challenges"
+            />
           </div>
+
           <div className="program-card-body">
-            <span
-  className="badge"
-  style={{
-    backgroundColor: "#2563eb",
-    color: "#fff",
-    borderRadius: 0
-  }}
->
-   Challenges
-</span>
-            <h4 className="program-title">Limited Arts Opportunities in Kakuma</h4>
+
+            <div className="card-top">
+
+              <span className="program-badge">
+                Challenge
+              </span>
+
+              <span className="program-date">
+                Kakuma
+              </span>
+
+            </div>
+
+            <h3 className="program-title">
+              Limited Arts Opportunities in Kakuma
+            </h3>
+
             <p className="card-description">
-              Many children and young people in Kakuma Refugee Camp have little or no access to
-              structured arts education, creative spaces, or professional mentorship. This limits
-              opportunities for self-expression, talent development, and emotional healing.
+              Many children and youth have little access to
+              structured arts education, creative spaces and
+              professional mentorship, reducing opportunities
+              for healing, creativity and talent development.
             </p>
-            <Link to="/Music" className="btn-read-more">Explore More</Link>
+
+            <Link
+              to="/Music"
+              className="btn-read-more"
+            >
+              Read more →
+            </Link>
+
           </div>
+
         </article>
 
-        <article className="program-card" role="listitem">
-          <div className="program-image stacked-images">
-            <img src="/9.png" alt="Art for healing activity 1" />
-            <img src="/refugees.jpg" alt="Art for healing activity 2" />
-            <img src="/together6.jpg" alt="Art for healing activity 3" />
+        {/* CARD 3 */}
+
+        <article className="program-card">
+
+          <div className="program-image">
+            <img
+              src="/refugees.jpg"
+              alt="Impact"
+            />
           </div>
+
           <div className="program-card-body">
-<span
-  className="badge"
-  style={{
-    backgroundColor: "#2563eb",
-    color: "#fff",
-    borderRadius: 0
-  }}
->
-  Impact
-</span>
-            <h4 className="program-title">Art for Healing</h4>
+
+            <div className="card-top">
+
+              <span className="program-badge">
+                Impact
+              </span>
+
+              <span className="program-date">
+                AUVD
+              </span>
+
+            </div>
+
+            <h3 className="program-title">
+              Art for Healing
+            </h3>
+
             <p className="card-description">
-              Creative activities such as music, painting, dance, and storytelling provide safe
-              spaces where refugees can process difficult experiences, improve mental well-being,
-              rebuild confidence, and create stronger community connections through artistic expression.
+              Music, painting, dance and storytelling create
+              safe spaces where refugees process difficult
+              experiences, improve mental well-being,
+              rebuild confidence and strengthen social
+              connections.
             </p>
-            <Link to="/events" className="btn-read-more">Explore More</Link>
+
+            <Link
+              to="/Music"
+              className="btn-read-more"
+            >
+              Read more →
+            </Link>
+
           </div>
+
         </article>
+
       </div>
     </section>
   );

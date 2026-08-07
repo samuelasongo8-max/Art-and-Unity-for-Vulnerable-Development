@@ -1,99 +1,253 @@
-.partners-section {
-  padding: 64px 20px;
-  background-color: #0847f3c2;
-  color: white;
+/* =====================================================
+   PARTNERS SECTION
+===================================================== */
+
+.partners-section{
+    padding:80px 20px;
+    background:#133992;
+    overflow:hidden;
+    color:#fff;
 }
 
-.partners-section .container {
-  max-width: 1200px;
-  margin: auto;
-  text-align: center;
+.partners-section .container{
+    width:100%;
+    max-width:1300px;
+    margin:auto;
+    text-align:center;
 }
 
-.partners-copy-animated {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* =====================================================
+   TITLE
+===================================================== */
+
+
+.monica{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    margin: 0 auto 18px;
+
+    text-align: center;
+
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+
+    color: #ffffff;
 }
 
-.partners-copy-entered {
-  opacity: 1;
-  transform: translateY(0);
+ 
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+.partners-copy-animated{
+    opacity:0;
+    transform:translateY(30px);
+    transition:.8s ease;
 }
 
-.partners-section .title {
-  font-size: 34px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #ffffff;
+.partners-copy-entered{
+    opacity:1;
+    transform:translateY(0);
 }
 
-.partners-section .subtitle {
-  font-size: 16px;
-  margin-bottom: 34px;
-  line-height: 1.6;
-  color: #ffffff;
+/* =====================================================
+   SLIDER
+===================================================== */
+
+.partners-slider{
+    width:100%;
+    overflow:hidden;
+    position:relative;
 }
 
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+.partners-grid{
+
+    display:flex;
+    align-items:center;
+    gap:60px;
+
+    width:max-content;
+
+    animation:partnerScroll 35s linear infinite;
 }
 
-.partner-card {
-  height: 140px;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  text-decoration: none;
-  color: white;
-  padding: 0;
-  transition: transform 0.4s ease;
+.partners-grid:hover{
+    animation-play-state:paused;
 }
 
-.partner-card span {
-  position: relative;
-  z-index: 2;
-  font-size: 14px;
-  text-align: center;
-  color: #ffffff;
+/* =====================================================
+   PARTNER CARD
+===================================================== */
+
+.partner-card{
+
+    flex:0 0 auto;
+
+    width:170px;
+    height:95px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-decoration:none;
+
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:contain;
+
+    transition:.35s ease;
+
+    filter:grayscale(10%);
+    opacity:.9;
+
+    position:relative;
 }
 
-.partner-card:hover {
-  transform: translateY(-8px);
+/* Hide any text inside cards */
+
+.partner-card span{
+    display:none;
 }
 
-.partner-card.tsf { background: url("/tsf.png") center/contain no-repeat; }
-.partner-card.f2f { background: url("/f2f.png") center/contain no-repeat; }
-.partner-card.cammo { background: url("/cammo.png") center/contain no-repeat; }
-.partner-card.enrichment { background: url("/enrichment.png") center/contain no-repeat; }
-.partner-card.hungry { background: url("/hungry for music.png") center/contain no-repeat; }
-.partner-card.because { background: url("/because.png") center/contain no-repeat; }
-.partner-card.kakuma { background: url("/kakuma Sound.jpg") center/contain no-repeat; }
-.partner-card.bright { background: url("/Bright.png") center/contain no-repeat; }
-.partner-card.center { background: url("/center.jpg") center/contain no-repeat; }
+.partner-card:hover{
 
-@media (min-width: 901px) {
-  .partners-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
-  }
+    transform:translateY(-6px);
 
-  .partner-card {
-    height: 110px;
-  }
+    filter:none;
+
+    opacity:1;
 }
 
-@media (max-width: 900px) {
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* =====================================================
+   LOGOS
+===================================================== */
+
+.partner-card.tsf{
+    background-image:url("/tsf.png");
 }
 
-@media (max-width: 600px) {
-  .partners-grid {
-    grid-template-columns: 1fr;
-  }
+.partner-card.f2f{
+    background-image:url("/f2f.png");
+}
+
+.partner-card.cammo{
+    background-image:url("/cammo.png");
+}
+
+.partner-card.enrichment{
+    background-image:url("/enrichment.png");
+}
+
+.partner-card.hungry{
+    background-image:url("/hungry for music.png");
+}
+
+.partner-card.because{
+    background-image:url("/because.png");
+}
+
+.partner-card.kakuma{
+    background-image:url("/kakuma Sound.jpg");
+}
+
+.partner-card.bright{
+    background-image:url("/Bright.png");
+}
+
+.partner-card.center{
+    background-image:url("/center.jpg");
+}
+
+/* =====================================================
+   CONTINUOUS AUTO SCROLL
+===================================================== */
+
+@keyframes partnerScroll{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    100%{
+        transform:translateX(-50%);
+    }
+
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:992px){
+
+    .partners-section{
+        padding:70px 18px;
+    }
+
+    .partners-grid{
+        gap:45px;
+        animation-duration:30s;
+    }
+
+    .partner-card{
+        width:140px;
+        height:80px;
+    }
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+    .partners-section{
+        padding:60px 15px;
+    }
+
+    .partners-section .title{
+        font-size:2rem;
+    }
+
+    .partners-section .subtitle{
+        font-size:.95rem;
+        margin-bottom:40px;
+    }
+
+    .partners-grid{
+        gap:35px;
+        animation-duration:22s;
+    }
+
+    .partner-card{
+        width:110px;
+        height:70px;
+    }
+
+}
+
+/* =====================================================
+   LARGE DESKTOP
+===================================================== */
+
+@media(min-width:1400px){
+
+    .partners-grid{
+        gap:70px;
+    }
+
+    .partner-card{
+        width:190px;
+        height:105px;
+    }
+
 }

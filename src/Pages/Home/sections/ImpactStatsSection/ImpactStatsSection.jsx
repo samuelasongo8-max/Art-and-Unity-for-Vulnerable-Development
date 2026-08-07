@@ -56,7 +56,17 @@ function ImpactStatsSection({ impactStats }) {
   }, [isVisible]);
 
   return (
-    <section ref={sectionRef} className={`impactSection ${isVisible ? "impactSection--visible" : ""}`}>
+    <section
+      ref={sectionRef}
+      className={`impactSection ${isVisible ? "impactSection--visible" : ""}`}
+      style={{
+        backgroundImage:
+          "linear-gradient(135deg, rgba(5, 18, 44, 0.82), rgba(21, 101, 216, 0.72)), url('/Upcoming%20project%20%20(2).jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="impactWrapper">
         <h2 className="impactHeading">Our Impact</h2>
         <p className="impactText">
