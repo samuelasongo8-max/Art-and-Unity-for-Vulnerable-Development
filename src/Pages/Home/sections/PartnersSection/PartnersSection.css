@@ -2,252 +2,363 @@
    PARTNERS SECTION
 ===================================================== */
 
-.partners-section{
-    padding:80px 20px;
-    background:#133992;
-    overflow:hidden;
-    color:#fff;
+.partners-section {
+  width: 100%;
+  padding: 70px 20px 90px;
+  background: #ffffffa1;
+  color: #222222;
+  overflow: hidden;
 }
 
-.partners-section .container{
-    width:100%;
-    max-width:1300px;
-    margin:auto;
-    text-align:center;
+.partners-section .container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
 }
+
 
 /* =====================================================
    TITLE
 ===================================================== */
 
-
-.monica{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-
-    margin: 0 auto 18px;
-
-    text-align: center;
-
-    font-family: "Poppins", sans-serif;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 0.5px;
-
-    color: #ffffff;
+.partners-copy {
+  width: 100%;
+  margin: 0 auto 45px;
 }
 
- 
-/* =====================================================
-   ANIMATION
-===================================================== */
+.partners-heading {
+  margin: 0;
+  padding: 0;
 
-.partners-copy-animated{
-    opacity:0;
-    transform:translateY(30px);
-    transition:.8s ease;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+
+  color: #111111;
+  text-align: center;
+
+  letter-spacing: 0;
 }
 
-.partners-copy-entered{
-    opacity:1;
-    transform:translateY(0);
-}
 
 /* =====================================================
-   SLIDER
+   SMALL LABEL ABOVE TITLE
+   Optional if you add one later
 ===================================================== */
 
-.partners-slider{
-    width:100%;
-    overflow:hidden;
-    position:relative;
+.partners-label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: #3d775b;
 }
 
-.partners-grid{
 
-    display:flex;
-    align-items:center;
-    gap:60px;
+/* =====================================================
+   REVEAL ANIMATION
+===================================================== */
 
-    width:max-content;
+.partners-copy-animated {
+  opacity: 0;
+  transform: translateY(25px);
 
-    animation:partnerScroll 35s linear infinite;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
-.partners-grid:hover{
-    animation-play-state:paused;
+.partners-copy-entered {
+  opacity: 1;
+  transform: translateY(0);
 }
+
+
+/* =====================================================
+   PARTNERS GRID
+===================================================== */
+
+.partners-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  column-gap: 20px;
+  row-gap: 28px;
+
+  align-items: center;
+  justify-items: center;
+}
+
 
 /* =====================================================
    PARTNER CARD
 ===================================================== */
 
-.partner-card{
+.partner-card {
+  width: 100%;
+  max-width: 236px;
+  height: 150px;
 
-    flex:0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width:170px;
-    height:95px;
+  background-color: transparent;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
-    text-decoration:none;
+  text-decoration: none;
 
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:contain;
+  border-radius: 4px;
 
-    transition:.35s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
 
-    filter:grayscale(10%);
-    opacity:.9;
+  opacity: 1;
 
-    position:relative;
+  position: relative;
 }
 
-/* Hide any text inside cards */
-
-.partner-card span{
-    display:none;
-}
-
-.partner-card:hover{
-
-    transform:translateY(-6px);
-
-    filter:none;
-
-    opacity:1;
-}
 
 /* =====================================================
-   LOGOS
+   HOVER
 ===================================================== */
 
-.partner-card.tsf{
-    background-image:url("/tsf.png");
+.partner-card:hover {
+  transform: translateY(-4px);
 }
 
-.partner-card.f2f{
-    background-image:url("/f2f.png");
-}
-
-.partner-card.cammo{
-    background-image:url("/cammo.png");
-}
-
-.partner-card.enrichment{
-    background-image:url("/enrichment.png");
-}
-
-.partner-card.hungry{
-    background-image:url("/hungry for music.png");
-}
-
-.partner-card.because{
-    background-image:url("/because.png");
-}
-
-.partner-card.kakuma{
-    background-image:url("/kakuma Sound.jpg");
-}
-
-.partner-card.bright{
-    background-image:url("/Bright.png");
-}
-
-.partner-card.center{
-    background-image:url("/center.jpg");
-}
 
 /* =====================================================
-   CONTINUOUS AUTO SCROLL
+   HIDE TEXT
 ===================================================== */
 
-@keyframes partnerScroll{
-
-    0%{
-        transform:translateX(0);
-    }
-
-    100%{
-        transform:translateX(-50%);
-    }
-
+.partner-card span {
+  display: none;
 }
+
+
+/* =====================================================
+   PARTNER LOGOS
+===================================================== */
+
+.partner-card.tsf {
+  background-image: url("/tsf.png");
+}
+
+.partner-card.f2f {
+  background-image: url("/f2f.png");
+}
+
+.partner-card.cammo {
+  background-image: url("/cammo.png");
+}
+
+.partner-card.enrichment {
+  background-image: url("/enrichment.png");
+}
+
+.partner-card.hungry {
+  background-image: url("/hungry for music.png");
+}
+
+.partner-card.because {
+  background-image: url("/because.png");
+}
+
+.partner-card.kakuma {
+  background-image: url("/Foundation_Logo_New_2017.png");
+}
+
+.partner-card.bright {
+  background-image: url("/Bright.png");
+}
+
+ 
+
+
+/* =====================================================
+   OPTIONAL EXTRA LOGOS
+   Add these if you have more partner images
+===================================================== */
+
+.partner-card.source {
+  background-image: url("/source.png");
+}
+
+.partner-card.coere {
+  background-image: url("/coere.png");
+}
+
+.partner-card.drc {
+  background-image: url("/drc.png");
+}
+
+.partner-card.give {
+  background-image: url("/give.png");
+}
+
+.partner-card.wusc {
+  background-image: url("/wusc.png");
+}
+
+.partner-card.hot {
+  background-image: url("/hot.png");
+}
+
+.partner-card.unhcr {
+  background-image: url("/unhcr.png");
+}
+
+.partner-card.cybersalt {
+  background-image: url("/cybersalt.png");
+}
+
+.partner-card.donbosco {
+  background-image: url("/donbosco.png");
+}
+
+.partner-card.global {
+  background-image: url("/global.png");
+}
+
+.partner-card.itc {
+  background-image: url("/itc.png");
+}
+
+.partner-card.burnmedia {
+  background-image: url("/burnmedia.png");
+}
+
 
 /* =====================================================
    TABLET
 ===================================================== */
 
-@media(max-width:992px){
+@media (max-width: 1000px) {
 
-    .partners-section{
-        padding:70px 18px;
-    }
+  .partners-section {
+    padding: 65px 20px 75px;
+  }
 
-    .partners-grid{
-        gap:45px;
-        animation-duration:30s;
-    }
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 18px;
+    row-gap: 25px;
+  }
 
-    .partner-card{
-        width:140px;
-        height:80px;
-    }
+  .partner-card {
+    max-width: 220px;
+    height: 140px;
+  }
 
 }
+
+
+/* =====================================================
+   SMALL TABLET
+===================================================== */
+
+@media (max-width: 750px) {
+
+  .partners-section {
+    padding: 55px 18px 65px;
+  }
+
+  .partners-copy {
+    margin-bottom: 35px;
+  }
+
+  .partners-heading {
+    font-size: 2rem;
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 18px;
+    row-gap: 20px;
+  }
+
+  .partner-card {
+    max-width: 220px;
+    height: 125px;
+  }
+
+}
+
 
 /* =====================================================
    MOBILE
 ===================================================== */
 
-@media(max-width:768px){
+@media (max-width: 480px) {
 
-    .partners-section{
-        padding:60px 15px;
-    }
+  .partners-section {
+    padding: 50px 15px 60px;
+  }
 
-    .partners-section .title{
-        font-size:2rem;
-    }
+  .partners-copy {
+    margin-bottom: 30px;
+  }
 
-    .partners-section .subtitle{
-        font-size:.95rem;
-        margin-bottom:40px;
-    }
+  .partners-heading {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
 
-    .partners-grid{
-        gap:35px;
-        animation-duration:22s;
-    }
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
 
-    .partner-card{
-        width:110px;
-        height:70px;
-    }
+    column-gap: 12px;
+    row-gap: 16px;
+  }
+
+  .partner-card {
+    width: 100%;
+    height: 105px;
+  }
 
 }
 
+
 /* =====================================================
-   LARGE DESKTOP
+   VERY SMALL MOBILE
 ===================================================== */
 
-@media(min-width:1400px){
+@media (max-width: 360px) {
 
-    .partners-grid{
-        gap:70px;
-    }
+  .partners-section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 
-    .partner-card{
-        width:190px;
-        height:105px;
-    }
+  .partners-heading {
+    font-size: 1.5rem;
+  }
+
+  .partners-grid {
+    column-gap: 8px;
+    row-gap: 12px;
+  }
+
+  .partner-card {
+    height: 90px;
+  }
 
 }

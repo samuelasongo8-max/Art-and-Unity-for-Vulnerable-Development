@@ -417,7 +417,7 @@ function App() {
       style={selectedTheme.styles}
     >
       <section className="vocational-hero">
-        <p className="vocational-kicker">Creative Opportunities</p>
+ 
         <h1 className="vocational-title">Artist submission form</h1>
         <p className="vocational-summary">
           Share your talent professionally with AUVD. This form is designed for artists in Kakuma

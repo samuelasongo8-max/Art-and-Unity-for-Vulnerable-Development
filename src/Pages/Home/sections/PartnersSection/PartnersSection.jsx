@@ -8,7 +8,8 @@ function PartnersSection({ partnerCards }) {
     <section className="partners-section">
       <div className="container">
         <div ref={introRef} className="partners-copy partners-copy-animated">
-      {/* <h1 className="partners-heading">OUR PARTNERS</h1> */}
+      <h1 className="partners-heading">OUR PARTNERS:</h1>
+      <p className="partners-heading">Trusted by Global Partners and Funders</p>
           
         </div>
 
