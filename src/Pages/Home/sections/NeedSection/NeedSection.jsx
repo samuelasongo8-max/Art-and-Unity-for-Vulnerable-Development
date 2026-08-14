@@ -89,7 +89,7 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
             font-family: "Poppins", sans-serif, -apple-system;
             font-size: clamp(2rem, 3vw, 2.5rem);
             font-weight: 800;
-            color: #d97706; /* Warm orange accent */
+            color: #ff6600; /* Warm orange accent */
             text-transform: uppercase;
             line-height: 1.2;
             margin-bottom: 1rem;
@@ -99,7 +99,7 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
         .pool-promo-section .title-underline {
             width: 60px;
             height: 3px;
-            background-color: #d97706;
+            background-color: #ff6600;
             margin-bottom: 1.5rem;
         }
 
@@ -127,9 +127,9 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #d97706;
+            color: #ff6600;
             text-decoration: none;
-            border: 2px solid #d97706;
+            border: 2px solid #ff6600;
             padding: 0.75rem 1.5rem;
             border-radius: 4px;
             transition: all 0.3s ease;
@@ -139,7 +139,7 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
 
         .pool-promo-section .join-us-btn:hover,
         .pool-promo-section .join-us-btn:focus-visible {
-            background-color: #d97706;
+            background-color: #ff6600;
             color: #ffffff;
         }
 

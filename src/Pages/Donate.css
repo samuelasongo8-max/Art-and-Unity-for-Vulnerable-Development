@@ -658,7 +658,7 @@
 /* BLUE PRIMARY BUTTON */
 
 .primary-action {
-  background: var(--donate-blue);
+  background: #e85b00;
 
   color: #ffffff;
 
@@ -669,7 +669,7 @@
 /* BLUE SECONDARY BUTTON */
 
 .secondary-action {
-  background: var(--donate-blue-dark);
+  background: var(--donate-blue);
 
   color: #ffffff;
 

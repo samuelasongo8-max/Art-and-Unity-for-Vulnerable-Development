@@ -51,7 +51,7 @@
   font-family: "Poppins", sans-serif, -apple-system;
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
-  color: #d97706; /* Warm orange accent */
+  color: #ff6600; /* Warm orange accent */
   text-transform: uppercase;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -61,7 +61,7 @@
 .title-underline {
   width: 60px;
   height: 3px;
-  background-color: #d97706;
+  background-color: #ff6600;
   margin-bottom: 1.5rem;
 }
 
@@ -85,9 +85,9 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #d97706;
+  color: #ff6600;
   text-decoration: none;
-  border: 2px solid #d97706;
+  border: 2px solid #ff6600;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   transition: all 0.3s ease;
@@ -96,7 +96,7 @@
 }
 
 .split-btn:hover {
-  background-color: #d97706;
+  background-color: #ff6600;
   color: #ffffff;
 }
 
@@ -130,4 +130,22 @@
   .split-content-col {
     text-align: left;
   }
+}
+
+.vet-title {
+  color: #ff6600;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+.vet-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #ff6600;
+  margin-top: 18px;
 }

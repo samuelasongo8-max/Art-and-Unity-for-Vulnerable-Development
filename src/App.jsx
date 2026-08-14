@@ -18,6 +18,7 @@ import Donate from "./Pages/donate";
 import Team from "./Pages/Team";
 import OurStory from "./Pages/OurStory";
 import Music from "./Pages/programs/Music";
+import ImpactAll from "./Pages/ImpactAll";
 
 import Vocational from "./Pages/programs/Vocational";
  
@@ -52,6 +53,7 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/impact" element={<ImpactAll />} />
            
 
 

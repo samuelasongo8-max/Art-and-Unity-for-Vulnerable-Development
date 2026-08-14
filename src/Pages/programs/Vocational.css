@@ -3,8 +3,8 @@
 ========================================================= */
 
 .vocational-page {
-  --voc-accent: #ff9800;
-  --voc-accent-strong: #e47d00;
+  --voc-accent: #ff6600;
+  --voc-accent-strong: #ff6600;
   --voc-blue: #064f6b;
   --voc-blue-dark: #07384b;
 
@@ -108,7 +108,7 @@
 
 
 .breadcrumb-home {
-  color: #ff9800;
+  color: #ff6600;
 
   font-size: 20px;
 
@@ -227,7 +227,7 @@
 
 
 .vocational-btn-orange {
-  background: #ff9800;
+  background: #ff6600;
 
   color: #111111;
 
@@ -236,7 +236,7 @@
 
 
 .vocational-btn-orange:hover {
-  background: #ffa726;
+  background: #ff6600;
 }
 
 
@@ -380,7 +380,7 @@
 
   border: 1px solid var(--voc-panel-border);
 
-  border-top: 4px solid #ff9800;
+  border-top: 4px solid #ff6600;
 
   border-radius: 4px;
 
@@ -395,11 +395,11 @@
 
   margin-bottom: 18px;
 
-  color: #a95b00;
+  color:#ff6600;
 
   background: transparent;
 
-  border: 1px solid #ff9800;
+  border: 1px solid #ff6600;
 
   font-size: 11px;
 
@@ -463,7 +463,7 @@
 
   background: transparent;
 
-  border-left: 3px solid #ff9800;
+  border-left: 3px solid #ff6600;
 
   font-size: 14px;
 
@@ -613,9 +613,9 @@
 .artSubmissionForm input:focus,
 .artSubmissionForm select:focus,
 .artSubmissionForm textarea:focus {
-  border-color: #ff9800;
+  border-color: #ff6600;
 
-  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
 }
 
 
@@ -966,7 +966,7 @@
   border: none;
   border-radius: 5px;
 
-  background: #ff9800;
+  background:#ff6600;
   color: #111111;
 
   font-family: 'DM Sans', sans-serif;
@@ -978,7 +978,7 @@
   cursor: pointer;
 
   box-shadow:
-    0 6px 16px rgba(255, 152, 0, 0.22);
+    0 6px 16px rgba(255, 102, 0, 0.22);
 
   transition:
     transform 0.2s ease,
@@ -992,10 +992,10 @@
 .submitButton:hover:not(:disabled) {
   transform: translateY(-2px);
 
-  background: #ffa726;
+  background: #ff6600;
 
   box-shadow:
-    0 9px 22px rgba(255, 152, 0, 0.28);
+    0 9px 22px rgba(255, 102, 0, 0.28);
 }
 
 
@@ -1005,14 +1005,14 @@
   transform: translateY(0);
 
   box-shadow:
-    0 4px 10px rgba(255, 152, 0, 0.20);
+    0 4px 10px rgba(255, 102, 0, 0.20);
 }
 
 
 /* Keyboard focus */
 
 .submitButton:focus-visible {
-  outline: 3px solid rgba(255, 152, 0, 0.25);
+  outline: 3px solid rgba(255, 102, 0, 0.25);
 
   outline-offset: 3px;
 }

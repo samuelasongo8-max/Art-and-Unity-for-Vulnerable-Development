@@ -168,7 +168,7 @@
 
     border:1px solid rgba(255,255,255,.12);
 
-    color:#d48a21;
+    color:#ff6600;
 
     flex-shrink:0;
 
@@ -178,7 +178,7 @@
 
 .impactBox:hover .impactIconBadge{
 
-    background:#d48a21;
+    background:#ff6600;
 
     color:#fff;
 

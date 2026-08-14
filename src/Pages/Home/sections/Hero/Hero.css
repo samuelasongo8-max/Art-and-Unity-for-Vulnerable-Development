@@ -136,7 +136,7 @@
 
     padding:10px 18px;
 
-    border:2px solid #fff;
+    border:2px solid #ff6600;
 
     background:transparent;
 
@@ -160,9 +160,9 @@
 
 .btn-go-about:hover{
 
-    background:#fff;
+   
 
-    color:#0B3746;
+    color:#f1f4f5;
 
 }
 

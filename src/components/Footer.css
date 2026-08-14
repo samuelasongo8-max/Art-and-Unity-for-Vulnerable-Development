@@ -1,15 +1,17 @@
 /* =====================================================
-   FOOTER
+   AUVD FOOTER
+   Strong Blue • Clean • Modern • Professional
 ===================================================== */
 
 .footer {
   width: 100%;
 
-  background: #133992;
+  /* STRONG BLUE BACKGROUND */
+  background: #0b3d91;
 
-  color: #dbe5ff;
+  color: #ffffff;
 
-  padding: 70px 30px 25px;
+  padding: 75px 30px 25px;
 
   font-family: "Poppins", Arial, sans-serif;
 
@@ -30,44 +32,42 @@
 
 
 /* =====================================================
-   TOP FOOTER CTA
+   TOP CTA
 ===================================================== */
 
 .footer-topbar {
   display: flex;
-
-  justify-content: space-between;
-
   align-items: center;
+  justify-content: space-between;
 
   gap: 40px;
 
   padding-bottom: 45px;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 
 /* =====================================================
-   FOOTER BRAND LOCKUP
+   BRAND LOCKUP
 ===================================================== */
 
 .footer-brand-lockup {
-  max-width: 650px;
+  max-width: 700px;
 }
+
 
 .footer-kicker {
   display: block;
 
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 
-  color: #f7a313;
+  color: #ff6600;
 
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 800;
 
-  font-weight: 700;
-
-  letter-spacing: 2px;
+  letter-spacing: 0.18em;
 
   text-transform: uppercase;
 }
@@ -78,61 +78,65 @@
 
   color: #ffffff;
 
-  font-size: clamp(26px, 3vw, 38px);
+  font-family: Georgia, "Times New Roman", serif;
 
-  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 42px);
 
-  line-height: 1.25;
+  font-weight: 700;
 
-  letter-spacing: -0.5px;
+  line-height: 1.2;
+
+  letter-spacing: -0.02em;
 }
 
 
 /* =====================================================
-   DONATE / CTA BUTTON
+   DONATE BUTTON
 ===================================================== */
 
 .footer-primary-cta {
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
-  min-width: 145px;
-
+  min-width: 150px;
   height: 48px;
 
-  padding: 0 25px;
+  padding: 0 24px;
 
-  background: #f7a313;
+  background: #ff6600;
 
   color: #ffffff;
 
+  border: 2px solid #ff6600;
+  border-radius: 5px;
+
   text-decoration: none;
 
-  font-size: 15px;
+  font-size: 13px;
+  font-weight: 800;
 
-  font-weight: 700;
-
-  letter-spacing: 1.5px;
+  letter-spacing: 0.12em;
 
   text-transform: uppercase;
 
-  border-radius: 0;
-
   transition:
     background 0.25s ease,
-    transform 0.25s ease;
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 
 .footer-primary-cta:hover {
-  background: #e39200;
+  background: #ffffff;
 
-  color: #ffffff;
+  color: #0b3d91;
 
   transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
 }
 
 
@@ -143,11 +147,15 @@
 .footer-grid {
   display: grid;
 
-  grid-template-columns: 2fr repeat(3, 1fr);
+  grid-template-columns:
+    2fr
+    1fr
+    1fr
+    1fr;
 
   gap: 55px;
 
-  padding: 50px 0;
+  padding: 55px 0 50px;
 }
 
 
@@ -160,11 +168,11 @@
 
   color: #ffffff;
 
-  font-size: 16px;
+  font-size: 15px;
 
-  font-weight: 600;
+  font-weight: 700;
 
-  letter-spacing: 0.3px;
+  letter-spacing: 0.02em;
 }
 
 
@@ -175,9 +183,9 @@
 .footer-brand p {
   max-width: 390px;
 
-  margin: 0 0 22px;
+  margin: 0 0 25px;
 
-  color: #dbe5ff;
+  color: rgba(255, 255, 255, 0.82);
 
   font-size: 14px;
 
@@ -186,7 +194,7 @@
 
 
 /* =====================================================
-   CONTACT INFORMATION
+   CONTACT
 ===================================================== */
 
 .footer-contact-list {
@@ -194,7 +202,7 @@
 
   flex-direction: column;
 
-  gap: 12px;
+  gap: 13px;
 
   margin-bottom: 20px;
 }
@@ -207,7 +215,7 @@
 
   gap: 10px;
 
-  color: #dbe5ff;
+  color: rgba(255, 255, 255, 0.8);
 
   text-decoration: none;
 
@@ -220,11 +228,11 @@
 
 
 .footer-contact-item i {
-  width: 20px;
+  width: 18px;
 
-  color: #f7a313;
+  color: #ff6600;
 
-  font-size: 15px;
+  font-size: 14px;
 }
 
 
@@ -236,7 +244,7 @@
 
 
 /* =====================================================
-   MINI LINKS / CHIPS
+   MINI LINKS
 ===================================================== */
 
 .footer-mini-links {
@@ -249,30 +257,31 @@
 
 
 .footer-chip {
-  padding: 7px 12px;
+  padding: 7px 11px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
 
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
-  border-radius: 0;
+  border-radius: 4px;
 
   color: #ffffff;
 
   text-decoration: none;
 
-  font-size: 12px;
+  font-size: 11px;
 
   transition:
     background 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 
 .footer-chip:hover {
-  background: #f7a313;
+  background: #ff6600;
 
-  border-color: #f7a313;
+  border-color: #ff6600;
 
   color: #ffffff;
 }
@@ -287,12 +296,12 @@
 
   flex-direction: column;
 
-  gap: 11px;
+  gap: 12px;
 }
 
 
 .footer-btn {
-  display: flex;
+  display: inline-flex;
 
   align-items: center;
 
@@ -300,7 +309,7 @@
 
   padding: 2px 0;
 
-  color: #dbe5ff;
+  color: rgba(255, 255, 255, 0.78);
 
   text-decoration: none;
 
@@ -313,9 +322,9 @@
 
 
 .footer-btn i {
-  color: #f7a313;
+  color: #ff6600;
 
-  font-size: 11px;
+  font-size: 10px;
 
   opacity: 0;
 
@@ -348,24 +357,23 @@
 .sub-footer {
   display: flex;
 
-  justify-content: space-between;
-
   align-items: center;
+  justify-content: space-between;
 
   gap: 25px;
 
   padding-top: 25px;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 
 .sub-footer-copy p {
   margin: 0;
 
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.68);
 
-  font-size: 13px;
+  font-size: 12px;
 
   line-height: 1.6;
 }
@@ -380,7 +388,7 @@
 
   align-items: center;
 
-  gap: 10px;
+  gap: 9px;
 
   list-style: none;
 
@@ -394,39 +402,57 @@
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   width: 38px;
-
   height: 38px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
 
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
-  border-radius: 0;
+  border-radius: 50%;
 
   color: #ffffff;
 
   text-decoration: none;
 
-  font-size: 15px;
+  font-size: 14px;
 
   transition:
     background 0.25s ease,
+    border-color 0.25s ease,
     transform 0.25s ease;
 }
 
 
 .footer-social-link:hover {
-  background: #f7a313;
+  background: #ff6600;
 
-  border-color: #f7a313;
+  border-color: #ff6600;
 
   color: #ffffff;
 
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+}
+
+
+/* =====================================================
+   SUBTLE BLUE FOOTER DEPTH
+===================================================== */
+
+.footer::after {
+  content: "";
+
+  display: block;
+
+  height: 4px;
+
+  width: 100%;
+
+  margin-top: 5px;
+
+  background: #ff6600;
 }
 
 
@@ -450,8 +476,7 @@
 
 
 .footer-shell-animated .footer-reveal {
-  animation:
-    fadeInUp 0.8s ease forwards;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 
@@ -482,7 +507,7 @@
 @media (max-width: 992px) {
 
   .footer {
-    padding: 60px 22px 25px;
+    padding: 60px 25px 25px;
   }
 
 
@@ -501,7 +526,6 @@
   .footer-brand p {
     max-width: 600px;
   }
-
 }
 
 
@@ -528,14 +552,20 @@
 
 
   .footer-brand-lockup h2 {
-    font-size: 26px;
+    font-size: 27px;
   }
 
 
   .footer-primary-cta {
-    width: 100%;
+    width: auto;
 
-    height: 48px;
+    min-width: 145px;
+
+    height: 46px;
+
+    padding: 0 20px;
+
+    font-size: 12px;
   }
 
 
@@ -555,6 +585,8 @@
 
   .footer-brand p {
     max-width: 100%;
+
+    font-size: 13px;
   }
 
 
@@ -572,7 +604,6 @@
   .social-network {
     justify-content: center;
   }
-
 }
 
 
@@ -583,24 +614,24 @@
 @media (max-width: 480px) {
 
   .footer {
-    padding: 45px 15px 20px;
+    padding: 45px 16px 20px;
   }
 
 
   .footer-brand-lockup h2 {
-    font-size: 23px;
+    font-size: 24px;
   }
 
 
   .footer-kicker {
-    font-size: 11px;
+    font-size: 10px;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 0.15em;
   }
 
 
   .footer-column h4 {
-    font-size: 15px;
+    font-size: 14px;
   }
 
 
@@ -615,7 +646,6 @@
 
     height: 36px;
   }
-
 }
 
 
@@ -624,14 +654,14 @@
 ===================================================== */
 
 .footer a:focus-visible {
-  outline: 2px solid #f7a313;
+  outline: 2px solid #ff6600;
 
   outline-offset: 3px;
 }
 
 
 /* =====================================================
-   REDUCE MOTION
+   REDUCED MOTION
 ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -643,5 +673,4 @@
 
     transition: none !important;
   }
-
 }

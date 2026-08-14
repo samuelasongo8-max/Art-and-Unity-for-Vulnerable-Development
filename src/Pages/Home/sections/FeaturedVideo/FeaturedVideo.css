@@ -35,7 +35,7 @@
 
 .video-kicker {
   margin-bottom: 0.75rem;
-  color: #d97706; /* Updated to warm orange accent */
+  color: #ff6600; /* Updated to warm orange accent */
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -48,7 +48,7 @@
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
   line-height: 1.2;
-  color: #d97706; /* Updated to warm orange accent */
+  color: #ff6600; /* Updated to warm orange accent */
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
@@ -68,7 +68,7 @@
 }
 
 .video-partner-link {
-  color: #d97706;
+  color: #ff6600;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -84,8 +84,8 @@
   border-radius: 4px;
   font-family: "Poppins", sans-serif, -apple-system;
   background: transparent;
-  color: #d97706;
-  border: 2px solid #d97706;
+  color: #ff6600;
+  border: 2px solid #ff6600;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -98,7 +98,7 @@
 }
 
 .video-link:hover {
-  background-color: #d97706;
+  background-color: #ff6600;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -177,7 +177,7 @@
 
 .video-kicker {
   margin-bottom: 0.75rem;
-  color: #d97706; /* Updated to warm orange accent */
+  color: #ff6600; /* Updated to warm orange accent */
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -190,7 +190,7 @@
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
   line-height: 1.2;
-  color: #d97706; /* Updated to warm orange accent */
+  color: #ff6600; /* Updated to warm orange accent */
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
@@ -210,7 +210,7 @@
 }
 
 .video-partner-link {
-  color: #d97706;
+  color: #ff6600;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -226,8 +226,8 @@
   border-radius: 4px;
   font-family: "Poppins", sans-serif, -apple-system;
   background: transparent;
-  color: #d97706;
-  border: 2px solid #d97706;
+  color:#ff6600;
+  border: 2px solid #ff6600;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -240,7 +240,7 @@
 }
 
 .video-link:hover {
-  background-color: #d97706;
+  background-color: #ff6600;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -447,7 +447,7 @@
 .upcoming-section .vs-badge {
     font-size: 0.9rem;
     font-weight: bold;
-    color: #e8a87c;
+    color: #ff6600;
     margin: 8px 0;
 }
 

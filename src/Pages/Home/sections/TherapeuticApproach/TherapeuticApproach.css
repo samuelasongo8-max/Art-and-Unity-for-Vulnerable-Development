@@ -21,7 +21,7 @@
     font-family:"Poppins",sans-serif;
     font-size:clamp(2rem,4vw,3rem);
     font-weight:700;
-    color:#1d1d1d;
+    color:#0d53d4;
     line-height:1.2;
 }
 
@@ -151,7 +151,7 @@
 
     line-height:1.35;
 
-    color:#202020;
+    color:#0d53d4;
 
     margin-bottom:18px;
 
@@ -179,40 +179,32 @@
    BUTTON
 ===================================================== */
 
-.btn-read-more{
+.btn-read-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-    display:inline-flex;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
 
-    align-items:center;
+  color: #ffffff;
+  background: #ff6600;
 
-    gap:8px;
+  padding: 12px 20px;
+ 
+  border-radius: 6px;
 
-    text-decoration:none;
+  cursor: pointer;
 
-    font-weight:700;
-
-    color:#111;
-
-    background:none;
-
-    padding:0;
-
-    transition:.3s;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.btn-read-more::after{
-
-    content:"→";
-
-    transition:.3s;
-
-}
-
-.btn-read-more:hover{
-
-    color:#d88b13;
-
-}
+ 
 
 .btn-read-more:hover::after{
 

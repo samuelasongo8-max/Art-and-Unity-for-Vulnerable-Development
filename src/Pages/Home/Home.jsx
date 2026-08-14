@@ -22,6 +22,7 @@ import TherapeuticApproach from "./sections/TherapeuticApproach/TherapeuticAppro
 import VisualArts from "./sections/VisualArts/VisualArts";
 import VocationalSection from "./sections/VocationalSection/VocationalSection";
 import WhoWeAre from "./sections/WhoWeAre/WhoWeAre";
+import ImpactHighlights from "./sections/ImpactHighlights/ImpactHighlights";
  
    
 
@@ -32,6 +33,7 @@ function Home() {
     <> 
       <Hero navigate={navigate} heroTitleParts={heroTitleParts} slides={slides} />
       <FeaturedVideo partnerLinks={partnerLinks} />
+      <ImpactHighlights />
       <WhoWeAre />
       <NeedSection backgrounds={whySectionBackgrounds} />
       <ProgramsIntro navigate={navigate} />

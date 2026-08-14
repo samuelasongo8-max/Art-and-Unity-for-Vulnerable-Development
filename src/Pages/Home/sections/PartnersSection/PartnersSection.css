@@ -6,7 +6,7 @@
   width: 100%;
   padding: 70px 20px 90px;
   background: #ffffffa1;
-  color: #222222;
+  color: #ff6600;
   overflow: hidden;
 }
 
@@ -36,7 +36,7 @@
   font-weight: 700;
   line-height: 1.2;
 
-  color: #111111;
+  color: #ff6600;
   text-align: center;
 
   letter-spacing: 0;
@@ -60,7 +60,7 @@
   letter-spacing: 3px;
   text-transform: uppercase;
 
-  color: #3d775b;
+  color: #ff6600;
 }
 
 

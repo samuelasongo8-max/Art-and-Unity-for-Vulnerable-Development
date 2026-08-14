@@ -4,9 +4,8 @@
   gap: 26px;
   width: min(100%, 560px);
   padding: clamp(22px, 3vw, 30px);
-  border-radius: 24px;
- 
-  backdrop-filter: blur(2px);
+
+backdrop-filter: blur(2px);
 
 }
 
@@ -26,7 +25,7 @@
 
 .contact-email-card h2 {
   margin: 0;
-  color: #111111;
+  color:#ff6600;
   font-size: clamp(2rem, 1.8rem + 0.9vw, 2.8rem);
   line-height: 1.08;
   text-align: left;
@@ -34,7 +33,7 @@
 
 .contact-email-card__intro {
   margin: 0;
-  color: rgba(17, 17, 17, 0.86);
+  color:#ff6600;
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -65,8 +64,6 @@
 .contact-email-field textarea {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid rgba(15, 23, 42, 0.18);
-  border-radius: 16px;
   background: #ffffff;
   color: #0f172a;
   font: inherit;
@@ -77,7 +74,7 @@
 
 .contact-email-field input::placeholder,
 .contact-email-field textarea::placeholder {
-  color: #64748b;
+  color: #ff6600;
 }
 
 .contact-email-field input:focus,
@@ -117,30 +114,60 @@
   font-weight: 600;
   line-height: 1.45;
 }
-
 .contact-email-form__submit {
-  
   position: relative;
   overflow: hidden;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 56px;
-  padding: 0 22px;
-  border: 0;
-  border-radius: 999px;
-  background: lch(59.01% 72.48 55.58);
+  gap: 8px;
+
+  width: auto;
+  min-height: 44px;
+  padding: 10px 20px;
+
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+
+  background: #ff6600;
   color: #ffffff;
-  font-size: 1rem;
+
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.01em;
+
   cursor: pointer;
-  box-shadow: 0 18px 30px rgba(153, 66, 8, 0.28);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+
+   
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
 }
 
+/* Hover */
+.contact-email-form__submit:hover {
+  transform: translateY(-2px);
+  background: #e85b00;
+}
+
+/* Click */
+.contact-email-form__submit:active {
+  transform: translateY(0);
+
+}
+
+/* Disabled */
+.contact-email-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animation */
 .contact-email-form__submit::before {
   content: "";
   position: absolute;
@@ -150,11 +177,34 @@
   transition: transform 0.45s ease;
 }
 
-.contact-email-form__submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 24px 34px rgba(153, 66, 8, 0.36);
-  filter: saturate(1.03);
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .contact-email-form__submit {
+    min-height: 42px;
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    gap: 7px;
+  }
 }
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .contact-email-form__submit {
+    min-height: 40px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+}
+
+
 
 .contact-email-form__submit:hover::before {
   transform: translateX(120%);
@@ -191,19 +241,19 @@
 
 .contact-email-form__feedback--success {
   color: #111111;
- 
+   
 }
 
 .contact-email-form__feedback--error {
   color: #111111;
-  border: 1px solid rgba(252, 165, 165, 0.3);
+  border: 1px solid #e85b00;
 }
 
 @media (max-width: 768px) {
   .contact-email-card {
     width: 100%;
     padding: 20px;
-    border-radius: 22px;
+ 
   }
 
   .contact-email-form__grid {
@@ -225,6 +275,7 @@
 
   .contact-email-card h2 {
     font-size: 1.7rem;
+    color: #ff6600;
   }
 
   .contact-email-card__intro {
@@ -234,7 +285,7 @@
   .contact-email-field input,
   .contact-email-field textarea {
     padding: 13px 14px;
-    border-radius: 14px;
+ 
   }
 
   .contact-email-form__submit {

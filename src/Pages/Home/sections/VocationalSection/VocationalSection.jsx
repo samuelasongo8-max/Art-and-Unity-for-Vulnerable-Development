@@ -30,8 +30,10 @@ function VocationalSection({ navigate, vocationalImages }) {
 
         {/* Right Column: Content */}
         <div className="split-content-col">
-          <h2 className="split-title">Vocational Education Training (VET)</h2>
-          <div className="title-underline"></div>
+          <h2 className="vet-title">
+  Vocational Education Training (VET)
+</h2>
+       
 
           <p className="split-description">
             Our Vocational Education and Training (VET) programs empower youth, women, and

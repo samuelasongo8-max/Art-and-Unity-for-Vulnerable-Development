@@ -14,7 +14,7 @@
   max-width: 100%;
   padding: 11px 16px;
   
-  background: lch(59.01% 72.48 55.58);
+  background: #ff6600;
   color: #ffffff;
   
   font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -41,7 +41,7 @@
 }
 
 .toggle-button.open {
-  background: lch(59.01% 72.48 55.58);
+  background: #ff6600;
   border-color: rgba(10, 60, 136, 0.28);
 }
 
@@ -92,14 +92,14 @@
   color: white;
   padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 36px);
   overflow: hidden;
-  background: lch(59.01% 72.48 55.58);
+  background: #ff6600;
   color: #ffffff;
   background: 
     linear-gradient(rgba(10, 15, 40, 0.85), rgba(3, 7, 24, 0.6)),
     url("/background.webp") center/cover no-repeat;
 
   animation: fadeInUp 1s ease-out;
-  background: lch(59.01% 72.48 55.58);
+  background: #ff6600;
 }
 
 /* Content container */

@@ -1,0 +1,1789 @@
+/* =========================================================
+   IMPACT HERO
+   Desktop / Tablet / Mobile
+   Navigation stays completely separate from hero image
+   ========================================================= */
+
+.impact-hero {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+
+	/* IMPORTANT:
+	   Hero does NOT take the full viewport height because
+	   the navigation is already above it.
+	*/
+	min-height: calc(100svh - 92px);
+
+	background: #0c0c0c;
+	color: #fff;
+
+	font-family: Georgia, "Times New Roman", serif;
+	box-sizing: border-box;
+}
+
+
+/* Consistent box sizing */
+
+.impact-hero *,
+.impact-hero *::before,
+.impact-hero *::after {
+	box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE
+   ========================================================= */
+
+.impact-bg-image {
+	position: absolute;
+
+	/* Image stays inside the hero only */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+
+	object-fit: cover;
+
+	/*
+	   This prevents the image from looking too zoomed
+	   toward the top.
+	*/
+	object-position: center 42%;
+
+	z-index: 0;
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+   ========================================================= */
+
+.impact-overlay {
+	position: absolute;
+	inset: 0;
+
+	z-index: 1;
+
+	background:
+		linear-gradient(
+			90deg,
+			rgba(0, 0, 0, 0.86) 0%,
+			rgba(0, 0, 0, 0.64) 34%,
+			rgba(0, 0, 0, 0.34) 68%,
+			rgba(0, 0, 0, 0.22) 100%
+		),
+		linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.12) 0%,
+			rgba(0, 0, 0, 0.08) 50%,
+			rgba(0, 0, 0, 0.38) 100%
+		);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+/*
+   IMPORTANT:
+   If your navigation is already outside .impact-hero,
+   leave its CSS as it is.
+
+   The hero should start AFTER the navigation.
+*/
+
+.impact-nav {
+	position: relative;
+	z-index: 10;
+
+	width: 100%;
+	max-width: 1400px;
+
+	margin: 0 auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 20px 56px;
+
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.impact-logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+
+	color: #fff;
+	text-decoration: none;
+
+	font-size: 14px;
+	font-weight: 800;
+
+	letter-spacing: 0.5px;
+	line-height: 1.1;
+
+	white-space: nowrap;
+}
+
+
+.logo-mark {
+	color: #f5a623;
+	font-size: 20px;
+	line-height: 1;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.impact-nav-links {
+	display: flex;
+	align-items: center;
+
+	gap: clamp(20px, 2.5vw, 34px);
+
+	list-style: none;
+
+	margin: 0;
+	padding: 0;
+}
+
+
+.impact-nav-links li {
+	margin: 0;
+	padding: 0;
+}
+
+
+.impact-nav-links li a {
+	color: #fff;
+	text-decoration: none;
+
+	font-size: 14px;
+	font-weight: 500;
+
+	white-space: nowrap;
+
+	transition:
+		color 0.2s ease,
+		opacity 0.2s ease;
+}
+
+
+.impact-nav-links li a:hover {
+	color: #f5a623;
+}
+
+
+.impact-nav-links li.has-caret a::after {
+	content: "⌄";
+
+	margin-left: 5px;
+
+	font-size: 11px;
+
+	opacity: 0.8;
+}
+
+
+/* =========================================================
+   DONATE BUTTON
+   ========================================================= */
+
+.impact-donate-btn {
+	display: inline-flex;
+
+	align-items: center;
+	justify-content: center;
+
+	gap: 6px;
+
+	padding: 10px 20px;
+
+	border-radius: 999px;
+
+	background: #f5a623;
+	color: #111;
+
+	text-decoration: none;
+
+	font-family: "Helvetica Neue", Arial, sans-serif;
+
+	font-size: 14px;
+	font-weight: 700;
+
+	white-space: nowrap;
+
+	transition:
+		transform 0.2s ease,
+		background 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+
+.impact-donate-btn:hover {
+	transform: translateY(-2px);
+
+	background: #ffb52e;
+
+	box-shadow:
+		0 8px 20px rgba(245, 166, 35, 0.25);
+}
+
+
+/* =========================================================
+   HERO CONTENT
+   ========================================================= */
+
+.impact-content {
+	position: relative;
+	z-index: 2;
+
+	width: 100%;
+	max-width: 1400px;
+
+	/*
+	   Hero height is based on the space remaining
+	   after the navigation.
+	*/
+	min-height: calc(100svh - 92px);
+
+	margin: 0 auto;
+
+	display: flex;
+	align-items: center;
+
+	padding: 70px 56px 80px;
+
+	box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.impact-text {
+	width: 100%;
+	max-width: 650px;
+}
+
+
+.impact-text h1 {
+	margin: 0 0 22px;
+
+	font-size: clamp(2.8rem, 5vw, 4.5rem);
+
+	line-height: 1.08;
+
+	font-weight: 700;
+
+	letter-spacing: -0.025em;
+
+	color: #fff;
+}
+
+
+.impact-text h1 em {
+	color: #f5a623;
+
+	font-style: italic;
+}
+
+
+.impact-text p {
+	max-width: 500px;
+
+	margin: 0 0 32px;
+
+	font-family: "Helvetica Neue", Arial, sans-serif;
+
+	font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+
+	line-height: 1.7;
+
+	color: rgba(255, 255, 255, 0.88);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.impact-buttons {
+	display: flex;
+
+	align-items: center;
+
+	flex-wrap: wrap;
+
+	gap: 14px;
+
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+
+.btn {
+	display: inline-flex;
+
+	align-items: center;
+	justify-content: center;
+
+	gap: 8px;
+
+	min-height: 48px;
+
+	padding: 12px 22px;
+
+	border-radius: 7px;
+
+	border: 2px solid transparent;
+
+	font-size: 14px;
+
+	font-weight: 700;
+
+	text-decoration: none;
+
+	cursor: pointer;
+
+	transition:
+		transform 0.2s ease,
+		background 0.2s ease,
+		border-color 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+
+.btn:hover {
+	transform: translateY(-2px);
+}
+
+
+/* Primary */
+
+.btn-primary {
+	background: #f5a623;
+	color: #111;
+}
+
+
+.btn-primary:hover {
+	background: #ffb52e;
+
+	box-shadow:
+		0 10px 24px rgba(245, 166, 35, 0.25);
+}
+
+
+/* Secondary */
+
+.btn-secondary {
+	background: rgba(255, 255, 255, 0.04);
+
+	color: #fff;
+
+	border-color: rgba(255, 255, 255, 0.8);
+
+	backdrop-filter: blur(4px);
+}
+
+
+.btn-secondary:hover {
+	background: rgba(255, 255, 255, 0.12);
+
+	border-color: #fff;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+	.impact-hero {
+		/*
+		   Don't make the image unnecessarily tall.
+		*/
+		min-height: calc(100svh - 92px);
+	}
+
+
+	.impact-content {
+		padding-left: 70px;
+		padding-right: 70px;
+
+		padding-top: 60px;
+		padding-bottom: 70px;
+	}
+
+
+	.impact-text {
+		max-width: 700px;
+	}
+
+
+	.impact-text h1 {
+		font-size: 68px;
+	}
+
+
+	.impact-bg-image {
+		/*
+		   Slightly lower position gives more natural
+		   framing on large desktop screens.
+		*/
+		object-position: center 40%;
+	}
+}
+
+
+/* =========================================================
+   SMALL LAPTOP / TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+	.impact-hero {
+		min-height: calc(100svh - 82px);
+	}
+
+
+	.impact-nav {
+		padding: 20px 32px;
+	}
+
+
+	.impact-content {
+		min-height: calc(100svh - 82px);
+
+		padding: 55px 32px 65px;
+	}
+
+
+	.impact-text {
+		max-width: 600px;
+	}
+
+
+	.impact-text h1 {
+		font-size: clamp(2.6rem, 5.5vw, 4rem);
+	}
+
+
+	.impact-nav-links {
+		gap: 20px;
+	}
+
+
+	.impact-nav-links li a {
+		font-size: 13px;
+	}
+
+
+	.impact-donate-btn {
+		padding: 9px 17px;
+		font-size: 13px;
+	}
+
+
+	.impact-bg-image {
+		object-position: center 40%;
+	}
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+	.impact-hero {
+		min-height: calc(100svh - 70px);
+	}
+
+
+	.impact-nav {
+		padding: 18px 24px;
+	}
+
+
+	.impact-nav-links {
+		display: none;
+	}
+
+
+	.impact-content {
+		min-height: calc(100svh - 70px);
+
+		align-items: center;
+
+		padding: 55px 24px 60px;
+	}
+
+
+	.impact-text {
+		max-width: 620px;
+	}
+
+
+	.impact-text h1 {
+		font-size: clamp(2.5rem, 7vw, 3.7rem);
+
+		line-height: 1.08;
+	}
+
+
+	.impact-text p {
+		max-width: 520px;
+
+		font-size: 1rem;
+	}
+
+
+	.impact-bg-image {
+		object-position: center center;
+	}
+
+
+	.impact-overlay {
+		background:
+			linear-gradient(
+				90deg,
+				rgba(0, 0, 0, 0.84) 0%,
+				rgba(0, 0, 0, 0.62) 55%,
+				rgba(0, 0, 0, 0.38) 100%
+			),
+			linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0.15),
+				rgba(0, 0, 0, 0.42)
+			);
+	}
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+	.impact-hero {
+		/*
+		   Navigation takes space above the hero.
+		*/
+		min-height: calc(100svh - 64px);
+	}
+
+
+	.impact-nav {
+		padding: 16px 18px;
+	}
+
+
+	.impact-logo {
+		font-size: 13px;
+	}
+
+
+	.logo-mark {
+		font-size: 18px;
+	}
+
+
+	.impact-donate-btn {
+		padding: 9px 15px;
+
+		font-size: 12.5px;
+	}
+
+
+	/* Hero content */
+
+	.impact-content {
+		min-height: calc(100svh - 64px);
+
+		align-items: flex-end;
+
+		padding: 60px 18px 42px;
+	}
+
+
+	.impact-text {
+		max-width: 100%;
+	}
+
+
+	/* Heading */
+
+	.impact-text h1 {
+		max-width: 100%;
+
+		margin-bottom: 18px;
+
+		font-size: clamp(2.25rem, 10vw, 3.2rem);
+
+		line-height: 1.08;
+
+		letter-spacing: -0.02em;
+	}
+
+
+	/* Paragraph */
+
+	.impact-text p {
+		max-width: 100%;
+
+		margin-bottom: 25px;
+
+		font-size: 0.94rem;
+
+		line-height: 1.65;
+	}
+
+
+	/* Buttons */
+
+	.impact-buttons {
+		width: 100%;
+
+		gap: 10px;
+	}
+
+
+	.btn {
+		min-height: 46px;
+
+		padding: 11px 17px;
+
+		font-size: 13px;
+	}
+
+
+	.btn-primary,
+	.btn-secondary {
+		flex: 0 1 auto;
+	}
+
+
+	/* Mobile image */
+
+	.impact-bg-image {
+		object-position: center center;
+	}
+
+
+	/* Mobile overlay */
+
+	.impact-overlay {
+		background:
+			linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0.25) 0%,
+				rgba(0, 0, 0, 0.45) 35%,
+				rgba(0, 0, 0, 0.84) 100%
+			),
+			linear-gradient(
+				90deg,
+				rgba(0, 0, 0, 0.35),
+				rgba(0, 0, 0, 0.12)
+			);
+	}
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+	.impact-hero {
+		min-height: calc(100svh - 60px);
+	}
+
+
+	.impact-nav {
+		padding: 14px;
+	}
+
+
+	.impact-logo {
+		font-size: 12px;
+	}
+
+
+	.logo-mark {
+		font-size: 17px;
+	}
+
+
+	.impact-donate-btn {
+		padding: 8px 13px;
+
+		font-size: 12px;
+	}
+
+
+	.impact-content {
+		min-height: calc(100svh - 60px);
+
+		padding: 55px 14px 32px;
+	}
+
+
+	.impact-text h1 {
+		font-size: clamp(2rem, 10.5vw, 2.8rem);
+
+		line-height: 1.08;
+
+		margin-bottom: 16px;
+	}
+
+
+	.impact-text p {
+		font-size: 0.9rem;
+
+		line-height: 1.6;
+
+		margin-bottom: 22px;
+	}
+
+
+	.impact-buttons {
+		gap: 8px;
+	}
+
+
+	.btn {
+		min-height: 44px;
+
+		padding: 10px 14px;
+
+		font-size: 12px;
+
+		border-radius: 6px;
+	}
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 350px) {
+
+	.impact-logo {
+		font-size: 11px;
+	}
+
+
+	.impact-donate-btn {
+		padding: 7px 10px;
+
+		font-size: 11px;
+	}
+
+
+	.impact-content {
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+
+	.impact-text h1 {
+		font-size: 1.9rem;
+	}
+
+
+	.impact-text p {
+		font-size: 0.86rem;
+	}
+
+
+	.impact-buttons {
+		flex-direction: column;
+
+		align-items: stretch;
+	}
+
+
+	.btn {
+		width: 100%;
+	}
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.impact-donate-btn,
+	.btn,
+	.impact-nav-links li a {
+		transition: none;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   AUVD MUSIC DONATION SECTION
+   Image Left — Content Right
+   Fully Responsive
+   ========================================================= */
+
+.auvd-music-donation-section {
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.auvd-music-donation-container {
+  width: 100%;
+  min-height: 650px;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   IMAGE — DESKTOP
+   ========================================================= */
+
+.auvd-music-donation-image {
+  width: 100%;
+  height: 650px;
+  min-height: 650px;
+  overflow: hidden;
+  position: relative;
+}
+
+.auvd-music-donation-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  /*
+    Keeps the image naturally framed instead of
+    making the subject appear too close.
+  */
+  object-position: center center;
+
+  transition: transform 0.6s ease;
+}
+
+.auvd-music-donation-image:hover img {
+  transform: scale(1.015);
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1200px) {
+
+  .auvd-music-donation-image {
+    height: 700px;
+    min-height: 700px;
+  }
+
+  .auvd-music-donation-image img {
+    object-position: center center;
+  }
+}
+
+
+/* =========================================================
+   WIDE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1500px) {
+
+  .auvd-music-donation-container {
+    grid-template-columns: 48% 52%;
+  }
+
+  .auvd-music-donation-image {
+    height: 720px;
+    min-height: 720px;
+  }
+
+  .auvd-music-donation-image img {
+    object-position: center center;
+  }
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.auvd-music-donation-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 70px clamp(40px, 6vw, 100px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f9fafb 100%
+    );
+
+  color: #14213d;
+}
+
+.auvd-music-donation-label {
+  display: block;
+
+  margin-bottom: 16px;
+
+  color: #e88a16;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+}
+
+.auvd-music-donation-content h2 {
+  max-width: 620px;
+
+  margin: 0;
+
+  color: #0c2940;
+
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(42px, 4.2vw, 68px);
+
+  font-weight: 700;
+
+  line-height: 1.05;
+
+  letter-spacing: 0.01em;
+
+  text-transform: uppercase;
+}
+
+.auvd-music-donation-content h2 span {
+  color: #e88a16;
+}
+
+.auvd-music-donation-line {
+  width: 150px;
+  height: 3px;
+
+  margin: 38px 0 34px;
+
+  background: #e88a16;
+}
+
+.auvd-music-donation-intro {
+  max-width: 620px;
+
+  margin: 0 0 24px;
+
+  color: #172b3a;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 21px;
+
+  font-weight: 600;
+
+  line-height: 1.55;
+}
+
+.auvd-music-donation-content p:not(.auvd-music-donation-intro) {
+  max-width: 650px;
+
+  margin: 0 0 20px;
+
+  color: #4a5865;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 16px;
+
+  line-height: 1.75;
+}
+
+.auvd-music-donation-content strong {
+  color: #172b3a;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   DONATE BUTTON
+   ========================================================= */
+
+.auvd-music-donation-button {
+  width: fit-content;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-top: 18px;
+
+  padding: 14px 22px;
+
+  border: 2px solid #e88a16;
+
+  background: transparent;
+
+  color: #e88a16;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+
+  text-decoration: none;
+
+  text-transform: uppercase;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.auvd-music-donation-button span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.auvd-music-donation-button:hover {
+  background: #e88a16;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .auvd-music-donation-container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .auvd-music-donation-image {
+    width: 100%;
+    height: 500px;
+    min-height: 500px;
+  }
+
+  .auvd-music-donation-image img {
+    object-position: center center;
+  }
+
+  .auvd-music-donation-content {
+    padding: 60px 40px;
+  }
+
+  .auvd-music-donation-content h2 {
+    font-size: clamp(40px, 7vw, 58px);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .auvd-music-donation-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /*
+    Give the image enough height so the photograph
+    does not look squeezed or overly cropped.
+  */
+  .auvd-music-donation-image {
+    width: 100%;
+    height: 430px;
+    min-height: 430px;
+  }
+
+  .auvd-music-donation-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    /*
+      Slightly lower framing on phones.
+      Change to "center 45%" if the person's face
+      is too close to the top.
+    */
+    object-position: center 45%;
+  }
+
+  .auvd-music-donation-content {
+    padding: 48px 22px 55px;
+  }
+
+  .auvd-music-donation-label {
+    font-size: 11px;
+    letter-spacing: 0.13em;
+  }
+
+  .auvd-music-donation-content h2 {
+    font-size: clamp(36px, 11vw, 50px);
+    line-height: 1.05;
+  }
+
+  .auvd-music-donation-line {
+    width: 110px;
+    margin: 28px 0 25px;
+  }
+
+  .auvd-music-donation-intro {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .auvd-music-donation-content p:not(.auvd-music-donation-intro) {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .auvd-music-donation-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .auvd-music-donation-image {
+    height: 360px;
+    min-height: 360px;
+  }
+
+  .auvd-music-donation-image img {
+    object-position: center 45%;
+  }
+
+  .auvd-music-donation-content {
+    padding: 42px 18px 48px;
+  }
+
+  .auvd-music-donation-content h2 {
+    font-size: 34px;
+  }
+
+  .auvd-music-donation-intro {
+    font-size: 17px;
+  }
+
+  .auvd-music-donation-content p:not(.auvd-music-donation-intro) {
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 350px) {
+
+  .auvd-music-donation-image {
+    height: 330px;
+    min-height: 330px;
+  }
+
+  .auvd-music-donation-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+
+
+
+
+
+/* =========================================================
+   AUVD MUSIC DONATION — IMAGE RIGHT
+   Same design as original section
+   Content Left — Image Right
+   ========================================================= */
+
+.auvd-music-donation-right-section {
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.auvd-music-donation-right-container {
+  width: 100%;
+  min-height: 650px;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   LEFT — CONTENT
+   ========================================================= */
+
+.auvd-music-donation-right-content {
+  grid-column: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 70px clamp(40px, 6vw, 100px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f9fafb 100%
+    );
+
+  color: #14213d;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.auvd-music-donation-right-label {
+  display: block;
+
+  margin-bottom: 16px;
+
+  color: #e88a16;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.auvd-music-donation-right-content h2 {
+  max-width: 620px;
+
+  margin: 0;
+
+  color: #0c2940;
+
+  font-family:
+    Impact,
+    Haettenschweiler,
+    "Arial Narrow Bold",
+    sans-serif;
+
+  font-size: clamp(42px, 4.2vw, 68px);
+
+  font-weight: 700;
+
+  line-height: 1.05;
+
+  letter-spacing: 0.01em;
+
+  text-transform: uppercase;
+}
+
+
+.auvd-music-donation-right-content h2 span {
+  color: #e88a16;
+}
+
+
+/* =========================================================
+   ORANGE LINE
+   ========================================================= */
+
+.auvd-music-donation-right-line {
+  width: 150px;
+  height: 3px;
+
+  margin: 38px 0 34px;
+
+  background: #e88a16;
+}
+
+
+/* =========================================================
+   INTRO PARAGRAPH
+   ========================================================= */
+
+.auvd-music-donation-right-intro {
+  max-width: 620px;
+
+  margin: 0 0 24px;
+
+  color: #172b3a;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 21px;
+
+  font-weight: 600;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   NORMAL PARAGRAPHS
+   ========================================================= */
+
+.auvd-music-donation-right-content
+p:not(.auvd-music-donation-right-intro) {
+  max-width: 650px;
+
+  margin: 0 0 20px;
+
+  color: #4a5865;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 16px;
+
+  line-height: 1.75;
+}
+
+
+/* Strong text */
+
+.auvd-music-donation-right-content strong {
+  color: #172b3a;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   RIGHT — IMAGE
+   ========================================================= */
+
+.auvd-music-donation-right-image {
+  grid-column: 2;
+
+  width: 100%;
+  height: 650px;
+
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background: #eeeeee;
+
+  position: relative;
+}
+
+
+.auvd-music-donation-right-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center center;
+
+  transition: transform 0.6s ease;
+}
+
+
+/*
+   Very small hover effect so the image
+   does not look excessively zoomed.
+*/
+
+.auvd-music-donation-right-image:hover img {
+  transform: scale(1.02);
+}
+
+
+/* =========================================================
+   DONATE BUTTON
+   ========================================================= */
+
+.auvd-music-donation-right-button {
+  width: fit-content;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-top: 18px;
+
+  padding: 14px 22px;
+
+  border: 2px solid #e88a16;
+
+  background: transparent;
+
+  color: #e88a16;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+
+  text-decoration: none;
+
+  text-transform: uppercase;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.auvd-music-donation-right-button span {
+  font-size: 20px;
+
+  line-height: 1;
+}
+
+
+.auvd-music-donation-right-button:hover {
+  background: #e88a16;
+
+  color: #ffffff;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1400px) {
+
+  .auvd-music-donation-right-container {
+    min-height: 700px;
+  }
+
+  .auvd-music-donation-right-image {
+    height: 700px;
+    min-height: 700px;
+  }
+
+  .auvd-music-donation-right-content {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .auvd-music-donation-right-container {
+    min-height: 600px;
+  }
+
+  .auvd-music-donation-right-content {
+    padding: 60px 40px;
+  }
+
+  .auvd-music-donation-right-image {
+    height: 600px;
+    min-height: 600px;
+  }
+
+  .auvd-music-donation-right-content h2 {
+    font-size: clamp(40px, 5.5vw, 58px);
+  }
+
+  .auvd-music-donation-right-intro {
+    font-size: 19px;
+  }
+
+  .auvd-music-donation-right-content
+  p:not(.auvd-music-donation-right-intro) {
+    font-size: 15px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .auvd-music-donation-right-container {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+
+  /* Content first */
+
+  .auvd-music-donation-right-content {
+    order: 1;
+
+    width: 100%;
+
+    padding: 60px 40px;
+  }
+
+
+  /* Image second */
+
+  .auvd-music-donation-right-image {
+    order: 2;
+
+    width: 100%;
+
+    height: 450px;
+
+    min-height: 450px;
+  }
+
+
+  .auvd-music-donation-right-image img {
+    object-position: center center;
+  }
+
+
+  .auvd-music-donation-right-content h2 {
+    font-size: clamp(40px, 7vw, 58px);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .auvd-music-donation-right-content {
+    order: 1;
+
+    padding: 48px 22px 55px;
+  }
+
+
+  .auvd-music-donation-right-image {
+    order: 2;
+
+    width: 100%;
+
+    height: 380px;
+
+    min-height: 380px;
+  }
+
+
+  .auvd-music-donation-right-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center center;
+  }
+
+
+  /* Label */
+
+  .auvd-music-donation-right-label {
+    font-size: 11px;
+
+    letter-spacing: 0.13em;
+
+    margin-bottom: 14px;
+  }
+
+
+  /* Heading */
+
+  .auvd-music-donation-right-content h2 {
+    font-size: clamp(36px, 11vw, 50px);
+
+    line-height: 1.05;
+  }
+
+
+  /* Orange line */
+
+  .auvd-music-donation-right-line {
+    width: 110px;
+
+    margin: 28px 0 25px;
+  }
+
+
+  /* Intro */
+
+  .auvd-music-donation-right-intro {
+    font-size: 18px;
+
+    line-height: 1.55;
+  }
+
+
+  /* Paragraphs */
+
+  .auvd-music-donation-right-content
+  p:not(.auvd-music-donation-right-intro) {
+    font-size: 15px;
+
+    line-height: 1.7;
+  }
+
+
+  /* Button */
+
+  .auvd-music-donation-right-button {
+    width: 100%;
+
+    margin-top: 10px;
+  }
+
+
+  /* Remove image zoom on touch devices */
+
+  .auvd-music-donation-right-image:hover img {
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .auvd-music-donation-right-content {
+    padding: 42px 18px 48px;
+  }
+
+
+  .auvd-music-donation-right-image {
+    height: 320px;
+
+    min-height: 320px;
+  }
+
+
+  .auvd-music-donation-right-content h2 {
+    font-size: 34px;
+  }
+
+
+  .auvd-music-donation-right-intro {
+    font-size: 17px;
+  }
+
+
+  .auvd-music-donation-right-content
+  p:not(.auvd-music-donation-right-intro) {
+    font-size: 14px;
+  }
+}
+
+
