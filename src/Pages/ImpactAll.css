@@ -141,7 +141,7 @@
 
 
 .logo-mark {
-	color: #f5a623;
+	color:  #ff6600;
 	font-size: 20px;
 	line-height: 1;
 }
@@ -186,7 +186,7 @@
 
 
 .impact-nav-links li a:hover {
-	color: #f5a623;
+	color: #ff6600;
 }
 
 
@@ -217,7 +217,7 @@
 
 	border-radius: 999px;
 
-	background: #f5a623;
+	background:  #ff6600;
 	color: #111;
 
 	text-decoration: none;
@@ -239,10 +239,10 @@
 .impact-donate-btn:hover {
 	transform: translateY(-2px);
 
-	background: #ffb52e;
+	background: #ff6600;
 
 	box-shadow:
-		0 8px 20px rgba(245, 166, 35, 0.25);
+		0 8px 20px rgba(255, 102, 0, 0.25);
 }
 
 
@@ -300,7 +300,7 @@
 
 
 .impact-text h1 em {
-	color: #f5a623;
+	color: #ff6600;
 
 	font-style: italic;
 }
@@ -378,16 +378,16 @@
 /* Primary */
 
 .btn-primary {
-	background: #f5a623;
+	background:   #ff6600;
 	color: #111;
 }
 
 
 .btn-primary:hover {
-	background: #ffb52e;
+	background:  #ff6600;
 
 	box-shadow:
-		0 10px 24px rgba(245, 166, 35, 0.25);
+		0 10px 24px rgba(255, 102, 0, 0.25);
 }
 
 
@@ -977,7 +977,7 @@
 
   margin-bottom: 16px;
 
-  color: #e88a16;
+  color: #ff6600;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -1014,7 +1014,7 @@
 }
 
 .auvd-music-donation-content h2 span {
-  color: #e88a16;
+  color: #ff6600;
 }
 
 .auvd-music-donation-line {
@@ -1023,7 +1023,7 @@
 
   margin: 38px 0 34px;
 
-  background: #e88a16;
+  background: #ff6600;
 }
 
 .auvd-music-donation-intro {
@@ -1080,11 +1080,11 @@
 
   padding: 14px 22px;
 
-  border: 2px solid #e88a16;
+  border: 2px solid #ff6600;
 
   background: transparent;
 
-  color: #e88a16;
+  color: #ff6600;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -1110,7 +1110,7 @@
 }
 
 .auvd-music-donation-button:hover {
-  background: #e88a16;
+  background: #ff6600;
   color: #ffffff;
 
   transform: translateY(-2px);
@@ -1335,7 +1335,7 @@
 
   margin-bottom: 16px;
 
-  color: #e88a16;
+  color: #ff6600;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -1378,7 +1378,7 @@
 
 
 .auvd-music-donation-right-content h2 span {
-  color: #e88a16;
+  color: #ff6600;
 }
 
 
@@ -1392,7 +1392,7 @@
 
   margin: 38px 0 34px;
 
-  background: #e88a16;
+  background: #ff6600;
 }
 
 
@@ -1508,11 +1508,11 @@ p:not(.auvd-music-donation-right-intro) {
 
   padding: 14px 22px;
 
-  border: 2px solid #e88a16;
+  border: 2px solid #ff6600;
 
   background: transparent;
 
-  color: #e88a16;
+  color: #ff6600;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -1541,7 +1541,7 @@ p:not(.auvd-music-donation-right-intro) {
 
 
 .auvd-music-donation-right-button:hover {
-  background: #e88a16;
+  background:  #ff6600;
 
   color: #ffffff;
 
