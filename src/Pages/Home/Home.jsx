@@ -12,6 +12,7 @@ import {
 } from "./data";
 import DanceSection from "./sections/DanceSection/DanceSection";
 import FeaturedVideo from "./sections/FeaturedVideo/FeaturedVideo";
+import GrantNews from "./sections/GrantNews/GrantNews";
 import Hero from "./sections/Hero/Hero";
 import ImpactStatsSection from "./sections/ImpactStatsSection/ImpactStatsSection";
 import NeedSection from "./sections/NeedSection/NeedSection";
@@ -32,6 +33,7 @@ function Home() {
   return ( 
     <> 
       <Hero navigate={navigate} heroTitleParts={heroTitleParts} slides={slides} />
+      <GrantNews />
       <FeaturedVideo partnerLinks={partnerLinks} />
       <ImpactHighlights />
       <WhoWeAre />

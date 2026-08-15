@@ -19,6 +19,7 @@ import Team from "./Pages/Team";
 import OurStory from "./Pages/OurStory";
 import Music from "./Pages/programs/Music";
 import ImpactAll from "./Pages/ImpactAll";
+import DaddarioCommunityMusicGrant from "./Pages/DaddarioCommunityMusicGrant";
 
 import Vocational from "./Pages/programs/Vocational";
  
@@ -54,8 +55,10 @@ function App() {
             <Route path="/donate" element={<Donate />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/impact" element={<ImpactAll />} />
-           
-
+            <Route
+              path="/news/daddario-community-music-grant"
+              element={<DaddarioCommunityMusicGrant />}
+            />
 
             <Route path="/dance" element={<Dance />} />
             <Route path="/Music" element={<Music />} />
