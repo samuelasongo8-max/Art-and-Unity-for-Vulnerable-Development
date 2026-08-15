@@ -70,7 +70,7 @@ const ImpactAll = () => {
         <div className="auvd-music-donation-content">
 
           <span className="auvd-music-donation-label">
-            OUR MUSIC JOURNEY
+            OUR MUSIC JOURNEY || ||
           </span>
          
           <h2>
@@ -133,7 +133,7 @@ const ImpactAll = () => {
     <div className="auvd-music-donation-right-content">
 
       <span className="auvd-music-donation-right-label">
-        Continued Support
+        Continued Support || ||
       </span>
 
       <h2>
