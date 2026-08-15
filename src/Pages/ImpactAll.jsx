@@ -61,7 +61,7 @@ const ImpactAll = () => {
         {/* LEFT — IMAGE */}
         <div className="auvd-music-donation-image">
           <img
-            src="/public/donation-5.jpg"
+            src="/donation-5.jpg"
             alt="Young people learning and playing music in Kakuma"
           />
         </div>
@@ -174,7 +174,7 @@ const ImpactAll = () => {
     {/* RIGHT — IMAGE */}
     <div className="auvd-music-donation-right-image">
       <img
-        src="public/donation-4.jpg"
+        src="/donation-4.jpg"
         alt="Young people learning and playing music in Kakuma"
       />
     </div>

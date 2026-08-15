@@ -13,31 +13,31 @@ const donations = [
 
 
 
-    img: "/public/donation-1.jpg", 
+    img: "donation-1.jpg", 
   },
   {
     tag: "Partnership",
     title: "Continuing the Support",
     text: " Later in 2025, through the support of the Transylvanian Symphony Foundation in partnership with Hungry for Music,.",
-    img: "/public/donation-2.jpg",
+    img: "/donation-2.jpg",
   },
   {
     tag: "Community",
     title: "Music Reaches Every Corner",
     text: "Dozens of children and youth gathered with their new instruments, from violins to keyboards, ready to start learning together.",
-    img: "/public/donation-3.jpg",
+    img: "/donation-3.jpg",
   },
   {
     tag: "First Notes",
     title: "A New Ukulele, A New Start",
     text: "For many children, this was the first instrument they had ever held. Small moments like this build confidence and joy.",
-    img: "/public/donation-4.jpg",
+    img: "/donation-4.jpg",
   },
   {
     tag: "Celebration",
     title: "Certificates and Gratitude",
     text: "The donation was marked with a small ceremony, honoring the partnership that made the new music program possible.",
-    img: "/public/donation-5.jpg",
+    img: "/donation-5.jpg",
   },
 
 
