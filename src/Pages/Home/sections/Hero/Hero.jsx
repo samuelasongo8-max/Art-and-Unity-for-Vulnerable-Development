@@ -4,57 +4,22 @@ import "./Hero.css";
 function Hero({ navigate, heroTitleParts, slides }) {
   const heroTitleFull = `${heroTitleParts.before}${heroTitleParts.highlight}${heroTitleParts.after}`;
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [typedChars, setTypedChars] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
   // Slideshow rotation
   useEffect(() => {
     const interval = window.setInterval(() => {
       setCurrentSlide((previous) => (previous === slides.length - 1 ? 0 : previous + 1));
-    }, 4000);
+    }, 10000);
 
     return () => window.clearInterval(interval);
   }, [slides.length]);
-
-  // Typing effect
-  useEffect(() => {
-    let typingInterval;
-    const startDelay = window.setTimeout(() => {
-      typingInterval = window.setInterval(() => {
-        setTypedChars((previous) => {
-          if (previous >= heroTitleFull.length) {
-            window.clearInterval(typingInterval);
-            return previous;
-          }
-          return previous + 1;
-        });
-      }, 55);
-    }, 250);
-
-    return () => {
-      window.clearTimeout(startDelay);
-      window.clearInterval(typingInterval);
-    };
-  }, [heroTitleFull.length]);
 
   // Entrance fade-in, matching AUVD hero timing
   useEffect(() => {
     const t = window.setTimeout(() => setLoaded(true), 60);
     return () => window.clearTimeout(t);
   }, []);
-
-  const beforeLength = heroTitleParts.before.length;
-  const highlightLength = heroTitleParts.highlight.length;
-  const typedBefore = heroTitleParts.before.slice(0, Math.min(typedChars, beforeLength));
-  const typedHighlight = heroTitleParts.highlight.slice(
-    0,
-    Math.max(0, Math.min(typedChars - beforeLength, highlightLength))
-  );
-  const typedAfter = heroTitleParts.after.slice(
-    0,
-    Math.max(0, typedChars - beforeLength - highlightLength)
-  );
-  const isTypingComplete = typedChars >= heroTitleFull.length;
 
   return (
     <header
@@ -64,16 +29,10 @@ function Hero({ navigate, heroTitleParts, slides }) {
       <div className="auvd-content">
         <span className="auvd-white"> Art &amp; Unity for Vulnerable Development</span>
 
-        <h1 className="auvd-headline typing-text" aria-label={heroTitleFull}>
-          {typedBefore}
-          <em>{typedHighlight}</em>
-          {typedAfter}
-          <span
-            className={`typing-cursor${isTypingComplete ? " is-complete" : ""}`}
-            aria-hidden="true"
-          >
-            |
-          </span>
+        <h1 className="auvd-headline" aria-label={heroTitleFull}>
+          {heroTitleParts.before}
+          <em>{heroTitleParts.highlight}</em>
+          {heroTitleParts.after}
         </h1>
 
         <p className="auvd-sub">
@@ -105,7 +64,7 @@ function Hero({ navigate, heroTitleParts, slides }) {
           <button className="auvd-cta-secondary" onClick={() => navigate("/dance")} type="button">
             Community dance
           </button>
-        </div>
+        </div>   
 
         <ul className="auvd-social-links" aria-label="Social media links">
           <li>

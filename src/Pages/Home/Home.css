@@ -55,17 +55,6 @@
   height: 40px;
 }
 
-.typing-cursor {
-  display: inline-block;
-  margin-left: 0.12em;
-  animation: blink 1s step-end infinite;
-}
-
-.typing-cursor.is-complete {
-  animation: none;
-  opacity: 0;
-}
-
 @keyframes wave {
   0%,
   100% {
@@ -77,15 +66,8 @@
   }
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .walking-text span,
-  .typing-cursor {
+  .walking-text span {
     animation: none !important;
   }
 }

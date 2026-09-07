@@ -1,6 +1,5 @@
 import kibodiii from "../../assets/kibodiii-lite.webp";
 import slide5 from "../../img/slides/5.webp";
-import slide6 from "../../img/slides/6.webp";
 import slide7 from "../../img/slides/7.webp";
 
 export const heroTitleParts = {
@@ -11,8 +10,9 @@ export const heroTitleParts = {
 
 export const slides = [
   { image: slide5, title: "Awesome Design" },
-  { image: slide6, title: "Fully Responsive" },
+  { image: "/Background%20image%20AUVD1.jpg", title: "AUVD" },
   { image: slide7, title: "Multi-purpose Theme" },
+  { image: "/Background%20image%20AUVD2.jpg", title: "AUVD" },
 ];
 
 export const partnerLinks = {

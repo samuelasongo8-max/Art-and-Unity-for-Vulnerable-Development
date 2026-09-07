@@ -90,9 +90,14 @@
   display: inline-block;
 }
 
+.auvd-white {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
 /* ---------- TITLE ---------- */
 .auvd-headline {
-  font-family: "Fraunces", "Manrope", Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
   font-weight: 600;
   font-size: clamp(2.4rem, 5.4vw, 4.2rem);
   line-height: 1.05;
@@ -112,6 +117,7 @@
 
 /* ---------- DESCRIPTION ---------- */
 .auvd-sub {
+  font-family: "Cormorant Garamond", Georgia, serif;
   color: rgba(255, 255, 255, 0.85);
   font-size: 17px;
   line-height: 1.65;
@@ -137,6 +143,7 @@
 }
 
 .auvd-cta {
+  font-family: "Cormorant Garamond", Georgia, serif;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -169,6 +176,7 @@
 }
 
 .auvd-cta-secondary {
+  font-family: "Cormorant Garamond", Georgia, serif;
   background: transparent;
   color: #fff;
   font-weight: 600;
@@ -192,23 +200,6 @@
 .auvd-hero.is-loaded .auvd-cta-row {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* ---------- TYPING CURSOR ---------- */
-.typing-cursor {
-  color: var(--orange);
-  animation: auvd-blink 0.8s infinite;
-}
-
-.typing-cursor.is-complete {
-  opacity: 0;
-  animation: none;
-}
-
-@keyframes auvd-blink {
-  50% {
-    opacity: 0;
-  }
 }
 
 /* ---------- SOCIAL MEDIA ---------- */

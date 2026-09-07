@@ -97,6 +97,16 @@ function Team() {
                   </svg>
                 </div>
               </a>
+              {member.name === "Samuel Asongo" && (
+                <a
+                  className="btn btn-primary samuel-portfolio-btn"
+                  href="https://samuel-portiforlio.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Portfolio
+                </a>
+              )}
               <h3 className="team-name">{member.name}</h3>
               <span className="team-role">{member.role}</span>
             </div>

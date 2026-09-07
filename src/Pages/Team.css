@@ -155,6 +155,21 @@
     transform: translateX(2px);
 }
 
+.auvd-team-page .samuel-portfolio-btn {
+    align-self: flex-start;
+    padding: 6px 14px;
+    font-size: 12px;
+    border: 1px solid var(--brand-primary, #e8826d);
+    border-radius: 0;
+    background: transparent;
+    color: var(--brand-primary, #e8826d);
+}
+
+.auvd-team-page .samuel-portfolio-btn:hover {
+    background: var(--brand-primary, #e8826d);
+    color: #ffffff;
+}
+
 /* Typography Elements */
 .auvd-team-page .team-name {
     font-size: clamp(1rem, 1.5vw, 17px);
