@@ -5,21 +5,18 @@
    ========================================================================== */
 :root {
   --font-sans: 'Plus Jakarta Sans', sans-serif;
-  
-  /* Premium Palette Tokens */
+
   --brand-primary: #ff6600;
   --brand-primary-hover: #ff6600;
- 
-  
+
   --text-main: #0f172a;
   --text-muted: #475569;
   --text-light: #94a3b8;
-  
+
   --bg-main: #ffffff;
   --bg-surface: #f8fafc;
   --border-color: #e2e8f0;
-  
-  /* Structural Geometry */
+
   --radius-sm: 6px;
   --radius-md: 12px;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -44,14 +41,13 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: rgba(15, 23, 42, 0.15);
+  background-color: rgba(47, 86, 179, 0.15);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: var(--transition-smooth);
 }
 
-/* Scroll Class State Mapping Triggered via Hook */
 .navbar.scrolled {
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
@@ -102,8 +98,7 @@
   display: inline-flex;
   align-items: center;
   font-size: 1em;
-  
-   font-family: "Murecho", sans-serif;
+  font-family: "Murecho", sans-serif;
   line-height: 1;
   margin-left: -1px;
   color: #2e5cdac0;
@@ -111,15 +106,13 @@
 
 .logo-text span {
   font-size: 1em;
-   color:#ff6600;
-   font-family: "Murecho", sans-serif;
-   font-weight: 600;
+  color: #ff6600;
+  font-family: "Murecho", sans-serif;
+  font-weight: 600;
 }
 
-
-
 .logo-dot {
-  color:#ff6600;
+  color: #ff6600;
   font-size: 1em;
   font-weight: 900;
   line-height: 1;
@@ -167,7 +160,7 @@
   color: var(--text-muted);
 }
 
-.navbar.scrolled .nav-link:hover, 
+.navbar.scrolled .nav-link:hover,
 .navbar.scrolled .nav-link.active {
   color: var(--brand-primary);
 }
@@ -194,6 +187,7 @@
   cursor: pointer;
   border: 1px solid transparent;
   white-space: nowrap;
+  color: white;
 }
 
 .btn-primary {
@@ -206,7 +200,24 @@
 .btn-primary.active {
   background-color: #ff6600;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  
+}
+
+/* Donate button — orange background, white text */
+.donate-btn {
+  background-color: #ff6600;
+  color: #ffffff;
+  border: 1px solid #ff6600;
+  padding: 10px 20px;
+}
+
+.donate-btn:hover,
+.donate-btn.active {
+  background-color: #ff6600;
+  color: #ffffff;
+  border-color: #ff6600;
+  transform: translateY(-1px);
+ 
 }
 
 /* ==========================================================================
@@ -362,14 +373,13 @@
   text-transform: uppercase;
   border-radius: 4px;
   cursor: pointer;
-  display: none; /* Hidden on desktop for clean visual focus inline scaling */
+  display: none;
 }
 
 .nav-search-shell:focus-within .nav-search-button {
   display: block;
 }
 
-/* Result Overlay Popover Blocks */
 .nav-search-results {
   position: absolute;
   top: calc(100% + 12px);
@@ -461,12 +471,11 @@
     display: block;
     z-index: 120;
   }
-  
-  /* Toggle icon color optimization when panel draws on mobile */
+
   .menu-toggle.nav-open {
     color: var(--text-main) !important;
   }
-  
+
   .main-nav,
   .nav-links {
     position: fixed;
@@ -484,11 +493,11 @@
     transition: var(--transition-smooth);
     overflow-y: auto;
   }
-  
+
   .nav-links.open {
     right: 0;
   }
-  
+
   .nav-link {
     font-size: 16px;
     display: block;
@@ -497,11 +506,11 @@
     padding: 8px 0;
     text-align: left;
   }
-  
+
   .nav-link:hover {
     color: #ff6600;
   }
-  
+
   .nav-actions {
     flex-direction: column;
     align-items: stretch;
@@ -511,29 +520,29 @@
     padding-top: 24px;
     margin-top: 12px;
   }
-  
+
   .nav-search-shell {
     width: 100%;
     background-color: var(--bg-surface);
     border-color: var(--border-color);
   }
-  
+
   .nav-search-shell:focus-within {
     width: 100%;
   }
-  
+
   .nav-search-input {
     color: var(--text-main);
   }
-  
+
   .nav-search-icon {
     color: var(--text-light);
   }
-  
+
   .nav-search-button {
-    display: block; /* Persistently viewable on mobile viewports */
+    display: block;
   }
-  
+
   .nav-search-results {
     width: 100%;
     position: static;
@@ -541,14 +550,13 @@
     box-shadow: none;
     border-color: var(--border-color);
   }
-  
+
   .donate-btn {
     width: 100%;
     padding: 12px;
     text-align: center;
   }
 
-  /* Structural stacking transformations for About dropdown on mobile */
   .dropdown-menu {
     position: static;
     opacity: 1;
@@ -564,7 +572,7 @@
     width: 100%;
     gap: 4px;
   }
-  
+
   .nav-dropdown.open .dropdown-menu {
     display: flex;
   }

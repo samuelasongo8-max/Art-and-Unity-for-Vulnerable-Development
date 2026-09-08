@@ -156,8 +156,9 @@
 	max-width: 720px;
 	margin: 22px 0 0;
 	color: rgba(255, 255, 255, 0.91);
-	font-size: 1.05rem;
-	line-height: 1.8;
+	font-size: 1.5rem;
+	font-weight: 600;
+	line-height: 1.45;
 	overflow-wrap: anywhere;
 }
 
@@ -526,8 +527,8 @@
 
 	.work-lead {
 		margin-top: 17px;
-		font-size: 0.94rem;
-		line-height: 1.7;
+		font-size: 1.1rem;
+		line-height: 1.5;
 	}
 
 	.work-hero-highlights {

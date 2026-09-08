@@ -252,8 +252,9 @@
 	padding: 0.4rem 1.1rem;
 	border-left: 6px solid lch(59.01% 72.48 55.58);
 	border-right: 6px solid lch(59.01% 72.48 55.58);
-	font-size: clamp(1rem, 1.6vw, 1.14rem);
-	line-height: 1.85;
+	font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+	font-weight: 600;
+	line-height: 1.45;
 	color: rgba(255, 247, 238, 0.88);
 	text-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
 }
@@ -831,7 +832,8 @@
 	}
 
 	.events-intro {
-		line-height: 1.7;
+		font-size: 1.1rem;
+		line-height: 1.5;
 	}
 
 	.events-feature {

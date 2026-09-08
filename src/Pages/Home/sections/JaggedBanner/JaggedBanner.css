@@ -1,0 +1,48 @@
+.ss-banner-wrapper {
+  line-height: 0;
+}
+
+.ss-banner-divider {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+
+.ss-banner-purple {
+  padding: 40px 20px;
+  background: #ff6600;
+  text-align: center;
+}
+
+.ss-banner-purple p {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(18px, 2.65vw, 34px);
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .ss-banner-purple {
+    padding: 32px 20px;
+  }
+
+  .ss-banner-purple p {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ss-banner-divider {
+    height: 28px;
+  }
+
+  .ss-banner-purple {
+    padding: 26px 16px;
+  }
+
+  .ss-banner-purple p {
+    font-size: 18px;
+  }
+}

@@ -123,11 +123,11 @@
 	letter-spacing: -0.04em;
 }
 
-.portfolio-lead,
-.portfolio-support-note {
+.portfolio-lead {
 	color: rgba(255, 247, 238, 0.88);
-	font-size: 1.04rem;
-	line-height: 1.85;
+	font-size: 1.5rem;
+	font-weight: 600;
+	line-height: 1.45;
 	overflow-wrap: break-word;
 }
 
@@ -561,14 +561,13 @@
 	}
 
 	.portfolio-lead,
-	.portfolio-support-note,
 	.portfolio-panel-row strong,
 	.portfolio-panel-metrics p,
 	.portfolio-card p,
 	.portfolio-story-copy p,
 	.portfolio-cta-strip p {
-		font-size: 0.98rem;
-		line-height: 1.75;
+		font-size: 1.1rem;
+		line-height: 1.5;
 	}
 }
 

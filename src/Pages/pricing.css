@@ -317,6 +317,12 @@
     font-size: 0.98rem;
     line-height: 1.72;
   }
+
+  .section-intro,
+  .approach-intro {
+    font-size: 1.08rem;
+    line-height: 1.5;
+  }
 }
 
 @media (max-width: 480px) {
@@ -402,8 +408,9 @@
 
 .section-intro,
 .approach-intro {
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.5;
   margin-bottom: 30px;
 }
 
