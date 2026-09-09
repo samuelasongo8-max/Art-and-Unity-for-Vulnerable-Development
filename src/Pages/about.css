@@ -230,8 +230,8 @@ FOUNDED CARD
     color:rgba(255,255,255,.92);
 
     line-height:1.7;
-
-    font-size:.95rem;
+    font-size: 1.08rem;
+  font-family: "Inter", sans-serif;
 
 
 /*==================================
@@ -280,8 +280,6 @@ SECTION LABELS
 
     color:var(--accent);
 
-    font-size:.8rem;
-
     font-weight:800;
 
     letter-spacing:.18em;
@@ -289,6 +287,9 @@ SECTION LABELS
     text-transform:uppercase;
 
     margin-bottom:18px;
+
+    font-size: 1.08rem;
+  font-family: "Inter", sans-serif;
 
 }
 
@@ -472,7 +473,6 @@ MISSION SECTION
 
 .child h2{
 
-    font-size:2rem;
 
     font-weight:800;
 
@@ -484,6 +484,9 @@ MISSION SECTION
 
     line-height:1.2;
 
+
+    font-size: 1.08rem;
+   
 }
 
 .child p{
@@ -493,7 +496,8 @@ MISSION SECTION
     font-size:1rem;
 
     line-height:1.8;
-
+font-size: 1.08rem;
+  font-family: "Inter", sans-serif;
 }
 
 /*==============================
@@ -526,7 +530,7 @@ LEFT SIDE
 
 .about-story-copy h2{
 
-    font-size:clamp(2.3rem,4vw,3.5rem);
+ 
 
     font-weight:800;
 
@@ -537,6 +541,9 @@ LEFT SIDE
     color:var(--accent);
 
     margin-bottom:25px;
+
+    font-size: 1.08rem;
+ 
 
 }
 

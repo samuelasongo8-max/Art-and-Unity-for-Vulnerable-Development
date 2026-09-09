@@ -52,6 +52,26 @@ function FeaturedVideo({ partnerLinks, eventsOpen, setEventsOpen }) {
 
   return (
     <>
+      <section className="peace-week-video-section">
+        <div className="peace-week-video-heading">
+          <h2>Vel Lewis Debuts New Music And Shares His Global Journey</h2>
+          <p>
+            Partnership with Art and Unity for Vulnerable Development (AUVD) and how we
+            organized Youth Peace Week workshops.
+          </p>
+        </div>
+
+        <div className="peace-week-video-container">
+          <iframe
+            src="https://www.youtube.com/embed/SmUvSuejKjE?start=382"
+            title="Vel Lewis Debuts New Music And Shares His Global Journey"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </section>
+
       {/* Section 1: Featured Video */}
       <section className="video-section">
         <div ref={sectionRef} className="video video-animated">

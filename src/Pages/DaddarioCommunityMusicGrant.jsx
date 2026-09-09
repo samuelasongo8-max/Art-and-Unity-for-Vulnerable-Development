@@ -102,8 +102,8 @@ In-Kind Music Products
     {/* RIGHT — IMAGE */}
     <div className="auvd-music-donation-right-image">
       <img
-        src="public/Back20.jpg"
-        alt=" AUVD Grant from D'Addario Foundation"
+        src="/Back20.jpg"
+        alt="AUVD Grant from D'Addario Foundation"
       />
     </div>
 
