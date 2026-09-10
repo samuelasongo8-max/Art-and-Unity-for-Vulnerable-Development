@@ -104,12 +104,10 @@ function Blogs() {
         <div className="blogs-hero-inner">
           <div className="blogs-editorial-header">
            <div className="blogs-editorial-copy">
-  <p className="blogs-eyebrow">Music Instrument Donations:</p>
-  <h1 id="blogs-heading" className="blogs-heading">Music That Reached Kakuma</h1>
+  {/* <p className="blogs-eyebrow">Music Instrument Donations:</p> */}
+  <h1 id="blogs-heading" className="blogs-heading">Stories of Creativity, Hope & Impact</h1>
   <p className="blogs-intro">
-    Our music education journey grew through the generosity of partners who believed
-    that every young person deserves an opportunity to learn, create, and express
-    themselves through music.
+    Discover stories from AUVD’s work in Kakuma and beyond. Explore moments of creativity, music, peacebuilding, education, and community empowerment—and see how art and opportunity are helping children and young people build confidence, connection, and a brighter future.
   </p>
    <Link className="blogs-view-all" to="/news/daddario-community-music-grant">
               View All <span aria-hidden="true">→</span>
@@ -122,7 +120,6 @@ function Blogs() {
     </div>
   </section>
     
-
       <section className="blogs-editorial" aria-labelledby="blogs-heading">
         <div className="blogs-carousel-heading">
           <div className="blogs-progress" aria-hidden="true">
@@ -163,6 +160,7 @@ function Blogs() {
             ))}
           </div>
         </div>
+        
 
       </section>
     </main>
