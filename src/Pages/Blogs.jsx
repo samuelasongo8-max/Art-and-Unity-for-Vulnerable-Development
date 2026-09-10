@@ -100,33 +100,40 @@ function Blogs() {
 
   return (
     <main className="blogs-page">
+      <section className="blogs-hero" aria-labelledby="blogs-heading">
+        <div className="blogs-hero-inner">
+          <div className="blogs-editorial-header">
+           <div className="blogs-editorial-copy">
+  <p className="blogs-eyebrow">Music Instrument Donations:</p>
+  <h1 id="blogs-heading" className="blogs-heading">Music That Reached Kakuma</h1>
+  <p className="blogs-intro">
+    Our music education journey grew through the generosity of partners who believed
+    that every young person deserves an opportunity to learn, create, and express
+    themselves through music.
+  </p>
+   <Link className="blogs-view-all" to="/news/daddario-community-music-grant">
+              View All <span aria-hidden="true">→</span>
+            </Link>
+</div>
+
+  
+  
+  </div>
+    </div>
+  </section>
+    
+
       <section className="blogs-editorial" aria-labelledby="blogs-heading">
-        <div className="blogs-editorial-header">
-          <div className="blogs-editorial-copy">
-            <p className="blogs-eyebrow">Music Instrument Donations:</p>
-            <h1 id="blogs-heading">Music That Reached Kakuma</h1>
-            <p className="blogs-intro">
-              Our music education journey grew through the generosity of partners who believed
-              that every young person deserves an opportunity to learn, create, and express
-              themselves through music.
-            </p>
-          </div>
-
-          <Link className="blogs-view-all" to="/news/daddario-community-music-grant">
-            View All <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-
         <div className="blogs-carousel-heading">
           <div className="blogs-progress" aria-hidden="true">
             <span style={{ width: `${((currentIndex + 1) / (lastIndex + 1)) * 100}%` }} />
           </div>
           <div className="blogs-carousel-controls" aria-label="Carousel controls">
             <button
-              type="button"
+              type="button"  
               className="blogs-carousel-button"
               onClick={showPrevious}
-              disabled={currentIndex === 0}
+              disabled={currentIndex === 0}   
               aria-label="Previous stories"
             >
               <span aria-hidden="true">←</span> Previous
@@ -142,7 +149,6 @@ function Blogs() {
             </button>
           </div>
         </div>
-
         <div className="blogs-carousel" aria-live="polite">
           <div className="blogs-carousel-track" style={{ "--blogs-index": currentIndex }}>
             {musicStories.map((story) => (
@@ -157,6 +163,7 @@ function Blogs() {
             ))}
           </div>
         </div>
+
       </section>
     </main>
   );

@@ -9,42 +9,77 @@
 .blogs-page {
   min-height: 100vh;
   overflow-x: hidden;
-  padding: clamp(4rem, 8vw, 7.5rem) 0 clamp(5rem, 10vw, 9rem);
   background: white;
   color: #0b3d91;
+}
+
+.blogs-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  min-height: 72vh;
+  background-image: url("/music-bg-desktop.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.blogs-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 19, 35, 0.72) 0%,
+    rgba(7, 19, 35, 0.58) 30%,
+    rgba(7, 19, 35, 0.24) 100%
+  );
+}
+
+.blogs-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1260px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(4rem, 7vw, 6rem);
 }
 
 .blogs-editorial {
   width: min(1260px, calc(100% - 2.5rem));
   margin: 0 auto;
+  padding: clamp(4rem, 8vw, 7.5rem) 0 clamp(5rem, 10vw, 9rem);
 }
 
 .blogs-editorial-header {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 2rem;
 }
 
 .blogs-editorial-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   max-width: 730px;
 }
 
 .blogs-eyebrow {
   margin: 0 0 0.55rem;
-  color: #0b3d91;
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-size: clamp(1.15rem, 2vw, 1.55rem);
   font-weight: 700;
   line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
-.blogs-editorial h1 {
+.blogs-heading {
   margin: 0;
-  color: #0b3d91;
+  color: #ffffff;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(3.5rem, 7vw, 6.6rem);
-  font-style: italic;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 0.92;
@@ -53,7 +88,7 @@
 .blogs-intro {
   max-width: 650px;
   margin: 1.6rem 0 0;
-  color: #0b3d91;
+  color: #f0f5fb;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   line-height: 1.75;
@@ -61,27 +96,35 @@
 
 .blogs-view-all {
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
+  justify-content: center;
   gap: 0.8rem;
   min-height: 46px;
+  width: fit-content;
+  margin-top: 1.8rem;
   padding: 0.7rem 1.1rem;
   border-radius: 8px;
-  background:#0b3d91;
-  color: white;
+  background: transparent;
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
-  transition: background 180ms ease, transform 180ms ease;
+  transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.blogs-view-all:hover,
+.blogs-view-all:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .blogs-carousel-heading {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 2rem;
-margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
 }
 
 .blogs-progress {
@@ -109,10 +152,10 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
   gap: 0.45rem;
   min-height: 42px;
   padding: 0 0.9rem;
-  border: 0;
+  border: 1.5px solid blue;
   border-radius: 7px;
-  background: var(--blogs-navy);
-  color: #fff;
+  background: transparent;
+  color: blue;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
@@ -122,7 +165,7 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
 
 .blogs-carousel-button:hover:not(:disabled),
 .blogs-carousel-button:focus-visible:not(:disabled) {
-  background: #1b477b;
+  background: rgba(0, 0, 255, 0.08);
   transform: translateY(-2px);
 }
 
@@ -166,7 +209,7 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
   display: inline-block;
   padding: 0.42rem 0.65rem;
   border-radius: 4px;
-  background: var(--blogs-navy);
+  background:rgb(11, 86, 224);
   color: #fff;
   font-family: "Poppins", sans-serif;
   font-size: 0.68rem;
@@ -178,7 +221,7 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
 
 .blogs-story-card h2 {
   margin: 1rem 0 0.6rem;
-  color: var(--blogs-navy);
+  color: #000;
   font-family: "Poppins", sans-serif;
   font-size: clamp(1.1rem, 1.7vw, 1.45rem);
   font-weight: 700;
@@ -189,7 +232,7 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
   display: -webkit-box;
   overflow: hidden;
   margin: 0;
-  color: var(--blogs-muted);
+  color: #000;
   font-family: "Poppins", sans-serif;
   font-size: 0.86rem;
   line-height: 1.7;
@@ -199,7 +242,7 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
 
 .blogs-view-all:focus-visible,
 .blogs-carousel-button:focus-visible {
-  outline: 3px solid rgba(245, 166, 35, 0.55);
+  outline: 3px solid rgba(255, 118, 6, 0.89);
   outline-offset: 3px;
 }
 
@@ -210,6 +253,11 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
 }
 
 @media (max-width: 640px) {
+  .blogs-hero {
+    min-height: 62vh;
+  }
+
+  .blogs-hero-inner,
   .blogs-editorial {
     width: min(100% - 2rem, 520px);
   }
@@ -218,12 +266,19 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
     display: block;
   }
 
-  .blogs-editorial h1 {
+  .blogs-editorial-copy {
+    align-items: stretch;
+  }
+
+  .blogs-heading {
     font-size: clamp(3.2rem, 15vw, 5rem);
   }
 
   .blogs-view-all {
+    width: 100%;
     margin-top: 1.5rem;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.88rem;
   }
 
   .blogs-carousel-heading {
@@ -251,5 +306,9 @@ margin: clamp(3rem, 7vw, 6rem) 0 1.25rem;
   .blogs-view-all,
   .blogs-carousel-button {
     transition: none;
+  }
+
+  .blogs-hero {
+    background-attachment: scroll;
   }
 }
