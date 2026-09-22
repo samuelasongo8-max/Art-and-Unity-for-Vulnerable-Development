@@ -6,13 +6,16 @@ import "./Navbar.css";
 const searchEntries = [
   { path: "/", title: "Home", description: "Main homepage and introduction to AUVD", keywords: ["home", "welcome", "art", "innovation", "communities", "kakuma"] },
   { path: "/about", title: "About Us", description: "Mission, vision, and overview of the organization", keywords: ["about", "mission", "vision", "organization", "auvd"] },
-  { path: "/about/story", title: "Our Story", description: "How AUVD began and the story behind the organization", keywords: ["story", "history", "began", "hope", "creativity"] },
+  { path: "/our-impact/our-story", title: "Our Story", description: "How AUVD began and the story behind the organization", keywords: ["story", "history", "began", "hope", "creativity"] },
   { path: "/about/team", title: "Leadership", description: "Meet the team and leadership behind AUVD", keywords: ["team", "leadership", "staff", "people", "members"] },
   { path: "/work", title: "Our Work", description: "Programs, community impact, and organizational work", keywords: ["work", "programs", "impact", "projects", "community"] },
   { path: "/events", title: "Events", description: "Youth Peace Week, music workshops, and recent events", keywords: ["events", "music", "workshops", "mental health", "teachers day", "food day", "youth peace week"] },
-  { path: "/blogs", title: "Blogs", description: "Stories, updates, reflections, and community highlights from AUVD", keywords: ["blogs", "blog", "stories", "updates", "articles", "community"] },
+  { path: "/our-impact/blogs", title: "Blogs", description: "Stories, updates, reflections, and community highlights from AUVD", keywords: ["blogs", "blog", "stories", "updates", "articles", "community"] },
   { path: "/portfolio", title: "Outreach", description: "Gallery and portfolio of work and activities", keywords: ["portfolio", "gallery", "photos", "projects", "showcase"] },
   { path: "/pricing", title: "Education", description: "Service pricing and support options", keywords: ["pricing", "plans", "fees", "services", "cost"] },
+  { path: "/our-impact", title: "Our Impact", description: "News, blogs and reports from AUVD", keywords: ["impact", "our impact", "reports", "news", "blog", "blogs"] },
+  { path: "/our-impact/news", title: "Impact News", description: "Latest news and updates from AUVD", keywords: ["news", "updates", "impact", "announcements"] },
+  { path: "/our-impact/report", title: "Impact Reports", description: "Annual and project reports published by AUVD", keywords: ["report", "reports", "annual", "financials", "results"] },
   { path: "/donate", title: "Donate", description: "Support the organization through donations", keywords: ["donate", "support", "fund", "give", "contribute"] },
   { path: "/contact", title: "Contact", description: "Get in touch with AUVD", keywords: ["contact", "email", "reach", "message", "phone"] },
   { path: "/dance", title: "Dance Program", description: "Dance activities and creative movement program", keywords: ["dance", "movement", "performance", "creative arts"] },
@@ -26,6 +29,8 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutMenuPinned, setAboutMenuPinned] = useState(false);
   const [aboutMenuHovered, setAboutMenuHovered] = useState(false);
+  const [impactMenuOpen, setImpactMenuOpen] = useState(false);
+  const [impactMenuDismissed, setImpactMenuDismissed] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -33,18 +38,90 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const aboutDropdownRef = useRef(null);
+  const impactDropdownRef = useRef(null);
+  const impactCloseTimer = useRef(null);
   const searchRef = useRef(null);
   
   const isAboutRoute = location.pathname === "/about" || location.pathname.startsWith("/about/");
   const aboutMenuOpen = aboutMenuPinned || aboutMenuHovered;
 
+  /* `--dismissed` lets Escape / a click really close the menu even while the
+     cursor is still resting on it (where the CSS :hover rule would otherwise
+     keep it open). It clears as soon as the pointer or focus re-enters. */
+  const impactDropdownClass = [
+    "nav-dropdown",
+    "auvd-nav-dropdown",
+    impactMenuOpen ? "open" : "",
+    impactMenuDismissed ? "auvd-nav-dropdown--dismissed" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  /* ------------------------------------------------------------------------
+     Our Impact dropdown
+     Desktop: opens on hover or keyboard focus, closes after a short delay when
+     the cursor leaves (so moving from the label into the menu doesn't flicker)
+     and closes immediately on Escape.
+     Mobile: the same flag drives the chevron button that expands the children.
+     ---------------------------------------------------------------------- */
+  const clearImpactCloseTimer = () => {
+    if (impactCloseTimer.current) {
+      clearTimeout(impactCloseTimer.current);
+      impactCloseTimer.current = null;
+    }
+  };
+
+  const openImpactMenu = () => {
+    clearImpactCloseTimer();
+    setImpactMenuDismissed(false);
+    setImpactMenuOpen(true);
+  };
+
+  const closeImpactMenu = () => {
+    clearImpactCloseTimer();
+    setImpactMenuDismissed(true);
+    setImpactMenuOpen(false);
+  };
+
+  const scheduleImpactClose = () => {
+    clearImpactCloseTimer();
+    impactCloseTimer.current = setTimeout(() => {
+      impactCloseTimer.current = null;
+      setImpactMenuOpen(false);
+    }, 160);
+  };
+
+  const handleImpactBlur = (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      closeImpactMenu();
+    }
+  };
+
+  const toggleImpactMenu = () => {
+    if (impactMenuOpen) {
+      closeImpactMenu();
+    } else {
+      openImpactMenu();
+    }
+  };
+
   // Primary routing array (excluding Home, About, and standalone action items)
+  // Items with `children` render as a dropdown parent (Our Impact).
   const links = [
     { path: "/work", name: "Work" },
     { path: "/events", name: "Events" },
     { path: "/portfolio", name: "Outreach" },
     { path: "/pricing", name: "Education" },
-    { path: "/blogs", name: "Blogs" },
+    {
+      path: "/our-impact",
+      name: "Our Impact",
+      children: [
+        { path: "/our-impact/our-story", name: "Our Story" },
+        { path: "/our-impact/news", name: "News" },
+        { path: "/our-impact/blogs", name: "Blogs" },
+        { path: "/our-impact/report", name: "Report" },
+      ],
+    },
     { path: "/contact", name: "Contact" },
   ];
 
@@ -57,6 +134,10 @@ function Navbar() {
       if (!aboutDropdownRef.current?.contains(event.target)) {
         setAboutMenuPinned(false);
       }
+      if (!impactDropdownRef.current?.contains(event.target)) {
+        setImpactMenuDismissed(true);
+        setImpactMenuOpen(false);
+      }
       if (!searchRef.current?.contains(event.target)) {
         setSearchOpen(false);
       }
@@ -66,6 +147,8 @@ function Navbar() {
       if (event.key === "Escape") {
         setAboutMenuPinned(false);
         setAboutMenuHovered(false);
+        setImpactMenuDismissed(true);
+        setImpactMenuOpen(false);
         setSearchOpen(false);
       }
     };
@@ -80,6 +163,10 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
+      if (impactCloseTimer.current) {
+        clearTimeout(impactCloseTimer.current);
+        impactCloseTimer.current = null;
+      }
     };
   }, []);
 
@@ -95,6 +182,7 @@ function Navbar() {
     setMenuOpen(false);
     setAboutMenuPinned(false);
     setAboutMenuHovered(false);
+    closeImpactMenu();
     setSearchOpen(false);
   };
 
@@ -181,13 +269,6 @@ function Navbar() {
                 About Us
               </NavLink>
               <NavLink
-                to="/about/story"
-                className={({ isActive }) => `dropdown-link ${isActive ? "active" : ""}`}
-                onClick={closeMenus}
-              >
-                Our Story
-              </NavLink>
-              <NavLink
                 to="/about/team"
                 className={({ isActive }) => `dropdown-link ${isActive ? "active" : ""}`}
                 onClick={closeMenus}
@@ -198,16 +279,70 @@ function Navbar() {
           </div>
 
           {/* Looped Dynamic Middle Link Parameters */}
-          {links.map((link, index) => (
-            <NavLink
-              key={index}
-              to={link.path}
-              className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-              onClick={closeMenus}
-            >
-              {link.name}
-            </NavLink>
-          ))}
+          {links.map((link, index) =>
+            link.children ? (
+              /* Dropdown parent (Our Impact) — hover + keyboard focus on desktop,
+                 indented expandable list with a chevron button on mobile. */
+              <div
+                key={index}
+                ref={impactDropdownRef}
+                className={impactDropdownClass}
+                onMouseEnter={openImpactMenu}
+                onMouseLeave={scheduleImpactClose}
+                onBlur={handleImpactBlur}
+              >
+                <div className="nav-parent auvd-nav-parent">
+                  {/* Keyboard focus on the label opens the menu. The chevron
+                      button on mobile is left out, so one tap = one toggle. */}
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `nav-link nav-trigger auvd-nav-trigger ${isActive ? "active" : ""}`
+                    }
+                    onFocus={openImpactMenu}
+                    onClick={closeMenus}
+                  >
+                    {link.name}
+                  </NavLink>
+
+                  <button
+                    type="button"
+                    className="auvd-nav-chevron"
+                    aria-expanded={impactMenuOpen}
+                    aria-controls="our-impact-submenu"
+                    aria-label="Toggle Our Impact menu"
+                    onClick={toggleImpactMenu}
+                  >
+                    <span aria-hidden="true">{impactMenuOpen ? "▴" : "▾"}</span>
+                  </button>
+                </div>
+
+                <div id="our-impact-submenu" className="dropdown-menu auvd-dropdown-menu">
+                  {link.children.map((child) => (
+                    <NavLink
+                      key={child.path}
+                      to={child.path}
+                      className={({ isActive }) =>
+                        `dropdown-link auvd-dropdown-link ${isActive ? "active" : ""}`
+                      }
+                      onClick={closeMenus}
+                    >
+                      {child.name}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <NavLink
+                key={index}
+                to={link.path}
+                className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+                onClick={closeMenus}
+              >
+                {link.name}
+              </NavLink>
+            )
+          )}
 
           {/* Actions Subsection (Search Shell & Donate Button) */}
           <div className="nav-actions">

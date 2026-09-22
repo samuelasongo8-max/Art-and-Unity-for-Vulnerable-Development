@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Shared "impact section" styles: the small label + two-column band layout
+   (Bebas Neue titles, Source Sans 3 body, alternating white / #f6f9fc
+   bands) used by the Our Story page and reused by the Pricing page so both
+   pages match the Our Impact section design. The --impact-* palette comes
+   from :root in src/index.css. Imported by OurStory.css and pricing.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   Sections after the first one (Growth → Core Belief). Full-width bands,
+   whitespace only — no rules or underlines outside real links.
+   ========================================================================== */
+
+.auvd-story-section {
+  padding: 72px 0;
+  background: #ffffff;
+}
+
+.auvd-story-section--tint {
+  background: #f6f9fc;
+}
+
+.auvd-story-container {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 24px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  color: #333;
+}
+
+.auvd-story-label {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--impact-navy, #12395f);
+}
+
+.auvd-story-body {
+  display: flex;
+  gap: 34px;
+  align-items: flex-start;
+}
+
+.auvd-story-text {
+  flex: 1;
+  padding-top: 14px;
+  min-width: 0;
+}
+
+.auvd-story-text p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.auvd-story-text p:last-child {
+  margin-bottom: 0;
+}
+
+.auvd-story-title {
+  margin: 0 0 24px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--impact-navy, #12395f);
+}
+
+/* Title used as the left column when a section has no images. */
+.auvd-story-title--lead {
+  flex: 0 0 460px;
+  padding-top: 14px;
+}
+
+/* Image collage: 1 large + 2 small stacked + thin bottom strip.
+   Cells without an image collapse, so 1-4 images all render cleanly. */
+.auvd-story-gallery {
+  flex: 0 0 460px;
+  display: grid;
+  grid-template-columns: 284px 1fr;
+  grid-template-rows: 102px 186px 20px;
+  gap: 4px 12px;
+}
+
+.auvd-story-gallery-item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.auvd-story-gallery-item--1 {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.auvd-story-gallery-item--2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.auvd-story-gallery-item--3 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.auvd-story-gallery-item--4 {
+  grid-column: 1 / 3;
+  grid-row: 3;
+}
+
+/* One-image variant: the single image fills the collage column. */
+.auvd-story-gallery--single {
+  display: block;
+}
+
+.auvd-story-gallery--single .auvd-story-gallery-item--1 {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 460 / 308;
+}
+
+/* Rhythm: mirrored sections put the gallery on the right (row-reverse so
+   the source order, gallery first, stays screen-reader friendly). */
+.auvd-story-body--flip {
+  flex-direction: row-reverse;
+}
+
+/* Links inside these sections: the only allowed underline. */
+.auvd-story-text a {
+  color: var(--impact-blue, #1f76be);
+  text-decoration: underline;
+  text-decoration-color: var(--impact-blue, #1f76be);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.auvd-story-text a:hover {
+  color: var(--impact-orange-dark,#ff6600);
+  
+}
+
+.auvd-story-text a:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .auvd-story-section {
+    padding: 56px 0;
+  }
+
+  .auvd-story-body,
+  .auvd-story-body--flip {
+    flex-direction: column;
+  }
+
+  .auvd-story-gallery,
+  .auvd-story-title--lead {
+    flex: none;
+    width: 100%;
+  }
+
+  .auvd-story-title--lead,
+  .auvd-story-text {
+    padding-top: 0;
+  }
+
+  .auvd-story-title,
+  .auvd-story-title--lead {
+    font-size: 34px;
+  }
+
+  .auvd-story-label {
+    font-size: 18px;
+  }
+}

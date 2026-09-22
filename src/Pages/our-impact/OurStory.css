@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');
+@import url("../../components/ImpactSections.css");
+
+/* ==========================================================================
+   Page root
+   ========================================================================== */
+
+.auvd-story-page {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ==========================================================================
+   FIRST SECTION AFTER THE HERO (.auvd-story-origin) — full-width #f9fafb
+   band, 1200px container, two columns: image collage left, text right.
+   ========================================================================== */
+
+.auvd-story-origin {
+  background-color: #f9fafb;
+  padding: 80px 0;
+}
+
+.auvd-story-origin-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.auvd-story-origin-collage {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 60px;
+}
+
+.auvd-story-origin-collage img {
+  box-sizing: border-box;
+}
+
+.auvd-story-origin-collage--single {
+  padding-bottom: 0;
+}
+
+.auvd-story-origin-image-large {
+  display: block;
+  width: 86%;
+  aspect-ratio: 49 / 51;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+.auvd-story-origin-image-small {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: block;
+  width: 58%;
+  aspect-ratio: 316 / 330;
+  object-fit: cover;
+  border-style: solid;
+  border-color: var(--impact-blue);
+  border-width: 25px 5px 5px 25px;
+}
+
+.auvd-story-origin-eyebrow {
+  margin: 0 0 20px;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--impact-blue);
+}
+
+.auvd-story-origin-text h2 {
+  margin: 0 0 32px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--impact-navy, #12395f);
+}
+
+.auvd-story-origin-text p {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: #555;
+}
+
+.auvd-story-origin-text p + p {
+  margin-top: 28px;
+}
+
+.auvd-story-origin-text strong {
+  font-weight: 700;
+  color: #333;
+}
+
+.auvd-story-origin-founder {
+  margin: 32px 0 0;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+
+.auvd-story-origin-founder + p {
+  margin-top: 10px;
+}
+
+.auvd-story-origin-quote {
+  margin: 28px 0 0;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.8;
+  color: #555;
+}
+
+.auvd-story-origin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--impact-blue);
+}
+
+.auvd-story-origin-link:hover {
+  color: var(--impact-orange-dark);
+}
+
+.auvd-story-origin-link:focus-visible {
+  outline: 2px solid var(--impact-blue);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .auvd-story-origin {
+    padding: 60px 0;
+  }
+
+  .auvd-story-origin-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .auvd-story-origin-image-large {
+    width: 100%;
+  }
+
+  .auvd-story-origin-eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .auvd-story-origin-text h2 {
+    font-size: 34px;
+    margin-bottom: 24px;
+  }
+
+  .auvd-story-origin-text p {
+    font-size: 17px;
+  }
+
+  .auvd-story-origin-text p + p {
+    margin-top: 20px;
+  }
+
+  .auvd-story-origin-link {
+    margin-top: 32px;
+  }
+}
+
+/* ==========================================================================
+   CORE BELIEF — last section, with the "Upcoming project (2).jpg" photo as
+   a background image contained to this band only. The section height comes
+   from its content (no viewport sizing); the photo, a dark overlay and the
+   content are stacked layers. Navy base behind the image if it fails.
+   ========================================================================== */
+.auvd-story-belief {
+  position: relative;
+  overflow: hidden;
+  padding: 96px 24px;
+  background: var(--impact-navy, #12395f);
+}
+
+.auvd-story-belief .auvd-story-container {
+  position: relative;
+  z-index: 1;
+  padding: 0; /* the section itself provides the 24px side padding */
+}
+
+.auvd-story-belief-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.auvd-story-belief-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 20, 36, 0.75);
+}
+
+.auvd-story-belief .auvd-story-label {
+  color: var(--impact-orange, #dd7f43);
+}
+
+.auvd-story-belief .auvd-story-title {
+  color: #ffffff;
+}
+
+.auvd-story-belief .auvd-story-text p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (max-width: 768px) {
+  .auvd-story-belief {
+    padding: 64px 24px;
+  }
+}

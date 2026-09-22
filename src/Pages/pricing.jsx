@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import ImpactHero from "../components/ImpactHero";
+import "../components/ImpactSections.css";
 import "./pricing.css";
-import speakers from "../assets/speakers.webp";
-
-const educationHeroImages = ["/Education1.jpg", "/Education2.jpg"];
 
 const educationFocusAreas = [
   {
@@ -60,194 +59,90 @@ const impactItems = [
 ];
 
 const Pricing = () => {
-  const [activeHeroImage, setActiveHeroImage] = useState(0);
-  const heroImpactRef = useRef(null);
-  const approachContainerRef = useRef(null);
-  const expectedImpactRef = useRef(null);
-  const animatedEducationCardRefs = useRef([]);
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setActiveHeroImage((currentImage) =>
-        currentImage === educationHeroImages.length - 1 ? 0 : currentImage + 1
-      );
-    }, 5000);
-
-    return () => window.clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    const animatedCards = [
-      heroImpactRef.current,
-      approachContainerRef.current,
-      expectedImpactRef.current,
-      ...animatedEducationCardRefs.current.filter(Boolean),
-    ].filter(Boolean);
-
-    const observers = animatedCards.map((card) => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
-          card.classList.add(
-            card === heroImpactRef.current
-              ? "impact-right-entered"
-              : card === approachContainerRef.current
-                ? "approach-container-entered"
-                : card === expectedImpactRef.current
-                  ? "impact-container-entered"
-                : "education-card-entered"
-          );
-          observer.unobserve(card);
-        },
-        {
-          threshold: 0.35,
-        }
-      );
-
-      observer.observe(card);
-      return observer;
-    });
-
-    return () => observers.forEach((observer) => observer.disconnect());
-  }, []);
-
-  useEffect(() => {
-    const revealElements = Array.from(document.querySelectorAll("[data-pricing-reveal]"));
-
-    if (!revealElements.length) {
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      {
-        threshold: 0.22,
-        rootMargin: "0px 0px -10% 0px",
-      }
-    );
-
-    revealElements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="pricing-container">
-      <section className="education-hero">
-        <div className="education-hero-media" aria-hidden="true">
-          {educationHeroImages.map((image, index) => (
-            <img
-              key={image}
-              src={image}
-              alt=""
-              className={`education-hero-image${index === activeHeroImage ? " is-active" : ""}`}
-            />
-          ))}
-        </div>
-
-        <div ref={heroImpactRef} className="education-hero-copy impact-right-animated">
-          <p className="impact-subtitle">Education Program</p>
-          <h1 className="impact-title">Inclusive Learning for All</h1>
-          <p className="impact-description">
-            We support inclusive and quality learning for vulnerable children and youth in Kakuma
-            Refugee Camp and nearby host communities. Through education, creativity, and community
-            support, we help reduce dropout rates and improve learning outcomes for all.
-          </p>
-        </div>
-      </section>
-
-      <section className="education-focus-section">
-        <div className="education-focus-header pricing-reveal pricing-reveal-up" data-pricing-reveal>
-          <p className="section-label">What We Do</p>
-          <h2 className="section-title">How AUVD strengthens education access</h2>
-          <p className="section-intro">
-            We work closely with learners, families, schools, and communities to remove barriers to
-            education and help children and youth build both academic and life skills.
-          </p>
-        </div>
-
-        <div className="education-grid">
-          {educationFocusAreas.map((item, index) => (
-            <article
-              ref={(element) => {
-                if (index < 6) {
-                  animatedEducationCardRefs.current[index] = element;
-                }
-              }}
-              className={`education-card${index < 6 ? " education-card-animated" : ""}`}
-              key={item.title}
-            >
-              <div className="education-card-media">
-                <img src={item.image} alt={item.title} />
-              </div>
-              <div className="education-card-content">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="education-grid-divider" aria-hidden="true"></div>
-      </section>
-
-      <section className="approach-section">
-      <div ref={approachContainerRef} className="approach-container approach-container-animated">
-        <h2 className="approach-title">Our Approach</h2>
-        <p className="approach-intro">
-          We deliver our programs through:
-        </p>
-
-        <ul className="approach-list">
-          {approachItems.map((item, index) => (
-            <li
-              key={item}
-              className="pricing-reveal pricing-reveal-up"
-              data-pricing-reveal
-              style={{ transitionDelay: `${index * 90}ms` }}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
+      {/* Full-bleed hero — the shared ImpactHero component (same design as
+          Our Story), with this page's own label, heading, paragraph and
+          photo. /Education2.jpg still appears in the grid below. */}
+      <div className="pricing-hero-bleed">
+        <ImpactHero
+          label="Education Program"
+          heading="Inclusive Learning for All"
+        paragraph="We support inclusive and quality learning for vulnerable children and youth in Kakuma Refugee Camp and nearby host communities. Through education, creativity, and community support, we help reduce dropout rates and improve learning outcomes for all."
+        image="/Education1.jpg"
+        imageAlt="Children learning in a classroom"
+      />
       </div>
-    </section>
- 
-      <section className="impact-section">
-      <div className="impact-layout">
-        <div ref={expectedImpactRef} className="impact-container impact-container--split impact-container-animated">
-          <div className="impact-copy-block">
-            <h2 className="impact-title">Expected Impact</h2>
 
-            <ul className="impact-list">
-              {impactItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+      <section className="auvd-story-section auvd-story-section--tint">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Focus Areas</p>
+          <div className="auvd-story-body">
+            <h2 className="auvd-story-title auvd-story-title--lead">How AUVD strengthens education access</h2>
+            <div className="auvd-story-text">
+              <p>
+                We work closely with learners, families, schools, and communities to remove
+                barriers to education and help children and youth build both academic and life
+                skills.
+              </p>
+            </div>
+          </div>
+
+          <div className="auvd-pricing-grid">
+            {educationFocusAreas.map((item) => (
+              <article className="auvd-pricing-card" key={item.title}>
+                <div className="auvd-pricing-card-media">
+                  <img src={item.image} alt={item.title} />
+                </div>
+                <div className="auvd-pricing-card-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div className="impact-image-panel pricing-reveal pricing-reveal-right" data-pricing-reveal>
-          <img
-            src="/education.jpg"
-            alt="African school girls studying with books"
-            className="impact-study-image"
-          />
+      <section className="auvd-story-section">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Our Approach</p>
+          <div className="auvd-story-body">
+            <h2 className="auvd-story-title auvd-story-title--lead">Our Approach</h2>
+            <div className="auvd-story-text">
+              <p>We deliver our programs through:</p>
+              <ul className="auvd-pricing-list">
+                {approachItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+ 
+      <section className="auvd-story-section auvd-story-section--tint">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Expected Impact</p>
+          <div className="auvd-story-body">
+            <div className="auvd-story-gallery auvd-story-gallery--single">
+              <img
+                className="auvd-story-gallery-item auvd-story-gallery-item--1"
+                src="/education.jpg"
+                alt="African school girls studying with books"
+              />
+            </div>
+            <div className="auvd-story-text">
+              <h2 className="auvd-story-title">Expected Impact</h2>
+              <ul className="auvd-pricing-list">
+                {impactItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

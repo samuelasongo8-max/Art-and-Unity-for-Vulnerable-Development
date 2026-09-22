@@ -1,5 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap");
 
+/* Organization palette — the --impact-* variables used by Our Impact, Our
+   Story, Work and Pricing. Defined globally so pages outside the Our Impact
+   section can use them too. */
+:root {
+  --impact-blue: #1f76be;
+  --impact-blue-dark: #14507f;
+  --impact-navy: #12395f;
+  --impact-blue-tint: #eaf3fb;
+  --impact-orange: #dd7f43;
+  --impact-orange-dark: #b25a1e;
+  --impact-orange-tint: #fcf1e8;
+  --impact-text: #1f2933;
+  --impact-muted: #52606d;
+  --impact-border: #dde5ee;
+  --impact-surface: #f6f9fc;
+}
+
 h1,
 h2,
 h3,

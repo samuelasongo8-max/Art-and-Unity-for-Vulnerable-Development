@@ -577,3 +577,131 @@
     display: flex;
   }
 }
+
+/* ==========================================================================
+   9. Our Impact Dropdown (children: News, Blogs, Report)
+   ========================================================================== */
+.auvd-nav-dropdown {
+  position: relative;
+  /* Impact palette (same values as .auvd-impact-page) so the dropdown can
+     use the variables even though the navbar is outside the page scope. */
+  --impact-blue: #1f76be;
+  --impact-blue-dark: #14507f;
+  --impact-navy: #12395f;
+  --impact-blue-tint: #eaf3fb;
+  --impact-orange: #dd7f43;
+  --impact-orange-dark: #b25a1e;
+  --impact-orange-tint: #fcf1e8;
+  --impact-text: #1f2933;
+  --impact-muted: #52606d;
+  --impact-border: #dde5ee;
+  --impact-surface: #f6f9fc;
+}
+
+.auvd-nav-parent {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Parent label keeps the shared nav-link look; its ▾ never transitions. */
+.auvd-nav-trigger {
+  white-space: nowrap;
+}
+
+.auvd-nav-trigger::after {
+  transition: none;
+}
+
+/* Chevron button is mobile only — see section 10. */
+.auvd-nav-chevron {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.auvd-dropdown-menu {
+  top: calc(100% + 12px);
+  left: -12px;
+  min-width: 190px;
+  padding: 6px;
+  gap: 0;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  /* Short fade only — no slide or scale. */
+  transform: none;
+  transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+/* Opens on hover and on keyboard focus (state adds the hover delay and lets
+   Escape / a click close the menu even while the cursor is still on it). */
+.auvd-nav-dropdown:hover:not(.auvd-nav-dropdown--dismissed) .auvd-dropdown-menu,
+.auvd-nav-dropdown:focus-within:not(.auvd-nav-dropdown--dismissed) .auvd-dropdown-menu,
+.auvd-nav-dropdown.open .auvd-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.auvd-dropdown-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+/* Our Impact dropdown — new hover and active colors. Scoped to .auvd- so the
+   rest of the nav is untouched. */
+.auvd-nav-dropdown .auvd-dropdown-link:hover {
+  background-color: var(--impact-blue-tint, rgba(255, 102, 0, 0.1));
+  color: var(--impact-blue-dark, #ff6600);
+}
+
+.auvd-nav-dropdown .auvd-dropdown-link.active {
+  background-color: var(--impact-blue-tint, rgba(255, 102, 0, 0.1));
+  color: var(--impact-blue-dark, #ff6600);
+  box-shadow: inset 3px 0 0 var(--impact-orange, #ff6600);
+}
+
+/* Visible keyboard focus for every new control. */
+.auvd-nav-trigger:focus-visible,
+.auvd-nav-chevron:focus-visible,
+.auvd-dropdown-link:focus-visible {
+  outline: 2px solid var(--impact-blue, #ff6600);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   10. Our Impact Dropdown — mobile (indented list behind the chevron)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .auvd-nav-parent {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .auvd-nav-parent .nav-link {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .auvd-nav-trigger::after {
+    display: none;
+  }
+
+  .auvd-nav-chevron {
+    display: inline-flex;
+  }
+}

@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
+
 .work-page {
-	--work-nav-offset: 96px;
+	--work-nav-offset: 81px;
 	--work-blue: #1358c8;
 	--work-blue-dark: #0d3f91;
 	--work-orange: #ff6600;
@@ -15,7 +17,7 @@
 }
 
 .work-programs-section {
-	width: min(1180px, 100%);
+	width: min(940px, 100%);
 	margin: 0 auto;
 }
 
@@ -23,100 +25,28 @@
    HERO
    ========================================================= */
 
-.work-hero {
+/* Full-bleed wrapper for the shared ImpactHero component (same design as Our
+   Story). The hero spans the viewport edge to edge and starts at the very top
+   of the page: the photo passes behind the fixed nav, exactly like Our Story,
+   so the page's own top/side padding is cancelled here. The hero is at least
+   560px tall and its copy is vertically centred below the nav, so the nav
+   never covers it.
+   The side offsets match .work-page's 20px / 16px / 14px padding. */
+.work-hero-bleed {
 	width: calc(100% + 40px);
-	margin: 0 0 70px -20px;
-	position: relative;
-	display: flex;
-	align-items: flex-end;
-	min-height: 570px;
-	padding: 70px 40px;
-	background: #172033;
-	overflow: hidden;
+	margin: calc(-1 * var(--work-nav-offset)) 0 70px -20px;
 }
 
-.work-hero-media {
-	position: absolute;
-	inset: 0;
-	z-index: 0;
-}
-
-.work-hero-media::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background:
-		linear-gradient(
-			90deg,
-			rgba(10, 24, 49, 0.88) 0%,
-			rgba(10, 24, 49, 0.62) 45%,
-			rgba(10, 24, 49, 0.22) 100%
-		),
-		linear-gradient(
-			0deg,
-			rgba(10, 24, 49, 0.5) 0%,
-			transparent 45%
-		);
-}
-
-.work-hero-image {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center;
-	opacity: 0;
-	transform: scale(1.01);
-	transition:
-		opacity 0.8s ease,
-		transform 1.2s ease;
-}
-
-.work-hero-image.is-active {
-	opacity: 1;
-	transform: scale(1);
-}
-
-.work-hero::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 6px;
-	height: 100%;
-	background: var(--work-orange);
-	z-index: 2;
-}
-
-.work-hero--blue::before {
-	background: var(--work-blue);
-}
-
-.work-hero-copy {
-	position: relative;
-	z-index: 2;
-	width: 100%;
-	max-width: 690px;
-	padding: 0;
-	background: transparent;
-	box-shadow: none;
-}
-
-.work-hero--blue .work-hero-copy {
-	background: transparent;
-}
-
-.work-eyebrow {
-	display: inline-block;
-	margin: 0 0 18px;
-	padding-left: 14px;
-	border-left: 3px solid var(--work-orange);
-	color: #ffffff;
-	font-size: 0.82rem;
-	font-weight: 700;
-	letter-spacing: 0.09em;
-	text-transform: uppercase;
+/* This page passes no label, so unlike Our Story its copy block is shorter
+   than the hero min-height: centring alone would leave the heading behind
+   the fixed nav. The page-specific rule below reserves exactly the nav height
+   above the copy (tracking the nav at every breakpoint through
+   --work-nav-offset); the photo still starts at y=0 with no gap. */
+/* The hero itself is the shared ImpactHero component (same design as Our
+   Story); see .work-hero-bleed above and src/components/ImpactHero.css. */
+.work-hero-bleed .auvd-impact-hero__content {
+	margin-top: 0;
+	padding-top: var(--work-nav-offset);
 }
 
 .work-programs-kicker {
@@ -128,251 +58,162 @@
 	text-transform: uppercase;
 }
 
-.work-hero h1 {
-	max-width: 760px;
-	margin: 0;
-	color: #ffffff;
-	font-size: clamp(2.4rem, 5vw, 4.4rem);
-	font-weight: 700;
-	line-height: 1.08;
-	letter-spacing: -0.025em;
-}
-
-.work-type-title {
-	display: inline;
-	overflow-wrap: anywhere;
-}
-
-.work-type-caret {
-	display: inline-block;
-	width: 2px;
-	height: 0.9em;
-	margin-left: 6px;
-	vertical-align: -0.05em;
-	background: #ffffff;
-}
-
-.work-lead {
-	max-width: 720px;
-	margin: 22px 0 0;
-	color: rgba(255, 255, 255, 0.91);
-	font-size: 1.5rem;
-	font-weight: 600;
-	line-height: 1.45;
-	overflow-wrap: anywhere;
-}
-
-.work-hero-highlights {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 9px;
-	margin-top: 28px;
-}
-
-.work-highlight-pill {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 34px;
-	padding: 7px 14px;
-	border: 1px solid rgba(255, 255, 255, 0.35);
-	border-radius: 4px;
-	background: rgba(255, 255, 255, 0.1);
-	color: #ffffff;
-	font-size: 0.79rem;
-	font-weight: 600;
-	line-height: 1.25;
-	text-decoration: none;
-	backdrop-filter: blur(3px);
-	transition:
-		background 0.2s ease,
-		border-color 0.2s ease;
-}
-
-.work-highlight-pill:hover,
-.work-highlight-pill:focus-visible {
-	background: rgba(255, 255, 255, 0.18);
-	border-color: rgba(255, 255, 255, 0.65);
-	outline: none;
-}
-
 /* =========================================================
    SECTION HEADING
    ========================================================= */
 
+/* Section label + promoted title — the Our Impact layout pattern. The label
+   is plain bold text with no rule under it; the section's existing heading
+   becomes a Bebas Neue title. Sections are separated by whitespace only. */
 .work-section-heading {
-	max-width: 760px;
-	margin: 0 auto 42px;
-	text-align: center;
-}
-
-.work-section-heading::before {
-	content: "";
-	display: block;
-	width: 48px;
-	height: 3px;
-	margin: 0 auto 16px;
-	background: var(--work-orange);
-}
-
-.work-section-heading h2 {
+	max-width: none;
 	margin: 0;
+	text-align: left;
+}
+
+.work-section-title,
+.work-pillar-title {
+	margin: 0 0 20px;
 	color: var(--work-text);
-	font-size: clamp(1.9rem, 3vw, 2.7rem);
-	font-weight: 700;
-	line-height: 1.2;
-	letter-spacing: -0.02em;
+	font-family: "Bebas Neue", Impact, sans-serif;
+	font-weight: 400;
+	font-size: 44px;
+	line-height: 1.1;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-wrap: balance;
 }
 
 .work-programs-grid {
-	display: grid;
-	gap: 38px;
+	display: block;
 }
 
 /* =========================================================
-   PROGRAM CARD
+   PROGRAM PILLAR — label + two-column collage / text body
    ========================================================= */
 
-.work-program-card {
-	display: grid;
-	grid-template-columns: minmax(280px, 370px) minmax(0, 1fr);
-	gap: 40px;
-	align-items: center;
-	padding: 30px;
-	background: #ffffff;
-	border: 1px solid var(--work-border);
-	border-radius: 8px;
-	box-shadow: 0 7px 25px rgba(24, 39, 75, 0.07);
-	position: relative;
-	overflow: hidden;
-	transition:
-		box-shadow 0.25s ease,
-		transform 0.25s ease;
+.work-pillar {
+	padding: 72px 0 0;
 }
 
-.work-program-card:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 12px 32px rgba(24, 39, 75, 0.1);
+.work-pillar-label {
+	margin: 0 0 16px;
+	color: var(--work-blue);
+	font-family: "Source Sans 3", Arial, sans-serif;
+	font-size: 0.82rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
 }
 
-.work-program-card::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 4px;
-	height: 100%;
-	background: var(--work-blue);
+/* Same per-pillar accent sequence the cards used before. */
+.work-pillar:nth-child(2n) .work-pillar-label {
+	color: var(--work-orange);
 }
 
-.work-program-card:nth-child(2n)::before {
-	background: var(--work-orange);
+.work-pillar:nth-child(3n) .work-pillar-label {
+	color: var(--work-green);
 }
 
-.work-program-card:nth-child(3n)::before {
-	background: var(--work-green);
+.work-pillar-body {
+	display: flex;
+	gap: 34px;
+	align-items: flex-start;
 }
 
-.work-program-card-reverse {
-	grid-template-columns: minmax(0, 1fr) minmax(280px, 370px);
+/* Rhythm: mirrored pillars put the collage on the right (row-reverse keeps
+   the collage first in the source for screen readers). */
+.work-pillar--flip .work-pillar-body {
+	flex-direction: row-reverse;
 }
 
-.work-program-card-reverse .work-program-media {
-	order: 2;
-}
-
-.work-program-card-reverse .work-program-content {
-	order: 1;
-}
-
-/* =========================================================
-   IMAGE
-   ========================================================= */
-
-.work-program-media {
+.work-pillar-text {
+	flex: 1;
 	min-width: 0;
-	min-height: 100%;
+	padding-top: 14px;
+	font-family: "Source Sans 3", Arial, sans-serif;
 }
 
-.work-program-media-shell {
-	position: relative;
-	height: 100%;
-	padding: 0;
-	background: var(--work-light);
-	border-radius: 6px;
-	overflow: hidden;
+.work-pillar-intro {
+	margin: 0 0 22px;
+	color: var(--work-muted);
+	font-family: "Source Sans 3", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 26px;
+	overflow-wrap: anywhere;
 }
 
-.work-program-image {
+/* =========================================================
+   IMAGE COLLAGE — same arrangement as the Our Impact sections
+   ========================================================= */
+
+.work-collage {
+	flex: 0 0 460px;
+	display: grid;
+	grid-template-columns: 284px 1fr;
+	grid-template-rows: 102px 186px;
+	gap: 4px 12px;
+}
+
+.work-collage-item {
 	display: block;
 	width: 100%;
 	height: 100%;
-	min-height: 275px;
 	object-fit: cover;
 	border-radius: 6px;
-	transition: transform 0.35s ease;
 }
 
-.work-program-card:hover .work-program-image {
-	transform: scale(1.025);
+/* One image: it fills the collage column. */
+.work-collage--1 {
+	display: block;
 }
 
-.work-image-glow {
-	display: none;
+.work-collage--1 .work-collage-item--1 {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 460 / 308;
+}
+
+/* Two images: large frame + one tall frame beside it. */
+.work-collage--2 .work-collage-item--1 {
+	grid-column: 1;
+	grid-row: 1 / 3;
+}
+
+.work-collage--2 .work-collage-item--2 {
+	grid-column: 2;
+	grid-row: 1 / 3;
+}
+
+/* Three images: large frame + two stacked (the Our Impact arrangement). */
+.work-collage--3 .work-collage-item--1 {
+	grid-column: 1;
+	grid-row: 1 / 3;
+}
+
+.work-collage--3 .work-collage-item--2 {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.work-collage--3 .work-collage-item--3 {
+	grid-column: 2;
+	grid-row: 2;
 }
 
 /* =========================================================
    CONTENT
    ========================================================= */
 
-.work-program-content {
-	min-width: 0;
-	padding: 6px 4px;
-}
-
-.work-program-number {
-	margin: 0 0 10px;
-	color: var(--work-blue);
-	font-size: 0.78rem;
-	font-weight: 700;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-}
-
-.work-program-card:nth-child(2n) .work-program-number {
-	color: var(--work-orange);
-}
-
-.work-program-card:nth-child(3n) .work-program-number {
-	color: var(--work-green);
-}
-
-.work-program-content h3 {
-	margin: 0 0 14px;
-	color: var(--work-text);
-	font-size: clamp(1.45rem, 2.1vw, 2.05rem);
-	font-weight: 700;
-	line-height: 1.25;
-	letter-spacing: -0.015em;
-	overflow-wrap: anywhere;
-}
-
-.work-program-intro {
-	margin: 0 0 22px;
-	color: var(--work-muted);
-	font-size: 1rem;
-	line-height: 1.8;
-	overflow-wrap: anywhere;
-}
-
 .work-program-block {
-	margin-top: 20px;
+	margin-top: 24px;
 }
 
 .work-program-block h4 {
-	margin: 0 0 11px;
+	margin: 0 0 10px;
 	color: var(--work-text);
-	font-size: 0.96rem;
+	font-family: "Source Sans 3", Arial, sans-serif;
+	font-size: 1rem;
 	font-weight: 700;
 }
 
@@ -380,19 +221,20 @@
 	margin: 0;
 	padding-left: 20px;
 	color: #566171;
-	font-size: 0.95rem;
-	line-height: 1.75;
+	font-family: "Source Sans 3", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 26px;
 }
 
 .work-program-block li::marker {
 	color: var(--work-blue);
 }
 
-.work-program-card:nth-child(2n) .work-program-block li::marker {
+.work-pillar:nth-child(2n) .work-program-block li::marker {
 	color: var(--work-orange);
 }
 
-.work-program-card:nth-child(3n) .work-program-block li::marker {
+.work-pillar:nth-child(3n) .work-program-block li::marker {
 	color: var(--work-green);
 }
 
@@ -402,14 +244,15 @@
 }
 
 /* =========================================================
-   BUTTON
+   BUTTON — same colours and shape as before, now sitting in the
+   text column
    ========================================================= */
 
 .work-program-actions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
-	margin-top: 25px;
+	margin-top: 28px;
 }
 
 .work-program-button {
@@ -447,40 +290,9 @@
 		padding: var(--work-nav-offset) 16px 70px;
 	}
 
-	.work-hero {
+	.work-hero-bleed {
 		width: calc(100% + 32px);
 		margin-left: -16px;
-		min-height: 500px;
-		padding: 60px 28px 45px;
-	}
-
-	.work-hero h1 {
-		font-size: clamp(2.2rem, 6vw, 3.4rem);
-	}
-
-	.work-hero-copy {
-		max-width: 650px;
-	}
-
-	.work-program-card,
-	.work-program-card-reverse {
-		grid-template-columns: 1fr;
-		gap: 26px;
-		padding: 24px;
-	}
-
-	.work-program-card-reverse .work-program-media,
-	.work-program-card-reverse .work-program-content {
-		order: initial;
-	}
-
-	.work-program-image {
-		height: 300px;
-		min-height: 0;
-	}
-
-	.work-program-content {
-		padding: 0 4px;
 	}
 }
 
@@ -488,114 +300,45 @@
    MOBILE
    ========================================================= */
 
+@media (max-width: 768px) {
+	.work-pillar {
+		padding-top: 56px;
+	}
+
+	.work-pillar-body,
+	.work-pillar--flip .work-pillar-body {
+		flex-direction: column;
+	}
+
+	.work-collage {
+		flex: none;
+		width: 100%;
+	}
+
+	.work-pillar-text {
+		padding-top: 0;
+	}
+
+	.work-section-title,
+	.work-pillar-title {
+		font-size: 34px;
+	}
+}
+
 @media (max-width: 540px) {
 	.work-page {
 		--work-nav-offset: 82px;
 		padding: var(--work-nav-offset) 14px 55px;
 	}
 
-	.work-hero {
+	.work-hero-bleed {
 		width: calc(100% + 28px);
-		margin: 0 0 50px -14px;
-		min-height: 430px;
-		padding: 80px 20px 30px;
+		margin-left: -14px;
 	}
 
-	.work-hero::before {
-		width: 4px;
-	}
-
-	.work-hero-media::after {
-		background:
-			linear-gradient(
-				0deg,
-				rgba(10, 24, 49, 0.88) 0%,
-				rgba(10, 24, 49, 0.4) 70%,
-				rgba(10, 24, 49, 0.2) 100%
-			);
-	}
-
-	.work-eyebrow {
-		margin-bottom: 14px;
-		font-size: 0.75rem;
-	}
-
-	.work-hero h1 {
-		font-size: clamp(1.85rem, 9vw, 2.45rem);
-		line-height: 1.12;
-	}
-
-	.work-lead {
-		margin-top: 17px;
-		font-size: 1.1rem;
-		line-height: 1.5;
-	}
-
-	.work-hero-highlights {
-		margin-top: 21px;
-		gap: 7px;
-	}
-
-	.work-highlight-pill {
-		padding: 6px 10px;
-		font-size: 0.73rem;
-	}
-
-	.work-section-heading {
-		margin-bottom: 30px;
-	}
-
-	.work-section-heading::before {
-		width: 40px;
-		margin-bottom: 13px;
-	}
-
-	.work-section-heading h2 {
-		font-size: 1.7rem;
-	}
-
-	.work-programs-grid {
-		gap: 24px;
-	}
-
-	.work-program-card,
-	.work-program-card-reverse {
-		gap: 20px;
-		padding: 18px;
-		border-radius: 7px;
-	}
-
-	.work-program-image {
-		height: 210px;
-		min-height: 0;
-	}
-
-	.work-program-content {
-		padding: 0 2px;
-	}
-
-	.work-program-number {
-		font-size: 0.73rem;
-		margin-bottom: 8px;
-	}
-
-	.work-program-content h3 {
-		font-size: 1.28rem;
-		line-height: 1.3;
-	}
-
-	.work-program-intro,
-	.work-program-block ul {
-		font-size: 0.92rem;
-		line-height: 1.68;
-	}
-
-	.work-program-block {
-		margin-top: 17px;
-	}
-
-	.work-program-actions {
-		margin-top: 20px;
+	.work-collage {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 110px 150px;
 	}
 
 	.work-program-button {
@@ -610,11 +353,9 @@
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-	.work-hero-image,
-	.work-program-card,
-	.work-program-image,
-	.work-program-button,
-	.work-highlight-pill {
+	.work-pillar,
+	.work-collage-item,
+	.work-program-button {
 		transition: none;
 	}
 }

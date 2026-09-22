@@ -1,17 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import ImpactHero from "../components/ImpactHero";
 import "./Work.css";
 
 const womenLivelihoodImages = ["/women.png", "/tailoring.jpg", "/Cooking.webp"];
 const outreachImages = ["/Shoes.png", "/shoes2.webp"];
-const heroBackgroundImages = [
-	"/Education2.jpg",
-	"/donation.jpg",
-	"/Shoes.png",
-	"/tailoring.jpg",
-	"/Cooking.webp",
-];
-const heroBlueBackgroundImages = new Set(["/Shoes.png", "/tailoring.jpg", "/Cooking.webp"]);
 
 const programPillars = [
 	{
@@ -120,13 +113,10 @@ const programPillars = [
 
 function Work() {
 	const location = useLocation();
-	const [womenImageIndex, setWomenImageIndex] = useState(0);
-	const [outreachImageIndex, setOutreachImageIndex] = useState(0);
-	const [heroImageIndex, setHeroImageIndex] = useState(0);
-	const [typedTitle, setTypedTitle] = useState("");
-	const [typedLead, setTypedLead] = useState("");
 	const programsHeadingRef = useRef(null);
 	const programCardRefs = useRef([]);
+	/* Existing in-hero anchor pills: same three destinations the old Work hero
+	   showed, mapped onto ImpactHero's links slot. */
 	const impactHighlights = [
 		{ label: "Healing Through Creativity", targetId: "arts-healing" },
 		{ label: "Education and Skills Access", targetId: "education-youth" },
@@ -135,32 +125,6 @@ function Work() {
 	const heroTitle = "AUVD Programs in Kakuma Refugee Camp";
 	const heroLead =
 		"Art and Unity for Vulnerable Development (AUVD) works in Kakuma Refugee Camp by creating safe, practical, and inclusive programs that help children, youth, women, and vulnerable families heal, learn, grow skills, and participate fully in community life. Our approach combines arts, education, livelihood support, peacebuilding, and humanitarian outreach so that people can rebuild dignity, strengthen resilience, and access real opportunities for a better future.";
-	const activeHeroImage = heroBackgroundImages[heroImageIndex];
-	const useBlueHeroBackground = heroBlueBackgroundImages.has(activeHeroImage);
-
-	useEffect(() => {
-		const interval = window.setInterval(() => {
-			setHeroImageIndex((previous) => (previous + 1) % heroBackgroundImages.length);
-		}, 10000);
-
-		return () => window.clearInterval(interval);
-	}, []);
-
-	useEffect(() => {
-		const interval = window.setInterval(() => {
-			setWomenImageIndex((previous) => (previous + 1) % womenLivelihoodImages.length);
-		}, 2800);
-
-		return () => window.clearInterval(interval);
-	}, []);
-
-	useEffect(() => {
-		const interval = window.setInterval(() => {
-			setOutreachImageIndex((previous) => (previous + 1) % outreachImages.length);
-		}, 3000);
-
-		return () => window.clearInterval(interval);
-	}, []);
 
 	useEffect(() => {
 		const animatedElements = [
@@ -215,144 +179,109 @@ function Work() {
 		return () => window.clearTimeout(timeoutId);
 	}, [location.hash]);
 
-	useEffect(() => {
-		let titleIndex = 0;
-		let leadIndex = 0;
-		let leadTimer;
-
-		const titleTimer = window.setInterval(() => {
-			titleIndex += 1;
-			setTypedTitle(heroTitle.slice(0, titleIndex));
-
-			if (titleIndex >= heroTitle.length) {
-				window.clearInterval(titleTimer);
-
-				leadTimer = window.setInterval(() => {
-					leadIndex += 3;
-					setTypedLead(heroLead.slice(0, leadIndex));
-
-					if (leadIndex >= heroLead.length) {
-						window.clearInterval(leadTimer);
-					}
-				}, 10);
-			}
-		}, 40);
-
-		return () => {
-			window.clearInterval(titleTimer);
-			if (leadTimer) {
-				window.clearInterval(leadTimer);
-			}
-		};
-	}, []);
-
-	const resolveImage = (pillar) => {
-		if (pillar.id === "livelihoods-women") {
-			return womenLivelihoodImages[womenImageIndex];
+	/* Every image a pillar carries still renders — as the collage column.
+	   Pillars with a single image get one large frame; the pillars that used
+	   to swap between several images now show all of them side by side. */
+	const resolveImages = (pillar) => {
+		if (pillar.rotatingImages) {
+			return pillar.rotatingImages;
 		}
 
-		if (pillar.id === "outreach-basic-needs") {
-			return outreachImages[outreachImageIndex];
-		}
-
-		return pillar.image;
+		return pillar.image ? [pillar.image] : [];
 	};
 
 	return (
 		<main className="work-page">
-			<section className={`work-hero${useBlueHeroBackground ? " work-hero--blue" : ""}`}>
-				<div className="work-hero-media" aria-hidden="true">
-					{heroBackgroundImages.map((image, index) => (
-						<img
-							key={image}
-							src={image}
-							alt=""
-							className={`work-hero-image${index === heroImageIndex ? " is-active" : ""}`}
-						/>
-					))}
-				</div>
-				<div className="work-hero-copy">
-					<h1 className="work-type-title">{typedTitle}<span className="work-type-caret" aria-hidden="true"></span></h1>
-					<p className="work-lead">
-						{typedLead}
-					</p>
-					{!useBlueHeroBackground ? (
-						<div className="work-hero-highlights">
-							{impactHighlights.map((highlight) => (
-								<a className="work-highlight-pill" href={`#${highlight.targetId}`} key={highlight.targetId}>
-									{highlight.label}
-								</a>
-							))}
-						</div>
-					) : null}
-				</div>
-			</section>
+			{/* Full-bleed hero — the shared ImpactHero component (same design as
+			    Our Story), with this page's own heading, paragraph and anchor
+			    highlights. The photo is one of the images this hero already
+			    used; every other former hero image still appears in the
+			    sections below. */}
+			<div className="work-hero-bleed">
+				<ImpactHero
+					heading={heroTitle}
+					paragraph={heroLead}
+					image="/donation.jpg"
+					imageAlt="AUVD community members gathered together"
+					links={impactHighlights.map((highlight) => ({
+						label: highlight.label,
+						href: `#${highlight.targetId}`,
+					}))}
+				/>
+			</div>
 
 			<section className="work-programs-section">
-				<div ref={programsHeadingRef} className="work-section-heading work-scroll-panel">
+				{/* Section band: this page's existing kicker is the label, its
+				    existing heading is promoted to the section title. */}
+				<section ref={programsHeadingRef} className="work-section-heading work-scroll-panel">
 					<p className="work-programs-kicker"> Our Programs</p>
-					<h2>Five program pillars guiding AUVD’s work in Kakuma</h2>
-				</div>
+					<h2 className="work-section-title">Five program pillars guiding AUVD’s work in Kakuma</h2>
+				</section>
 
 				<div className="work-programs-grid">
 					{programPillars.map((pillar, index) => {
-						const imageSource = resolveImage(pillar);
+						const images = resolveImages(pillar);
 						const isReversed = index % 2 === 1;
 
 						return (
-							<article
+							<section
 								ref={(element) => {
 									programCardRefs.current[index] = element;
 								}}
-								className={`work-program-card work-scroll-panel${isReversed ? " work-program-card-reverse" : ""}`}
+								className={`work-pillar work-scroll-panel${isReversed ? " work-pillar--flip" : ""}`}
 								id={pillar.id}
 								key={pillar.id}
 							>
-								<div className="work-program-media">
-									<div className="work-program-media-shell">
-									<img
-										key={`${pillar.id}-${imageSource}`}
-										src={imageSource}
-										alt={pillar.title}
-										className="work-program-image"
-									/>
-										<span className="work-image-glow"></span>
-									</div>
-								</div>
+								{/* Same text the pillar heading already carried; it
+								    now sits above the body as the section label. */}
+								<p className="work-pillar-label">{pillar.title}</p>
 
-								<div className="work-program-content">
-									<h3>{pillar.title}</h3>
-									<p className="work-program-intro">{pillar.intro}</p>
-
-									<div className="work-program-block">
-										<h4>Programs under this pillar</h4>
-										<ul>
-											{pillar.programs.map((item) => (
-												<li key={item}>{item}</li>
-											))}
-										</ul>
+								<div className="work-pillar-body">
+									<div className={`work-collage work-collage--${images.length}`}>
+										{images.map((source, imageIndex) => (
+											<img
+												alt={imageIndex === 0 ? pillar.title : `${pillar.title} - additional photo ${imageIndex + 1}`}
+												className={`work-collage-item work-collage-item--${imageIndex + 1}`}
+												key={source}
+												src={source}
+											/>
+										))}
 									</div>
 
-									<div className="work-program-block">
-										<h4>Focus</h4>
-										<ul className="work-focus-list">
-											{pillar.focus.map((item) => (
-												<li key={item}>{item}</li>
-											))}
-										</ul>
-									</div>
+									<div className="work-pillar-text">
+										<h2 className="work-pillar-title">{pillar.title}</h2>
+										<p className="work-pillar-intro">{pillar.intro}</p>
 
-									{(pillar.actions || (pillar.action ? [pillar.action] : [])).length > 0 ? (
-										<div className="work-program-actions">
-											{(pillar.actions || [pillar.action]).map((action) => (
-												<Link className="work-program-button" key={`${pillar.id}-${action.to}`} to={action.to}>
-													{action.label}
-												</Link>
-											))}
+										<div className="work-program-block">
+											<h4>Programs under this pillar</h4>
+											<ul>
+												{pillar.programs.map((item) => (
+													<li key={item}>{item}</li>
+												))}
+											</ul>
 										</div>
-									) : null}
+
+										<div className="work-program-block">
+											<h4>Focus</h4>
+											<ul className="work-focus-list">
+												{pillar.focus.map((item) => (
+													<li key={item}>{item}</li>
+												))}
+											</ul>
+										</div>
+
+										{(pillar.actions || (pillar.action ? [pillar.action] : [])).length > 0 ? (
+											<div className="work-program-actions">
+												{(pillar.actions || [pillar.action]).map((action) => (
+													<Link className="work-program-button" key={`${pillar.id}-${action.to}`} to={action.to}>
+														{action.label}
+													</Link>
+												))}
+											</div>
+										) : null}
+									</div>
 								</div>
-							</article>
+							</section>
 						);
 					})}
 				</div>

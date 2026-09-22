@@ -5,9 +5,9 @@ import "./Footer.css";
 const navLinks = [
   { to: "/about", label: "About Us" },
   { to: "/Work", label: "Our Work" },
-  { to: "/blogs", label: "Resources" },
+  { to: "/our-impact", label: "Our Impact" },
+  { to: "/our-impact/blogs", label: "Resources" },
   { to: "/contact", label: "Contact" },
-  { to: "/about/story", label: "Our Story" },
   { to: "/donate", label: "Donate" },
 ];
 

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
@@ -19,6 +19,10 @@ import Team from "./Pages/Team";
 import OurStory from "./Pages/OurStory";
 import Music from "./Pages/programs/Music";
 import ImpactAll from "./Pages/ImpactAll";
+import OurImpact from "./Pages/OurImpact";
+import OurImpactLayout from "./Pages/our-impact/OurImpactLayout";
+import ImpactNews from "./Pages/our-impact/News";
+import ImpactReport from "./Pages/our-impact/Report";
 import DaddarioCommunityMusicGrant from "./Pages/DaddarioCommunityMusicGrant";
 
 import Vocational from "./Pages/programs/Vocational";
@@ -45,16 +49,32 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/about/story" element={<OurStory />} />
+            {/* Old Our Story path kept alive for existing links/bookmarks */}
+            <Route path="/about/story" element={<Navigate to="/our-impact/our-story" replace />} />
             <Route path="/about/team" element={<Team />} />
             <Route path="/Work" element={<Work />} />
             <Route path="/events" element={<Events />} />
-            <Route path="/blogs" element={<Blogs />} />
+            {/* Old blog path kept alive for existing links/bookmarks */}
+            <Route path="/blogs" element={<Navigate to="/our-impact/blogs" replace />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/impact" element={<ImpactAll />} />
+
+            {/* Our Impact + its sub pages — all four share OurImpactLayout,
+                so the "Impacts" heading and the sidebar stay in place. */}
+            <Route path="/our-impact" element={<OurImpactLayout />}>
+              <Route index element={<OurImpact />} />
+              <Route path="news" element={<ImpactNews />} />
+              <Route path="blogs" element={<Blogs />} />
+              <Route path="report" element={<ImpactReport />} />
+            </Route>
+
+            {/* Our Story lives under /our-impact but renders full width with
+                its own hero, so it stays outside OurImpactLayout. */}
+            <Route path="/our-impact/our-story" element={<OurStory />} />
+
             <Route
               path="/news/daddario-community-music-grant"
               element={<DaddarioCommunityMusicGrant />}

@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+:root {
+	--events-bg: #ecf3fb;
+	--events-surface: rgba(255, 255, 255, 0.82);
+	--events-surface-strong: rgba(255, 255, 255, 0.94);
+	--events-text: #102235;
+	--events-muted: #526579;
+	--events-primary: #1e73d8;
+	--events-primary-deep: #0c325d;
+	--events-accent: #994208;
+	--events-border: rgba(12, 50, 93, 0.11);
+	--events-shadow: 0 30px 80px rgba(17, 46, 77, 0.16);
+	--events-shadow-soft: 0 18px 44px rgba(18, 51, 88, 0.1);
+}

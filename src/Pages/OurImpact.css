@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap');
+
+/* ==========================================================================
+   Our Impact page
+   ========================================================================== */
+
+.auvd-impact-page {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 140px 24px 90px;
+  background-color: #ffffff;
+  font-family: "Lora", Georgia, serif;
+  color: var(--impact-text);
+}
+
+.auvd-impact-page *,
+.auvd-impact-page *::before,
+.auvd-impact-page *::after {
+  box-sizing: border-box;
+}
+
+.auvd-impact-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Sidebar ================================================== */
+
+.auvd-impact-sidebar {
+  flex: 0 0 190px;
+  min-width: 0;
+}
+
+.auvd-impact-heading {
+  margin: 0 0 20px;
+  font-family: "Lora", Georgia, serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--impact-navy);
+}
+
+.auvd-impact-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* NavLink items — same look as the previous filter buttons. */
+.auvd-impact-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  font-family: "Lora", Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--impact-blue-dark);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.auvd-impact-nav-item:hover {
+  background-color: var(--impact-surface);
+}
+
+.auvd-impact-nav-item--active,
+.auvd-impact-nav-item--active:hover {
+  background-color: var(--impact-blue-tint);
+  color: var(--impact-navy);
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--impact-orange);
+}
+
+.auvd-impact-nav-icon {
+  flex: 0 0 auto;
+  font-size: 15px;
+  color: var(--impact-blue-dark);
+}
+
+.auvd-impact-nav-item--active .auvd-impact-nav-icon {
+  color: var(--impact-blue);
+}
+
+.auvd-impact-nav-label {
+  min-width: 0;
+}
+
+.auvd-impact-nav-item:focus-visible,
+.auvd-impact-content a:focus-visible {
+  outline: 2px solid var(--impact-blue);
+  outline-offset: 2px;
+}
+
+/* Content ================================================== */
+
+.auvd-impact-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.auvd-impact-category {
+  margin: 0 0 16px;
+  font-family: "Lora", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--impact-navy);
+}
+
+.auvd-impact-category::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-top: 8px;
+  background-color: var(--impact-orange);
+}
+
+.auvd-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.auvd-impact-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--impact-border);
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(18, 57, 95, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.auvd-impact-card:hover {
+  border-color: var(--impact-blue);
+  box-shadow: 0 4px 12px rgba(31, 118, 190, 0.15);
+}
+
+.auvd-impact-card-image {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.auvd-impact-card-image--empty {
+  background-color: var(--impact-blue-tint);
+}
+
+/* Logos and other artwork must not be cropped. */
+.auvd-impact-card-image--contain {
+  object-fit: contain;
+  padding: 24px;
+  background-color: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--impact-border);
+}
+
+.auvd-impact-card-body {
+  padding: 16px;
+}
+
+.auvd-impact-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 8px;
+  font-family: "Lora", Georgia, serif;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--impact-muted);
+}
+
+.auvd-impact-card-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auvd-impact-card-meta-icon {
+  font-size: 13px;
+  color: var(--impact-blue);
+}
+
+.auvd-impact-card-tag {
+  display: inline-block;
+  margin: 0 0 6px;
+  font-family: "Lora", Georgia, serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--impact-orange-dark);
+}
+
+.auvd-impact-card-title {
+  margin: 0;
+  font-family: "Lora", Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--impact-navy);
+}
+
+.auvd-impact-card:hover .auvd-impact-card-title {
+  color: var(--impact-blue);
+}
+
+/* "Learn more" button shown in place of the title on entries with buttonLink. */
+.auvd-impact-content .auvd-impact-card-button {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 4px 0;
+  padding: 10px 22px;
+  border-radius: 4px;
+  background-color: var(--impact-blue);
+  color: #ffffff;
+  font-family: "Lora", Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.auvd-impact-content .auvd-impact-card-button:hover {
+  background-color: var(--impact-blue-dark);
+  color: #ffffff;
+}
+
+.auvd-impact-content .auvd-impact-card-button:focus-visible {
+  outline: 2px solid var(--impact-blue);
+  outline-offset: 2px;
+}
+
+/* Optional summary under the title — always clamped to 3 lines. */
+.auvd-impact-card-excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 8px 0 0;
+  font-family: "Lora", Georgia, serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--impact-muted);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.auvd-impact-empty {
+  margin: 0;
+  font-family: "Lora", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--impact-muted);
+}
+
+/* Responsive =============================================== */
+
+@media (max-width: 900px) {
+  .auvd-impact-page {
+    padding: 120px 20px 70px;
+  }
+
+  .auvd-impact-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .auvd-impact-sidebar {
+    flex: none;
+    width: 100%;
+  }
+
+  .auvd-impact-heading {
+    margin-bottom: 14px;
+    font-size: 40px;
+  }
+
+  .auvd-impact-nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .auvd-impact-nav-item {
+    flex: 0 0 auto;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .auvd-impact-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .auvd-impact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .auvd-impact-category {
+    font-size: 22px;
+  }
+
+  .auvd-impact-card-title {
+    font-size: 20px;
+  }
+}
+
+/* ==========================================================================
+   Nested Blogs sub page (/our-impact/blogs)
+   Blogs.jsx is rendered exactly as it is inside this layout. Its own hero and
+   editorial sections are built for a full page, so these four rules only shrink
+   that full-page height/padding. Nothing else about the Blogs page is changed.
+   ========================================================================== */
+
+.auvd-impact-content .blogs-page {
+  min-height: 0;
+}
+
+.auvd-impact-content .blogs-hero {
+  min-height: 0;
+}
+
+.auvd-impact-content .blogs-hero-inner {
+  padding: clamp(2rem, 5vw, 3rem) 0;
+}
+
+.auvd-impact-content .blogs-editorial {
+  padding: clamp(2rem, 5vw, 3rem) 0 0;
+}
+
+/* ==========================================================================
+   Blogs sub page colors — scoped under .auvd-impact-content so Blogs.jsx
+   looks exactly as before if it is ever rendered outside Our Impact.
+   Every value uses var(--impact-*, <old color>) with a fallback.
+   The hero keeps its white-on-photo text for contrast; only the
+   editorial / card area below it is recolored. No layout changes.
+   ========================================================================== */
+
+.auvd-impact-content a {
+  color: var(--impact-blue, #1a4fa0);
+}
+
+.auvd-impact-content a:hover {
+  color: var(--impact-orange-dark, #143a78);
+}
+
+.auvd-impact-content .blogs-editorial {
+  background-color: #ffffff;
+}
+
+.auvd-impact-content .blogs-page {
+  color: var(--impact-text, #0b3d91);
+}
+
+.auvd-impact-content .blogs-view-all {
+  border-color: var(--impact-blue, #ffffff);
+  color: var(--impact-blue, #ffffff);
+}
+
+.auvd-impact-content .blogs-view-all:hover {
+  background: var(--impact-blue-tint, rgba(255, 255, 255, 0.12));
+  color: var(--impact-blue-dark, #ffffff);
+}
+
+.auvd-impact-content .blogs-story-card h2 {
+  color: var(--impact-navy, #000);
+}
+
+.auvd-impact-content .blogs-story-card p {
+  color: var(--impact-text, #000);
+}
+
+.auvd-impact-content .blogs-story-category {
+  background: var(--impact-orange-dark, rgb(11, 86, 224));
+  color: #ffffff;
+}
+
+.auvd-impact-content .blogs-story-card:hover .blogs-story-image {
+  box-shadow:
+    0 0 0 1px var(--impact-blue, blue),
+    0 4px 12px rgba(31, 118, 190, 0.15);
+}
+
+.auvd-impact-content .blogs-progress {
+  background: var(--impact-border, rgba(16, 40, 71, 0.18));
+}
+
+.auvd-impact-content .blogs-progress span {
+  background: var(--impact-orange, var(--blogs-orange));
+}
+
+.auvd-impact-content .blogs-carousel-button {
+  border-color: var(--impact-border, #0000ff);
+  color: var(--impact-blue, blue);
+}
+
+.auvd-impact-content .blogs-carousel-button:hover:not(:disabled),
+.auvd-impact-content .blogs-carousel-button:focus-visible:not(:disabled) {
+  background: var(--impact-blue-tint, rgba(0, 0, 255, 0.08));
+}
+
+.auvd-impact-content .blogs-carousel-button:focus-visible {
+  outline: 2px solid var(--impact-blue, rgba(255, 118, 6, 0.89));
+  outline-offset: 2px;
+}
+/* ==========================================================================
+   Report notice (/our-impact/report)
+   Shown while the report has not been published on the website yet.
+   ========================================================================== */
+
+.auvd-impact-notice {
+  max-width: 640px;
+  padding: 32px;
+  border: 1px solid var(--impact-border);
+  border-left: 4px solid var(--impact-orange);
+  border-radius: 4px;
+  background-color: var(--impact-blue-tint);
+  font-family: "Lora", Georgia, serif;
+  color: var(--impact-text);
+}
+
+.auvd-impact-notice-title {
+  margin: 0 0 12px;
+  font-family: "Lora", Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--impact-navy);
+}
+
+.auvd-impact-notice-text {
+  margin: 0;
+  font-family: "Lora", Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--impact-text);
+}
+
+.auvd-impact-notice-link {
+  color: var(--impact-blue);
+  text-decoration: underline;
+}
+
+.auvd-impact-notice-link:hover {
+  color: var(--impact-orange-dark);
+}
+
+.auvd-impact-notice-link:focus-visible {
+  outline: 2px solid var(--impact-blue);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .auvd-impact-notice {
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+  }
+}
+
