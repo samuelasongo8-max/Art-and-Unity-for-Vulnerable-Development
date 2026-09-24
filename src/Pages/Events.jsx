@@ -178,29 +178,25 @@ function Events() {
         ))}
 
                 {/* Impact — the page's own dark blue band kept as the section
-            background; title column on the left, cards and closing on the
-            right. */}
-        <section className="auvd-events-section auvd-events-impact" data-reveal>
-          <div className="auvd-events-body">
-            <div className="auvd-events-impact-head">
-              <p className="events-section-label">Impact Created</p>
-              <h2 className="auvd-events-title">What the partnership made possible</h2>
-            </div>
-            <div className="auvd-events-text">
-              <div className="events-impact-grid">
-                {impactPoints.map((point, index) => (
-                  <article
-                    key={point}
-                    className="impact-card"
-                    data-reveal
-                    style={{ transitionDelay: `${index * 90}ms` }}
-                  >
-                    <p>{point}</p>
-                  </article>
-                ))}
-              </div>
+            background; section label and title on the left, closing
+            paragraphs and quote on the right. */}
+                <section
+                  className="auvd-events-section auvd-events-impact events-reveal"
+                  data-reveal
+                >
+                  <div className="auvd-events-body">
+                    <div className="auvd-events-impact-head">
+                      <p className="events-section-label">Impact Created</p>
+                      <h2 className="auvd-events-title">What the partnership made possible</h2>
+                    </div>
+                    <div className="auvd-events-text">
+                      <ul className="impact-list">
+                        {impactPoints.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
 
-              <div className="events-closing">
+                      <div className="events-closing">
                 <p>
                   Through this initiative, AUVD demonstrated that music is more than
                   entertainment. It is a powerful tool for healing, unity, and positive social

@@ -1,33 +1,35 @@
+/* Community Music Grant — Our Impact pattern: white band, label row on top
+   (no rule), two-column image-left / text-right body. Bebas Neue title,
+   Source Sans 3 body, "Learn more" pill matching the Our Impact card button. */
+
 .grant-news {
-  padding: 48px 24px;
+  padding: 72px 0;
   background: #ffffff;
-  color: #0970f7;
 }
 
 .grant-news__inner {
-  max-width: 1100px;
+  max-width: 940px;
   margin: 0 auto;
+  padding: 0 24px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  color: #333333;
 }
 
-/* Date bar */
-.grant-news__meta {
-  margin-bottom: 28px;
-}
-
-.grant-news__date {
-  display: block;
-  font-size: 20px;
+/* Label row — small, bold, uppercase. No rule under it. */
+.grant-news__label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 20px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  margin-bottom: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
 
-.grant-news__rule {
-  height: 3px;
-  width: 100%;
-  background: #ff6600;
-}
-
-/* Grid layout */
+/* Two-column body: image left, text right (stacks under 768px, media on top) */
 .grant-news__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -35,15 +37,16 @@
   align-items: center;
 }
 
-/* Image */
 .grant-news__media {
   width: 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .grant-news__image {
+  display: block;
   width: 100%;
   height: auto;
   max-height: 420px;
@@ -51,59 +54,82 @@
   border-radius: 4px;
 }
 
-/* Content */
-.grant-news__location {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #1a1a1a;
-  margin-bottom: 10px;
-}
-
+/* Title — Bebas Neue, 44px desktop / 34px mobile, uppercase */
 .grant-news__title {
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1.15;
+  margin: 0 0 24px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin: 0 0 18px;
+  text-wrap: balance;
+  color: var(--impact-navy, #12395f);
 }
 
+/* Body — Source Sans 3, 16px/26px */
 .grant-news__body {
+  margin: 0 0 20px;
+  font-family: "Source Sans 3", Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 26px;
   color: #333333;
-  margin-bottom: 16px;
 }
 
+.grant-news__body:last-of-type {
+  margin-bottom: 0;
+}
+
+/* "Learn more ›" — styled like the site's other Learn more links
+   (the Our Impact card button): blue pill, white label, dark hover. */
 .grant-news__link {
-  display: inline-block;
-  margin-top: 8px;
-  color: #ff6600;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 10px 22px;
+  border-radius: 4px;
+  background-color: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: normal;
   text-decoration: none;
-  border-bottom: 2px solid #ff6600;
-  padding-bottom: 2px;
+  transition: background-color 0.2s ease;
 }
 
 .grant-news__link:hover {
-  opacity: 0.8;
+  background-color: var(--impact-blue-dark, #14507f);
+  color: #ffffff;
 }
 
-/* Responsive */
-@media (max-width: 800px) {
+.grant-news__link:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
+/* Mobile: one column, media on top, title 34px */
+@media (max-width: 768px) {
+  .grant-news {
+    padding: 56px 0;
+  }
+
   .grant-news__grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 32px;
   }
 
   .grant-news__title {
-    font-size: 26px;
+    font-size: 34px;
   }
 
   .grant-news__image {
     max-height: 320px;
+  }
+
+  .grant-news__label {
+    font-size: 12px;
   }
 }

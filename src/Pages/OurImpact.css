@@ -19,6 +19,42 @@
   box-sizing: border-box;
 }
 
+/* ==========================================================================
+   /our-impact hero — the shared ImpactHero component given this page's own
+   full-bleed treatment (the same idea as .work-hero-bleed and
+   .pricing-hero-bleed): the photo starts at y=0 behind the fixed nav and
+   spans the viewport edge to edge, so the page's own padding is cancelled
+   here for this block only. The offsets match .auvd-impact-page's
+   140px / 24px padding (120px / 20px at 900px and below), which keeps the
+   sidebar and the card grid below at their exact previous width. The hero
+   always follows the top of the page, so it needs no z-index of its own.
+   ========================================================================== */
+
+.our-impact-hero-bleed {
+  margin: -140px -24px 56px;
+}
+
+/* Four stat cards fill much of the hero, so the copy is given the fixed nav's
+   height (81px) plus breathing room at the top at every width — the same fix
+   the Work and Events bleed wrappers apply — so the heading is never
+   overlapped. The photo still starts at y=0 behind the nav. */
+.our-impact-hero-bleed .auvd-impact-hero__content {
+  margin-top: 0;
+  padding-top: calc(81px + 48px);
+}
+
+@media (max-width: 768px) {
+  .our-impact-hero-bleed .auvd-impact-hero__content {
+    padding-top: calc(81px + 32px);
+  }
+}
+
+@media (max-width: 900px) {
+  .our-impact-hero-bleed {
+    margin: -120px -20px 40px;
+  }
+}
+
 .auvd-impact-layout {
   display: flex;
   align-items: flex-start;

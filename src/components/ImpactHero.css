@@ -233,3 +233,90 @@
     max-width: none;
   }
 }
+
+/* ==========================================================================
+   Stats-row variant — four equal stat cards along the bottom of the hero
+   (Our Impact's hero; used instead of the single fact card and the
+   milestones strip). Same visual language as the hero's fact card: an
+   rgba(8, 20, 36, 0.72) panel with a 4px orange accent on the left, square
+   corners and no shadow. The row itself sits in the same place, with the
+   same band and hairline, as .auvd-impact-hero__stats above.
+   ========================================================================== */
+
+.auvd-impact-hero__stat-row {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  padding: 20px clamp(24px, 8vw, 110px) 24px;
+  background: rgba(6, 16, 28, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+.auvd-impact-hero__stat-card {
+  min-width: 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--impact-orange, #dd7f43);
+  border-radius: 0;
+  background: rgba(8, 20, 36, 0.72);
+  box-shadow: none;
+}
+
+.auvd-impact-hero__stat-value {
+  margin: 0 0 6px;
+  font-family: "Anton", "Arial Black", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(44px, 4.6vw, 52px);
+  line-height: 1;
+  color: #fff;
+}
+
+.auvd-impact-hero__stat-label {
+  margin: 0 0 10px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--impact-orange, #dd7f43);
+}
+
+.auvd-impact-hero__stat-caption {
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* The Core Programs card's five-item caption as a tight list — a step smaller
+   than the other captions so the card stays close to their height. */
+.auvd-impact-hero__stat-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding-inline-start: 16px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Tablet — 2 x 2. */
+@media (max-width: 1024px) {
+  .auvd-impact-hero__stat-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile — one card per row. */
+@media (max-width: 640px) {
+  .auvd-impact-hero__stat-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 18px 24px 24px;
+  }
+}

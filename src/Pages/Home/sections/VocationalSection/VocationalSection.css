@@ -1,30 +1,24 @@
-/* Reset & Base Styles */
+/* =====================================================
+   VOCATIONAL EDUCATION TRAINING (VET) — restyled into the Our Impact
+   pattern. Shared .auvd-story-* layout/typography comes from
+   src/components/ImpactSections.css (imported via Home.css); only
+   section-specific rules live here.
+
+   NOTE: the legacy .split-image-col rule below is intentionally kept
+   byte-for-byte: about.css shares these class names with this file and
+   the About page's Mission section relies on the current cascade
+   (including this rule's border-radius / min-height). Nothing here may
+   change that page. VET itself no longer uses any .split-* class.
+   ===================================================== */
+
+/* Previous file's global reset — kept so nothing else shifts. */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Section Layout */
-.split-info-section.vocational-section {
-  width: 100%;
-  padding: 80px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-}
-
-.split-container {
-  width: 100%;
-  max-width: 1200px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
-/* Left Image Column */
+/* Legacy — shared with about.css; see note above. */
 .split-image-col {
   width: 100%;
   height: 100%;
@@ -34,118 +28,30 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.split-image-col img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+/* =====================================================
+   VET-specific
+   ===================================================== */
 
-/* Right Content Column */
-.split-content-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.split-title {
-  font-family: "Poppins", sans-serif, -apple-system;
-  font-size: clamp(2rem, 3vw, 2.5rem);
-  font-weight: 800;
-  color: #ff6600; /* Warm orange accent */
-  text-transform: uppercase;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  letter-spacing: 0.02em;
-}
-
-.title-underline {
-  width: 60px;
-  height: 3px;
-  background-color: #ff6600;
-  margin-bottom: 1.5rem;
-}
-
-.split-description {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #475569;
-  margin-bottom: 1.5rem;
-}
-
-/* Action Block / Button Area */
-.split-action-block {
-  border-top: 1px solid #e2e8f0;
-  padding-top: 1.5rem;
-}
-
-.split-btn {
-  display: inline-block;
-  font-family: "Poppins", sans-serif, -apple-system;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ff6600;
-  text-decoration: none;
-  border: 2px solid #ff6600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.split-btn:hover {
-  background-color: #ff6600;
-  color: #ffffff;
-}
-
-/* Carousel Image Fade Animation */
+/* Cross-fade between carousel slides. */
 .vocational-image-fade {
   animation: vocationalImageFade 0.7s ease;
 }
 
 @keyframes vocationalImageFade {
-  from { 
-    opacity: 0; 
-    transform: translateY(12px); 
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-/* Responsive Design for Mobile / Tablets */
-@media (max-width: 900px) {
-  .split-container {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .split-image-col {
-    min-height: 350px;
-  }
-
-  .split-content-col {
-    text-align: left;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.vet-title {
-  color: #ff6600;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 0 0 20px;
-}
-
-.vet-title::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 4px;
-  background: #ff6600;
-  margin-top: 18px;
+/* "Explore more" uses the site's primary link style (.auvd-cta-link blue
+   pill, defined in Home.css); reset the native button chrome and keep the
+   exact existing destination (/Work#livelihoods-women). */
+.vocational-explore-btn {
+  border: none;
+  cursor: pointer;
 }

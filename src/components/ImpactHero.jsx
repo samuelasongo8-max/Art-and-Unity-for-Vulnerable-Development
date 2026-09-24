@@ -6,7 +6,9 @@ import "./ImpactHero.css";
    ({year, text}). Two extra optional slots preserve existing in-hero
    content without inventing anything: tagline (Our Story's existing
    "Creativity, dignity, unity" line) and links (Work's existing anchor
-   pills). When any slot is not passed, it doesn't render and the layout
+   pills). stats ({ value, label, caption, list }) is the multi-card variant
+   of the fact card / milestones strip used along the bottom of Our Impact's
+   hero. When any slot is not passed, it doesn't render and the layout
    adjusts with no empty space left behind. */
 function ImpactHero({
   label,
@@ -20,6 +22,7 @@ function ImpactHero({
   factCard,
   links = [],
   milestones = [],
+  stats = [],
 }) {
   return (
     <section className="auvd-impact-hero">
@@ -69,6 +72,33 @@ function ImpactHero({
             </li>
           ))}
         </ul>
+      ) : null}
+
+      {/* Multi-stat variant — four equal cards along the bottom of the hero,
+          used instead of the single fact card / milestones strip (Our Impact).
+          Each stat is a card whose heading is the value, followed by its label,
+          caption and — for the Core Programs card — the program list. */}
+      {stats.length > 0 ? (
+        <div className="auvd-impact-hero__stat-row" aria-label="Key impact figures">
+          {stats.map((stat) => (
+            <div className="auvd-impact-hero__stat-card" key={stat.label}>
+              <h2 className="auvd-impact-hero__stat-value">{stat.value}</h2>
+              <p className="auvd-impact-hero__stat-label">{stat.label}</p>
+
+              {stat.caption ? (
+                <p className="auvd-impact-hero__stat-caption">{stat.caption}</p>
+              ) : null}
+
+              {stat.list && stat.list.length > 0 ? (
+                <ul className="auvd-impact-hero__stat-list">
+                  {stat.list.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ))}
+        </div>
       ) : null}
     </section>
   );

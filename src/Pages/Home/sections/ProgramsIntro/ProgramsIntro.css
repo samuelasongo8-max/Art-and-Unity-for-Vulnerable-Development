@@ -1,35 +1,19 @@
-.programs-cta {
-  display: flex;
-  justify-content: center;
-  padding: 0 20px;
-  margin-top: clamp(24px, 5vw, 56px);
-}
-
-.programs-cta .btn-go-about {
-  min-height: 44px;
-  padding: 0.72rem 1.3rem;
-  font-size: 0.84rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  box-shadow: 0 12px 24px rgba(153, 66, 8, 0.16);
-}
-
+/* "From Hard Times to Hope" heading block — spacing/rhythm clean-up only;
+   the heading, its wording and its typography stay exactly as they were. */
 .programs {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
-  min-height: clamp(82px, 11vw, 144px);
-  margin: clamp(28px, 5vw, 56px) 0 0;
-  padding: clamp(1rem, 2.5vw, 1.8rem) clamp(1rem, 3vw, 2.25rem);
-  
+  margin: clamp(40px, 6vw, 72px) 0 0;
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 3vw, 2.25rem);
   color: #2b2929;
- 
 }
 
 .programs h1 {
   max-width: 22ch;
+  margin: 0;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(1.3rem, 2.2vw, 2rem);
   font-weight: 700;
@@ -38,18 +22,7 @@
 }
 
 @media (max-width: 768px) {
-  .programs-cta {
-    padding: 0 14px;
-  }
-
-  .programs-cta .btn-go-about {
-    min-height: 40px;
-    padding: 0.64rem 1rem;
-    font-size: 0.76rem;
-  }
-
   .programs {
-    min-height: 74px;
     padding: 1rem 0.95rem;
   }
 

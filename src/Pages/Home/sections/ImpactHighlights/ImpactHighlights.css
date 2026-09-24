@@ -1,10 +1,14 @@
+/* "Music Instrument Donations" — LAYOUT UNCHANGED (grid, pagination,
+   View All and cards stay exactly as they were); typography only, aligned
+   to the Our Impact pair: Bebas Neue headings, Source Sans 3 body. */
+
  .auvd-donations-section {
   width: 100%;
   max-width: 1200px;
   margin: 80px auto 0;
   box-sizing: border-box;
   padding: 0 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Source Sans 3", Arial, sans-serif;
 }
 
 .auvd-donations-section *,
@@ -40,22 +44,34 @@
   flex-wrap: wrap;
 }
 
+/* Headings — one consistent style: Bebas Neue, uppercase, navy. The h2 +
+   first h3 read as the single "Music Instrument Donations:" heading; the
+   subheading shares the exact same size/colour/font, separated by spacing
+   only (no rules or underlines). */
 .auvd-donations-heading h2,
 .auvd-donations-heading h3 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-  line-height: 1.08;
-  color: #10293b;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
 
-.auvd-donations-heading h2 {
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
+.auvd-donations-heading .auvd-donations-subheading {
+  margin-top: 14px;
 }
 
-.auvd-donations-heading h3 {
-  font-style: italic;
-  font-size: clamp(1.6rem, 2.7vw, 2.1rem);
+/* Intro paragraph under the headings — Source Sans 3, muted. */
+.auvd-donations-intro {
+  margin: 16px 0 0;
+  max-width: 64ch;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--impact-muted, #52606d);
 }
 
 .auvd-donations-viewall {
@@ -68,6 +84,7 @@
   color: #ff6600;
   border: 2px solid #ff6600;
 
+  font-family: "Source Sans 3", Arial, sans-serif;
   font-weight: 700;
   font-size: 0.92rem;
   text-decoration: none;
@@ -83,11 +100,6 @@
 .auvd-donations-viewall:hover {
   background-color: #ff6600;
   color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.auvd-donations-viewall:hover {
- 
   transform: translateY(-1px);
 }
 
@@ -115,7 +127,7 @@
 .auvd-donations-progress-fill {
   height: 100%;
   background: #1b7fc7;
- 
+
   transition: width 0.4s ease;
 }
 
@@ -131,7 +143,7 @@
   align-items: center;
   justify-content: center;
   background: #ff6600;
- 
+
   color: #ffffff;
   cursor: pointer;
   transition: background 0.15s ease, opacity 0.15s ease;
@@ -181,7 +193,7 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  
+
 
 }
 
@@ -193,7 +205,7 @@
   object-fit: contain;
   object-position: center;
   display: block;
- 
+
 }
 
 .auvd-donations-tag {
@@ -202,6 +214,7 @@
   padding: 6px 12px;
   background: #0b6cda;
   color: #ffffff;
+  font-family: "Source Sans 3", Arial, sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -209,20 +222,25 @@
 
 }
 
+/* Card titles — Bebas Neue (condensed caps fit the narrow card width
+   without becoming too tall), same navy as every other heading. */
 .auvd-donations-card h4 {
   margin: 14px 0 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  line-height: 1.35;
-  color: #10293b;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
 
 .auvd-donations-card p {
   margin: 10px 0 0;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  color: #55534d;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--impact-muted, #52606d);
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -246,6 +264,11 @@
 
   .auvd-donations-controls {
     margin-top: 22px;
+  }
+
+  .auvd-donations-heading h2,
+  .auvd-donations-heading h3 {
+    font-size: 34px;
   }
 }
 

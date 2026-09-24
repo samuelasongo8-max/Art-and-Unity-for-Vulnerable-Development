@@ -2,16 +2,22 @@ import "./GrantNews.css";
 import { Link } from "react-router-dom";
 const grantImage = "/AUVD, Music education grants.png";
 
+/* Community Music Grant — restyled into the Our Impact layout pattern:
+   label row (date + location) at the top with no rule under it, then a
+   two-column body: image left, text right. Typography comes from the
+   shared pattern classes imported once via Home.css. */
 function GrantNews() {
   return (
     <section className="grant-news" aria-labelledby="grant-news-title">
       <div className="grant-news__inner">
 
-        {/* Date bar */}
-        <div className="grant-news__meta">
+        {/* Label row: date + location, small bold uppercase, no rule */}
+        <p className="grant-news__label">
           <span className="grant-news__date">11 August 2026</span>
-          <div className="grant-news__rule" />
-        </div>
+          <span className="grant-news__location">
+            KAKUMA REFUGEE CAMP &nbsp;|&nbsp; KENYA
+          </span>
+        </p>
 
         <div className="grant-news__grid">
 
@@ -26,9 +32,6 @@ function GrantNews() {
 
           {/* Right: content */}
           <div className="grant-news__content">
-            <span className="grant-news__location">
-              KAKUMA REFUGEE CAMP &nbsp;|&nbsp; KENYA
-            </span>
 
             <h1 id="grant-news-title" className="grant-news__title">
               WE RECEIVED A COMMUNITY MUSIC GRANT!

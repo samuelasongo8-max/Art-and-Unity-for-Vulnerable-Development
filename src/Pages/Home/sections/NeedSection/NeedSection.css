@@ -1,1 +1,12 @@
- 
+/* "The Need" — restyled into the Our Impact two-column pattern
+   (src/components/ImpactSections.css, imported once via Home.css).
+   Only the cycling background-image media slot is bespoke; shared
+   layout and typography come from the .auvd-story-* classes. */
+.promo-image-wrapper {
+  width: 100%;
+  aspect-ratio: 460 / 308;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.8s ease-in-out;
+}

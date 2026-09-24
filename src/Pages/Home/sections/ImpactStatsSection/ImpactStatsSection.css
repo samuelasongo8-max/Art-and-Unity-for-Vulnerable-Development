@@ -1,355 +1,156 @@
 /* =====================================================
-   IMPACT SECTION
-===================================================== */
+   "OUR IMPACT" — restyled into the two-column pattern shared by the
+   Visual Arts and VET sections.
+   The tinted band, the two columns, the Bebas Neue title and the Source
+   Sans 3 body all come from the shared .auvd-story-* classes
+   (src/components/ImpactSections.css, imported once via Home.css). Only the
+   figures block under the two-column body is specific to this section.
+   Whitespace only — no rules or divider lines.
+   ===================================================== */
 
-.impactSection{
-    width:100%;
-    padding:90px 20px;
-    position:relative;
-    overflow:hidden;
+/* Gentle scroll-in for the text column, the same treatment the Visual Arts
+   section uses. Kept inside no-preference so reduced-motion visitors always
+   see the copy, even before the observer fires. */
+@media (prefers-reduced-motion: no-preference) {
+  .impact-text-block.content-animated {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
 
-    background:#05080f;
-
-    opacity:0;
-    transform:translateY(40px);
-    transition:opacity .8s ease, transform .8s ease;
-}
-
-.impactSection--visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* =====================================================
-   WRAPPER
-===================================================== */
-
-.impactWrapper{
-    max-width:1250px;
-    margin:auto;
-    position:relative;
-    z-index:2;
+  .impact-text-block.content-entered {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* =====================================================
-   HEADING
-===================================================== */
+   FIGURES — the four existing stat items, under the body
+   ===================================================== */
 
-.impactHeading{
-
-    text-align:center;
-
-    font-family:"Cormorant Garamond", Georgia, serif;
-
-    font-size:clamp(2rem,4vw,3.2rem);
-
-    font-weight:700;
-
-    color:#ffffff;
-
-    margin-bottom:20px;
-
-    line-height:1.2;
+.impactCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 56px; /* separation from the body: whitespace, not a rule */
 }
 
-.impactText{
-
-    max-width:760px;
-
-    margin:0 auto 70px;
-
-    text-align:center;
-
-    font-family:"Cormorant Garamond", Georgia, serif;
-
-    font-size:1.05rem;
-
-    line-height:1.9;
-
-    color:rgba(255,255,255,.82);
+/* The "7 Core Programs" item carries the long list, so it takes two of the
+   three columns (the same intent as the previous auto-fit grid). */
+.impactBox {
+  min-width: 0;
 }
 
-/* =====================================================
-   GRID
-===================================================== */
-
-.impactCards{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-    gap:55px;
+.impactBox--wide {
+  grid-column: span 2;
 }
 
-/* =====================================================
-   ITEM (NO BOX)
-===================================================== */
+/* Staggered entrance for the cards; only hidden while motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  .impactBox {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
 
-.impactBox{
-
-    background:none;
-
-    border:none;
-
-    box-shadow:none;
-
-    padding:0;
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:
-    opacity .7s ease,
-    transform .4s ease;
-
+  .impactBox--visible {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.impactBox--visible{
-
-    opacity:1;
-
-    transform:translateY(0);
-
+.impactCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
-.impactBox:hover{
-
-    transform:translateY(-6px);
-
+.impactIconBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  background: var(--impact-blue-tint, #eaf3fb);
+  color: var(--impact-blue, #1f76be);
+  border: 1px solid rgba(31, 118, 190, 0.18);
+  flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Remove top line */
-
-.impactBox::before{
-
-    display:none;
-
+.impactBox:hover .impactIconBadge {
+  background: var(--impact-blue, #1f76be);
+  color: #ffffff;
 }
 
-/* =====================================================
-   HEADER
-===================================================== */
-
-.impactCardHeader{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-    margin-bottom:22px;
-
+/* The number uses the same display face as the pattern's titles. */
+.impactValue {
+  margin: 0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: var(--impact-navy, #12395f);
 }
 
-/* =====================================================
-   ICON
-===================================================== */
-
-.impactIconBadge{
-
-    width:62px;
-
-    height:62px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:1.45rem;
-
-    background:rgba(255,255,255,.08);
-
-    border:1px solid rgba(255,255,255,.12);
-
-    color:#ff6600;
-
-    flex-shrink:0;
-
-    transition:.35s;
-
+/* Card copy: explicitness matters here, the site-wide h3/h4/p rules set
+   Cormorant Garamond on these elements. */
+.impactTitle {
+  margin: 0 0 8px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--impact-navy, #12395f);
 }
 
-.impactBox:hover .impactIconBadge{
-
-    background:#ff6600;
-
-    color:#fff;
-
+.impactInfo {
+  margin: 0 0 4px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #333;
 }
 
-/* =====================================================
-   VALUE
-===================================================== */
-
-.impactValue{
-
-    font-family:"Poppins",sans-serif;
-
-    font-size:2.5rem;
-
-    font-weight:700;
-
-    color:#ffffff;
-
-    line-height:1;
-
-}
-
-/* =====================================================
-   TITLE
-===================================================== */
-
-.impactTitle{
-
-    font-family:"Cormorant Garamond", Georgia, serif;
-
-    font-size:1.25rem;
-
-    font-weight:700;
-
-    color:#ffffff;
-
-    margin-bottom:15px;
-
-    line-height:1.4;
-
-}
-
-/* =====================================================
-   DESCRIPTION
-===================================================== */
-
-.impactInfo{
-
-    font-family:"Cormorant Garamond", Georgia, serif;
-
-    font-size:15px;
-
-    line-height:1.9;
-
-    color:rgba(255,255,255,.78);
-
-}
-
-/* =====================================================
-   WIDE ITEM
-===================================================== */
-
-.impactBox--wide{
-
-    grid-column:span 2;
-
+.impactInfo:last-child {
+  margin-bottom: 0;
 }
 
 /* =====================================================
    TABLET
-===================================================== */
+   ===================================================== */
 
-@media(max-width:992px){
+@media (max-width: 992px) {
+  .impactCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px;
+  }
 
-.impactSection{
-
-padding:80px 25px;
-
-}
-
-.impactCards{
-
-grid-template-columns:repeat(2,1fr);
-
-gap:40px;
-
-}
-
-.impactBox--wide{
-
-grid-column:span 2;
-
-}
-
+  .impactBox--wide {
+    grid-column: span 2;
+  }
 }
 
 /* =====================================================
    MOBILE
-===================================================== */
+   ===================================================== */
 
-@media(max-width:768px){
+@media (max-width: 640px) {
+  .impactCards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+  }
 
-.impactSection{
+  .impactBox--wide {
+    grid-column: span 1;
+  }
 
-padding:70px 20px;
-
-}
-
-.impactHeading{
-
-font-size:2rem;
-
-}
-
-.impactText{
-
-font-size:1rem;
-
-margin-bottom:45px;
-
-}
-
-.impactCards{
-
-grid-template-columns:1fr;
-
-gap:35px;
-
-}
-
-.impactBox--wide{
-
-grid-column:span 1;
-
-}
-
-.impactCardHeader{
-
-gap:15px;
-
-}
-
-.impactIconBadge{
-
-width:54px;
-
-height:54px;
-
-font-size:1.3rem;
-
-}
-
-.impactValue{
-
-font-size:2rem;
-
-}
-
-.impactTitle{
-
-font-size:1.15rem;
-
-}
-
-.impactInfo{
-
-font-size:14px;
-
-line-height:1.8;
-
-}
-
+  .impactValue {
+    font-size: 34px;
+  }
 }

@@ -1,299 +1,226 @@
-﻿/* =====================================================
-   PROGRAMS SECTION
-===================================================== */
+/* =====================================================
+   "FROM HARD TIMES TO HOPE" — three-card grid. Clean-up only: arrangement
+   unchanged (image on top, body overlapping it, 3-across on desktop);
+   consistent card sizing, 24px body padding, one gap value everywhere, a
+   consistent category label + tag row, Source Sans 3 paragraphs, and the
+   "Read more →" links pinned to the card bottom so they line up across
+   all three cards. Read more matches the site's other links (blue pill).
+   ===================================================== */
 
-.programs-section{
-    width:100%;
-    max-width:1250px;
-    margin:80px auto;
-    padding:0 20px;
+.programs-section {
+  width: 100%;
+  max-width: 1250px;
+  margin: 48px auto 80px;
+  padding: 0 20px;
 }
 
-.programs-header{
-    text-align:center;
-    margin-bottom:55px;
-    background:none !important;
-    box-shadow:none !important;
-    padding:0 !important;
+.programs-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: none;
+  box-shadow: none;
+  padding: 0;
 }
 
-.impact-ngo-title{
-    font-family:"Cormorant Garamond", Georgia, serif;
-    font-size:clamp(2rem,4vw,3rem);
-    font-weight:700;
-    color:#0d53d4;
-    line-height:1.2;
+.impact-ngo-title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #0d53d4;
+  line-height: 1.2;
 }
 
 /* =====================================================
-   GRID
-===================================================== */
+   GRID — equal columns, one gap value at every breakpoint, stretch so
+   the three cards share a row height (content then lines up).
+   ===================================================== */
 
-.programs-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-    gap:40px;
-    align-items:start;
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  align-items: stretch;
 }
 
 /* =====================================================
-   CARD
-===================================================== */
+   CARD — image block + overlapping body; body fills the remaining card
+   height so titles/paragraphs/links align across all three cards.
+   ===================================================== */
 
-.program-card{
-    position:relative;
-    overflow:visible;
+.program-card {
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
 }
 
-.program-image{
-    width:100%;
-    height:280px;
-    overflow:hidden;
-    border-radius:12px;
+.program-image {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-.program-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    transition:transform .6s ease;
+.program-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
 }
 
-.program-card:hover .program-image img{
-    transform:scale(1.08);
+.program-card:hover .program-image img {
+  transform: scale(1.08);
 }
 
-/* =====================================================
-   MULTIPLE IMAGES
-===================================================== */
-
-.stacked-images{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:6px;
-    height:280px;
+.program-card-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 92%;
+  margin: -70px auto 0;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  z-index: 5;
+  transition: 0.35s;
 }
 
-.stacked-images img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-/* =====================================================
-   CONTENT BOX
-===================================================== */
-
-.program-card-body{
-
-    position:relative;
-
-    width:92%;
-
-    margin:-70px auto 0;
-
-    background:#ffffff;
-
-    border-radius:12px;
-
-    padding:28px;
-
-    box-shadow:
-    0 10px 35px rgba(0,0,0,.08);
-
-    z-index:5;
-
-    transition:.35s;
-}
-
-.program-card:hover .program-card-body{
-
-    transform:translateY(-8px);
-
-    box-shadow:
-    0 18px 45px rgba(0,0,0,.12);
-
+.program-card:hover .program-card-body {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
 }
 
 /* =====================================================
-   BADGE
-===================================================== */
+   CATEGORY LABEL + TAG — one consistent style at the top of each card.
+   ===================================================== */
 
-.badge{
-
-    display:inline-block;
-
-    padding:8px 18px;
-
-    background:#f5f5f5;
-
-    color:#555;
-
-    font-size:.8rem;
-
-    font-weight:700;
-
-    border-radius:6px;
-
-    margin-bottom:18px;
-}
-
-/* =====================================================
-   TITLE
-===================================================== */
-
-.program-title{
-
-    font-size:1.8rem;
-
-    font-weight:700;
-
-    line-height:1.35;
-
-    color:#0d53d4;
-
-    margin-bottom:18px;
-
-    font-family:"Cormorant Garamond", Georgia, serif;
-}
-
-/* =====================================================
-   DESCRIPTION
-===================================================== */
-
-.card-description{
-
-    color:#666;
-
-    font-size:1rem;
-
-    line-height:1.8;
-
-    margin-bottom:30px;
-
-    font-family:"Cormorant Garamond", Georgia, serif;
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .program-badge,
-.program-date,
-.btn-read-more {
-    font-family:"Cormorant Garamond", Georgia, serif;
+.program-date {
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.program-badge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--impact-blue, #1f76be);
+  background: var(--impact-blue-tint, #eaf3fb);
+}
+
+.program-date {
+  color: var(--impact-muted, #52606d);
 }
 
 /* =====================================================
-   BUTTON
-===================================================== */
+   TITLE + PARAGRAPH — one clear size/weight per level across all cards.
+   ===================================================== */
+
+.program-title {
+  margin: 0 0 12px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0d53d4;
+}
+
+.card-description {
+  margin: 0 0 20px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--impact-muted, #52606d);
+}
+
+/* =====================================================
+   READ MORE — the site's link style (same blue pill as the other
+   Read more / Learn more / Join us links), pinned to the card bottom so
+   all three align even with different paragraph lengths.
+   ===================================================== */
 
 .btn-read-more {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 14px;
-
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 10px 22px;
+  border-radius: 4px;
+  background: var(--impact-blue, #1f76be);
   color: #ffffff;
-  background: #ff6600;
-
-  padding: 12px 20px;
- 
-  border-radius: 6px;
-
-  cursor: pointer;
-
-  transition:
-    background 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
- 
+.btn-read-more:hover {
+  background: var(--impact-blue-dark, #14507f);
+  color: #ffffff;
+}
 
-.btn-read-more:hover::after{
-
-    transform:translateX(6px);
-
+.btn-read-more:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
 }
 
 /* =====================================================
    TABLET
-===================================================== */
+   ===================================================== */
 
-@media(max-width:991px){
+@media (max-width: 991px) {
+  .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-.programs-grid{
+  .program-image {
+    height: 240px;
+  }
 
-grid-template-columns:repeat(2,1fr);
-
-}
-
-.program-image{
-
-height:240px;
-
-}
-
-.program-card-body{
-
-margin-top:-55px;
-
-padding:24px;
-
-}
-
+  .program-card-body {
+    margin-top: -55px;
+  }
 }
 
 /* =====================================================
-   MOBILE
-===================================================== */
+   MOBILE — single column.
+   ===================================================== */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
 
-.programs-grid{
+  .program-image {
+    height: 220px;
+  }
 
-grid-template-columns:1fr;
+  .program-card-body {
+    width: 94%;
+    margin-top: -45px;
+    padding: 24px;
+  }
 
-gap:35px;
-
-}
-
-.program-image{
-
-height:220px;
-
-}
-
-.stacked-images{
-
-height:220px;
-
-}
-
-.program-card-body{
-
-width:94%;
-
-margin-top:-45px;
-
-padding:22px;
-
-}
-
-.program-title{
-
-font-size:1.45rem;
-
-}
-
-.card-description{
-
-font-size:.96rem;
-
-line-height:1.7;
-
-}
-
+  .program-title {
+    font-size: 1.35rem;
+  }
 }

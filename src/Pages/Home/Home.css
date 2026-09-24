@@ -1,4 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap");
+/* Our Impact pattern for the Home sections below the hero: the shared
+   label/title/body two-column band styles (src/components/ImpactSections.css)
+   plus the Bebas Neue / Source Sans 3 pair those sections use. Imported
+   here so every restyled Home section picks them up; Home.css is loaded
+   only by the Home page, so no other page is affected. */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap");
+@import url("../../components/ImpactSections.css");
 
 .btn-go-about,
 .read-more-btn {
@@ -69,5 +76,88 @@
 @media (prefers-reduced-motion: reduce) {
   .walking-text span {
     animation: none !important;
+  }
+
+}
+
+/* ==========================================================================
+   Shared additions for the Home sections restyled into the Our Impact
+   two-column pattern (label/title/body + media column). Scoped to classes
+   only used on this page, so no other page changes.
+   ========================================================================== */
+
+/* Media column holding a video or image in the two-column band. The
+   pattern's flex order (media first) + the --flip modifier give the
+   left/right rhythm, and under 768px the media stacks on top. */
+.auvd-story-body .auvd-story-media {
+  flex: 0 0 460px;
+  min-width: 0;
+}
+
+/* 16:9 media frame used for the Home sections' video embeds. */
+.auvd-story-media-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border-radius: 6px;
+  box-shadow: 0 14px 34px rgba(15, 35, 58, 0.16);
+}
+
+.auvd-story-media-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Body copy inside the pattern columns: the global Cormorant Garamond
+   paragraph/link rule would otherwise win over the inherited container
+   font, so Source Sans 3 is set directly on these elements. */
+.auvd-story-text p,
+.auvd-story-text a {
+  font-family: "Source Sans 3", Arial, sans-serif;
+}
+
+/* Primary link/CTA (Learn more, Read more, Join us) — matches the site's
+   other Learn more links (the Our Impact card button): blue pill, white
+   label, darker blue hover. */
+.auvd-story-text .auvd-cta-link,
+.auvd-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 10px 22px;
+  border-radius: 4px;
+  background-color: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.auvd-story-text .auvd-cta-link:hover,
+.auvd-cta-link:hover {
+  background-color: var(--impact-blue-dark, #14507f);
+  color: #ffffff;
+}
+
+.auvd-story-text .auvd-cta-link:focus-visible,
+.auvd-cta-link:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
+/* Mobile (<768px): two-column sections stack into one column, media on top. */
+@media (max-width: 768px) {
+  .auvd-story-body .auvd-story-media {
+    flex: none;
+    width: 100%;
   }
 }

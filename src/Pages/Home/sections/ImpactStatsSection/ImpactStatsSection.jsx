@@ -7,6 +7,17 @@ import {
 } from "react-icons/fa6";
 import "./ImpactStatsSection.css";
 import useOnceInView from "../../hooks/useOnceInView";
+import useRevealClass from "../../hooks/useRevealClass";
+
+/* "Our Impact" — restyled into the Our Impact two-column pattern, the same
+   one the Visual Arts and VET sections use: the existing background photo
+   now sits in the media column (right, alternating from the VET section
+   above, whose image is on the left), the heading is promoted to the
+   pattern's Bebas Neue title (this section has no separate label wording),
+   and the existing paragraph uses the shared Source Sans 3 body style
+   (src/components/ImpactSections.css, imported once via Home.css). The four
+   figures are unchanged and sit under the two-column body. Wording and the
+   photo are unchanged. */
 
 const iconMap = {
   list: <FaListCheck />,
@@ -16,7 +27,8 @@ const iconMap = {
 };
 
 function ImpactStatsSection({ impactStats }) {
-  const [sectionRef, isVisible] = useOnceInView(0.25);
+  const [cardsRef, isVisible] = useOnceInView(0.25);
+  const textRef = useRevealClass("content-entered", 0.3);
   const [counts, setCounts] = useState({ reached: 0, programs: 0, trained: 0, camps: 0 });
 
   const stats = useMemo(
@@ -56,24 +68,30 @@ function ImpactStatsSection({ impactStats }) {
   }, [isVisible]);
 
   return (
-    <section
-      ref={sectionRef}
-      className={`impactSection ${isVisible ? "impactSection--visible" : ""}`}
-      style={{
-        backgroundImage:
-          "linear-gradient(135deg, rgba(5, 18, 44, 0.82), rgba(21, 101, 216, 0.72)), url('/Upcoming%20project%20%20(2).jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <div className="impactWrapper">
-        <h2 className="impactHeading">Our Impact</h2>
-        <p className="impactText">
-          Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp
-        </p>
+    <section className="auvd-story-section auvd-story-section--tint impact-section">
+      <div className="auvd-story-container">
+        <div className="auvd-story-body auvd-story-body--flip">
 
-        <div className="impactCards">
+          {/* Existing photo, now the media column (right) */}
+          <div className="auvd-story-gallery auvd-story-gallery--single">
+            <img
+              className="auvd-story-gallery-item auvd-story-gallery-item--1"
+              src="/Upcoming%20project%20%20(2).jpg"
+              alt="AUVD community programs"
+            />
+          </div>
+
+          <div ref={textRef} className="auvd-story-text impact-text-block content-animated">
+            <h2 className="auvd-story-title">Our Impact</h2>
+
+            <p>
+              Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp
+            </p>
+          </div>
+
+        </div>
+
+        <div ref={cardsRef} className="impactCards">
           {stats.map((stat, index) => (
             <div
               key={stat.key}

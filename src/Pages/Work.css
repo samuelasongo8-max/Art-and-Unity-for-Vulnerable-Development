@@ -37,16 +37,15 @@
 	margin: calc(-1 * var(--work-nav-offset)) 0 70px -20px;
 }
 
-/* This page passes no label, so unlike Our Story its copy block is shorter
-   than the hero min-height: centring alone would leave the heading behind
-   the fixed nav. The page-specific rule below reserves exactly the nav height
-   above the copy (tracking the nav at every breakpoint through
-   --work-nav-offset); the photo still starts at y=0 with no gap. */
 /* The hero itself is the shared ImpactHero component (same design as Our
-   Story); see .work-hero-bleed above and src/components/ImpactHero.css. */
+   Story); see .work-hero-bleed above and src/components/ImpactHero.css.
+   Reserve the fixed nav's height plus breathing room above the copy (48px on
+   desktop, 32px at tablet and below, tracked through --work-nav-offset) so the
+   heading is never overlapped on wide screens; the photo still starts at y=0
+   with no gap. */
 .work-hero-bleed .auvd-impact-hero__content {
 	margin-top: 0;
-	padding-top: var(--work-nav-offset);
+	padding-top: calc(var(--work-nav-offset) + 48px);
 }
 
 .work-programs-kicker {
@@ -82,6 +81,40 @@
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	text-wrap: balance;
+}
+
+/* Override the shared hero's overlay so white text is readable:
+   anchor the scrim to the fixed 560px text column instead of the hero's width. */
+.work-hero-bleed .auvd-impact-hero__overlay {
+	background: linear-gradient(
+		90deg,
+		rgba(8, 16, 30, 0.92) 0,
+		rgba(8, 16, 30, 0.90) 460px,
+		rgba(8, 16, 30, 0.78) 620px,
+		rgba(8, 16, 30, 0) 100%
+	);
+}
+
+/* At <=768px the content loses its max-width, so the copy runs to within 24px
+   of both edges and no left-to-right fade can cover it. Use a near-flat scrim
+   (alpha >= 0.80 everywhere, deepest at the bottom where the copy sits) — the
+   photo still reads through, and white text measures ~12.9:1 worst case. */
+@media (max-width: 768px) {
+	.work-hero-bleed .auvd-impact-hero__overlay {
+		background: linear-gradient(
+			180deg,
+			rgba(8, 16, 30, 0.80) 0%,
+			rgba(8, 16, 30, 0.92) 100%
+		);
+	}
+}
+
+.work-hero-bleed .auvd-impact-hero__title {
+	color: #ffffff;
+}
+
+.work-hero-bleed .auvd-impact-hero__text {
+	color: #ffffff;
 }
 
 .work-programs-grid {
@@ -136,7 +169,7 @@
 
 .work-pillar-intro {
 	margin: 0 0 22px;
-	color: var(--work-muted);
+	color: #1a1a1a;
 	font-family: "Source Sans 3", Arial, sans-serif;
 	font-size: 16px;
 	line-height: 26px;
@@ -211,7 +244,7 @@
 
 .work-program-block h4 {
 	margin: 0 0 10px;
-	color: var(--work-text);
+	color: #1a1a1a;
 	font-family: "Source Sans 3", Arial, sans-serif;
 	font-size: 1rem;
 	font-weight: 700;
@@ -220,7 +253,7 @@
 .work-program-block ul {
 	margin: 0;
 	padding-left: 20px;
-	color: #566171;
+	color: #1a1a1a;
 	font-family: "Source Sans 3", Arial, sans-serif;
 	font-size: 16px;
 	line-height: 26px;
@@ -293,6 +326,10 @@
 	.work-hero-bleed {
 		width: calc(100% + 32px);
 		margin-left: -16px;
+	}
+
+	.work-hero-bleed .auvd-impact-hero__content {
+		padding-top: calc(var(--work-nav-offset) + 32px);
 	}
 }
 

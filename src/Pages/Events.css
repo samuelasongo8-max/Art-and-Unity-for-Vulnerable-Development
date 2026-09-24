@@ -1,4 +1,4 @@
-@@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
 
 :root {
   --events-bg: #ecf3fb;
@@ -38,6 +38,48 @@
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   margin-bottom: clamp(2.4rem, 5vw, 4rem);
+}
+
+/* Push the hero copy below the fixed 80px navbar (+48px breathing room on
+   desktop, +32px on mobile) without moving the full-bleed photo, which keeps
+   starting at y=0 behind the nav. */
+.auvd-events-hero-bleed .auvd-impact-hero__content {
+  margin-top: 0;
+  padding-top: calc(80px + 48px);
+}
+
+@media (max-width: 768px) {
+  .auvd-events-hero-bleed .auvd-impact-hero__content {
+    padding-top: calc(80px + 32px);
+  }
+}
+
+/* White hero copy needs >= 7:1 against the photo. The shared gradient's
+   percentage stops shrink with the hero while the text column stays 560px
+   wide (right edge always x=536px), which left the copy on the bare photo at
+   most widths — measured 4.79:1 at 375px, 4.15:1 at 1024px, 6.39:1 at 1280px.
+   Pixel stops anchor the scrim to the text column instead, keeping alpha
+   >= 0.78 across the whole copy (~10:1 worst case); <=768px needs a near-flat
+   scrim because the copy then runs to within 24px of both edges. Scoped to
+   this page so Our Story and Pricing keep their original hero treatment. */
+.auvd-events-hero-bleed .auvd-impact-hero__overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(8, 16, 30, 0.92) 0,
+    rgba(8, 16, 30, 0.90) 460px,
+    rgba(8, 16, 30, 0.78) 620px,
+    rgba(8, 16, 30, 0) 100%
+  );
+}
+
+@media (max-width: 768px) {
+  .auvd-events-hero-bleed .auvd-impact-hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 16, 30, 0.80) 0%,
+      rgba(8, 16, 30, 0.92) 100%
+    );
+  }
 }
 
 /* Reveal (existing page animation, kept). */
@@ -252,8 +294,9 @@
 
 /* Impact section — the page's own dark blue band. Heading and label are
    white; paragraphs use the page's muted text at reduced opacity; the
-   impact cards and closing quote keep their existing styling. */
+   closing quote keeps its existing styling. */
 .auvd-events-section.auvd-events-impact {
+  background: var(--events-primary-deep);
 }
 
 .auvd-events-impact .events-section-label,
@@ -273,25 +316,39 @@
   margin-bottom: 28px;
 }
 
-.events-impact-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 36px;
+/* Impact list: white text so it stays legible on the dark navy band. */
+.impact-list {
+  list-style: disc inside;
+  margin: 0 0 24px;
+  padding: 0;
 }
 
-.impact-card {
-  background-color: var(--events-accent);
-  border: 1px solid rgba(166, 88, 12, 0.22);
-  box-shadow: 0 16px 34px rgba(158, 72, 10, 0.18);
-  padding: 1.25rem;
+.impact-list li {
+  margin: 0 0 10px;
+  color: #ffffff;
 }
 
-.impact-card p {
-  margin: 0;
-  font-size: 0.95rem;
+.impact-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Reveal support for the closing content (Impact section). */
+.events-reveal.is-visible .events-closing,
+.events-reveal.is-visible .events-closing * {
+  opacity: 1;
+}
+
+/* Pull-quote styling for the closing quote. */
+.events-closing blockquote {
+  margin: 32px 0 0;
+  padding: 0.9rem 1.4rem;
+  border-left: 3px solid rgba(255, 217, 130, 0.7);
+  background: rgba(255, 255, 255, 0.06);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 1.05rem;
+  font-style: italic;
   line-height: 1.55;
-  color: #fffef9;
+  color: #fffef6;
 }
 
 .events-closing {
@@ -310,24 +367,9 @@
   margin-bottom: 0;
 }
 
-.events-closing blockquote {
-  margin: 32px 0 0;
-  padding: 0.9rem 1.4rem;
-  border-left: 3px solid rgba(255, 217, 130, 0.7);
-  background: rgba(255, 255, 255, 0.06);
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: 1.05rem;
-  font-style: italic;
-  line-height: 1.55;
-  color: #fffef6;
-}
-
 /* RESPONSIVE */
 
 @media (max-width: 1024px) {
-  .events-impact-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 768px) {
@@ -371,11 +413,6 @@
 
   .auvd-events-impact .auvd-events-text {
     padding-top: 20px;
-  }
-
-  .events-impact-grid {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
   }
 
   .events-closing {

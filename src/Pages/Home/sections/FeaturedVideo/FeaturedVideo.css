@@ -572,4 +572,144 @@
     animation: fadeInOut 4s infinite;
 }
 
+
+/* ==========================================================================
+   "Vel Lewis" + "Music Across Youth Peace Week" restyled into the Our
+   Impact two-column pattern (pattern rules come from
+   src/components/ImpactSections.css, imported once via Home.css). The
+   older .peace-week-* / .video-* rules above no longer match any
+   element; the rules below cover the new markup.
+   ========================================================================== */
+
+/* Links inside the copy column keep the site's outbound-link treatment
+   (partner links inherit this from ImpactSections.css; "Open on YouTube"
+   opts in with .auvd-outbound-link). */
+.auvd-story-text a.auvd-outbound-link {
+  color: var(--impact-blue, #1f76be);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--impact-blue, #1f76be);
+  text-underline-offset: 3px;
+}
+
+.auvd-story-text a.auvd-outbound-link:hover {
+  color: var(--impact-orange-dark, #b25a1e);
+  text-decoration-color: var(--impact-orange-dark, #b25a1e);
+}
+
+.auvd-story-text .video-actions {
+  margin-top: 4px;
+}
+
+/* Small stat line: bold label + value, in the milestone-strip spirit. */
+.auvd-story-text .peace-week-stat {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--impact-muted, #52606d);
+}
+
+.auvd-story-text .peace-week-stat strong {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
+}
+
+/* "2026 UPCOMING EVENTS" — a distinct light panel (background + padding +
+   border) with a clear heading, so it never blends into surrounding text. */
+.peace-week-events {
+  width: 100%;
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--impact-blue-tint, #eaf3fb);
+  border: 1px solid var(--impact-border, #dde5ee);
+}
+
+.peace-week-events .toggle-wrapper {
+  margin: 0;
+  text-align: left;
+}
+
+.peace-week-events .toggle-button {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--impact-navy, #12395f);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.peace-week-events .toggle-button:hover {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.peace-week-events .toggle-button-icon {
+  background: #ffffff;
+  color: var(--impact-blue, #1f76be);
+  box-shadow: none;
+}
+
+.peace-week-events .toggle-content.open {
+  margin-top: 16px;
+}
+
+.peace-week-events .event-card {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: left;
+}
+
+.peace-week-events .event-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.peace-week-events .event-card h3 {
+  margin: 0 0 8px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
+}
+
+.peace-week-events .event-card p {
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--impact-muted, #52606d);
+}
+
+@media (max-width: 768px) {
+  .peace-week-events {
+    padding: 16px 18px;
+  }
+}
+
  

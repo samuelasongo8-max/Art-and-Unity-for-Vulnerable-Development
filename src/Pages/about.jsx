@@ -1,6 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FaBullseye, FaEye, FaHandsHoldingCircle, FaPeopleGroup, FaSeedling } from "react-icons/fa6";
+import ImpactHero from "../components/ImpactHero";
+import "../components/ImpactSections.css";
 import "./about.css";
+
+/* About page — every word, link and image is unchanged.
+   The hero is the shared ImpactHero (the same design as Our Story, Work,
+   Pricing, Events and Our Impact) carrying this page's own heading, paragraph,
+   photo and Founded panel; the sections below follow the Our Impact band
+   pattern already used by Visual Arts / VET / Our Impact: a small bold label
+   (no rule under it), a Bebas Neue title, Source Sans 3 body copy and two
+   columns wherever there is an image. */
 
 const beneficiaries = [
   "Refugees and displaced populations",
@@ -19,6 +29,13 @@ const beneficiaryImages = [
   { src: "/mental.jpg", alt: "Mental health and psychosocial support activity" },
 ];
 
+/* The two photos this page's Mission slideshow already used, kept on the page
+   side by side under the Mission / Vision cards. */
+const missionImages = [
+  { src: "/Upcoming project 1 (1).jpg", alt: "Mission" },
+  { src: "/AUVD.education.jpg", alt: "Vision" },
+];
+
 const EducationAccess = () => {
   const aboutStoryCopyRef = useRef(null);
 
@@ -35,7 +52,7 @@ const EducationAccess = () => {
           return;
         }
 
-        sectionElement.classList.add("about-story-copy-entered");
+        sectionElement.classList.add("about-text-reveal-entered");
         observer.disconnect();
       },
       { threshold: 0.35 }
@@ -48,180 +65,161 @@ const EducationAccess = () => {
 
   return (
     <section className="about-page">
-      <section className="about-hero">
-        <div className="about-hero-copy">
-          <h1>Creative empowerment for vulnerable communities in Kakuma.</h1>
-          <p className="about-intro">
-            Art and Unity for Vulnerable Development (AUVD) is a nonprofit community-based and
-            refugee-led organization working in Kakuma Refugee Camp, Kenya. Since 2022, AUVD has
-            supported refugees, women, youth, children, and persons with disabilities through arts,
-            skills development, and inclusive community programs.
-          </p>
-        </div>
+      {/* HERO — the shared full-bleed hero: photo behind the fixed nav at the
+          very top of the page, dark gradient overlay, Anton heading, Roboto
+          copy. This page has no hero button, so none is rendered. */}
+      <div className="about-hero-bleed">
+        <ImpactHero
+          heading="Creative empowerment for vulnerable communities in Kakuma."
+          paragraph="Art and Unity for Vulnerable Development (AUVD) is a nonprofit community-based and refugee-led organization working in Kakuma Refugee Camp, Kenya. Since 2022, AUVD has supported refugees, women, youth, children, and persons with disabilities through arts, skills development, and inclusive community programs."
+          image="/together1.jpg"
+          imageAlt="Community gathering in Kakuma"
+          factCard={{
+            label: "Founded",
+            value: "2022",
+            caption:
+              "Formally registered in 2025 to expand healing, education, and livelihoods support.",
+          }}
+        />
+      </div>
+      {/* MISSION & VISION — two short statements side by side as two clean
+          cards: label above, statement below, equal widths, one per row on
+          mobile. Not the two-column image layout. The two photos this section
+          already used stay on the page, side by side under the cards. */}
+      <section className="auvd-story-section auvd-story-section--tint">
+        <div className="auvd-story-container">
+          <div className="about-mv-grid">
+            <article className="about-mv-card">
+              <div className="about-mv-icon" aria-hidden="true">
+                <FaBullseye />
+              </div>
+              <p className="auvd-story-label">OUR MISSION</p>
+              <p className="about-mv-text">
+                Empower vulnerable communities through creative arts, inclusive education,
+                psychosocial support and sustainable development opportunities.
+              </p>
+            </article>
 
-        <div className="about-hero-panel">
-          <p className="about-panel-label">Founded</p>
-          <strong>2022</strong>
-          <p>Formally registered in 2025 to expand healing, education, and livelihoods support.</p>
+            <article className="about-mv-card">
+              <div className="about-mv-icon" aria-hidden="true">
+                <FaEye />
+              </div>
+              <p className="auvd-story-label">OUR VISION</p>
+              <p className="about-mv-text">
+                A peaceful and inclusive community where vulnerable individuals thrive through art,
+                education, dignity and sustainable livelihoods.
+              </p>
+            </article>
+          </div>
+
+          <div className="about-mv-strip">
+            {missionImages.map((image) => (
+              <img
+                key={image.src}
+                className="about-mv-strip-item"
+                src={image.src}
+                alt={image.alt}
+              />
+            ))}
+          </div>
         </div>
       </section>
- <section className="mission-section">
-  <section className="split-info-section">
 
-    <div className="split-container">
-
-      {/* LEFT IMAGE */}
-
-      <div className="split-image-col">
-
-        <div className="mission-slideshow">
-
-          <img
-            src="/Upcoming project 1 (1).jpg"
-            alt="Mission"
-            className="mission-slide"
-            style={{ animationDelay: "0s" }}
-          />
-
-          <img
-            src="/AUVD.education.jpg"
-            alt="Vision"
-            className="mission-slide"
-            style={{ animationDelay: "6s" }}
-          />
-
-        </div>
-
-      </div>
-
-      {/* RIGHT CONTENT */}
-
-      <div className="split-content-col">
-
-        <div className="mission-block">
-
-          <div className="icon-circle mission-icon">
-            <FaBullseye />
+      {/* WHO WE ARE — this section has no photo, so the title takes the
+          narrower left column and the two paragraphs the right one. */}
+      <section className="auvd-story-section">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Who We Are</p>
+          <div className="auvd-story-body">
+            <h2 className="auvd-story-title auvd-story-title--lead">
+              Building hope through art, learning, and community action.
+            </h2>
+            <div ref={aboutStoryCopyRef} className="auvd-story-text about-text-reveal">
+              <p>
+                AUVD was established in response to the social and economic challenges faced by
+                displaced and marginalized populations in Kakuma Refugee Camp and surrounding host
+                communities. We believe art and creativity are powerful tools for healing,
+                empowerment, education, and social transformation.
+              </p>
+              <p>
+                Through music, dance, visual arts, and community development programs, AUVD creates
+                safe spaces where people can develop confidence, strengthen their well-being, and
+                build pathways toward greater social and economic inclusion.
+              </p>
+            </div>
           </div>
-
-          <div className="icon-text">
-
-            <h3 className="card-heading">
-              OUR MISSION
-            </h3>
-
-            <p className="card-body">
-              Empower vulnerable communities through creative arts,
-              inclusive education, psychosocial support and sustainable
-              development opportunities.
-            </p>
-
-          </div>
-
         </div>
+      </section>
 
-        <div className="divider"></div>
-
-        <div className="vision-block">
-
-          <div className="icon-circle vision-icon">
-            <FaEye />
-          </div>
-
-          <div className="icon-text">
-
-            <h3 className="card-heading">
-              OUR VISION
-            </h3>
-
-            <p className="card-body">
-              A peaceful and inclusive community where vulnerable
-              individuals thrive through art, education, dignity and
-              sustainable livelihoods.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-</section>
-
-      <section className="about-story">
-        <div ref={aboutStoryCopyRef} className="about-story-copy about-story-copy-animated">
-          <p className="about-section-label">Who We Are</p>
-          <h2>Building hope through art, learning, and community action.</h2>
-          <p>
-            AUVD was established in response to the social and economic challenges faced by displaced
-            and marginalized populations in Kakuma Refugee Camp and surrounding host communities.
-            We believe art and creativity are powerful tools for healing, empowerment, education,
-            and social transformation.
-          </p>
-          <p>
-            Through music, dance, visual arts, and community development programs, AUVD creates safe
-            spaces where people can develop confidence, strengthen their well-being, and build pathways
-            toward greater social and economic inclusion.
-          </p>
-        </div>
-
-        <div className="about-goals-card">
-          <div className="about-goal-header">
-            <div className="about-card-icon about-card-icon-goal">
+      {/* OUR GOAL — the same two-column pattern, again with no photo, so the
+          title sits in the narrower left column. */}
+      <section className="auvd-story-section auvd-story-section--tint">
+        <div className="auvd-story-container">
+          <div className="about-label-row">
+            <div className="about-goal-icon" aria-hidden="true">
               <FaHandsHoldingCircle />
             </div>
-            <p className="about-section-label">Our Goal</p>
+            <p className="auvd-story-label">Our Goal</p>
           </div>
-          <h3>Resilient and empowered communities</h3>
-          <p>
-            Our goal is to create resilient and empowered vulnerable populations in Kakuma Refugee Camp
-            and host communities by improving mental well-being, strengthening livelihood skills, and
-            expanding opportunities for economic and social inclusion through arts-based training and
-            community development programs.
-          </p>
-          <p>
-            AUVD remains committed to promoting dignity, creativity, equality, and peaceful coexistence
-            among diverse communities.
-          </p>
+          <div className="auvd-story-body">
+            <h2 className="auvd-story-title auvd-story-title--lead">
+              Resilient and empowered communities
+            </h2>
+            <div className="auvd-story-text">
+              <p>
+                Our goal is to create resilient and empowered vulnerable populations in Kakuma
+                Refugee Camp and host communities by improving mental well-being, strengthening
+                livelihood skills, and expanding opportunities for economic and social inclusion
+                through arts-based training and community development programs.
+              </p>
+              <p>
+                AUVD remains committed to promoting dignity, creativity, equality, and peaceful
+                coexistence among diverse communities.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="why-container">
-        <div className="why-wrapper">
-          <div className="doctor-section">
-            <div className="doctor-slideshow" aria-label="AUVD beneficiary gallery">
+      {/* TARGET BENEFICIARIES — this section has a photo (the page's existing
+          six-image gallery), so it uses the two-column layout: gallery on the
+          left, title, intro and beneficiary list in the text column. */}
+      <section className="auvd-story-section">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Target Beneficiaries</p>
+          <div className="auvd-story-body">
+            <div
+              className="auvd-story-gallery auvd-story-gallery--single about-beneficiary-gallery"
+              aria-label="AUVD beneficiary gallery"
+            >
               {beneficiaryImages.map((image, index) => (
                 <img
                   key={image.src}
                   src={image.src}
                   alt={image.alt}
-                  className="doctor-slide"
+                  className="about-beneficiary-slide"
                   style={{ animationDelay: `${index * 5}s` }}
                 />
               ))}
             </div>
-          </div>
 
-          <div className="content-section">
-            <p className="about-section-label about-section-label-highlight">Target Beneficiaries</p>
-            <h4>Who We Serve</h4>
-            <p className="desc">
-              AUVD programs are designed to meet people where they are and strengthen dignity,
-              healing, inclusion, and opportunity across the community.
-            </p>
+            <div className="auvd-story-text">
+              <h2 className="auvd-story-title">Who We Serve</h2>
+              <p>
+                AUVD programs are designed to meet people where they are and strengthen dignity,
+                healing, inclusion, and opportunity across the community.
+              </p>
 
-            <div className="beneficiary-grid">
-              {beneficiaries.map((item, index) => (
-                <div key={item} className="feature feature-card">
-                  <div className="icon beneficiary-icon">
-                    {index % 2 === 0 ? <FaPeopleGroup /> : <FaSeedling />}
-                  </div>
-                  <p>{item}</p>
-                </div>
-              ))}
+              <ul className="about-beneficiary-list">
+                {beneficiaries.map((item, index) => (
+                  <li key={item} className="about-beneficiary-item">
+                    <span className="about-beneficiary-icon" aria-hidden="true">
+                      {index % 2 === 0 ? <FaPeopleGroup /> : <FaSeedling />}
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

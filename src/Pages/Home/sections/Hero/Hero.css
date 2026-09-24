@@ -338,3 +338,91 @@
     font-size: 16px;
   }
 }
+
+/* ============================================================
+   HOME HERO — wrapper for the shared ImpactHero component
+   (same design as Our Story, Work, Pricing and Events).
+   Full-bleed at the very top: the photo passes behind the
+   fixed 80px navbar at y=0 with no gap (.main-content has no
+   padding of its own, so no bleed math is needed here).
+   ============================================================ */
+.home-hero-bleed {
+  position: relative;
+  width: 100%;
+}
+
+/* Reserve the navbar's height plus breathing room above the copy
+   (48px desktop / 64px mobile) so the heading is never overlapped;
+   the photo still starts at y=0. The mobile padding also opens a
+   clear band at the top-right for the social links. */
+.home-hero-bleed .auvd-impact-hero__content {
+  margin-top: 0;
+  padding-top: calc(80px + 48px);
+}
+
+/* Pixel-anchored overlay (same treatment as Work and Events): the
+   shared percentage stops shrink with the viewport and left the copy
+   past ~1280px sitting on bare photo. These stops keep alpha >= 0.78
+   across the whole 560px text column so the white label/heading/
+   paragraph/button/pills all clear 7:1, while the right side of the
+   photo still shows through. */
+.home-hero-bleed .auvd-impact-hero__overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(8, 16, 30, 0.92) 0,
+    rgba(8, 16, 30, 0.9) 460px,
+    rgba(8, 16, 30, 0.78) 620px,
+    rgba(8, 16, 30, 0) 100%
+  );
+}
+
+@media (max-width: 768px) {
+  /* Content runs edge-to-edge on mobile, so use the near-flat vertical
+     scrim (dark at the bottom where the copy sits) — same as Work and
+     Events — to keep white text above 7:1 everywhere. */
+  .home-hero-bleed .auvd-impact-hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 16, 30, 0.8) 0%,
+      rgba(8, 16, 30, 0.92) 100%
+    );
+  }
+
+  .home-hero-bleed .auvd-impact-hero__content {
+    padding-top: calc(80px + 64px);
+  }
+}
+
+/* Social links — same markup, classes and hrefs as the old hero.
+   Desktop/tablet: a vertical rail over the photo's right edge, which
+   is always clear of the fixed 560px copy column. Mobile: a row just
+   below the navbar, above the bottom-anchored copy. */
+.home-hero-bleed .auvd-social-links {
+  position: absolute;
+  top: 50%;
+  right: clamp(20px, 3vw, 44px);
+  z-index: 3;
+  flex-direction: column;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .home-hero-bleed .auvd-social-links {
+    top: 88px;
+    right: 22px;
+    flex-direction: row;
+    transform: none;
+  }
+}
+
+/* Square corners — Home hero only.
+   The shared .auvd-impact-hero__button / .auvd-impact-hero__pill set
+   border-radius: 999px, which other pages' heroes (Work pills, Our Story
+   button) must keep. Scoped under .home-hero-bleed (Home's wrapper, this
+   file) so only this page's five hero links lose the rounding:
+   "Learn more about us" -> /about and the four destination pills. */
+.home-hero-bleed .auvd-impact-hero__button,
+.home-hero-bleed .auvd-impact-hero__pill {
+  border-radius: 0;
+}
+

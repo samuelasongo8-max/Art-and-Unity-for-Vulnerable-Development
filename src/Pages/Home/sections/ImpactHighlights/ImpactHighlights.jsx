@@ -8,7 +8,6 @@ const donations = [
     tag: "2025 - Delivery",
     title: " Our First Major Instrument Donation",
     text: "In 2025, AUVD received its first major donation of musical instruments from the Transylvanian Symphony Foundation.",
-    
 
 
 
@@ -66,11 +65,11 @@ function ImpactHighlights() {
         <div className="auvd-donations-top">
           <div className="auvd-donations-heading">
             <h2>Music Instrument</h2>
-            <h3>Donations:</h3>   
-            <h3 style={{ color: "#0d53d4", fontSize: "2rem", fontWeight: 700 }}>
-  Music That Reached Kakuma
-</h3>
-  Our music education journey grew through the generosity of partners who believed that every young person deserves an opportunity to learn, create, and express themselves through music.
+            <h3>Donations:</h3>
+            <h3 className="auvd-donations-subheading">Music That Reached Kakuma</h3>
+            <p className="auvd-donations-intro">
+              Our music education journey grew through the generosity of partners who believed that every young person deserves an opportunity to learn, create, and express themselves through music.
+            </p>
           </div>
                    <button
   className="auvd-donations-viewall"

@@ -1,3 +1,4 @@
+import ImpactHero from "../components/ImpactHero";
 import ImpactGrid from "./our-impact/ImpactGrid";
 import "./OurImpact.css";
 
@@ -85,6 +86,59 @@ export const impacts = [
     image: "/donation-2.jpg",
   },
 ];
+
+/* ==========================================================================
+   /our-impact hero — the shared ImpactHero component (the exact design Our
+   Story, Work, Pricing and Events use), carrying this page's own heading and
+   intro paragraph. The photo is one the project already uses (the music
+   lesson in refugees.jpg, also shown on the Home page). No label and no
+   button: the page's old hero had neither. Instead of the single fact card
+   the shared hero normally takes, this hero ends with a row of four equal
+   stat cards (the `stats` variant added to the component).
+   It is mounted by OurImpactLayout above the sidebar and the card grid so the
+   photo stays full-bleed; .our-impact-hero-bleed in OurImpact.css cancels the
+   page's own padding for this block only.
+   ========================================================================== */
+const heroStats = [
+  {
+    value: "500+",
+    label: "Refugees Reached",
+    caption: "Children, youth, and adults empowered through our programs",
+  },
+  {
+    value: "7",
+    label: "Core Programs",
+    list: [
+      "Arts, Healing & Psychosocial Well-being",
+      "Education, Youth Development & Empowerment",
+      "Livelihoods & Women Economic Empowerment",
+      "Peacebuilding & Community Inclusion",
+      "Humanitarian Outreach & Basic Needs Support",
+    ],
+  },
+  {
+    value: "100+",
+    label: "Youth Trained",
+    caption: "Equipped with creative and life skills",
+  },
+  {
+    value: "1",
+    label: "Refugee Camp",
+    caption: "Serving Kakuma community with safe creative spaces",
+  },
+];
+
+export const OurImpactHero = () => (
+  <div className="our-impact-hero-bleed">
+    <ImpactHero
+      heading="Our Impact"
+      paragraph="Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp"
+      image="/refugees.jpg"
+      imageAlt="Children and youth learning to play ukuleles and guitars with their teacher in Kakuma"
+      stats={heroStats}
+    />
+  </div>
+);
 
 /* ==========================================================================
    /our-impact — "All" view: every entry in the impacts array.

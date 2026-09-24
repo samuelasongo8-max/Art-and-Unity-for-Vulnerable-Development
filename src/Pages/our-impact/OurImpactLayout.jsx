@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   FaBars,
   FaBookOpen,
@@ -6,6 +6,7 @@ import {
   FaFileLines,
   FaNewspaper,
 } from "react-icons/fa6";
+import { OurImpactHero } from "../OurImpact";
 import "../OurImpact.css";
 
 /* ==========================================================================
@@ -30,8 +31,20 @@ const impactNavItems = [
 const navItemClass = ({ isActive }) =>
   `auvd-impact-nav-item${isActive ? " auvd-impact-nav-item--active" : ""}`;
 
+/* The All view (/our-impact) opens with the shared hero — full-bleed at the
+   very top of the page, above the sidebar and the card grid. The News, Blogs
+   and Report sub pages keep the plain padded layout they had, so the hero is
+   only mounted on the index route. */
+const OurImpactHeroSlot = () => {
+  const { pathname } = useLocation();
+
+  return pathname.replace(/\/+$/, "") === "/our-impact" ? <OurImpactHero /> : null;
+};
+
 const OurImpactLayout = () => (
   <main className="auvd-impact-page">
+    <OurImpactHeroSlot />
+
     <div className="auvd-impact-layout">
       <aside className="auvd-impact-sidebar">
         <h1 className="auvd-impact-heading">Impacts</h1>

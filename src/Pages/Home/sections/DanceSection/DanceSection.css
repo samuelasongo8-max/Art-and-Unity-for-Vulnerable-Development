@@ -1,291 +1,128 @@
-/* Reset & Base Styles */
+/* =====================================================
+   DANCE — Core Belief contained-background pattern (see .auvd-story-belief
+   in src/Pages/our-impact/OurStory.css): position: relative + overflow:
+   hidden, height set by the content with normal padding (no viewport
+   sizing), the photo as an absolute <img> with object-fit: cover behind a
+   dark overlay, content on top. Color treatment mirrors Core Belief:
+   orange label, white paragraph on the dark overlay.
+   ===================================================== */
+
+/* Previous file's global reset — kept so nothing else shifts. */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Hero/Dance Section Container */
 .dance-section {
   position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
-  background-image: url('/dance77.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  /* Reduces the overall brightness of the original image without altering its colors */
-  filter: brightness(0.85);
+  overflow: hidden;
+  padding: 96px 24px;
+  /* Navy base behind the image if the photo fails to load. */
+  background: var(--impact-navy, #12395f);
 }
 
-/* Professional Overlay for Contrast and Reduced Brightness */
-.dance-overlay {
+/* Existing photo, contained to this band only. */
+.dance-section-image {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  /* Smooth dark tint to make text pop while keeping the background clean */
-  background: linear-gradient(90deg, rgba(5, 8, 15, 0.65) 0%, rgba(5, 8, 15, 0.35) 60%, rgba(5, 8, 15, 0.2) 100%);
-  z-index: 1;
+  object-fit: cover;
 }
 
-/* Content Container */
+/* Dark overlay for text contrast — same treatment as Core Belief. */
+.dance-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 20, 36, 0.75);
+}
+
+/* Content sits on top of image + overlay. */
 .dance-content {
   position: relative;
   z-index: 2;
-  width: 100%;
-  max-width: 1200px;
+  max-width: 940px;
   margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
+  font-family: "Source Sans 3", Arial, sans-serif;
 }
 
-/* Text Wrapper */
 .dance-text-wrapper {
-  max-width: 620px;
+  max-width: 720px;
 }
 
-/* Headings */
-.dance-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  font-family: "Poppins", sans-serif;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+/* Label: orange, like the Core Belief section's label. */
+.dance-section .auvd-story-label {
+  color: var(--impact-orange, #dd7f43);
+  font-family: "Source Sans 3", Arial, sans-serif;
 }
 
-/* Description (Increased Font Size & Maximum Clarity) */
+/* Paragraph: white on the dark overlay (Core Belief body treatment). */
 .dance-description {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
+  margin: 0 0 24px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* The four short lines as a small tag row — bordered pills like the
+   site's other short-line pill rows. The fourth keeps its link (/dance). */
+.dance-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dance-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: transparent;
   color: #ffffff;
-  font-family: "Inter", sans-serif;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  font-weight: 400;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
 }
 
-/* Highlights Grid */
-.dance-highlights {
-  display: grid;
-  gap: 0.6rem;
-  margin: 1.5rem 0 2rem 0;
-}
-
-.dance-highlights h3 {
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  font-weight: 500;
-  color: #f1f5f9;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* Action Button */
-.dance-btn {
-  display: inline-block;
-  padding: 0.9rem 2rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-decoration: none;
-  border: 2px solid #ffffff;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
+button.dance-tag {
   cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.dance-btn:hover {
-  background-color: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+button.dance-tag:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: #ffffff;
 }
 
-/* Scroll Indicator Arrow (Stopped Movement) */
+button.dance-tag:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Scroll cue kept from the previous version, now anchored in the band's
+   bottom padding (the section is no longer full-height). */
 .dance-scroll-indicator {
   position: absolute;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  animation: none; /* Stopped walking/bouncing animation */
-  color: #ffffff;
-  opacity: 0.9;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .dance-title {
-    font-size: 2.5rem;/* Reset & Base Styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Hero/Dance Section Container */
-.dance-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
-  background-image: url('/dance77.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  /* Reduces the overall brightness of the original image without altering its colors */
-  filter: brightness(0.85);
-}
-
-/* Professional Overlay for Contrast and Reduced Brightness */
-.dance-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Smooth dark tint to make text pop while keeping the background clean */
-  background: linear-gradient(90deg, rgba(5, 8, 15, 0.65) 0%, rgba(5, 8, 15, 0.35) 60%, rgba(5, 8, 15, 0.2) 100%);
-  z-index: 1;
-}
-
-/* Content Container */
-.dance-content {
-  position: relative;
   z-index: 2;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-}
-
-/* Text Wrapper */
-.dance-text-wrapper {
-  max-width: 620px;
-}
-
-/* Headings */
-.dance-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  font-family: "Poppins", sans-serif;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-/* Description (Increased Font Size & Maximum Clarity) */
-.dance-description {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  color: #ffffff;
-  font-family: "Inter", sans-serif;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  font-weight: 400;
-}
-
-/* Highlights Grid */
-.dance-highlights {
-  display: grid;
-  gap: 0.6rem;
-  margin: 1.5rem 0 2rem 0;
-}
-
-.dance-highlights h3 {
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  font-weight: 500;
-  color: #f1f5f9;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* Action Button */
-.dance-btn {
-  display: inline-block;
-  padding: 0.9rem 2rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-decoration: none;
-  border: 2px solid #ffffff;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
-  cursor: pointer;
-}
-
-.dance-btn:hover {
-  background-color: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Scroll Indicator Arrow (Stopped Movement) */
-.dance-scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: none; /* Stopped walking/bouncing animation */
   color: #ffffff;
   opacity: 0.9;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .dance-title {
-    font-size: 2.5rem;
-  }
-  
-  .dance-description {
-    font-size: 1.1rem;
-  }
-  
-  .dance-content {
-    padding: 0 1.5rem;
+  .dance-section {
+    padding: 64px 24px;
   }
 
-  .dance-overlay {
-    background: rgba(5, 8, 15, 0.75);
-  }
-}
-  }
-  
   .dance-description {
-    font-size: 1.1rem;
-  }
-  
-  .dance-content {
-    padding: 0 1.5rem;
-  }
-
-  .dance-overlay {
-    background: rgba(5, 8, 15, 0.75);
+    font-size: 16px;
+    line-height: 26px;
   }
 }
