@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Team.css";
 
-/* Leadership + support rosters — every name, role and photo kept exactly as
-   previously listed, except Samuel Asongo's photo which now uses the new
-   "Samuel Asongo image.png" file. No bios exist in the source data, so none
-   are invented or rendered. Order is unchanged. */
+/* Leadership + support rosters — every legitimate name and photo remains
+   listed. Samuel Asongo's official role is shown in full; no unsupported
+   biography is invented. Order is unchanged. */
 const leadershipTeam = [
   {
     name: "Samuel Asongo",
-    role: "Chairperson",
+    role: "Founder | Chairperson & Chief Executive Officer (CEO)",
     image: "/Samuel Asongo image.png",
   },
   {
@@ -90,7 +90,7 @@ function TeamCard({ member }) {
         <img
           className="team-photo"
           src={member.image}
-          alt={member.name}
+          alt={`${member.name}, ${member.role} of AUVD`}
           loading="lazy"
           onError={() => setImageFailed(true)}
         />
@@ -99,14 +99,19 @@ function TeamCard({ member }) {
         <h3 className="team-name">{member.name}</h3>
         <p className="team-role">{member.role}</p>
         {member.name === "Samuel Asongo" && (
-          <a
-            className="team-portfolio-link"
-            href="https://samuel-portiforlio.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Portfolio
-          </a>
+          <>
+            <Link className="team-portfolio-link" to="/about/samuel-asongo">
+              View Samuel Asongo&apos;s profile
+            </Link>
+            <a
+              className="team-portfolio-link"
+              href="https://samuel-portiforlio.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Portfolio
+            </a>
+          </>
         )}
       </div>
     </article>

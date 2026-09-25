@@ -72,7 +72,7 @@ function OurStory() {
             <img
               className="auvd-story-origin-image-large"
               src="/Samuel%20Asongo%20image.png"
-              alt="Samuel Asongo"
+              alt="Samuel Asongo, Founder, Chairperson and Chief Executive Officer of AUVD"
             />
           </div>
           <div className="auvd-story-origin-text">
@@ -95,8 +95,9 @@ function OurStory() {
             </p>
             <h3 className="auvd-story-origin-founder">Samuel Asongo</h3>
             <p>
-              Musician, guitarist, and drummer whose experience as a refugee shaped AUVD&apos;s mission of
-              healing, dignity, and opportunity through art.
+              Samuel Asongo is AUVD&apos;s Founder, Chairperson and Chief Executive Officer (CEO). His
+              experience as a refugee and musician shaped AUVD&apos;s mission of healing, dignity, and
+              opportunity through art.
             </p>
             <blockquote className="auvd-story-origin-quote">
               &quot;Art can help people heal from pain, trauma, and displacement.&quot;

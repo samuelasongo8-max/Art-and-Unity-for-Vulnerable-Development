@@ -20,7 +20,7 @@ const testimonialsData = [
   {
     image: img1,
     text: "Working with AUVD has made me a part of endless stories, of human generosity, of compassion. It changed the way I look at life. It is the need of the hour to stand up and take responsibility.",
-    author: "- Samuel Asongo, Chairperson",
+    author: "- Samuel Asongo, Founder, Chairperson & Chief Executive Officer (CEO)",
   },
   {
     image: img2,

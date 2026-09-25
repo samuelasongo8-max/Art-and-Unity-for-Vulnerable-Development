@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { FaBullseye, FaEye, FaHandsHoldingCircle, FaPeopleGroup, FaSeedling } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import ImpactHero from "../components/ImpactHero";
 import "../components/ImpactSections.css";
 import "./about.css";
@@ -146,6 +147,35 @@ const EducationAccess = () => {
                 safe spaces where people can develop confidence, strengthen their well-being, and
                 build pathways toward greater social and economic inclusion.
               </p>
+              <p>
+                AUVD&apos;s leadership is led by{" "}
+                <Link to="/about/samuel-asongo" className="about-leadership-link">
+                  Samuel Asongo, Founder, Chairperson &amp; CEO
+                </Link>
+                . Matayo Bilibwa serves as Vice Chairperson.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="auvd-story-section auvd-story-section--tint" aria-labelledby="about-leadership-heading">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Leadership</p>
+          <div className="auvd-story-body">
+            <h2 id="about-leadership-heading" className="auvd-story-title auvd-story-title--lead">
+              AUVD leadership
+            </h2>
+            <div className="about-leadership-grid">
+              <article className="about-leadership-card">
+                <h3>Samuel Asongo</h3>
+                <p>Founder | Chairperson &amp; Chief Executive Officer (CEO)</p>
+                <Link to="/about/samuel-asongo">Read Samuel&apos;s profile</Link>
+              </article>
+              <article className="about-leadership-card">
+                <h3>Matayo Bilibwa</h3>
+                <p>Vice Chairperson</p>
+              </article>
             </div>
           </div>
         </div>

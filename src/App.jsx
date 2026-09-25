@@ -17,6 +17,7 @@ import Contact from "./Pages/contact";
 import Donate from "./Pages/donate";
 import Team from "./Pages/Team";
 import OurStory from "./Pages/OurStory";
+import SamuelAsongo from "./Pages/SamuelAsongo";
 import Music from "./Pages/programs/Music";
 import ImpactAll from "./Pages/ImpactAll";
 import OurImpact from "./Pages/OurImpact";
@@ -52,6 +53,7 @@ function App() {
             {/* Old Our Story path kept alive for existing links/bookmarks */}
             <Route path="/about/story" element={<Navigate to="/our-impact/our-story" replace />} />
             <Route path="/about/team" element={<Team />} />
+            <Route path="/about/samuel-asongo" element={<SamuelAsongo />} />
             <Route path="/Work" element={<Work />} />
             <Route path="/events" element={<Events />} />
             {/* Old blog path kept alive for existing links/bookmarks */}

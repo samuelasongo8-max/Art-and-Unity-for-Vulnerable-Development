@@ -7,7 +7,8 @@ const searchEntries = [
   { path: "/", title: "Home", description: "Main homepage and introduction to AUVD", keywords: ["home", "welcome", "art", "innovation", "communities", "kakuma"] },
   { path: "/about", title: "About Us", description: "Mission, vision, and overview of the organization", keywords: ["about", "mission", "vision", "organization", "auvd"] },
   { path: "/our-impact/our-story", title: "Our Story", description: "How AUVD began and the story behind the organization", keywords: ["story", "history", "began", "hope", "creativity"] },
-  { path: "/about/team", title: "Leadership", description: "Meet the team and leadership behind AUVD", keywords: ["team", "leadership", "staff", "people", "members"] },
+  { path: "/about/team", title: "Leadership Team", description: "Meet the AUVD leadership team, including Samuel Asongo and Matayo Bilibwa.", keywords: ["team", "leadership", "staff", "people", "members", "Samuel Asongo", "Matayo Bilibwa"] },
+  { path: "/about/samuel-asongo", title: "Samuel Asongo", description: "Samuel Asongo is the Founder, Chairperson and Chief Executive Officer of Art and Unity for Vulnerable Development (AUVD).", keywords: ["Samuel Asongo", "AUVD founder", "AUVD CEO", "AUVD Chairperson"] },
   { path: "/work", title: "Our Work", description: "Programs, community impact, and organizational work", keywords: ["work", "programs", "impact", "projects", "community"] },
   { path: "/events", title: "Events", description: "Youth Peace Week, music workshops, and recent events", keywords: ["events", "music", "workshops", "mental health", "teachers day", "food day", "youth peace week"] },
   { path: "/our-impact/blogs", title: "Blogs", description: "Stories, updates, reflections, and community highlights from AUVD", keywords: ["blogs", "blog", "stories", "updates", "articles", "community"] },
@@ -276,6 +277,13 @@ function Navbar() {
                 onClick={closeMenus}
               >
                 Leadership
+              </NavLink>
+              <NavLink
+                to="/about/samuel-asongo"
+                className={({ isActive }) => `dropdown-link ${isActive ? "active" : ""}`}
+                onClick={closeMenus}
+              >
+                Samuel Asongo
               </NavLink>
             </div>
           </div>
