@@ -1,0 +1,106 @@
+
+===== desktop (1440x900) =====
+PASS | [hero] shared hero at the very top, full viewport width | top=0 w=1440
+PASS | [hero] no gap under the fixed nav | navBottom=81
+PASS | [hero] dark gradient overlay | linear-gradient(90deg, rgba(8, 20, 36, 0.92) 0%,
+PASS | [hero] About's own photo, loaded, cover-cropped | 1296x864 cover
+PASS | [hero] heading wording unchanged, Anton, only h1 | Creative empowerment for vulnerable 
+PASS | [hero] paragraph wording unchanged, same stack as /pricing | "Cormorant Garamond", Georgia, serif 18px/31.5px
+PASS | [hero] Founded panel wording kept | Founded 2022 / Formally registered in 2025 to expand healing, education, and livelihoods support.
+PASS | [hero] no button or label invented | btn=0 label=0
+PASS | [hero] same design as the /pricing hero | Anton, "Arial Black", Arial, sans-serif 80px rgb(255, 255, 255)
+PASS | [hero] heading clears the fixed nav | h1Y=129 navBottom=81
+PASS | [bands] four sections after the hero | 4
+PASS | [bands] alternate tinted / white | rgb(246, 249, 252) rgb(255, 255, 255) rgb(246, 249, 252) rgb(255, 255, 255)
+PASS | [bands] 940px container, 24px gutters, 72/56px padding | 940px / 72px
+PASS | [bands] no <hr> and no rule lines | hr=0 bad=0,0,0,0
+PASS | [bands] labels small, bold, no rule under them | OUR MISSION:none | OUR VISION:none | Who We Are:none | Our Goal:none | Target Beneficiaries:none
+PASS | [bands] label wording unchanged (all five kept) | OUR MISSION|OUR VISION|Who We Are|Our Goal|Target Beneficiaries
+PASS | [bands] titles Bebas Neue 44/34px, same as Visual Arts | 44px vs 44px
+PASS | [bands] title colour/transform match Visual Arts, no rule | rgb(18, 57, 95)
+PASS | [bands] body copy Source Sans 3 16px/26px #333, same as Visual Arts | 16px/26px,16px/26px,16px/26px,16px/26px,16px/26px
+PASS | [bands] no leftover old markup, no horizontal overflow | old=0 overflow=false
+FAIL | [fonts] Anton / Bebas Neue / Source Sans 3 loaded, Roboto declared for heroes | {"bebas":true,"ss":true,"anton":true,"roboto":true} faces=
+PASS | [mission] two equal cards side by side (desktop) | 432@1097 432@1097
+PASS | [mission] clean white padded cards | 32px 32px
+PASS | [mission] not the two-column image layout | no gallery
+PASS | [mission] statement wording unchanged | Empower vulnerable commu | A peaceful and inclusive
+PASS | [mission] statements 16px/26px Source Sans 3 | 16px/26px
+PASS | [mission] both existing photo references kept unchanged | /Upcoming project 1 (1).jpg|Mission /AUVD.education.jpg|Vision
+NOTE | /AUVD.education.jpg is not in public/ (pre-existing 404, reference kept as-is) | Mission=5184x3456 Vision=0x0
+PASS | [who] label/title/paragraphs wording unchanged | Building hope through art, learn
+PASS | [who] no photo: title leads the narrower left column | title=320 text=538
+PASS | [who] title left of the paragraphs | 274 / 628
+PASS | [goal] label/title/paragraphs wording unchanged | Resilient and empowered communities
+PASS | [goal] same two-column pattern as Who We Are | title=320 text=538 dir=row
+PASS | [who] the two columns start on the same line | 1887 / 1887
+PASS | [goal] the two columns start on the same line | 2377 / 2377
+PASS | [serve] label/title/intro wording unchanged | Who We Serve
+PASS | [serve] two columns: gallery beside the text | gallery=274 text=768
+PASS | [serve] gallery framed 460/308 like the pattern | 460x308
+PASS | [serve] all six existing photos kept and loading | 6 images
+PASS | [serve] crossfade running (one slide visible) | 0.0,0.0,0.0,0.0,1.0,0.0
+PASS | [serve] list 2 columns on desktop | 2
+PASS | [serve] list items unchanged, one icon each | Refugees and | Women and gi | Youth and ch | Persons with | Host communi
+PASS | [serve] list copy 16px/26px Source Sans 3 | 16px/26px
+screenshot -> .verify-about/about-desktop.png
+
+===== mobile (390x844) =====
+PASS | [hero] shared hero at the very top, full viewport width | top=0 w=390
+PASS | [hero] no gap under the fixed nav | navBottom=81
+PASS | [hero] dark gradient overlay | linear-gradient(0deg, rgba(8, 20, 36, 0.9) 0%, r
+PASS | [hero] About's own photo, loaded, cover-cropped | 1296x864 cover
+PASS | [hero] heading wording unchanged, Anton, only h1 | Creative empowerment for vulnerable 
+PASS | [hero] paragraph wording unchanged, same stack as /pricing | "Cormorant Garamond", Georgia, serif 16px/28px
+PASS | [hero] Founded panel wording kept | Founded 2022 / Formally registered in 2025 to expand healing, education, and livelihoods support.
+PASS | [hero] no button or label invented | btn=0 label=0
+PASS | [hero] same design as the /pricing hero | Anton, "Arial Black", Arial, sans-serif 42.9px rgb(255, 255, 255)
+PASS | [hero] heading clears the fixed nav | h1Y=129 navBottom=81
+PASS | [bands] four sections after the hero | 4
+PASS | [bands] alternate tinted / white | rgb(246, 249, 252) rgb(255, 255, 255) rgb(246, 249, 252) rgb(255, 255, 255)
+PASS | [bands] 940px container, 24px gutters, 72/56px padding | 940px / 56px
+PASS | [bands] no <hr> and no rule lines | hr=0 bad=0,0,0,0
+PASS | [bands] labels small, bold, no rule under them | OUR MISSION:none | OUR VISION:none | Who We Are:none | Our Goal:none | Target Beneficiaries:none
+PASS | [bands] label wording unchanged (all five kept) | OUR MISSION|OUR VISION|Who We Are|Our Goal|Target Beneficiaries
+PASS | [bands] titles Bebas Neue 44/34px, same as Visual Arts | 34px vs 34px
+PASS | [bands] title colour/transform match Visual Arts, no rule | rgb(18, 57, 95)
+PASS | [bands] body copy Source Sans 3 16px/26px #333, same as Visual Arts | 16px/26px,16px/26px,16px/26px,16px/26px,16px/26px
+PASS | [bands] no leftover old markup, no horizontal overflow | old=0 overflow=false
+PASS | [fonts] Anton / Bebas Neue / Source Sans 3 loaded, Roboto declared for heroes | {"bebas":true,"ss":true,"anton":true,"roboto":false} faces=Bebas Neue,Source Sans 3,Anton,Roboto
+PASS | [mission] clean white padded cards | 26px 26px
+PASS | [mission] not the two-column image layout | no gallery
+PASS | [mission] statement wording unchanged | Empower vulnerable commu | A peaceful and inclusive
+PASS | [mission] statements 16px/26px Source Sans 3 | 16px/26px
+PASS | [mission] both existing photo references kept unchanged | /Upcoming project 1 (1).jpg|Mission /AUVD.education.jpg|Vision
+NOTE | /AUVD.education.jpg is not in public/ (pre-existing 404, reference kept as-is) | Mission=5184x3456 Vision=0x0
+PASS | [mission] cards stack on mobile | 873 1157
+PASS | [who] label/title/paragraphs wording unchanged | Building hope through art, learn
+PASS | [who] stacks to one column on mobile | 24 / 24
+PASS | [goal] label/title/paragraphs wording unchanged | Resilient and empowered communities
+PASS | [goal] stacks to one column on mobile | dir=column
+FAIL | [who] stacked columns sit tight (no leftover flex-basis) | gap=82 titleH=112
+PASS | [goal] stacked columns sit tight (no leftover flex-basis) | gap=58 titleH=75
+PASS | [serve] label/title/intro wording unchanged | Who We Serve
+PASS | [serve] gallery framed 460/308 like the pattern | 342x229
+PASS | [serve] all six existing photos kept and loading | 6 images
+PASS | [serve] crossfade running (one slide visible) | 1.0,1.0,0.0,0.0,0.0,0.0
+PASS | [serve] list 1 column on mobile | 1
+PASS | [serve] list items unchanged, one icon each | Refugees and | Women and gi | Youth and ch | Persons with | Host communi
+PASS | [serve] list copy 16px/26px Source Sans 3 | 16px/26px
+PASS | [serve] gallery stacks above the text on mobile | 3351 < 3614
+screenshot -> .verify-about/about-mobile.png
+
+errors: [
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET',
+  'desktop: Failed to load resource: net::ERR_CONNECTION_RESET'
+]
+FAIL | [page] no console or runtime errors | desktop: Failed to load resource: net::ERR_CONNECTION_RESET | desktop: Failed to load resource: net::ERR_CONNECTION_RESET
+
+TOTAL: 81 passed, 3 failed
+exit=1

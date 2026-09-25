@@ -1,10 +1,15 @@
+import { useState } from "react";
 import "./Team.css";
 
+/* Leadership + support rosters — every name, role and photo kept exactly as
+   previously listed, except Samuel Asongo's photo which now uses the new
+   "Samuel Asongo image.png" file. No bios exist in the source data, so none
+   are invented or rendered. Order is unchanged. */
 const leadershipTeam = [
   {
     name: "Samuel Asongo",
     role: "Chairperson",
-    image: "/samuel.png",
+    image: "/Samuel Asongo image.png",
   },
   {
     name: "Matayo Bilibwa",
@@ -61,86 +66,99 @@ const supportTeam = [
   },
 ];
 
+/* Initials for the neutral placeholder if a photo fails to load. */
+function initialsFor(name) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+}
+
+function TeamCard({ member }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const initials = initialsFor(member.name);
+
+  return (
+    <article className="team-card" aria-label={`${member.name}, ${member.role}`}>
+      {imageFailed ? (
+        <div className="team-image-fallback" aria-hidden="true">
+          <span>{initials}</span>
+        </div>
+      ) : (
+        <img
+          className="team-photo"
+          src={member.image}
+          alt={member.name}
+          loading="lazy"
+          onError={() => setImageFailed(true)}
+        />
+      )}
+      <div className="team-card-body">
+        <h3 className="team-name">{member.name}</h3>
+        <p className="team-role">{member.role}</p>
+        {member.name === "Samuel Asongo" && (
+          <a
+            className="team-portfolio-link"
+            href="https://samuel-portiforlio.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Portfolio
+          </a>
+        )}
+      </div>
+    </article>
+  );
+}
+
 function Team() {
   return (
-    <div className="auvd-team-page">
-      <div className="team-hero">
-        <div className="team-hero-copy">
-        <br></br>
-        <br></br>
-        <br></br>
-          <p className="team-intro">
-            AUVD is led by community organizers committed to dignity, accountability, and
-            practical support for vulnerable communities in Kakuma.
-          </p>
-        </div>
-      </div>
+    <main className="auvd-team-page">
+      {/* Simple page header (this page has no photo hero): small label, then
+          the page's existing title in Bebas Neue, then its existing intro
+          paragraph in Source Sans 3. No new copy invented. */}
+      <header className="team-page-header">
+        <p className="team-page-label">Leadership</p>
+        <h1 className="team-page-title">Leadership Team</h1>
+        <p className="team-page-intro">
+          AUVD is led by community organizers committed to dignity, accountability, and
+          practical support for vulnerable communities in Kakuma.
+        </p>
+      </header>
 
-      <section className="team-section">
-        <div className="team-section-heading">
-          <p className="team-section-kicker">Leadership</p>
-          <h2>Leadership Team</h2>
-          <p className="team-section-text">
-            This leadership team provides direction, accountability, and day-to-day coordination
-            for AUVD programs.
-          </p>
-        </div>
+      <section className="team-section" aria-label="Leadership Team">
+        <p className="team-section-text team-section-text--lead">
+          This leadership team provides direction, accountability, and day-to-day coordination
+          for AUVD programs.
+        </p>
 
-        <div className="team-grid" role="list">
+        <div className="team-grid">
           {leadershipTeam.map((member) => (
-            <div className="team-card" key={member.name} role="listitem">
-              <a href="#profile" className="team-image-wrapper">
-                <img src={member.image} alt={member.name} />
-                <div className="team-arrow-btn">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                  </svg>
-                </div>
-              </a>
-              {member.name === "Samuel Asongo" && (
-                <a
-                  className="btn btn-primary samuel-portfolio-btn"
-                  href="https://samuel-portiforlio.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Portfolio
-                </a>
-              )}
-              <h3 className="team-name">{member.name}</h3>
-              <span className="team-role">{member.role}</span>
-            </div>
+            <TeamCard key={member.name} member={member} />
           ))}
         </div>
       </section>
 
-      <section className="team-section support-section">
+      <section className="team-section support-section" aria-labelledby="support-team-heading">
         <div className="team-section-heading">
-          <p className="team-section-kicker">Members & Volunteers</p>
-          <h2>Support Team</h2>
+          <p className="team-section-kicker">Members &amp; Volunteers</p>
+          <h2 className="team-section-title" id="support-team-heading">
+            Support Team
+          </h2>
           <p className="team-section-text">
             Additional members and volunteers who support AUVD programs and community work.
           </p>
         </div>
 
-        <div className="team-grid" role="list">
+        <div className="team-grid">
           {supportTeam.map((member) => (
-            <div className="team-card" key={member.name} role="listitem">
-              <a href="#profile" className="team-image-wrapper">
-                <img src={member.image} alt={member.name} />
-                <div className="team-arrow-btn">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                  </svg>
-                </div>
-              </a>
-              <h3 className="team-name">{member.name}</h3>
-              <span className="team-role">{member.role}</span>
-            </div>
+            <TeamCard key={member.name} member={member} />
           ))}
         </div>
       </section>
-    </div>
+    </main>
   );
 }
 

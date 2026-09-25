@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import "./DanceSection.css";
-import useOnceInView from "../../hooks/useOnceInView";
 
 /* "Dance" — restyled into the Core Belief contained-background pattern used
    on the Our Story page (.auvd-story-belief): the section height comes from
@@ -11,33 +9,6 @@ import useOnceInView from "../../hooks/useOnceInView";
    are now a small tag row instead of big headings — the fourth one
    ("Community dance") keeps its link to /dance. Wording is unchanged. */
 function DanceSection({ navigate, danceParagraphs }) {
-  const [sectionRef, isVisible] = useOnceInView(0.3);
-  const [typedChars, setTypedChars] = useState({ first: 0, second: 0 });
-
-  useEffect(() => {
-    if (!isVisible) {
-      return undefined;
-    }
-
-    if (typedChars.first < danceParagraphs.first.length) {
-      const timeoutId = window.setTimeout(() => {
-        setTypedChars((previous) => ({ ...previous, first: previous.first + 1 }));
-      }, 18);
-
-      return () => window.clearTimeout(timeoutId);
-    }
-
-    if (typedChars.second < danceParagraphs.second.length) {
-      const timeoutId = window.setTimeout(() => {
-        setTypedChars((previous) => ({ ...previous, second: previous.second + 1 }));
-      }, 18);
-
-      return () => window.clearTimeout(timeoutId);
-    }
-
-    return undefined;
-  }, [danceParagraphs.first.length, danceParagraphs.second.length, isVisible, typedChars.first, typedChars.second]);
-
   return (
     <section className="dance-section">
       <img
@@ -48,16 +19,12 @@ function DanceSection({ navigate, danceParagraphs }) {
       />
       <div className="dance-overlay" aria-hidden="true"></div>
 
-      <div ref={sectionRef} className="dance-content">
+      <div className="dance-content">
         <div className="dance-text-wrapper">
-          <h2 className="auvd-story-label">Dance</h2>
+          <h2 className="auvd-story-label dance-heading">Dance</h2>
 
           <p className="dance-description">
-            {danceParagraphs.first.slice(0, typedChars.first)} In an environment where many youth
-            face stress, trauma, unemployment, and limited recreational opportunities, dance
-            creates hope, inspiration, and a sense of belonging. AUVD uses dance not only as
-            entertainment, but also as a pathway for empowerment, resilience, and community
-            connection.
+            {`${danceParagraphs.first} In an environment where many youth face stress, trauma, unemployment, and limited recreational opportunities, dance creates hope, inspiration, and a sense of belonging. AUVD uses dance not only as entertainment, but also as a pathway for empowerment, resilience, and community connection.`}
           </p>
 
           <div className="dance-tags">

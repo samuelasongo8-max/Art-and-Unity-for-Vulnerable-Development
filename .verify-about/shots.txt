@@ -1,0 +1,6 @@
+goal label box: {"x":274,"y":-482.59375,"width":892,"height":35.1875}
+goal band box : {"x":0,"y":-123.84375,"width":1440,"height":426}
+label left offset inside band: 274
+label HTML: <p class="auvd-story-label">Who We Are</p>
+mission strip: {"cols":"438px 438px","imgs":[{"src":"/Upcoming project 1 (1).jpg","nat":"5184x3456","box":"438x293"},{"src":"/AUVD.education.jpg","nat":"0x0","box":"438x293"}]}
+shots=0

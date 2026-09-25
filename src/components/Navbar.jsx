@@ -219,6 +219,8 @@ function Navbar() {
           className={`menu-toggle ${menuOpen ? "nav-open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-links"
         >
           {menuOpen ? "✕" : "☰"}
         </button>
@@ -231,7 +233,7 @@ function Navbar() {
         </div>
 
         {/* Core Links & Controls Container */}
-        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+        <div id="mobile-nav-links" className={`nav-links ${menuOpen ? "open" : ""}`}>
           <NavLink
             to="/"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}

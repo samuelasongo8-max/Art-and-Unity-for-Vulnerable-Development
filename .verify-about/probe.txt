@@ -1,0 +1,17 @@
+
+===== /about =====
+computed family: "Cormorant Garamond", Georgia, serif
+normalized length: 309
+roboto/anton loaded: {"roboto":false,"anton":true}
+faces: boxicons:loaded | Murecho:unloaded | Murecho:loaded | Inter:unloaded | Poppins:unloaded | Poppins:loaded | Bebas Neue:unloaded | Bebas Neue:loaded | Source Sans 3:unloaded | Source Sans 3:loaded | Anton:unloaded | Anton:loaded | Roboto:unloaded | DM Sans:unloaded | Playfair Display:unloaded | Lora:unloaded | Cormorant Garamond:unloaded | Cormorant Garamond:loaded
+TEXT MATCHES
+all labels: ["OUR MISSION","OUR VISION","Who We Are","Our Goal","Target Beneficiaries"]
+mv statements: ["Empower vulnerable communities through c","A peaceful and inclusive community where"]
+meta pieces: {"text":"Founded 2022Formally registered in 2025 to expand healing, education, and livelihoods support.","label":"Founded 2022","caption":"Formally registered in 2025 to expand healing, education, and livelihoods support."}
+
+===== /pricing =====
+computed family: "Cormorant Garamond", Georgia, serif
+normalized length: 249
+roboto/anton loaded: {"roboto":false,"anton":true}
+faces: boxicons:loaded | Murecho:unloaded | Murecho:loaded | Inter:unloaded | Poppins:unloaded | Poppins:loaded | Bebas Neue:unloaded | Bebas Neue:loaded | Source Sans 3:unloaded | Source Sans 3:loaded | Anton:unloaded | Anton:loaded | Roboto:unloaded | DM Sans:unloaded | Playfair Display:unloaded | Lora:unloaded | Cormorant Garamond:unloaded | Cormorant Garamond:loaded
+exit=0

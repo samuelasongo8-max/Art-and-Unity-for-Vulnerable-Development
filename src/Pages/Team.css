@@ -1,229 +1,261 @@
-/* =================================================================ro
-   AUVD Team Page - Fully Responsive Mobile-First Stylesheet
-   ================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
 
-/* Base / Mobile-First Styles */
+/* Leadership / Team page in the site design language: Bebas Neue titles,
+   Source Sans 3 body, --impact-blue/--impact-orange vars, square corners,
+   no shadows or gradients, generous whitespace. No horizontal rules. */
+
 .auvd-team-page {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #ffffff;
-    color: #1a1a1a;
-    padding: clamp(40px, 8vw, 80px) clamp(16px, 4vw, 5%) clamp(60px, 10vw, 100px);
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 140px 24px 96px;
+  background: #ffffff;
+  color: var(--impact-text, #1f2933);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
-.auvd-team-page *, 
-.auvd-team-page *::before, 
+.auvd-team-page *,
+.auvd-team-page *::before,
 .auvd-team-page *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* Hero Section */
-.team-hero {
-    max-width: 1200px;
-    margin: 0 auto clamp(30px, 5vw, 50px) auto;
-    width: 100%;
+/* Simple page header (no photo hero): small label, existing title in Bebas
+   Neue, existing intro in Source Sans 3. */
+.team-page-header {
+  max-width: 860px;
+  margin: 0 0 56px;
 }
 
-.team-hero-copy {
-    max-width: 860px;
-    width: 100%;
+.team-page-label {
+  margin: 0 0 12px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--impact-orange-dark, #b25a1e);
 }
 
-.team-intro {
-    font-size: clamp(1rem, 1.5vw, 1.15rem);
-    line-height: 1.7;
-    color: #35556b;
+.team-page-title {
+  margin: 0 0 20px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--impact-navy, #12395f);
 }
 
-/* Team Section Container */
+.team-page-intro {
+  margin: 0;
+  max-width: 700px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--impact-muted, #52606d);
+}
+
+/* Sections separated by whitespace only, no rules. */
 .team-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+  margin: 0 0 72px;
 }
 
-.support-section {
-    margin-top: clamp(40px, 7vw, 70px);
+.team-section:last-child {
+  margin-bottom: 0;
 }
 
 .team-section-heading {
-    margin-bottom: clamp(20px, 4vw, 30px);
-    width: 100%;
+  margin: 0 0 32px;
+  max-width: 860px;
 }
 
 .team-section-kicker {
-    color: #e8826d;
-    font-size: clamp(0.75rem, 1.2vw, 0.85rem);
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
+  margin: 0 0 12px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--impact-orange-dark, #b25a1e);
 }
 
-.team-section-heading h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    color: #0d3253;
-    margin-bottom: 10px;
+.team-section-title {
+  margin: 0 0 16px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--impact-navy, #12395f);
 }
 
 .team-section-text {
-    font-size: clamp(0.9rem, 1.2vw, 0.95rem);
-    color: #6b7280;
-    line-height: 1.5;
-    max-width: 700px;
+  margin: 0;
+  max-width: 700px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--impact-muted, #52606d);
 }
 
-/* Grid Layout (Mobile First: 1 Column) */
-.auvd-team-page .team-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(20px, 4vw, 30px);
-    width: 100%;
+.team-section-text--lead {
+  margin-bottom: 32px;
 }
 
-/* Team Card */
-.auvd-team-page .team-card {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    width: 100%;
+/* Even grid: equal-width cards, 24px desktop, 16px mobile,
+   4 desktop / 2 tablet / 1 mobile. */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
 }
 
-/* Image Wrapper */
-.auvd-team-page .team-image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    background-color: #f0f0f0;
-    display: block;
-    text-decoration: none;
-    cursor: pointer;
+/* Clean card: square corners, 1px border, no shadow. Hover only changes
+   the border color with a subtle lift. */
+.team-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  transition: border-color 160ms ease, transform 160ms ease;
 }
 
-/* Image Scaling */
-.auvd-team-page .team-image-wrapper img {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
+.team-card:hover {
+  border-color: var(--impact-blue, #1f76be);
+  transform: translateY(-4px);
 }
 
-.auvd-team-page .team-image-wrapper:hover img {
-    transform: scale(1.08);
+/* Photo on top: consistent 4/5 ratio, cover, square corners. */
+.team-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 0;
+  background: #eef2f6;
 }
 
-/* Action Button */
-.auvd-team-page .team-arrow-btn {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    width: 44px;
-    height: 44px;
-    background-color: #e8826d;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(232, 130, 109, 0.4);
+/* Neutral placeholder for a missing/broken image. */
+.team-image-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 0;
+  background: #eef2f6;
+  color: var(--impact-navy, #12395f);
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.06em;
 }
 
-.auvd-team-page .team-image-wrapper:hover .team-arrow-btn {
-    opacity: 1;
-    transform: translateY(0);
+.team-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
 }
 
-.auvd-team-page .team-arrow-btn svg {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.2s ease;
+.team-name {
+  margin: 0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
 
-.auvd-team-page .team-arrow-btn:hover svg {
-    transform: translateX(2px);
+.team-role {
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--impact-blue, #1f76be);
+  line-height: 1.5;
 }
 
-.auvd-team-page .samuel-portfolio-btn {
-    align-self: flex-start;
-    padding: 6px 14px;
-    font-size: 12px;
-    border: 1px solid var(--brand-primary, #e8826d);
-    border-radius: 0;
-    background: transparent;
-    color: var(--brand-primary, #e8826d);
+.team-portfolio-link {
+  margin-top: 4px;
+  align-self: flex-start;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--impact-blue, #1f76be);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
-.auvd-team-page .samuel-portfolio-btn:hover {
-    background: var(--brand-primary, #e8826d);
-    color: #ffffff;
+.team-portfolio-link:hover {
+  color: var(--impact-orange-dark, #b25a1e);
 }
 
-/* Typography Elements */
-.auvd-team-page .team-name {
-    font-size: clamp(1rem, 1.5vw, 17px);
-    font-weight: 700;
-    color: #1b1f2e;
-    margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.team-portfolio-link:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
 }
 
-.auvd-team-page .team-role {
-    display: inline-block;
-   
-    color: #e8826d;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    width: fit-content;
-    letter-spacing: 0.5px;
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-/* =================================================================
-   Media Queries for Breakpoints (Tablet, Laptop, Desktop)
-   ================================================================ */
+@media (max-width: 640px) {
+  .auvd-team-page {
+    padding: 120px 20px 64px;
+  }
 
-/* Tablet View (min-width: 576px) */
-@media screen and (min-width: 576px) {
-    .auvd-team-page .team-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .team-page-header {
+    margin-bottom: 40px;
+  }
+
+  .team-page-title {
+    font-size: clamp(40px, 11vw, 48px);
+  }
+
+  .team-page-intro {
+    font-size: 16px;
+  }
+
+  .team-section {
+    margin-bottom: 56px;
+  }
+
+  .team-section-title {
+    font-size: 34px;
+  }
+
+  .team-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
 }
 
-/* Laptop View (min-width: 768px) */
-@media screen and (min-width: 768px) {
-    .auvd-team-page .team-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+@media (prefers-reduced-motion: reduce) {
+  .team-card {
+    transition: none;
+  }
 
-/* Desktop View (min-width: 1024px) */
-@media screen and (min-width: 1024px) {
-    .auvd-team-page .team-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-/* Touch Device fallback: Keep arrows visible on mobile/touch screens since hover state doesn't apply */
-@media (hover: none) {
-    .auvd-team-page .team-arrow-btn {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  .team-card:hover {
+    transform: none;
+  }
 }

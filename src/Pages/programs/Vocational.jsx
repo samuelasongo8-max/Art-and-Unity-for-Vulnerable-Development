@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import ImpactHero from "../../components/ImpactHero";
+import "../../components/ImpactSections.css";
 import "./Vocational.css";
 
 const initialTalentForm = {
@@ -121,111 +123,53 @@ const validateTalentForm = (form) => {
   return errors;
 };
 
+/* Page Settings swatches. `tint` is the soft page-background colour the
+   swatch paints onto .vocational-page; `accent` is the readable companion
+   colour used for the swatch border and the active indicator. The Default
+   swatch keeps the plain white canvas the page shipped with. */
 const themeOptions = [
   {
     label: "Blue",
-    color: "#117acf",
-    styles: {
-      "--voc-page-bg": "#f4f8ff",
-      "--voc-accent": "#117acf",
-      "--voc-accent-strong": "#0b5fa8",
-      "--voc-accent-soft": "rgba(17, 122, 207, 0.12)",
-      "--voc-accent-glow": "rgba(17, 122, 207, 0.18)",
-      "--voc-panel-border": "rgba(17, 122, 207, 0.14)",
-      "--voc-panel-shadow": "rgba(13, 50, 83, 0.1)",
-      "--voc-highlight-bg": "linear-gradient(135deg, #0c4fd6 0%, #117acf 100%)",
-      "--voc-input-bg": "linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)",
-      "--voc-focus-ring": "rgba(17, 122, 207, 0.14)",
-      "--voc-heading": "#13253a",
-      "--voc-copy": "#475b72",
-      "--voc-body": "#17324a",
-    },
+    tint: "#eaf3fb",
+    accent: "#14507f",
   },
   {
     label: "Green",
-    color: "#0b4613",
-    styles: {
-      "--voc-page-bg": "#f4fbf5",
-      "--voc-accent": "#0b7a24",
-      "--voc-accent-strong": "#0b4613",
-      "--voc-accent-soft": "rgba(11, 122, 36, 0.12)",
-      "--voc-accent-glow": "rgba(11, 122, 36, 0.18)",
-      "--voc-panel-border": "rgba(11, 122, 36, 0.14)",
-      "--voc-panel-shadow": "rgba(12, 58, 27, 0.1)",
-      "--voc-highlight-bg": "linear-gradient(135deg, #0b4613 0%, #18b33a 100%)",
-      "--voc-input-bg": "linear-gradient(180deg, #ffffff 0%, #f6fdf7 100%)",
-      "--voc-focus-ring": "rgba(11, 122, 36, 0.14)",
-      "--voc-heading": "#133020",
-      "--voc-copy": "#456251",
-      "--voc-body": "#173922",
-    },
+    tint: "#eaf7ef",
+    accent: "#14532a",
   },
   {
     label: "Orange",
-    color: "#ff9800",
-    styles: {
-      "--voc-page-bg": "#fff8ef",
-      "--voc-accent": "#ff9800",
-      "--voc-accent-strong": "#d96a00",
-      "--voc-accent-soft": "rgba(255, 152, 0, 0.12)",
-      "--voc-accent-glow": "rgba(255, 152, 0, 0.2)",
-      "--voc-panel-border": "rgba(255, 152, 0, 0.16)",
-      "--voc-panel-shadow": "rgba(107, 63, 11, 0.12)",
-      "--voc-highlight-bg": "linear-gradient(135deg, #d96a00 0%, #ff9800 100%)",
-      "--voc-input-bg": "linear-gradient(180deg, #ffffff 0%, #fffaf2 100%)",
-      "--voc-focus-ring": "rgba(255, 152, 0, 0.16)",
-      "--voc-heading": "#3b2411",
-      "--voc-copy": "#755438",
-      "--voc-body": "#4a3016",
-    },
+    tint: "#fcf1e8",
+    accent: "#9c4c1a",
   },
   {
     label: "Purple",
-    color: "#9c27b0",
-    styles: {
-      "--voc-page-bg": "#fbf4ff",
-      "--voc-accent": "#9c27b0",
-      "--voc-accent-strong": "#6f00b5",
-      "--voc-accent-soft": "rgba(156, 39, 176, 0.12)",
-      "--voc-accent-glow": "rgba(156, 39, 176, 0.18)",
-      "--voc-panel-border": "rgba(156, 39, 176, 0.14)",
-      "--voc-panel-shadow": "rgba(72, 28, 97, 0.12)",
-      "--voc-highlight-bg": "linear-gradient(135deg, #6f00b5 0%, #a92cff 100%)",
-      "--voc-input-bg": "linear-gradient(180deg, #ffffff 0%, #fdf7ff 100%)",
-      "--voc-focus-ring": "rgba(156, 39, 176, 0.16)",
-      "--voc-heading": "#331844",
-      "--voc-copy": "#654479",
-      "--voc-body": "#46215a",
-    },
+    tint: "#f3eefb",
+    accent: "#55318a",
   },
   {
     label: "Pink",
-    color: "#e91e63",
-    styles: {
-      "--voc-page-bg": "#fff4f8",
-      "--voc-accent": "#e91e63",
-      "--voc-accent-strong": "#c4004f",
-      "--voc-accent-soft": "rgba(233, 30, 99, 0.12)",
-      "--voc-accent-glow": "rgba(233, 30, 99, 0.18)",
-      "--voc-panel-border": "rgba(233, 30, 99, 0.14)",
-      "--voc-panel-shadow": "rgba(120, 25, 60, 0.12)",
-      "--voc-highlight-bg": "linear-gradient(135deg, #c4004f 0%, #ff2f7d 100%)",
-      "--voc-input-bg": "linear-gradient(180deg, #ffffff 0%, #fff8fb 100%)",
-      "--voc-focus-ring": "rgba(233, 30, 99, 0.16)",
-      "--voc-heading": "#43192a",
-      "--voc-copy": "#7a4658",
-      "--voc-body": "#5c2339",
-    },
+    tint: "#fdeef3",
+    accent: "#a83f6c",
+  },
+  {
+    label: "Default",
+    tint: "#ffffff",
+    accent: "#12395f",
   },
 ];
 
+/* The page opens on Default so the first render matches the unthemed page. */
+const defaultTheme = themeOptions[themeOptions.length - 1];
+
 function App() {
-  const [themeColor, setThemeColor] = useState(themeOptions[0].color);
+  const [themeLabel, setThemeLabel] = useState(defaultTheme.label);
   const [submitStatus, setSubmitStatus] = useState("idle");
   const [talentForm, setTalentForm] = useState(initialTalentForm);
   const [talentErrors, setTalentErrors] = useState({});
   const [submitMessage, setSubmitMessage] = useState("");
-  const selectedTheme = themeOptions.find((theme) => theme.color === themeColor) ?? themeOptions[0];
+  const selectedTheme = themeOptions.find((theme) => theme.label === themeLabel) ?? defaultTheme;
 
   const handleTalentChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -414,37 +358,57 @@ function App() {
   return (
     <div
       className="vocational-page"
-      style={selectedTheme.styles}
+      style={{ "--voc-page-bg": selectedTheme.tint }}
     >
-      <section className="vocational-hero">
- 
-        <h1 className="vocational-title">Artist submission form</h1>
-        <p className="vocational-summary">
-          Share your talent professionally with AUVD. This form is designed for artists in Kakuma
-          Refugee Camp to submit music, visual art, dance, poetry, drama, crafts, and other creative work.
-        </p>
-      </section>
-
-      <div className="theme-panel">
-        <h3 className="dom">Choose Theme Color</h3>
-        <div className="themeGrid">
-          {themeOptions.map((theme) => (
-            <div className="themeButtons" key={theme.color}>
-              <button
-                type="button"
-                className={themeColor === theme.color ? "active" : ""}
-                onClick={() => setThemeColor(theme.color)}
-                style={{ "--theme-button-color": theme.color }}
-              >
-                {theme.label}
-              </button>
-            </div>
-          ))}
-        </div>
+      <div className="vocational-hero-bleed">
+        <ImpactHero
+          label="Artist Submissions"
+          heading="Artist submission form"
+          paragraph="Share your talent professionally with AUVD. This form is designed for artists in Kakuma Refugee Camp to submit music, visual art, dance, poetry, drama, crafts, and other creative work."
+          image="/Showercase your Talent at AUVD.jpg"
+          imageAlt="Artists showcasing their talent at AUVD"
+        />
       </div>
 
+      <section className="auvd-story-section voc-theme-band" aria-label="Submission page settings">
+        <div className="auvd-story-container">
+          <p className="auvd-story-label">Page Settings</p>
+          <div className="theme-panel">
+            <h3 className="dom">Choose Theme Color</h3>
+            <div className="themeGrid">
+              {themeOptions.map((theme) => {
+                const isActive = theme.label === selectedTheme.label;
+
+                return (
+                  <div className="themeButtons" key={theme.label}>
+                    <button
+                      type="button"
+                      className={isActive ? "active" : ""}
+                      aria-pressed={isActive}
+                      onClick={() => setThemeLabel(theme.label)}
+                      style={{
+                        "--swatch-tint": theme.tint,
+                        "--swatch-accent": theme.accent,
+                      }}
+                    >
+                      <span className="themeSwatch" aria-hidden="true" />
+                      {theme.label}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="artSubmissionSection">
-        <div className="artIntroBox">
+        <div className="auvd-story-container voc-intro-wrap">
+            <p className="auvd-story-label">Submission Guidelines</p>
+            <div className="auvd-story-body">
+              <h2 className="auvd-story-title auvd-story-title--lead">Submit your talent in a professional way</h2>
+              <div className="auvd-story-text voc-intro-text">
+                <div className="artIntroBox">
           <span className="artIntroBadge">Submission Guidelines</span>
           <h2 className="artIntroTitle">Submit your talent in a professional way</h2>
           <p className="artParagraph">
@@ -456,7 +420,10 @@ function App() {
             on our social media platforms. Please submit your work after following our official updates
             and announcements.
           </div>
-        </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <form className="artSubmissionForm" onSubmit={handleSubmit} noValidate>
           <h2 className="formTitle">Submit Your Talent</h2>
@@ -472,9 +439,10 @@ function App() {
           </div>
 
           <div className="formGrid">
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-artist-name">
               <span>Full Name / Artist Name</span>
               <input
+                id="voc-artist-name"
                 type="text"
                 name="artistName"
                 placeholder="Enter your full name or artist name"
@@ -486,9 +454,10 @@ function App() {
               {renderFieldError("artistName")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-age">
               <span>Age</span>
               <input
+                id="voc-age"
                 type="text"
                 name="age"
                 placeholder="Age (Optional)"
@@ -499,9 +468,10 @@ function App() {
               {renderFieldError("age")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-gender">
               <span>Gender</span>
               <input
+                id="voc-gender"
                 type="text"
                 name="gender"
                 placeholder="Gender (Optional)"
@@ -510,9 +480,10 @@ function App() {
               />
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-phone">
               <span>Phone Number</span>
               <input
+                id="voc-phone"
                 type="tel"
                 name="phone"
                 placeholder="Phone Number"
@@ -524,9 +495,10 @@ function App() {
               {renderFieldError("phone")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-email">
               <span>Email Address</span>
               <input
+                id="voc-email"
                 type="email"
                 name="email"
                 placeholder="Email Address"
@@ -538,9 +510,10 @@ function App() {
               {renderFieldError("email")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-confirm-email">
               <span>Confirm Email Address</span>
               <input
+                id="voc-confirm-email"
                 type="email"
                 name="confirmEmail"
                 placeholder="Confirm Email Address"
@@ -552,9 +525,10 @@ function App() {
               {renderFieldError("confirmEmail")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-location">
               <span>Location</span>
               <input
+                id="voc-location"
                 type="text"
                 name="location"
                 placeholder="Location (Kakuma Block / Country)"
@@ -566,9 +540,10 @@ function App() {
               {renderFieldError("location")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-art-title">
               <span>Title of Your Talent or Work</span>
               <input
+                id="voc-art-title"
                 type="text"
                 name="artTitle"
                 placeholder="Title of Your Talent or Work"
@@ -580,9 +555,10 @@ function App() {
               {renderFieldError("artTitle")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-social-handle">
               <span>Social Media Handle</span>
               <input
+                id="voc-social-handle"
                 type="text"
                 name="socialHandle"
                 placeholder="Social Media Handle (Optional)"
@@ -593,9 +569,10 @@ function App() {
           </div>
 
           <div className="formStack">
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-art-category">
               <span>Select Art Category</span>
               <select
+                id="voc-art-category"
                 name="artCategory"
                 value={talentForm.artCategory}
                 onChange={handleTalentChange}
@@ -616,9 +593,10 @@ function App() {
               {renderFieldError("artCategory")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-art-description">
               <span>Describe Your Talent or Artwork</span>
               <textarea
+                id="voc-art-description"
                 name="artDescription"
                 placeholder="Describe your talent or artwork..."
                 value={talentForm.artDescription}
@@ -629,9 +607,10 @@ function App() {
               {renderFieldError("artDescription")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-artist-story">
               <span>Your Story as an Artist</span>
               <textarea
+                id="voc-artist-story"
                 name="artistStory"
                 placeholder="Tell us your story as an artist (optional but recommended)"
                 value={talentForm.artistStory}
@@ -639,9 +618,10 @@ function App() {
               />
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-portfolio-link">
               <span>Your Portfolio / Instagram / YouTube Link</span>
               <input
+                id="voc-portfolio-link"
                 type="url"
                 name="portfolioLink"
                 placeholder="Your Portfolio / Instagram / YouTube Link"
@@ -652,9 +632,10 @@ function App() {
               {renderFieldError("portfolioLink")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-artwork-link">
               <span>Link to Your Artwork</span>
               <input
+                id="voc-artwork-link"
                 type="url"
                 name="artworkLink"
                 placeholder="Link to your artwork (Google Drive / Video / Audio)"
@@ -667,9 +648,10 @@ function App() {
               {renderFieldError("artworkLink")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-experience-level">
               <span>Experience Level</span>
               <select
+                id="voc-experience-level"
                 name="experienceLevel"
                 value={talentForm.experienceLevel}
                 onChange={handleTalentChange}
@@ -683,9 +665,10 @@ function App() {
               {renderFieldError("experienceLevel")}
             </label>
 
-            <label className="voc-field-block">
+            <label className="voc-field-block" htmlFor="voc-message">
               <span>Additional Message or Request</span>
               <textarea
+                id="voc-message"
                 name="message"
                 placeholder="Any additional message or request..."
                 value={talentForm.message}
@@ -694,8 +677,9 @@ function App() {
             </label>
           </div>
 
-          <label className={`voc-consent-row ${talentErrors.agreeToReview ? "voc-fieldset-invalid" : ""}`}>
+          <label className={`voc-consent-row ${talentErrors.agreeToReview ? "voc-fieldset-invalid" : ""}`} htmlFor="voc-agree-review">
             <input
+              id="voc-agree-review"
               type="checkbox"
               name="agreeToReview"
               checked={talentForm.agreeToReview}
@@ -705,8 +689,9 @@ function App() {
           </label>
           {renderFieldError("agreeToReview")}
 
-          <label className={`voc-consent-row ${talentErrors.confirmNotRobot ? "voc-fieldset-invalid" : ""}`}>
+          <label className={`voc-consent-row ${talentErrors.confirmNotRobot ? "voc-fieldset-invalid" : ""}`} htmlFor="voc-confirm-robot">
             <input
+              id="voc-confirm-robot"
               type="checkbox"
               name="confirmNotRobot"
               checked={talentForm.confirmNotRobot}

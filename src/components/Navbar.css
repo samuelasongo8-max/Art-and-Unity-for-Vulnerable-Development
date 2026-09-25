@@ -104,9 +104,11 @@
   color: #2e5cdac0;
 }
 
+/* The accented letters pick up the shared --impact-blue (defined globally in
+   index.css) so the wordmark matches the rest of the site's accent. */
 .logo-text span {
   font-size: 1em;
-  color: #ff6600;
+  color: var(--impact-blue, #1f76be);
   font-family: "Murecho", sans-serif;
   font-weight: 600;
 }
@@ -139,6 +141,11 @@
   gap: 24px;
 }
 
+/* Primary link. The active/hover underline uses a border-bottom (always
+   present, only the color changes) rather than a pseudo-element: the About and
+   Our Impact triggers already use ::after for their ▾ chevron, so a second
+   pseudo-element would collide with it. A transparent border reserves the
+   space up front, so nothing shifts on hover. Square corners, no shadows. */
 .nav-link {
   text-decoration: none;
   font-size: 15px;
@@ -146,14 +153,24 @@
   color: rgba(255, 255, 255, 0.8);
   transition: var(--transition-smooth);
   padding: 8px 0;
-  background: transparent;
   border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
   cursor: pointer;
 }
 
 .nav-link:hover,
+.nav-link:focus-visible {
+  color: #ffffff;
+  border-bottom-color: var(--impact-blue, #1f76be);
+}
+
+/* Current page: bold plus a persistent blue underline, so the active state
+   does not rely on color alone. */
 .nav-link.active {
   color: #ffffff;
+  font-weight: 700;
+  border-bottom-color: var(--impact-blue, #1f76be);
 }
 
 .navbar.scrolled .nav-link {
@@ -161,8 +178,9 @@
 }
 
 .navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link:focus-visible,
 .navbar.scrolled .nav-link.active {
-  color: var(--brand-primary);
+  color: var(--impact-blue, #1f76be);
 }
 
 /* ==========================================================================
@@ -203,21 +221,44 @@
   
 }
 
-/* Donate button — orange background, white text */
-.donate-btn {
+/* Donate button — the nav's own CTA.
+   Background is #c2410c rather than the brighter #ff6600: white text on
+   #ff6600 measures 2.94:1, which fails WCAG AA, while white on #c2410c is
+   5.18:1. Hover deepens to #b8430a (8.72:1 with white).
+   These selectors are scoped with `.navbar` deliberately: ImpactAll.css defines
+   UNSCOPED global `.btn` / `.btn-primary` rules (dark #111 text, 7px radius,
+   48px min-height). Vite bundles all CSS into one stylesheet, so those leak
+   into the nav and win on source order. `.navbar .donate-btn` (0,2,0) beats
+   them (0,1,0), restoring the nav's square, white-on-orange treatment. */
+.navbar .donate-btn {
   background-color: #ff6600;
   color: #ffffff;
   border: 1px solid #ff6600;
+  border-radius: 0;
+  min-height: 0;
   padding: 10px 20px;
 }
 
-.donate-btn:hover,
-.donate-btn.active {
-  background-color: #ff6600;
+.navbar .donate-btn:hover,
+.navbar .donate-btn:focus-visible,
+.navbar .donate-btn.active {
+  background-color: #b8430a;
   color: #ffffff;
-  border-color: #ff6600;
+  border-color: #b8430a;
   transform: translateY(-1px);
- 
+}
+
+/* Visible keyboard focus for the primary nav controls. The Our Impact
+   dropdown's own controls have an equivalent rule further down. */
+.nav-link:focus-visible,
+.logo:focus-visible,
+.navbar .donate-btn:focus-visible,
+.nav-search-button:focus-visible,
+.menu-toggle:focus-visible,
+.dropdown-link:focus-visible,
+.nav-search-input:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -278,10 +319,18 @@
   transition: var(--transition-smooth);
 }
 
+/* About dropdown hover/active. --brand-primary-light was never defined
+   anywhere in the project, so this background silently fell back to
+   transparent; --impact-blue-tint is the real shared token and keeps the
+   dropdown consistent with the new blue accent. */
 .dropdown-link:hover,
 .dropdown-link.active {
-  background-color: var(--brand-primary-light);
-  color: #ff6600;
+  background-color: var(--impact-blue-tint, #eaf3fb);
+  color: var(--impact-blue-dark, #1f76be);
+}
+
+.dropdown-link.active {
+  border-left: 3px solid var(--impact-blue, #1f76be);
 }
 
 /* ==========================================================================
@@ -409,7 +458,7 @@
 }
 
 .nav-search-result:hover {
-  background-color: var(--brand-primary-light);
+  background-color: var(--impact-blue-tint, #eaf3fb);
 }
 
 .nav-search-result-title {
@@ -507,8 +556,17 @@
     text-align: left;
   }
 
-  .nav-link:hover {
-    color: #ff6600;
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--impact-blue, #1f76be);
+    border-bottom-color: transparent;
+  }
+
+  .nav-link.active {
+    color: var(--impact-blue, #1f76be);
+    border-bottom-color: transparent;
+    border-left: 3px solid var(--impact-blue, #1f76be);
+    padding-left: 12px;
   }
 
   .nav-actions {
@@ -551,7 +609,7 @@
     border-color: var(--border-color);
   }
 
-  .donate-btn {
+  .navbar .donate-btn {
     width: 100%;
     padding: 12px;
     text-align: center;
@@ -589,8 +647,8 @@
   --impact-blue-dark: #14507f;
   --impact-navy: #12395f;
   --impact-blue-tint: #eaf3fb;
-  --impact-orange: #dd7f43;
-  --impact-orange-dark: #b25a1e;
+  --impact-orange:#ff6600;
+  --impact-orange-dark: #ff6600;
   --impact-orange-tint: #fcf1e8;
   --impact-text: #1f2933;
   --impact-muted: #52606d;
@@ -665,12 +723,12 @@
 /* Our Impact dropdown — new hover and active colors. Scoped to .auvd- so the
    rest of the nav is untouched. */
 .auvd-nav-dropdown .auvd-dropdown-link:hover {
-  background-color: var(--impact-blue-tint, rgba(255, 102, 0, 0.1));
+   
   color: var(--impact-blue-dark, #ff6600);
 }
 
 .auvd-nav-dropdown .auvd-dropdown-link.active {
-  background-color: var(--impact-blue-tint, rgba(255, 102, 0, 0.1));
+ 
   color: var(--impact-blue-dark, #ff6600);
   box-shadow: inset 3px 0 0 var(--impact-orange, #ff6600);
 }

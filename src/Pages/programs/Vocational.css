@@ -1,1052 +1,431 @@
-/* =========================================================
-   PAGE
-========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+/* Vocational (artist submission) page in the site design language: Bebas
+   Neue titles (44px desktop / 34px mobile, uppercase, 0.06em), Source
+   Sans 3 body (16px/26px), --impact-* palette, square corners, no
+   shadows, no gradients (except the shared hero overlay), no emojis, no
+   horizontal rules. All words, links, images, fields, and submit
+   behavior unchanged — layout and styling only. */
 
 .vocational-page {
-  --voc-accent: #ff6600;
-  --voc-accent-strong: #ff6600;
-  --voc-blue: #064f6b;
-  --voc-blue-dark: #07384b;
-
-  --voc-panel-border: #e3e8eb;
-  --voc-heading: #102b3a;
-  --voc-copy: #526572;
-  --voc-body: #173746;
-
-  font-family: 'DM Sans', sans-serif;
-
-  min-height: 100vh;
-  padding: 0;
-
-  /* Clean white background */
-  background: #ffffff;
-
-  color: var(--voc-body);
-
-  overflow-x: hidden;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.vocational-hero {
-  position: relative;
-
+  box-sizing: border-box;
   width: 100%;
-  min-height: 560px;
-
-  display: flex;
-  align-items: center;
-
-  background-image: url('/src/img/Showercasing your Talent at AUVD.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  overflow: hidden;
-
-  isolation: isolate;
+  /* Page canvas tint, driven by the Page Settings swatch
+     (--voc-page-bg). Sections below opt out with their own backgrounds. */
+  background: var(--voc-page-bg, #ffffff);
+  color: var(--impact-text, #1f2933);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 300ms ease;
 }
 
-
-.vocational-hero-overlay {
-  position: absolute;
-  inset: 0;
-
-  z-index: -1;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.76) 0%,
-      rgba(0, 0, 0, 0.58) 35%,
-      rgba(0, 0, 0, 0.30) 68%,
-      rgba(0, 0, 0, 0.10) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.12) 0%,
-      rgba(0, 0, 0, 0.28) 100%
-    );
-}
-
-
-.vocational-hero-content {
-  width: min(1160px, calc(100% - 120px));
-
-  margin: 0 auto;
-
-  padding: 100px 0 80px;
-
-  position: relative;
-
-  z-index: 2;
-}
-
-
-/* =========================================================
-   BREADCRUMB
-========================================================= */
-
-.vocational-breadcrumb {
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin-bottom: 20px;
-
-  color: rgba(255, 255, 255, 0.95);
-
-  font-size: 13px;
-
-  font-weight: 600;
-}
-
-
-.breadcrumb-home {
-  color: #ff6600;
-
-  font-size: 20px;
-
-  line-height: 1;
-}
-
-
-/* =========================================================
-   HERO TITLE
-========================================================= */
-
-.vocational-title {
-  margin: 0 0 20px;
-
-  max-width: 720px;
-
-  color: #ffffff;
-
-  font-family: 'Playfair Display', Georgia, serif;
-
-  font-size: clamp(3rem, 5.5vw, 5rem);
-
-  font-weight: 600;
-
-  line-height: 1.02;
-
-  letter-spacing: -0.03em;
-
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
-}
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
-
-.vocational-summary {
-  max-width: 580px;
-
-  margin: 0 0 18px;
-
-  color: rgba(255, 255, 255, 0.94);
-
-  font-size: 16px;
-
-  font-weight: 400;
-
-  line-height: 1.7;
-
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-}
-
-
-.vocational-summary-second {
-  margin-bottom: 28px;
-}
-
-
-/* =========================================================
-   HERO BUTTONS
-========================================================= */
-
-.vocational-hero-buttons {
-  display: flex;
-
-  align-items: center;
-
-  gap: 18px;
-
-  margin-top: 28px;
-}
-
-
-.vocational-btn {
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  gap: 18px;
-
-  min-width: 145px;
-
-  min-height: 51px;
-
-  padding: 0 18px;
-
-  border-radius: 5px;
-
-  text-decoration: none;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-}
-
-
-.vocational-btn span {
-  font-size: 25px;
-
-  line-height: 1;
-
-  font-weight: 400;
-}
-
-
-.vocational-btn:hover {
-  transform: translateY(-2px);
-}
-
-
-.vocational-btn-orange {
-  background: #ff6600;
-
-  color: #111111;
-
-  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.18);
-}
-
-
-.vocational-btn-orange:hover {
-  background: #ff6600;
-}
-
-
-.vocational-btn-blue {
-  background: #064f6b;
-
-  color: #ffffff;
-
-  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.15);
-}
-
-
-.vocational-btn-blue:hover {
-  background: #075a77;
-}
-
-
-/* =========================================================
-   THEME PANEL
-   Clean — no artificial background
-========================================================= */
-
-.theme-panel {
-  width: min(1150px, calc(100% - 60px));
-
-  margin: 45px auto 35px;
-
-  padding: 22px 0;
-
+/* The theme band and the submission band are full-bleed sections, so they
+   have to stay transparent for the page tint to read through them. */
+.vocational-page .auvd-story-section,
+.vocational-page .artSubmissionSection {
   background: transparent;
+}
 
-  border: none;
+.vocational-page *,
+.vocational-page *::before,
+.vocational-page *::after {
+  box-sizing: border-box;
+}
 
+/* Shared ImpactHero, full-bleed like the other pages. */
+.vocational-hero-bleed {
+  width: 100%;
+  margin: 0 0 56px;
+  background: #0a1424;
+}
+
+.vocational-hero-bleed .auvd-impact-hero__content {
+  margin-top: 0;
+  padding-top: calc(81px + 48px);
+}
+
+@media (max-width: 768px) {
+  .vocational-hero-bleed .auvd-impact-hero__content {
+    padding-top: calc(81px + 32px);
+  }
+}
+
+/* Theme picker band: same section pattern as the rest of the page. The panel
+   keeps a white card background so it stays framed on any page tint. */
+.voc-theme-band .theme-panel {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid var(--impact-border, #dde5ee);
   border-radius: 0;
-
+  background: #ffffff;
   box-shadow: none;
 }
-
 
 .dom {
   margin: 0 0 16px;
-
-  color: var(--voc-heading);
-
-  font-size: 16px;
-
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
-
 
 .themeGrid {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
-
 
 .themeButtons {
-  display: flex;
+  min-width: 0;
 }
-
 
 .themeButtons button {
-  min-width: 90px;
-
-  padding: 9px 15px;
-
-  border: none;
-
-  border-radius: 4px;
-
-  color: #ffffff;
-
-  background: var(--theme-button-color, #117acf);
-
-  font-family: 'DM Sans', sans-serif;
-
-  font-size: 13px;
-
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow: none;
+  color: var(--impact-navy, #12395f);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
   font-weight: 700;
-
+  text-align: left;
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
 }
 
+/* Colour chip previewing the tint the swatch applies to the page. */
+.themeSwatch {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  background: var(--swatch-tint, #ffffff);
+}
 
 .themeButtons button:hover {
-  transform: translateY(-2px);
-
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  border-color: var(--swatch-accent, var(--impact-blue, #1f76be));
+  color: var(--swatch-accent, var(--impact-blue, #1f76be));
 }
 
+.themeButtons button:focus-visible {
+  outline: 2px solid var(--swatch-accent, var(--impact-blue, #1f76be));
+  outline-offset: 2px;
+}
 
+/* Active swatch: tinted fill plus a solid border in the swatch accent, so the
+   selection reads on any page tint. */
 .themeButtons button.active {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 5px 14px rgba(0, 0, 0, 0.15);
+  border-color: var(--swatch-accent, var(--impact-blue, #1f76be));
+  border-width: 2px;
+  padding: 9px 13px;
+  background: var(--swatch-tint, #ffffff);
+  color: var(--swatch-accent, var(--impact-blue-dark, #14507f));
 }
 
+.themeButtons button.active .themeSwatch {
+  border-color: var(--swatch-accent, var(--impact-blue, #1f76be));
+}
 
-/* =========================================================
-   SUBMISSION AREA
-========================================================= */
-
+/* Submission section: intro band + form card, generous whitespace. */
 .artSubmissionSection {
-  width: min(1150px, calc(100% - 60px));
-
-  margin: 0 auto 80px;
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(280px, 0.85fr)
-    minmax(400px, 1.25fr);
-
-  gap: 35px;
-
-  align-items: start;
-}
-
-
-/* =========================================================
-   INTRODUCTION BOX
-   White and simple
-========================================================= */
-
-.artIntroBox {
-  position: sticky;
-
-  top: 110px;
-
-  padding: 32px;
-
+  padding: 72px 0 96px;
   background: #ffffff;
-
-  border: 1px solid var(--voc-panel-border);
-
-  border-top: 4px solid #ff6600;
-
-  border-radius: 4px;
-
-  box-shadow: 0 8px 25px rgba(7, 56, 75, 0.06);
 }
 
+.voc-intro-wrap {
+  margin-bottom: 40px;
+}
+
+.voc-intro-text .artIntroBox {
+  display: grid;
+  gap: 16px;
+}
 
 .artIntroBadge {
-  display: inline-flex;
-
-  padding: 6px 10px;
-
-  margin-bottom: 18px;
-
-  color:#ff6600;
-
-  background: transparent;
-
-  border: 1px solid #ff6600;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  letter-spacing: 0.08em;
-
+  justify-self: start;
+  padding: 6px 12px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 0;
+  background: var(--impact-blue-tint, #eaf3fb);
+  color: var(--impact-blue-dark, #14507f);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-
-.artIntroTitle {
-  margin: 0 0 16px;
-
-  color: var(--voc-heading);
-
-  font-family: 'Playfair Display', Georgia, serif;
-
-  font-size: 31px;
-
-  font-weight: 600;
-
-  line-height: 1.2;
-}
-
-
-/* =========================================================
-   PARAGRAPH
-   Responsive and natural
-========================================================= */
-
 .artParagraph {
-  width: 100%;
-
-  max-width: 570px;
-
-  margin: 0 0 22px;
-
-  color: var(--voc-copy);
-
-  font-size: 15px;
-
-  font-weight: 400;
-
-  line-height: 1.8;
-
-  letter-spacing: 0;
-
-  overflow-wrap: break-word;
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #333;
 }
-
-
-/* =========================================================
-   NOTICE
-========================================================= */
 
 .artNotice {
-  padding: 16px 18px;
-
-  color: #3e4d55;
-
-  background: transparent;
-
-  border-left: 3px solid #ff6600;
-
-  font-size: 14px;
-
-  line-height: 1.7;
+  padding: 16px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-left: 4px solid var(--impact-orange, #dd7f43);
+  border-radius: 0;
+  background: var(--impact-blue-tint, #eaf3fb);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--impact-text, #1f2933);
 }
 
-
-/* =========================================================
-   FORM
-========================================================= */
-
+/* Form card + fields: vertical rhythm, labels above inputs. The card keeps a
+   white background so the form stays readable over any page tint. */
 .artSubmissionForm {
-  padding: 35px;
-
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 0;
   background: #ffffff;
-
-  border: 1px solid var(--voc-panel-border);
-
-  border-radius: 4px;
-
-  box-shadow: 0 8px 25px rgba(7, 56, 75, 0.06);
+  box-shadow: none;
+  display: grid;
+  gap: 20px;
 }
-
 
 .formTitle {
-  margin: 0 0 8px;
-
-  color: var(--voc-heading);
-
-  font-family: 'Playfair Display', Georgia, serif;
-
-  font-size: 34px;
-
-  font-weight: 600;
+  margin: 0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
-
 
 .formSubtitle {
-  margin: 0 0 28px;
-
-  color: var(--voc-copy);
-
-  font-size: 15px;
-
-  line-height: 1.75;
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--impact-muted, #52606d);
 }
-
-
-/* =========================================================
-   FORM HIGHLIGHT
-========================================================= */
 
 .formHighlightCard {
-  margin-bottom: 28px;
-
-  padding: 20px 22px;
-
-  background: #064f6b;
-
-  border-radius: 4px;
-
+  padding: 16px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-left: 4px solid var(--impact-orange, #dd7f43);
+  border-radius: 0;
+  background: var(--impact-blue-tint, #eaf3fb);
   box-shadow: none;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--impact-text, #1f2933);
 }
-
 
 .formHighlightCard p {
   margin: 0;
-
-  color: rgba(255, 255, 255, 0.94);
-
-  font-size: 14px;
-
-  line-height: 1.7;
 }
 
-
-/* =========================================================
-   FORM GRID
-========================================================= */
-
-.formGrid {
-  display: grid;
-
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 20px;
-
-  margin-bottom: 20px;
-}
-
-
+.formGrid,
 .formStack {
   display: grid;
-
   gap: 20px;
 }
 
-
-/* =========================================================
-   FIELDS
-========================================================= */
+.formGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
 .voc-field-block {
-  display: flex;
-
-  flex-direction: column;
-
+  display: grid;
   gap: 8px;
+  align-content: start;
+  font-family: "Source Sans 3", Arial, sans-serif;
+}
 
-  color: var(--voc-body);
-
-  font-size: 14px;
-
+.voc-field-block > span {
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
 }
 
-
-.artSubmissionForm input,
-.artSubmissionForm select,
-.artSubmissionForm textarea {
+.voc-field-block input,
+.voc-field-block select,
+.voc-field-block textarea {
   width: 100%;
-
-  padding: 14px 15px;
-
-  border: 1px solid #d7e0e5;
-
-  border-radius: 4px;
-
+  padding: 12px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 0;
   background: #ffffff;
-
-  color: #183746;
-
-  font-family: 'DM Sans', sans-serif;
-
-  font-size: 14px;
-
-  line-height: 1.5;
-
-  outline: none;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  box-shadow: none;
+  color: var(--impact-text, #1f2933);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
 }
 
-
-.artSubmissionForm input:focus,
-.artSubmissionForm select:focus,
-.artSubmissionForm textarea:focus {
-  border-color: #ff6600;
-
-  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+.voc-field-block input:focus,
+.voc-field-block select:focus,
+.voc-field-block textarea:focus {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 1px;
+  border-color: var(--impact-blue, #1f76be);
 }
 
-
-.artSubmissionForm textarea {
-  min-height: 160px;
-
+.voc-field-block textarea {
+  min-height: 140px;
   resize: vertical;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-  .vocational-hero {
-    min-height: 680px;
-
-    background-position: 65% center;
-  }
-
-
-  .vocational-hero-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.38) 0%,
-        rgba(0, 0, 0, 0.68) 55%,
-        rgba(0, 0, 0, 0.84) 100%
-      );
-  }
-
-
-  .vocational-hero-content {
-    width: calc(100% - 40px);
-
-    margin: 0 20px;
-
-    padding: 70px 0 50px;
-  }
-
-
-  .vocational-breadcrumb {
-    margin-bottom: 16px;
-
-    font-size: 11px;
-  }
-
-
-  .vocational-title {
-    margin-bottom: 18px;
-
-    font-size: clamp(42px, 12vw, 56px);
-
-    line-height: 0.99;
-
-    letter-spacing: -1.5px;
-  }
-
-
-  .vocational-summary {
-    max-width: 100%;
-
-    font-size: 14px;
-
-    line-height: 1.65;
-  }
-
-
-  .vocational-summary-second {
-    margin-bottom: 20px;
-  }
-
-
-  .vocational-hero-buttons {
-    flex-direction: column;
-
-    align-items: stretch;
-
-    gap: 12px;
-
-    margin-top: 24px;
-  }
-
-
-  .vocational-btn {
-    width: 100%;
-
-    min-height: 49px;
-
-    padding: 0 16px;
-  }
-
-
-  /* =========================
-     THEME
-  ========================= */
-
-  .theme-panel {
-    width: calc(100% - 40px);
-
-    margin: 30px 20px;
-
-    padding: 15px 0;
-  }
-
-
-  .themeGrid {
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 8px;
-  }
-
-
-  .themeButtons button {
-    width: 100%;
-
-    min-width: 0;
-
-    padding: 10px 8px;
-
-    font-size: 12px;
-  }
-
-
-  /* =========================
-     SUBMISSION
-  ========================= */
-
-  .artSubmissionSection {
-    width: calc(100% - 40px);
-
-    margin: 0 20px 55px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 25px;
-  }
-
-
-  .artIntroBox {
-    position: static;
-
-    width: 100%;
-
-    padding: 24px 20px;
-
-    box-shadow: 0 5px 18px rgba(7, 56, 75, 0.05);
-  }
-
-
-  /* IMPORTANT:
-     Paragraph becomes naturally readable
-     on narrow screens.
-  */
-
-  .artParagraph {
-    max-width: 100%;
-
-    margin-bottom: 20px;
-
-    font-size: 14px;
-
-    line-height: 1.75;
-
-    text-align: left;
-
-    word-break: normal;
-
-    overflow-wrap: break-word;
-  }
-
-
-  .artIntroTitle {
-    font-size: 27px;
-
-    line-height: 1.2;
-  }
-
-
-  .artNotice {
-    font-size: 13px;
-
-    line-height: 1.65;
-
-    padding: 14px 15px;
-  }
-
-
-  /* =========================
-     FORM
-  ========================= */
-
-  .artSubmissionForm {
-    width: 100%;
-
-    padding: 23px 20px;
-
-    box-shadow: 0 5px 18px rgba(7, 56, 75, 0.05);
-  }
-
-
-  .formTitle {
-    font-size: 29px;
-
-    line-height: 1.15;
-  }
-
-
-  .formSubtitle {
-    font-size: 14px;
-
-    line-height: 1.7;
-  }
-
-
-  .formGrid {
-    grid-template-columns: 1fr;
-
-    gap: 18px;
-  }
-
-
-  .formHighlightCard {
-    padding: 17px;
-
-    box-shadow: none;
-  }
-
-
-  .artSubmissionForm input,
-  .artSubmissionForm select,
-  .artSubmissionForm textarea {
-    font-size: 16px;
-
-    padding: 13px;
-  }
-
-
-  .submitButton {
-    width: 100%;
-
-    min-height: 50px;
-  }
+.voc-field-note {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--impact-muted, #52606d);
 }
 
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media (max-width: 380px) {
-
-  .vocational-hero {
-    min-height: 700px;
-  }
-
-
-  .vocational-hero-content {
-    width: calc(100% - 30px);
-
-    margin: 0 15px;
-
-    padding-top: 65px;
-  }
-
-
-  .vocational-title {
-    font-size: 42px;
-  }
-
-
-  .vocational-summary {
-    font-size: 13.5px;
-
-    line-height: 1.7;
-  }
-
-
-  .theme-panel {
-    width: calc(100% - 30px);
-
-    margin-left: 15px;
-
-    margin-right: 15px;
-  }
-
-
-  .themeGrid {
-    grid-template-columns: 1fr;
-  }
-
-
-  .artSubmissionSection {
-    width: calc(100% - 30px);
-
-    margin-left: 15px;
-
-    margin-right: 15px;
-  }
-
-
-  .artIntroBox,
-  .artSubmissionForm {
-    padding: 20px 17px;
-  }
-
-
-  .artParagraph {
-    font-size: 14px;
-
-    line-height: 1.75;
-  }
-
-
-  .formTitle {
-    font-size: 27px;
-  }
+.voc-input-invalid {
+  border-color: #b42318;
 }
 
+.voc-field-error {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #b42318;
+}
 
+.voc-consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--impact-text, #1f2933);
+  cursor: pointer;
+}
 
+.voc-consent-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  flex: 0 0 auto;
+  accent-color: var(--impact-blue, #1f76be);
+}
 
+.voc-fieldset-invalid {
+  color: #b42318;
+}
 
-
-/* =========================================================
-   SUBMIT BUTTON
-========================================================= */
-
+/* Submit: square solid --impact-blue, white text, navy-dark hover. */
 .submitButton {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
-  width: auto;
-  min-width: 210px;
-  min-height: 52px;
-
-  margin-top: 22px;
-  padding: 0 28px;
-
-  border: none;
-  border-radius: 5px;
-
-  background:#ff6600;
-  color: #111111;
-
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  min-height: 48px;
+  padding: 12px 28px;
+  border: 1px solid var(--impact-blue, #1f76be);
+  border-radius: 0;
+  background: var(--impact-blue, #1f76be);
+  box-shadow: none;
+  color: #ffffff;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
   font-weight: 700;
-
-  letter-spacing: 0.01em;
-
+  letter-spacing: 0.04em;
   cursor: pointer;
-
-  box-shadow:
-    0 6px 16px rgba(255, 102, 0, 0.22);
-
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: background-color 160ms ease, border-color 160ms ease;
 }
-
-
-/* Hover */
 
 .submitButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-
-  background: #ff6600;
-
-  box-shadow:
-    0 9px 22px rgba(255, 102, 0, 0.28);
+  background: var(--impact-blue-dark, #14507f);
+  border-color: var(--impact-blue-dark, #14507f);
+  box-shadow: none;
+  transform: none;
 }
-
-
-/* Click */
-
-.submitButton:active:not(:disabled) {
-  transform: translateY(0);
-
-  box-shadow:
-    0 4px 10px rgba(255, 102, 0, 0.20);
-}
-
-
-/* Keyboard focus */
 
 .submitButton:focus-visible {
-  outline: 3px solid rgba(255, 102, 0, 0.25);
-
-  outline-offset: 3px;
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
 }
-
-
-/* Disabled / submitting */
 
 .submitButton:disabled {
   opacity: 0.65;
-
   cursor: not-allowed;
-
   transform: none;
-
   box-shadow: none;
 }
 
+.formFeedback {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
 
-/* =========================================================
-   MOBILE SUBMIT BUTTON
-========================================================= */
+.formFeedback.success {
+  border-color: var(--impact-blue, #1f76be);
+  background: var(--impact-blue-tint, #eaf3fb);
+  color: var(--impact-navy, #12395f);
+}
 
-@media (max-width: 600px) {
+.formFeedback.error {
+  border-color: #e85b00;
+  background: #fff5ec;
+  color: #7a2e00;
+}
+
+/* Legacy hero/container classes no longer used in the markup; kept empty so
+   any stray reference renders unstyled rather than breaking layout. */
+
+/* Stack two-column grids under 768px. */
+@media (max-width: 768px) {
+  .vocational-hero-bleed {
+    margin-bottom: 40px;
+  }
+
+  .themeGrid,
+  .formGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .artSubmissionSection {
+    padding: 56px 0 64px;
+  }
+
+  .artSubmissionForm {
+    padding: 24px 20px;
+  }
+
+  .formTitle {
+    font-size: 34px;
+  }
 
   .submitButton {
     width: 100%;
-
-    min-height: 51px;
-
-    margin-top: 20px;
-
-    padding: 0 20px;
-
-    font-size: 14px;
   }
-
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .vocational-page,
+  .vocational-page *,
+  .vocational-page *::before,
+  .vocational-page *::after {
+    transition: none;
+    animation: none;
+  }
+}
+

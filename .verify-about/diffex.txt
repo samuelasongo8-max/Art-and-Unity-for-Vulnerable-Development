@@ -1,0 +1,16 @@
+heroP length in script : 309
+expected length        : 309
+first difference at     : 309
+script  : " inclusive community programs."
+expected: " inclusive community programs."
+mission -> "Empower vulnerable communities through c"
+vision -> "A peaceful and inclusive community where"
+whoTitle -> "Building hope through art, learning, and"
+whoP1 -> "AUVD was established in response to the "
+whoP2 -> "Through music, dance, visual arts, and c"
+goalTitle -> "Resilient and empowered communities"
+goalP1 -> "Our goal is to create resilient and empo"
+goalP2 -> "AUVD remains committed to promoting dign"
+serveTitle -> "Who We Serve"
+serveP -> "AUVD programs are designed to meet peopl"
+exit=0

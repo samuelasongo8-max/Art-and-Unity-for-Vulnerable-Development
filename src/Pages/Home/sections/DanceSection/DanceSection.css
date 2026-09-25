@@ -51,19 +51,37 @@
   max-width: 720px;
 }
 
-/* Label: orange, like the Core Belief section's label. */
+/* Label: orange, like the Core Belief section's label. Scoped medium-large
+   size for the Dance heading only (keeps its font and color): 34px desktop,
+   27px mobile — between the small section label (22px/18px) and the large
+   Bebas Neue titles (44px/34px). */
 .dance-section .auvd-story-label {
   color: var(--impact-orange, #dd7f43);
   font-family: "Source Sans 3", Arial, sans-serif;
 }
 
-/* Paragraph: white on the dark overlay (Core Belief body treatment). */
+.dance-section .dance-heading {
+  font-size: 34px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Paragraph: white on the dark overlay (Core Belief body treatment).
+   Normal static block of text — no marquee/scroll/animation. Explicitly
+   neutralises any nowrap/overflow/animation/transform so it wraps normally,
+   full width within its column, with comfortable line-height (~1.625). */
 .dance-description {
   margin: 0 0 24px;
   font-family: "Source Sans 3", Arial, sans-serif;
   font-size: 16px;
-  line-height: 26px;
+  line-height: 1.625;
   color: rgba(255, 255, 255, 0.92);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  animation: none;
+  transform: none;
+  max-width: 100%;
 }
 
 /* The four short lines as a small tag row — bordered pills like the
@@ -87,6 +105,15 @@
   font-weight: 600;
   line-height: 1.4;
   text-align: left;
+}
+
+/* Square corners scoped to the Dance section only: the three short-line
+   tags and the "Community dance" button. Because .dance-tag exists only in
+   this section's CSS/JSD, this does not touch pill rows anywhere else. */
+.dance-section .dance-tags .dance-tag,
+.dance-section .dance-tags .dance-tag--link,
+.dance-section button.dance-tag {
+  border-radius: 0;
 }
 
 button.dance-tag {
@@ -121,8 +148,13 @@ button.dance-tag:focus-visible {
     padding: 64px 24px;
   }
 
+  .dance-section .dance-heading {
+    font-size: 27px;
+    line-height: 1.25;
+  }
+
   .dance-description {
     font-size: 16px;
-    line-height: 26px;
+    line-height: 1.625;
   }
 }
