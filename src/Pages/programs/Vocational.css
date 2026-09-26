@@ -174,7 +174,7 @@
 .artNotice {
   padding: 16px;
   border: 1px solid var(--impact-border, #dde5ee);
-  border-left: 4px solid var(--impact-orange, #dd7f43);
+  border-left: 4px solid var(--impact-orange, #ff6600);
   border-radius: 0;
   background: var(--impact-blue-tint, #eaf3fb);
   font-family: "Source Sans 3", Arial, sans-serif;
@@ -219,7 +219,7 @@
 .formHighlightCard {
   padding: 16px;
   border: 1px solid var(--impact-border, #dde5ee);
-  border-left: 4px solid var(--impact-orange, #dd7f43);
+  border-left: 4px solid var(--impact-orange, #ff6600);
   border-radius: 0;
   background: var(--impact-blue-tint, #eaf3fb);
   box-shadow: none;

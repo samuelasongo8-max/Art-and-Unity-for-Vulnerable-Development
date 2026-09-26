@@ -1,34 +1,36 @@
-/* "From Hard Times to Hope" heading block — spacing/rhythm clean-up only;
-   the heading, its wording and its typography stay exactly as they were. */
+/* "From Hard Times to Hope" - the main title of the three-step story whose
+   subtitle and cards live in TherapeuticApproach. Rebuilt as a left-aligned
+   Bebas Neue heading (a centred heading reads as templated); the wording and
+   the <h1> itself are untouched. The max-width and 20px padding mirror
+   .programs-section so the title's left edge lines up with the card grid, and
+   the bottom margin is 0 so the subtitle underneath tucks in as one header. */
 .programs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   width: 100%;
-  margin: clamp(40px, 6vw, 72px) 0 0;
-  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 3vw, 2.25rem);
-  color: #2b2929;
+  max-width: 1250px;
+  margin: clamp(44px, 6vw, 76px) auto 0;
+  padding: 0 20px;
+  text-align: left;
+  color: var(--impact-navy, #12395f);
 }
 
 .programs h1 {
-  max-width: 22ch;
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(1.3rem, 2.2vw, 2rem);
-  font-weight: 700;
-  line-height: 1.16;
-  letter-spacing: -0.02em;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-size: clamp(40px, 4.6vw, 48px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.012em;
+  color: var(--impact-navy, #12395f);
 }
 
 @media (max-width: 768px) {
   .programs {
-    padding: 1rem 0.95rem;
+    margin-top: clamp(32px, 7vw, 44px);
+    padding: 0 16px;
   }
 
   .programs h1 {
-    max-width: 18ch;
-    font-size: 1.08rem;
-    line-height: 1.18;
+    font-size: clamp(32px, 8.6vw, 40px);
+    line-height: 1.08;
   }
 }

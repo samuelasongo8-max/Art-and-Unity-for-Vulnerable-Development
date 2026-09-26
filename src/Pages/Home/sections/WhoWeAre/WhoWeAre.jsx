@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "./WhoWeAre.css";
 
@@ -9,6 +10,7 @@ import "./WhoWeAre.css";
    Layout and typography come from the shared .auvd-story-* classes
    (src/components/ImpactSections.css, imported once via Home.css). */
 function WhoWeAre() {
+  const { t } = useTranslation();
   const images = ["/donation.jpg", "/drawing.jpg", "/emotional1.jpg"];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -29,24 +31,18 @@ function WhoWeAre() {
             <img
               className="auvd-story-gallery-item auvd-story-gallery-item--1"
               src={images[activeImageIndex]}
-              alt="AUVD community work"
+              alt={t("home.whoWeAre.imageAlt")}
             />
           </div>
 
           <div className="auvd-story-text">
-            <h2 className="auvd-story-title">Who We Are</h2>
-            <p>
-              Art and Unity for Vulnerable Development (AUVD) is a nonprofit Community-Based Organization (CBO) and Refugee-Led Organization (RLO) based in Kakuma Refugee Camp, Kenya. Founded in 2022 and formally registered in 2025, AUVD works to empower vulnerable communities including refugees, women, youth, and persons with disabilities.
-            </p>
-            <p>
-              Our organization was created in response to the social and economic challenges faced by displaced populations. We believe that art and creativity are powerful tools for healing, education, and transformation.
-            </p>
-            <p>
-              Today, AUVD stands as a growing organization in Kakuma, dedicated to nurturing talent, promoting social cohesion, and advancing sustainable development.
-            </p>
+            <h2 className="auvd-story-title">{t("home.whoWeAre.title")}</h2>
+            <p>{t("home.whoWeAre.p1")}</p>
+            <p>{t("home.whoWeAre.p2")}</p>
+            <p>{t("home.whoWeAre.p3")}</p>
 
             <Link to="/about" className="auvd-cta-link">
-              Read more
+              {t("home.whoWeAre.readMore")}
             </Link>
           </div>
 

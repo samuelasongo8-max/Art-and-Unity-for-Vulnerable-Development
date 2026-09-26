@@ -90,7 +90,7 @@ const EducationAccess = () => {
       <section className="auvd-story-section auvd-story-section--tint">
         <div className="auvd-story-container">
           <div className="about-mv-grid">
-            <article className="about-mv-card">
+            <article className="about-mv-card about-mv-card--mission">
               <div className="about-mv-icon" aria-hidden="true">
                 <FaBullseye />
               </div>
@@ -183,7 +183,7 @@ const EducationAccess = () => {
 
       {/* OUR GOAL — the same two-column pattern, again with no photo, so the
           title sits in the narrower left column. */}
-      <section className="auvd-story-section auvd-story-section--tint">
+      <section className="auvd-story-section auvd-story-section--tint auvd-story-section--orange">
         <div className="auvd-story-container">
           <div className="about-label-row">
             <div className="about-goal-icon" aria-hidden="true">

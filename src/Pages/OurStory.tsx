@@ -132,7 +132,7 @@ function OurStory() {
       </section>
 
       {/* Where We Are Today — second band (light tint). */}
-      <section className="auvd-story-section auvd-story-section--tint">
+      <section className="auvd-story-section auvd-story-section--tint auvd-story-section--orange">
         <div className="auvd-story-container">
           <p className="auvd-story-label">Where We Are Today</p>
           <div className="auvd-story-body">

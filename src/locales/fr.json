@@ -1,0 +1,174 @@
+{
+  "common": {
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "donate": "Donate",
+    "contact": "Contact",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "backToTop": "Retour en haut"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "aboutMenu": {
+      "ourStory": "Notre histoire",
+      "team": "Équipe",
+      "samuel": "Samuel Asongo"
+    },
+    "ourWork": "Notre travail",
+    "ourImpact": "Notre impact",
+    "impactMenu": {
+      "news": "Actualités",
+      "blogs": "Blogs",
+      "report": "Rapport",
+      "toggleLabel": "Ouvrir ou fermer le menu Notre impact"
+    },
+    "events": "Événements",
+    "pricing": "Éducation",
+    "contact": "Contact",
+    "donate": "Faire un don",
+    "toggleMenu": "Ouvrir ou fermer le menu de navigation",
+    "search": {
+      "label": "Rechercher sur le site",
+      "placeholder": "Rechercher...",
+      "submit": "Rechercher",
+      "resultsLabel": "Résultats de recherche",
+      "noResults": "Aucune page correspondante trouvée."
+    },
+    "language": {
+      "label": "Langue",
+      "en": "EN",
+      "fr": "FR"
+    },
+    "searchPages": {
+      "home": {
+        "title": "Accueil",
+        "description": "Page d'accueil et présentation d'AUVD"
+      },
+      "about": {
+        "title": "À propos",
+        "description": "Mission, vision et présentation de l'organisation"
+      },
+      "ourStory": {
+        "title": "Notre histoire",
+        "description": "Les débuts d'AUVD et l'histoire de l'organisation"
+      },
+      "team": {
+        "title": "Équipe dirigeante",
+        "description": "Découvrez l'équipe dirigeante d'AUVD, notamment Samuel Asongo et Matayo Bilibwa."
+      },
+      "samuel": {
+        "title": "Samuel Asongo",
+        "description": "Samuel Asongo est le Fondateur, Président et Directeur Général d'Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "work": {
+        "title": "Notre travail",
+        "description": "Programmes, impact communautaire et travail de l'organisation"
+      },
+      "events": {
+        "title": "Événements",
+        "description": "Semaine de la paix des jeunes, ateliers de musique et événements récents"
+      },
+      "blogs": {
+        "title": "Blogs",
+        "description": "Récits, nouvelles, réflexions et temps forts communautaires d'AUVD"
+      },
+      "portfolio": {
+        "title": "Sensibilisation",
+        "description": "Galerie et portfolio des travaux et activités"
+      },
+      "pricing": {
+        "title": "Éducation",
+        "description": "Tarifs des services et options de soutien"
+      },
+      "ourImpact": {
+        "title": "Notre impact",
+        "description": "Actualités, blogs et rapports d'AUVD"
+      },
+      "news": {
+        "title": "Actualités de l'impact",
+        "description": "Dernières nouvelles et mises à jour d'AUVD"
+      },
+      "report": {
+        "title": "Rapports d'impact",
+        "description": "Rapports annuels et de projets publiés par AUVD"
+      },
+      "donate": {
+        "title": "Faire un don",
+        "description": "Soutenez l'organisation par un don"
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Contactez AUVD"
+      },
+      "dance": {
+        "title": "Programme de danse",
+        "description": "Activités de danse et programme de mouvement créatif"
+      },
+      "music": {
+        "title": "Programme de musique",
+        "description": "Programmes de formation, d'apprentissage et de performance musicale"
+      },
+      "vocational": {
+        "title": "Programme professionnel",
+        "description": "Développement des compétences professionnelles et parcours d'apprentissage"
+      }
+    },
+    "logoAlt": "Logo AUVD",
+    "aboutShort": "À propos",
+    "leadership": "Direction"
+  },
+  "footer": {
+    "stay": "restez",
+    "connected": "CONNECTÉS",
+    "emailLabel": "Quelle est votre adresse e-mail ? *",
+    "emailSubmit": "Envoyer l'adresse e-mail",
+    "interestsTitle": "Quels sont vos centres d'intérêt ?",
+    "interests": {
+      "education": "Éducation",
+      "music": "Programme de musique",
+      "dance": "Programme de danse",
+      "vocational": "Formation professionnelle"
+    },
+    "submit": "Envoyer",
+    "tagline": "Art & Unity",
+    "navLabel": "Pied de page",
+    "links": {
+      "about": "À propos",
+      "work": "Notre travail",
+      "impact": "Notre impact",
+      "resources": "Ressources",
+      "contact": "Contact",
+      "donate": "Faire un don"
+    },
+    "legal": {
+      "terms": "Conditions d'utilisation",
+      "privacy": "Politique de confidentialité",
+      "sitemap": "Plan du site"
+    }
+  },
+  "home": {
+    "hero": {
+      "label": "Art & Unity for Vulnerable Development",
+      "paragraph": "Art and Unity for Vulnerable Development (AUVD) est une organisation menée par des réfugiés qui transforme des vies au camp de réfugiés de Kakuma grâce à la créativité, au développement des compétences et à des programmes communautaires inclusifs.",
+      "button": "En savoir plus sur nous",
+      "socialLabel": "Liens de médias sociaux",
+      "links": {
+        "explore": "Découvrir davantage",
+        "share": "Partagez votre créativité",
+        "music": "Éducation musicale",
+        "dance": "Danse communautaire"
+      }
+    },
+    "whoWeAre": {
+      "imageAlt": "Travail communautaire d'AUVD",
+      "title": "Qui nous sommes",
+      "p1": "Art and Unity for Vulnerable Development (AUVD) est une organisation à but non lucratif, communautaire (CBO) et menée par des réfugiés (RLO), basée au camp de réfugiés de Kakuma, au Kenya. Fondée en 2022 et officiellement enregistrée en 2025, AUVD œuvre pour autonomiser les communautés vulnérables, notamment les réfugiés, les femmes, les jeunes et les personnes handicapées.",
+      "p2": "Notre organisation a été créée en réponse aux défis sociaux et économiques rencontrés par les populations déplacées. Nous croyons que l'art et la créativité sont de puissants outils de guérison, d'éducation et de transformation.",
+      "p3": "Aujourd'hui, AUVD est une organisation en pleine croissance à Kakuma, consacrée àcultiver les talents, à promouvoir la cohésion sociale et à avancer vers un développement durable.",
+      "readMore": "En savoir plus"
+    }
+  }
+}

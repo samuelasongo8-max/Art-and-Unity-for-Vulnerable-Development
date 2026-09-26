@@ -1,32 +1,38 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import logo from "../assets/logo1.png";
 import "./Navbar.css";
 
+// Search index. Only the key is stored here; the title/description are looked
+// up with t() at render time so results follow the active language. Keywords
+// stay in English on purpose: they are matched against typed input, and users
+// may type either language regardless of what is displayed.
 const searchEntries = [
-  { path: "/", title: "Home", description: "Main homepage and introduction to AUVD", keywords: ["home", "welcome", "art", "innovation", "communities", "kakuma"] },
-  { path: "/about", title: "About Us", description: "Mission, vision, and overview of the organization", keywords: ["about", "mission", "vision", "organization", "auvd"] },
-  { path: "/our-impact/our-story", title: "Our Story", description: "How AUVD began and the story behind the organization", keywords: ["story", "history", "began", "hope", "creativity"] },
-  { path: "/about/team", title: "Leadership Team", description: "Meet the AUVD leadership team, including Samuel Asongo and Matayo Bilibwa.", keywords: ["team", "leadership", "staff", "people", "members", "Samuel Asongo", "Matayo Bilibwa"] },
-  { path: "/about/samuel-asongo", title: "Samuel Asongo", description: "Samuel Asongo is the Founder, Chairperson and Chief Executive Officer of Art and Unity for Vulnerable Development (AUVD).", keywords: ["Samuel Asongo", "AUVD founder", "AUVD CEO", "AUVD Chairperson"] },
-  { path: "/work", title: "Our Work", description: "Programs, community impact, and organizational work", keywords: ["work", "programs", "impact", "projects", "community"] },
-  { path: "/events", title: "Events", description: "Youth Peace Week, music workshops, and recent events", keywords: ["events", "music", "workshops", "mental health", "teachers day", "food day", "youth peace week"] },
-  { path: "/our-impact/blogs", title: "Blogs", description: "Stories, updates, reflections, and community highlights from AUVD", keywords: ["blogs", "blog", "stories", "updates", "articles", "community"] },
-  { path: "/portfolio", title: "Outreach", description: "Gallery and portfolio of work and activities", keywords: ["portfolio", "gallery", "photos", "projects", "showcase"] },
-  { path: "/pricing", title: "Education", description: "Service pricing and support options", keywords: ["pricing", "plans", "fees", "services", "cost"] },
-  { path: "/our-impact", title: "Our Impact", description: "News, blogs and reports from AUVD", keywords: ["impact", "our impact", "reports", "news", "blog", "blogs"] },
-  { path: "/our-impact/news", title: "Impact News", description: "Latest news and updates from AUVD", keywords: ["news", "updates", "impact", "announcements"] },
-  { path: "/our-impact/report", title: "Impact Reports", description: "Annual and project reports published by AUVD", keywords: ["report", "reports", "annual", "financials", "results"] },
-  { path: "/donate", title: "Donate", description: "Support the organization through donations", keywords: ["donate", "support", "fund", "give", "contribute"] },
-  { path: "/contact", title: "Contact", description: "Get in touch with AUVD", keywords: ["contact", "email", "reach", "message", "phone"] },
-  { path: "/dance", title: "Dance Program", description: "Dance activities and creative movement program", keywords: ["dance", "movement", "performance", "creative arts"] },
-  { path: "/music", title: "Music Program", description: "Music training, learning, and performance programs", keywords: ["music", "training", "songs", "instruments", "performance"] },
-  { path: "/vocational", title: "Vocational Program", description: "Vocational skills development and learning pathways", keywords: ["vocational", "skills", "training", "learning", "development"] },
+  { path: "/", key: "home", keywords: ["home", "welcome", "art", "innovation", "communities", "kakuma"] },
+  { path: "/about", key: "about", keywords: ["about", "mission", "vision", "organization", "auvd"] },
+  { path: "/our-impact/our-story", key: "ourStory", keywords: ["story", "history", "began", "hope", "creativity"] },
+  { path: "/about/team", key: "team", keywords: ["team", "leadership", "staff", "people", "members", "Samuel Asongo", "Matayo Bilibwa"] },
+  { path: "/about/samuel-asongo", key: "samuel", keywords: ["Samuel Asongo", "AUVD founder", "AUVD CEO", "AUVD Chairperson"] },
+  { path: "/work", key: "work", keywords: ["work", "programs", "impact", "projects", "community"] },
+  { path: "/events", key: "events", keywords: ["events", "music", "workshops", "mental health", "teachers day", "food day", "youth peace week"] },
+  { path: "/our-impact/blogs", key: "blogs", keywords: ["blogs", "blog", "stories", "updates", "articles", "community"] },
+  { path: "/portfolio", key: "portfolio", keywords: ["portfolio", "gallery", "photos", "projects", "showcase"] },
+  { path: "/pricing", key: "pricing", keywords: ["pricing", "plans", "fees", "services", "cost"] },
+  { path: "/our-impact", key: "ourImpact", keywords: ["impact", "our impact", "reports", "news", "blog", "blogs"] },
+  { path: "/our-impact/news", key: "news", keywords: ["news", "updates", "impact", "announcements"] },
+  { path: "/our-impact/report", key: "report", keywords: ["report", "reports", "annual", "financials", "results"] },
+  { path: "/donate", key: "donate", keywords: ["donate", "support", "fund", "give", "contribute"] },
+  { path: "/contact", key: "contact", keywords: ["contact", "email", "reach", "message", "phone"] },
+  { path: "/dance", key: "dance", keywords: ["dance", "movement", "performance", "creative arts"] },
+  { path: "/music", key: "music", keywords: ["music", "training", "songs", "instruments", "performance"] },
+  { path: "/vocational", key: "vocational", keywords: ["vocational", "skills", "training", "learning", "development"] },
 ];
 
 const normalizeSearchText = (value) => value.trim().toLowerCase();
 
 function Navbar() {
+  const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutMenuPinned, setAboutMenuPinned] = useState(false);
   const [aboutMenuHovered, setAboutMenuHovered] = useState(false);
@@ -109,21 +115,21 @@ function Navbar() {
   // Primary routing array (excluding Home, About, and standalone action items)
   // Items with `children` render as a dropdown parent (Our Impact).
   const links = [
-    { path: "/work", name: "Work" },
-    { path: "/events", name: "Events" },
-    { path: "/portfolio", name: "Outreach" },
-    { path: "/pricing", name: "Education" },
+    { path: "/work", nameKey: "nav.ourWork" },
+    { path: "/events", nameKey: "nav.events" },
+    { path: "/portfolio", nameKey: "nav.searchPages.portfolio.title" },
+    { path: "/pricing", nameKey: "nav.pricing" },
     {
       path: "/our-impact",
-      name: "Our Impact",
+      nameKey: "nav.ourImpact",
       children: [
-        { path: "/our-impact/our-story", name: "Our Story" },
-        { path: "/our-impact/news", name: "News" },
-        { path: "/our-impact/blogs", name: "Blogs" },
-        { path: "/our-impact/report", name: "Report" },
+        { path: "/our-impact/our-story", nameKey: "nav.aboutMenu.ourStory" },
+        { path: "/our-impact/news", nameKey: "nav.impactMenu.news" },
+        { path: "/our-impact/blogs", nameKey: "nav.impactMenu.blogs" },
+        { path: "/our-impact/report", nameKey: "nav.impactMenu.report" },
       ],
     },
-    { path: "/contact", name: "Contact" },
+    { path: "/contact", nameKey: "nav.contact" },
   ];
 
   useEffect(() => {
@@ -174,7 +180,11 @@ function Navbar() {
   const normalizedQuery = normalizeSearchText(searchQuery);
   const searchResults = normalizedQuery
     ? searchEntries.filter((entry) => {
-        const searchableText = `${entry.title} ${entry.description} ${entry.keywords.join(" ")}`.toLowerCase();
+        // Search the translated title/description as well as the static
+        // keywords, so a French title is findable while in French.
+        const title = t(`nav.searchPages.${entry.key}.title`);
+        const description = t(`nav.searchPages.${entry.key}.description`);
+        const searchableText = `${title} ${description} ${entry.keywords.join(" ")}`.toLowerCase();
         return searchableText.includes(normalizedQuery);
       }).slice(0, 6)
     : [];
@@ -210,7 +220,7 @@ function Navbar() {
         
         {/* Logo Link Wrapper */}
         <NavLink to="/" className="logo" onClick={closeMenus}>
-          <img src={logo} alt="AUVD logo" />
+          <img src={logo} alt={t("nav.logoAlt")} />
           <span className="logo-text">A<span className="text-U">U</span>V<span className="text-D">D</span></span>
           <span className="logo-dot">.</span>
         </NavLink>
@@ -219,7 +229,7 @@ function Navbar() {
         <button
           className={`menu-toggle ${menuOpen ? "nav-open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={t("nav.toggleMenu")}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav-links"
         >
@@ -240,7 +250,7 @@ function Navbar() {
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeMenus}
           >
-            Home
+            {t("nav.home")}
           </NavLink>
 
           {/* Premium Dropdown Interface */}
@@ -258,7 +268,7 @@ function Navbar() {
                 aria-haspopup="menu"
                 aria-expanded={aboutMenuOpen}
               >
-                About
+                {t("nav.aboutShort")}
               </button>
             </div>
 
@@ -269,21 +279,21 @@ function Navbar() {
                 onClick={closeMenus}
                 end
               >
-                About Us
+                {t("nav.about")}
               </NavLink>
               <NavLink
                 to="/about/team"
                 className={({ isActive }) => `dropdown-link ${isActive ? "active" : ""}`}
                 onClick={closeMenus}
               >
-                Leadership
+                {t("nav.leadership")}
               </NavLink>
               <NavLink
                 to="/about/samuel-asongo"
                 className={({ isActive }) => `dropdown-link ${isActive ? "active" : ""}`}
                 onClick={closeMenus}
               >
-                Samuel Asongo
+                {t("nav.aboutMenu.samuel")}
               </NavLink>
             </div>
           </div>
@@ -312,7 +322,7 @@ function Navbar() {
                     onFocus={openImpactMenu}
                     onClick={closeMenus}
                   >
-                    {link.name}
+                    {t(link.nameKey)}
                   </NavLink>
 
                   <button
@@ -320,7 +330,7 @@ function Navbar() {
                     className="auvd-nav-chevron"
                     aria-expanded={impactMenuOpen}
                     aria-controls="our-impact-submenu"
-                    aria-label="Toggle Our Impact menu"
+                    aria-label={t("nav.impactMenu.toggleLabel")}
                     onClick={toggleImpactMenu}
                   >
                     <span aria-hidden="true">{impactMenuOpen ? "▴" : "▾"}</span>
@@ -337,7 +347,7 @@ function Navbar() {
                       }
                       onClick={closeMenus}
                     >
-                      {child.name}
+                      {t(child.nameKey)}
                     </NavLink>
                   ))}
                 </div>
@@ -349,16 +359,40 @@ function Navbar() {
                 className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
                 onClick={closeMenus}
               >
-                {link.name}
+                {t(link.nameKey)}
               </NavLink>
             )
           )}
+
+          {/* Language switcher — placed directly after "Contact" in the shared
+              .nav-links container, so it appears in the desktop bar and the
+              mobile menu from a single insertion point. */}
+          <div className="lang-switch" role="group" aria-label={t("nav.language.label")}>
+            {["en", "fr"].map((code) => {
+              const isActive = i18n.language === code;
+              return (
+                <button
+                  key={code}
+                  type="button"
+                  className={`lang-switch-btn ${isActive ? "is-active" : ""}`}
+                  onClick={() => {
+                    i18n.changeLanguage(code);
+                    closeMenus();
+                  }}
+                  aria-current={isActive ? "true" : undefined}
+                  lang={code}
+                >
+                  {t(`nav.language.${code}`)}
+                </button>
+              );
+            })}
+          </div>
 
           {/* Actions Subsection (Search Shell & Donate Button) */}
           <div className="nav-actions">
             <form className="nav-search" role="search" onSubmit={handleSearchSubmit} ref={searchRef}>
               <label className="nav-search-label" htmlFor="site-search">
-                Search website
+                {t("nav.search.label")}
               </label>
               <div className={`nav-search-shell ${searchOpen ? "open" : ""}`}>
                 <span className="nav-search-icon" aria-hidden="true">⌕</span>
@@ -366,7 +400,7 @@ function Navbar() {
                   id="site-search"
                   type="search"
                   className="nav-search-input"
-                  placeholder="Search..."
+                  placeholder={t("nav.search.placeholder")}
                   value={searchQuery}
                   onChange={(event) => {
                     setSearchQuery(event.target.value);
@@ -376,12 +410,12 @@ function Navbar() {
                   autoComplete="off"
                 />
                 <button type="submit" className="nav-search-button">
-                  Search
+                  {t("nav.search.submit")}
                 </button>
               </div>
 
               {searchOpen && (
-                <div className="nav-search-results" role="listbox" aria-label="Search results">
+                <div className="nav-search-results" role="listbox" aria-label={t("nav.search.resultsLabel")}>
                   {searchResults.length > 0 ? (
                     searchResults.map((result) => (
                       <button
@@ -390,12 +424,12 @@ function Navbar() {
                         className="nav-search-result"
                         onClick={() => handleSearchSelect(result.path)}
                       >
-                        <span className="nav-search-result-title">{result.title}</span>
-                        <span className="nav-search-result-description">{result.description}</span>
+                        <span className="nav-search-result-title">{t(`nav.searchPages.${result.key}.title`)}</span>
+                        <span className="nav-search-result-description">{t(`nav.searchPages.${result.key}.description`)}</span>
                       </button>
                     ))
                   ) : (
-                    <div className="nav-search-empty">No matching page found.</div>
+                    <div className="nav-search-empty">{t("nav.search.noResults")}</div>
                   )}
                 </div>
               )}
@@ -407,7 +441,7 @@ function Navbar() {
               className={({ isActive }) => `btn btn-primary donate-btn ${isActive ? "active" : ""}`}
               onClick={closeMenus}
             >
-              Donate
+              {t("nav.donate")}
             </NavLink>
           </div>
 

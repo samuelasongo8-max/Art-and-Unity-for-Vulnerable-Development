@@ -56,7 +56,7 @@
    27px mobile — between the small section label (22px/18px) and the large
    Bebas Neue titles (44px/34px). */
 .dance-section .auvd-story-label {
-  color: var(--impact-orange, #dd7f43);
+  color: var(--impact-orange, #ff6600);
   font-family: "Source Sans 3", Arial, sans-serif;
 }
 

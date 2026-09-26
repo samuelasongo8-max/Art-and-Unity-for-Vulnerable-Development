@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Footer.css";
 
 const navLinks = [
-  { to: "/about", label: "About Us" },
-  { to: "/Work", label: "Our Work" },
-  { to: "/our-impact", label: "Our Impact" },
-  { to: "/our-impact/blogs", label: "Resources" },
-  { to: "/contact", label: "Contact" },
-  { to: "/donate", label: "Donate" },
+  { to: "/about", labelKey: "footer.links.about" },
+  { to: "/Work", labelKey: "footer.links.work" },
+  { to: "/our-impact", labelKey: "footer.links.impact" },
+  { to: "/our-impact/blogs", labelKey: "footer.links.resources" },
+  { to: "/contact", labelKey: "footer.links.contact" },
+  { to: "/donate", labelKey: "footer.links.donate" },
 ];
 
+// Stored as translation keys so the checkbox labels follow the language.
+// The raw value is still what gets submitted, keeping the payload stable.
 const interestOptions = [
-  "Education",
-  "Music Program",
-  "Dance Program",
-  "Vocational Training",
+  { value: "Education", key: "footer.interests.education" },
+  { value: "Music Program", key: "footer.interests.music" },
+  { value: "Dance Program", key: "footer.interests.dance" },
+  { value: "Vocational Training", key: "footer.interests.vocational" },
 ];
 
 const socialLinks = [
@@ -27,6 +30,7 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [interests, setInterests] = useState([]);
 
@@ -47,13 +51,13 @@ const Footer = () => {
       {/* ===== STAY CONNECTED BAR ===== */}
       <div className="footer-connect">
         <div className="footer-connect-left">
-          <span className="footer-connect-kicker">stay</span>
-          <span className="footer-connect-title">CONNECTED</span>
+          <span className="footer-connect-kicker">{t("footer.stay")}</span>
+          <span className="footer-connect-title">{t("footer.connected")}</span>
         </div>
 
         <form className="footer-connect-right" onSubmit={handleSubmit}>
           <div className="footer-connect-email">
-            <label htmlFor="footer-email">What's your email? *</label>
+            <label htmlFor="footer-email">{t("footer.emailLabel")}</label>
             <div className="footer-email-row">
               <input
                 id="footer-email"
@@ -63,23 +67,23 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder=""
               />
-              <button type="submit" className="footer-email-arrow" aria-label="Submit email">
+              <button type="submit" className="footer-email-arrow" aria-label={t("footer.emailSubmit")}>
                 <i className="bx bx-right-arrow-alt"></i>
               </button>
             </div>
           </div>
 
           <div className="footer-connect-interests">
-            <span className="footer-interests-title">What are your interests?</span>
+            <span className="footer-interests-title">{t("footer.interestsTitle")}</span>
             <div className="footer-interests-list">
               {interestOptions.map((interest) => (
-                <label className="footer-checkbox" key={interest}>
+                <label className="footer-checkbox" key={interest.value}>
                   <input
                     type="checkbox"
-                    checked={interests.includes(interest)}
-                    onChange={() => toggleInterest(interest)}
+                    checked={interests.includes(interest.value)}
+                    onChange={() => toggleInterest(interest.value)}
                   />
-                  <span>{interest}</span>
+                  <span>{t(interest.key)}</span>
                 </label>
               ))}
             </div>
@@ -98,15 +102,15 @@ const Footer = () => {
             AUVD
           </NavLink>
 
-          <nav className="footer-bottom-links" aria-label="Footer">
+          <nav className="footer-bottom-links" aria-label={t("footer.navLabel")}>
             {navLinks.map((link) => (
               <NavLink key={link.to} to={link.to} className="footer-bottom-link">
-                {link.label}
+                {t(link.labelKey)}
               </NavLink>
             ))}
           </nav>
 
-          <span className="footer-tagline">Art &amp; Unity</span>
+          <span className="footer-tagline">{t("footer.tagline")}</span>
         </div>
 
         <ul className="footer-social-row">
@@ -120,11 +124,11 @@ const Footer = () => {
         </ul>
 
         <div className="footer-legal-row">
-          <NavLink to="/terms">Terms of Use</NavLink>
+          <NavLink to="/terms">{t("footer.legal.terms")}</NavLink>
           <span className="footer-legal-divider">|</span>
-          <NavLink to="/privacy">Privacy Policy</NavLink>
+          <NavLink to="/privacy">{t("footer.legal.privacy")}</NavLink>
           <span className="footer-legal-divider">|</span>
-          <NavLink to="/sitemap">Sitemap</NavLink>
+          <NavLink to="/sitemap">{t("footer.legal.sitemap")}</NavLink>
         </div>
       </div>
     </footer>

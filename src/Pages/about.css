@@ -9,7 +9,7 @@
 :root{
     --primary:#0b203f;
     --primary-light:#0b35f0;
-    --accent:#d97706;
+    --accent:#ff6600;
     --accent-dark:#b45309;
 
     --text:#334155;
@@ -468,7 +468,7 @@ MISSION SECTION
 
 .card-accent-gold .about-card-icon{
 
-    background:rgba(217,119,6,.10);
+    background:rgba(255,102,0,.10);
 
     color:var(--accent);
 
@@ -855,7 +855,7 @@ PHONE
     font-family:"Poppins", sans-serif, -apple-system;
     font-size:clamp(2rem,3vw,2.5rem);
     font-weight:800;
-    color:#d97706;
+    color:var(--accent);
     text-transform:uppercase;
     line-height:1.2;
     margin-bottom:1rem;
@@ -864,7 +864,7 @@ PHONE
 .title-underline{
     width:60px;
     height:3px;
-    background-color:#d97706;
+    background-color:var(--accent);
     margin-bottom:1.5rem;
 }
 
@@ -1606,7 +1606,7 @@ FOCUS
 button:focus,
 a:focus{
 
-    outline:3px solid rgba(217,119,6,.35);
+    outline:3px solid rgba(255,102,0,.35);
     outline-offset:4px;
 
 }
@@ -2172,6 +2172,19 @@ END OF ABOUT.CSS
   font-size: 16px;
   line-height: 26px;
   color: #333;
+}
+
+/* Mission card only: orange panel with white text for contrast. Scoped to the
+   modifier so the shared .about-mv-card above — and therefore the Vision card
+   and every other card — keeps its white background. Padding, size and
+   position are inherited unchanged from .about-mv-card. */
+.about-mv-card--mission {
+  background: #ff6600;
+}
+
+.about-mv-card--mission .auvd-story-label,
+.about-mv-card--mission .about-mv-text {
+  color: #ffffff;
 }
 
 /* The two photos the Mission slideshow already used, kept side by side. */

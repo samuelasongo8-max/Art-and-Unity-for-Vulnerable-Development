@@ -97,6 +97,18 @@
   color: var(--impact-blue, #1f76be);
 }
 
+/* "Our Approach" sits on the orange band, so its bullet list switches to white
+   text with white markers (the shared list is dark grey on white with impact
+   blue markers). Scoped to the orange section so the "Expected Impact" list
+   below keeps its existing colours. Typography is inherited unchanged. */
+.auvd-story-section--orange .auvd-pricing-list {
+  color: #ffffff;
+}
+
+.auvd-story-section--orange .auvd-pricing-list li::marker {
+  color: #ffffff;
+}
+
 @media (max-width: 768px) {
   .auvd-pricing-grid {
     grid-template-columns: 1fr;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ImpactHero from "../../../../components/ImpactHero";
 import "./Hero.css";
 
@@ -12,6 +13,7 @@ import "./Hero.css";
    The five social links keep their markup, classes and hrefs; they sit
    over the photo's right side so the copy block matches the other heroes. */
 function Hero({ heroTitleParts, slides }) {
+  const { t } = useTranslation();
   const heroTitleFull = `${heroTitleParts.before}${heroTitleParts.highlight}${heroTitleParts.after}`;
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -27,23 +29,21 @@ function Hero({ heroTitleParts, slides }) {
   return (
     <div className="home-hero-bleed">
       <ImpactHero
-        label="Art & Unity for Vulnerable Development"
+        label={t("home.hero.label")}
         heading={heroTitleFull}
-        paragraph="Art and Unity for Vulnerable Development (AUVD) is a refugee-led organization
-          transforming lives in Kakuma Refugee Camp through creativity, skills development,
-          and inclusive community programs."
-        buttonText="Learn more about us"
+        paragraph={t("home.hero.paragraph")}
+        buttonText={t("home.hero.button")}
         buttonHref="/about"
         image={slides[currentSlide].image}
         links={[
-          { href: "/Work", label: "Explore more" },
-          { href: "/Vocational", label: "Share your creativity" },
-          { href: "/Music", label: "Music education" },
-          { href: "/dance", label: "Community dance" },
+          { href: "/Work", label: t("home.hero.links.explore") },
+          { href: "/Vocational", label: t("home.hero.links.share") },
+          { href: "/Music", label: t("home.hero.links.music") },
+          { href: "/dance", label: t("home.hero.links.dance") },
         ]}
       />
 
-      <ul className="auvd-social-links" aria-label="Social media links">
+      <ul className="auvd-social-links" aria-label={t("home.hero.socialLabel")}>
         <li>
           <a
             className="auvd-social-link auvd-social-facebook"

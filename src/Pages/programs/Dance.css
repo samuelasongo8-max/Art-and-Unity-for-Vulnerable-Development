@@ -1,815 +1,272 @@
-/* ==========================================================
-   CLEAN HERO DESIGN SYSTEM (Optimized for PC & Mobile)
-   ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ==========================================================================
+   Dance - program page restyled into the shared AUVD design system.
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+   Tokens come from :root in src/index.css (--impact-blue, --impact-navy,
+   --impact-surface, --impact-border, --impact-orange, --impact-muted), the
+   same palette Our Story, Our Impact, Work and Pricing use. Layout follows
+   those pages too: full-bleed photo hero, 1200px container with 24px gutters,
+   alternating white / #f6f9fc bands, Bebas Neue titles, Source Sans 3 body,
+   4-8px radii, and blue-on-white buttons.
 
-.programRoot {
+   All rules are scoped under .dance-page so nothing here can leak into
+   other pages (the previous file reset * and body globally).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Page root
+   -------------------------------------------------------------------------- */
+
+.dance-page {
+  --dance-container: 1200px;
+  --dance-gutter: 24px;
+  --dance-section-y: clamp(56px, 7vw, 88px);
+  --dance-radius: 8px;
+
   width: 100%;
-  background: #f8fafc;
-  color: #0f172a;
   overflow-x: hidden;
+  background: #ffffff;
+  color: var(--impact-text, #1f2933);
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hero Section Container */
-.danceHeroSection {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 600px;
-  background-image: url('water.jpg');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  padding: clamp(80px, 12vh, 120px) 0;
+/* index.css sets every p to Cormorant Garamond site-wide, which would
+   override the inherited font on the paragraphs below. Re-assert the body
+   font on descendants so the program copy matches the rest of the page. */
+.dance-page p,
+.dance-page li,
+.dance-page span,
+.dance-page button,
+.dance-page a {
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 }
 
-/* Dark/Teal Overlay */
-.danceHeroSection::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-   
-  z-index: 1;
-}
-
-/* Grid Layout / Content Wrapper */
-.danceHeroGrid {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* Text Area Wrapper */
-.danceHeroContent {
-  color: #ffffff;
-  width: 100%;
-  max-width: 580px;
-  padding: 0;
-}
-
-.dance-hero-content-animated {
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-.dance-hero-content-entered {
-  animation: danceHeroSweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
-}
-
-/* Title Styling */
-.danceAnimatedTitle {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 1.25rem;
-  display: block;
-  color: #ffffff;
-}
-
-.danceAnimatedTitle span {
-  display: inline-block;
-  animation: none;
-}
-
-/* Icon Row & Pulse Icon */
-.danceIconRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 1rem;
-  align-items: center;
-}
-
-.dancePulseIcon {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #f59e0b;
-  animation: pulse 1.8s infinite;
-}
-
-/* Description */
-.danceDescription {
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-  line-height: 1.65;
-  margin-bottom: 1.75rem;
-  color: #e2e8f0;
-  max-width: 100%;
-  font-weight: 400;
-}
-
-/* Actions & Buttons Container */
-.danceHeroActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 0;
-}
-
-/* Base Button Styles */
-.danceHeroButton,
-.danceHeroButtonPrimary,
-.danceHeroButtonSecondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.85rem 1.75rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-decoration: none;
-  border: 1px solid #ffffff;
-  transition: all 0.3s ease;
-  background-color: transparent;
-  border-radius: 0;
-  min-height: 0;
-  box-shadow: none;
-}
-
-/* Button Hover States */
-.danceHeroButton:hover,
-.danceHeroButtonPrimary:hover,
-.danceHeroButtonSecondary:hover,
-.danceHeroButton:focus-visible,
-.danceHeroButtonPrimary:focus-visible,
-.danceHeroButtonSecondary:focus-visible {
-  background-color: #ffffff;
-  color: #0f323c;
-  transform: none;
-  box-shadow: none;
-}
-
-.danceHeroButton:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.28);
-  outline-offset: 4px;
-}
-
-/* Activity Box */
-.danceActivityBox {
-  background: rgba(7, 107, 221, 0.164);
-  width: 100%;
-  max-width: 580px;
-  padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  border-radius: 4px;
-   
-  margin-top: 1.75rem;
-}
-
-.danceActivityTitle {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.danceActivityList {
-  padding-left: 1.25rem;
-  color: #e2e8f0;
-}
-
-.danceActivityList li {
-  margin-bottom: 0.4rem;
-  line-height: 1.5;
-  font-size: 0.92rem;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-/* ===================== */
-/* ANIMATIONS */
-/* ===================== */
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.4; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes danceHeroSweep {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===================== */
-/* RESPONSIVE BREAKPOINTS */
-/* ===================== */
-@media (max-width: 768px) {
-  .danceHeroSection {
-    min-height: auto;
-    padding: clamp(60px, 10vh, 90px) 0;
-    align-items: flex-start;
-  }
-
-  .danceHeroGrid {
-    padding: 0 1.25rem;
-  }
-
-  .danceHeroActions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .danceHeroButton,
-  .danceHeroButtonPrimary,
-  .danceHeroButtonSecondary {
-    width: 100%;
-    text-align: center;
-  }
-
-  .danceActivityBox {
-    max-width: 100%;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* RESET */
-*,
-*::before,
-*::after {
+.dance-page *,
+.dance-page *::before,
+.dance-page *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  line-height: 1.6;
-}
-
-/* SECTION */
-.second {
+/* Shared container / band rhythm. */
+.dance-container {
   width: 100%;
-  padding: clamp(60px, 8vw, 120px) 20px;
-  background: linear-gradient(180deg, #ffffff, #f1f5ff);
-  text-align: center;
-}
-
-/* LIMIT CONTENT WIDTH (VERY IMPORTANT FOR BIG SCREENS) */
-.second > * {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* TITLE */
-.second h1 {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 20px;
-}
-
-/* INTRO TEXT */
-.second > p {
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-  line-height: 1.8;
-  color: #475569;
-  margin-bottom: 50px;
-}
-
-/* CARD (OUR WHY) */
-.men {
-  margin: 0 auto 60px;
-  max-width: 750px;
-  padding: clamp(25px, 3vw, 35px);
-  border-radius: 20px;
-
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  color: white;
-
-  box-shadow: 0 20px 50px rgba(79, 70, 229, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.men:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(79, 70, 229, 0.35);
-}
-
-/* TITLE INSIDE CARD */
-.uncle {
-  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-  margin-bottom: 15px;
-}
-
-/* TEXT */
-.on {
-  font-size: clamp(0.95rem, 1.1vw, 1rem);
-  line-height: 1.7;
-  opacity: 0.95;
-}
-
-/* ========================= */
-/* GRID SECTION */
-/* ========================= */
-
-.section\@ {
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(15px, 3vw, 25px);
-  margin-top: 40px;
-}
-
-/* CARD ITEM */
-.part1 {
-  padding: 0;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-/* HOVER */
-.part1:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* IMAGE */
-.answer {
-  position: relative;
-  width: 100%;
-}
-
-.answer img {
-  width: 100%;
-  max-width: none;
-  height: min(72vh, 640px);
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  display: block;
-  margin: 0;
-}
-
-.part1:hover img {
-  transform: scale(1.08);
-}
-
-.dance-feature-overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: clamp(20px, 4vw, 34px);
-  background: linear-gradient(
-    180deg,
-    rgba(7, 23, 54, 0) 0%,
-    rgba(7, 23, 54, 0.2) 20%,
-    rgba(7, 23, 54, 0.72) 72%,
-    rgba(7, 23, 54, 0.9) 100%
-  );
-  text-align: left;
-}
-
-.dance-feature-overlay p {
-  margin: 0;
-  max-width: 720px;
-  color: #ffffff;
-  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
-  font-weight: 700;
-  line-height: 1.65;
-  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
-}
-
-.dance-tiktok-frame-shell {
-  position: relative;
-  width: min(100%, 860px);
-  aspect-ratio: 16 / 9;
-  min-height: 0;
+  max-width: var(--dance-container);
   margin: 0 auto;
-  border-radius: 26px;
-  overflow: hidden;
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.18);
-  transition: transform 0.35s ease, box-shadow 0.35s ease, width 0.35s ease;
+  padding: 0 var(--dance-gutter);
 }
 
-.dance-tiktok-section {
-  margin-top: 42px;
-  display: flex;
-  justify-content: center;
-  padding: clamp(12px, 3vw, 24px) 0 0;
+.dance-band {
+  padding: var(--dance-section-y) 0;
 }
 
-.dance-tiktok-frame-shell:hover,
-.dance-tiktok-frame-shell:focus-within {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 30px 66px rgba(15, 23, 42, 0.22);
-}
-
-.dance-tiktok-frame-shell-expanded {
-  width: min(100%, 1080px);
-}
-
-.dance-tiktok-expand {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 2;
-  min-height: 40px;
-  padding: 0.65rem 1rem;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(7, 23, 54, 0.72);
-  color: #ffffff;
-  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.dance-tiktok-expand:hover,
-.dance-tiktok-expand:focus-visible {
-  transform: translateY(-1px);
-   
-}
-
-.dance-tiktok-frame {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  border: 0;
+.dance-band--white {
   background: #ffffff;
 }
 
-/* ========================= */
-/* EXTRA RESPONSIVE FIXES */
-/* ========================= */
-
-/* TABLETS */
-@media (max-width: 768px) {
-  .second {
-    padding: 60px 15px;
-  }
-
-  .men {
-    margin-bottom: 40px;
-  }
+.dance-band--surface {
+  background: var(--impact-surface, #f6f9fc);
 }
 
-/* PHONES */
-@media (max-width: 768px) {
-  .dance-tiktok-frame-shell {
-    width: min(100%, 100%);
-    border-radius: 22px;
-  }
+/* --------------------------------------------------------------------------
+   Buttons - one primary style shared by the hero, the join link and reuse.
+   Blue fill, white text, 4px radius, visible keyboard focus.
+   -------------------------------------------------------------------------- */
 
-  .dance-tiktok-frame {
-    min-height: 0;
-  }
-
-  .dance-tiktok-frame-shell-expanded {
-    width: min(100%, 100%);
-  }
-}
-
-@media (max-width: 480px) {
-  .second h1 {
-    font-size: 1.7rem;
-  }
-
-  .second > p {
-    font-size: 0.95rem;
-  }
-
-  .section\@ {
-    gap: 15px;
-  }
-
-  .answer img {
-    height: 420px;
-  }
-
-  .dance-tiktok-frame-shell {
-    width: 100%;
-    border-radius: 18px;
-  }
-
-  .dance-tiktok-expand {
-    top: 12px;
-    right: 12px;
-    min-height: 36px;
-    padding: 0.55rem 0.85rem;
-    font-size: 0.8rem;
-  }
-
-  .dance-tiktok-frame-shell-expanded {
-    width: 100%;
-  }
-}
-
-/* VERY SMALL DEVICES */
-@media (max-width: 360px) {
-  .second h1 {
-    font-size: 1.5rem;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* RESET */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* BODY (important for consistency) */
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  line-height: 1.6;
-}
-
-/* SECTION */
-.academy {
-  width: 100%;
-  overflow: hidden;
-}
-
-/* ========================= */
-/* IMAGE BANNER */
-/* ========================= */
-
-.academy-banner {
-  width: 100%;
-  height: clamp(180px, 26vw, 420px);
-  position: relative;
-  overflow: hidden;
-}
-
-/* IMAGE */
-.academy-banner img {
-  width: 115%;                 /* balanced zoom */
-  height: 100%;
-
-  object-fit: cover;
-  object-position: center 25%;
-
-  display: block;
-
-  /* smoother animation */
-  animation: imageZoomMove 14s ease-in-out infinite alternate;
-
-  will-change: transform;      /* performance boost */
-}
-
-/* IMAGE ANIMATION */
-@keyframes imageZoomMove {
-  0% {
-    transform: scale(1) translateX(0);
-  }
-  100% {
-    transform: scale(1.08) translateX(-2%);
-  }
-}
-
-/* OVERLAY */
-.banner-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.05),
-    rgba(0,0,0,0.25)
-  );
-}
-
-/* ========================= */
-/* CONTENT */
-/* ========================= */
-
-.academy-content {
-  background: #f3f4f6;
-  padding: clamp(40px, 6vw, 80px) 20px;
+.dance-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
   text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.academy-content-animated {
+.dance-btn--primary {
+  background: var(--impact-blue, #1f76be);
+  border-color: var(--impact-blue, #1f76be);
+  color: #ffffff;
+}
+
+.dance-btn--primary:hover {
+  background: var(--impact-blue-dark, #14507f);
+  border-color: var(--impact-blue-dark, #14507f);
+  color: #ffffff;
+}
+
+/* Ghost variant for use on top of the dark hero photo. */
+.dance-btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+}
+
+.dance-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.dance-btn:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 3px;
+}
+
+.dance-btn--ghost:focus-visible {
+  outline-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Hero - full-bleed photo, left-weighted navy overlay (same gradient family
+   as .auvd-impact-hero), content held in the 1200px container.
+   -------------------------------------------------------------------------- */
+
+.dance-hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(520px, 78vh, 720px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #0a1424; /* dark base while the photo loads */
+  background-size: cover;
+  background-position: center;
+}
+
+/* The site navbar is position: fixed, 80px tall (65px on mobile), so the
+   hero's top padding clears it plus a little breathing room. */
+.dance-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--dance-container);
+  margin: 0 auto;
+  padding: clamp(112px, 16vh, 148px) var(--dance-gutter) clamp(64px, 10vh, 104px);
+}
+
+.dance-hero__content {
+  max-width: 560px;
+  color: #ffffff;
+}
+
+/* Reveal on scroll (unchanged behaviour, softened to the site's easing). */
+.dance-hero__content--animated,
+.dance-program--animated {
   opacity: 0;
   will-change: transform, opacity;
 }
 
-.academy-content-entered {
-  animation: danceAcademySweep 0.72s cubic-bezier(0.18, 0.9, 0.22, 1.08) 1 both;
+.dance-hero__content--entered {
+  animation: danceReveal 0.6s ease-out 1 both;
 }
 
-/* LIMIT WIDTH (VERY IMPORTANT) */
-.academy-content > * {
-  max-width: 850px;
-  margin-inline: auto;
+.dance-program--entered {
+  animation: danceReveal 0.6s ease-out 1 both;
 }
 
-/* TITLE */
-.academy-content h1 {
-  font-size: clamp(1.6rem, 3vw, 2.5rem);
-  color: #3c4270;
-  margin-bottom: 20px;
+.dance-eyebrow {
+  margin: 0 0 16px;
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  line-height: 1.3;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--impact-orange, #ff6600);
 }
 
-/* TEXT */
-.academy-content p {
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  color: #4b5563;
-  line-height: 1.8;
-  margin-bottom: 20px;
+.dance-hero__title {
+  margin: 0 0 20px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(52px, 8vw, 88px);
+  line-height: 1.02;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
 }
 
-.academy-schedule-list {
-  list-style: none;
+.dance-hero__text {
+  margin: 0 0 30px;
+  max-width: 520px;
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #ffffff;
+}
+
+.dance-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 0 36px;
+}
+
+/* Activities panel - tinted navy card with the blue accent, matching the
+   rgba panel + accent bar language used on the Our Impact hero. */
+.dance-activities {
+  max-width: 520px;
+  padding: 24px 26px;
+  border-left: 4px solid var(--impact-blue, #1f76be);
+  border-radius: 4px;
+  background: rgba(8, 20, 36, 0.72);
+}
+
+.dance-activities__title {
+  margin: 0 0 14px;
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--impact-orange, #ff6600);
+}
+
+.dance-activities__list {
   display: grid;
-  gap: 10px;
-  justify-content: center;
-  margin: 0 auto 24px;
-  padding: 0;
-  color: #ec6104;
-  font-size: clamp(1rem, 1.2vw, 1.08rem);
-  font-weight: 700;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #ffffff;
 }
 
-.academy-program-details {
-  display: grid;
-  gap: 12px;
-  max-width: 760px;
-  margin: 0 auto 28px;
-  padding: clamp(18px, 3vw, 28px);
-  border-radius: 20px;
-  background: linear-gradient(180deg, #fff8ef 0%, #fff2e2 100%);
-  border: 1px solid rgba(236, 97, 4, 0.14);
+.dance-activities__list li::marker {
+  color: var(--impact-blue, #1f76be);
 }
 
-.academy-program-details p {
-  margin-bottom: 0;
+/* Small zigzag flourish, blue-tinted, hidden from the a11y tree. */
+.dance-zigzag {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 18px;
+  color: var(--impact-blue, #1f76be);
 }
 
-.academy-program-details strong {
-  color: #ec6104;
+.dance-zigzag__icon {
+  width: 64px;
+  height: auto;
+  display: block;
 }
 
-.academy-join-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: 0.85rem 1.6rem;
-  margin-bottom: 20px;
-  border-radius: 999px;
-  background: #994208;
-  color: #ffffff !important;
-  font-weight: 700;
-  box-shadow: 0 16px 30px rgba(153, 66, 8, 0.22);
-  text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-}
-
-.academy-join-pill:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 34px rgba(153, 66, 8, 0.28);
-  background: #994208;
-}
-
-.academy-join-pill:focus-visible {
-  outline: 3px solid rgba(153, 66, 8, 0.24);
-  outline-offset: 4px;
-}
-
-.academy-closing-note {
-  max-width: 760px;
-  font-weight: 600;
-  color: #3c4270 !important;
-}
-
-/* DIVIDER */
-.divider {
-  width: 60px;
-  height: 20px;
-  margin: 35px auto;
-
-  background: linear-gradient(
-    to right,
-    transparent 10%,
-    #ff6600 10%,
-    #ff6600 30%,
-    transparent 30%,
-    transparent 40%,
-    #ff6600 40%,
-    #ff6600 60%,
-    transparent 60%,
-    transparent 70%,
-    #ff6600 70%,
-    #ff6600 90%,
-    transparent 90%
-  );
-}
-
-/* SUBTITLE */
-.academy-content h2 {
-  font-size: clamp(1.3rem, 2vw, 1.7rem);
-  color: #3c4270;
-  font-weight: 700;
-}
-
-/* CONTENT ANIMATION */
-@keyframes fadeUp {
+@keyframes danceReveal {
   from {
     opacity: 0;
-    transform: translateY(35px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -817,205 +274,326 @@ body {
   }
 }
 
-@keyframes danceAcademySweep {
-  0% {
-    opacity: 0;
-    transform: translateX(-132px);
-  }
+/* --------------------------------------------------------------------------
+   Program section - image banner followed by the tinted content band.
+   -------------------------------------------------------------------------- */
 
-  62% {
-    opacity: 1;
-    transform: translateX(28px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* ========================= */
-/* RESPONSIVE IMPROVEMENTS */
-/* ========================= */
-
-/* Tablets */
-@media (max-width: 768px) {
-  .academy-banner {
-    height: 200px;
-  }
-
-  .academy-program-details {
-    padding: 18px 16px;
-  }
-
-  /* reduce animation for performance */
-  .academy-banner img {
-    animation-duration: 18s;
-  }
-}
-
-/* Phones */
-@media (max-width: 480px) {
-  .academy-banner {
-    height: 160px;
-  }
-
-  .academy-content {
-    padding: 40px 15px;
-  }
-
-  .academy-content h1 {
-    font-size: 1.5rem;
-  }
-
-  .academy-content p {
-    font-size: 0.95rem;
-  }
-
-  /* smoother on low-end devices */
-  .academy-banner img {
-    animation: none;
-    transform: scale(1.05);
-  }
-}
-
-/* Very small devices */
-@media (max-width: 360px) {
-  .academy-banner {
-    height: 140px;
-  }
-}
-
-/* ========================= */
-/* ACCESSIBILITY */
-/* ========================= */
-
-/* Respect reduced motion setting */
-@media (prefers-reduced-motion: reduce) {
-  .academy-banner img {
-    animation: none;
-  }
-
-  .academy-content {
-    animation: none;
-  }
-}
-
-
-/* WRAPPER */
-.zigzag-wrapper {
+/* Named dance-program-section, not "dance-section": the Home page's
+   DanceSection.css already owns a global .dance-section (navy background),
+   which would otherwise bleed into this page. */
+.dance-program-section {
   width: 100%;
+  overflow: hidden;
+}
+
+.dance-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(180px, 24vw, 400px);
+  overflow: hidden;
+  background: #0a1424;
+}
+
+.dance-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  display: block;
+}
+
+.dance-banner__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 20, 36, 0) 40%, rgba(8, 20, 36, 0.55) 100%);
+}
+
+.dance-program {
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  text-align: left;
+}
+
+.dance-title {
+  margin: 0 0 26px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(38px, 5vw, 54px);
+  line-height: 1.08;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
+}
+
+.dance-copy {
+  max-width: 780px;
+}
+
+.dance-copy p {
+  margin: 0 0 20px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--impact-text, #1f2933);
+}
+
+.dance-copy p:last-child {
+  margin-bottom: 0;
+}
+
+/* Short blue rule, echoing the accent bars used across the impact pages. */
+.dance-divider {
+  width: 72px;
+  height: 4px;
+  margin: 36px 0;
+  border-radius: 2px;
+  background: var(--impact-blue, #1f76be);
+}
+
+.dance-subtitle {
+  margin: 0 0 22px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
+}
+
+/* --------------------------------------------------------------------------
+   Highlighted headings - white text on the requested #ff6600 orange.
+   inline-block keeps the fill hugging the words instead of spanning the
+   container, and a mid-word break stops long titles overflowing on mobile
+   while the padding still wraps around every line of the wrapped heading.
+   -------------------------------------------------------------------------- */
+
+.dance-title--highlight,
+.dance-subtitle--highlight {
+  display: inline-block;
+  max-width: 100%;
+  margin: 12px 0 26px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background-color: #ff6600;
+  color: #ffffff;
+  line-height: 1.3;
+  /* Bebas Neue is a condensed display face with no true italic; declaring the
+     weight keeps the browser from synthesising one on hover states. */
+  font-weight: 400;
+  overflow-wrap: break-word;
+}
+
+/* Program facts - bordered card with a blue accent bar. */
+.dance-facts {
+  display: grid;
+  gap: 10px;
+  max-width: 560px;
+  margin: 0 0 32px;
+  padding: 22px 24px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-left: 4px solid var(--impact-blue, #1f76be);
+  border-radius: var(--dance-radius);
+  background: #ffffff;
+}
+
+.dance-facts p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--impact-muted, #52606d);
+}
+
+.dance-facts strong {
+  color: var(--impact-navy, #12395f);
+}
+
+.dance-join {
+  margin: 0 0 20px;
+}
+
+.dance-closing {
+  max-width: 640px;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--impact-muted, #52606d);
+}
+
+/* --------------------------------------------------------------------------
+   Local Dance.mp4 player - native HTML5 video, no autoplay and no loop.
+   The player is sized from the video's intrinsic ratio so it stays responsive
+   without cropping, and the border radius clips the native controls too.
+   -------------------------------------------------------------------------- */
+
+.dance-video {
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  padding: clamp(20px, 5vw, 50px) 0; /* responsive spacing */
+  margin-top: 40px;
 }
 
-/* ICON */
-.zigzag-icon {
-  width: clamp(50px, 6vw, 80px); /* 👈 responsive size */
-  height: auto;
-
+.dance-video__player {
   display: block;
-
-  transition: transform 0.3s ease;
+  /* Dance.mp4 is a portrait clip (478x850), so the box follows the video's own
+     intrinsic ratio instead of a hardcoded 16/9, which would letterbox it.
+     Both dimensions are auto so that whichever max-* constraint binds is
+     recomputed from the opposite axis, keeping the aspect ratio exact at every
+     width. An explicit width here would defeat that and stretch the picture. */
+  width: auto;
+  height: auto;
+  max-width: min(100%, 780px);
+  max-height: 78vh;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: var(--dance-radius);
+  background: #0a1424;
 }
 
-/* HOVER (only for devices that support it) */
-@media (hover: hover) {
-  .zigzag-wrapper:hover .zigzag-icon {
-    transform: scale(1.1);
-  }
-}
+/* --------------------------------------------------------------------------
+   Feature image - the existing modern-dance photo with a bottom scrim.
+   -------------------------------------------------------------------------- */
 
-/* SMALL DEVICES */
-@media (max-width: 480px) {
-  .zigzag-wrapper {
-    padding: 20px 0;
-  }
-}
-
-/* VERY SMALL DEVICES */
-@media (max-width: 360px) {
-  .zigzag-icon {
-    width: 45px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* CARD */
-.feature-card {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 18px;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  transition: 0.3s ease;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.feature-card:hover {
-  transform: translateY(-6px);
-}
-
-/* IMAGE CONTAINER */
-.media-box {
-  width: 100%;
-  max-width: 260px;
-
-  border-radius: 12px;
+.dance-feature {
+  position: relative;
+  margin: 0;
   overflow: hidden;
+  border-radius: var(--dance-radius);
+  background: #0a1424;
+}
 
-  margin-bottom: 15px;
+.dance-feature img {
+  width: 100%;
+  height: clamp(300px, 56vh, 560px);
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 
-  /* bottom gradient */
+.dance-feature__overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: clamp(22px, 4vw, 40px);
   background: linear-gradient(
-    to bottom,
-    transparent 60%,
-    #e0e7ff 85%,
-    #c7d2fe 100%
+    180deg,
+    rgba(8, 20, 36, 0) 0%,
+    rgba(8, 20, 36, 0.28) 22%,
+    rgba(8, 20, 36, 0.78) 70%,
+    rgba(8, 20, 36, 0.92) 100%
   );
 }
 
-/* ICON */
-.badge-icon {
-  width: 35px;
-  height: 35px;
-  background: #6366f1;
-  border-radius: 50%;
-  margin: 10px auto;
+.dance-feature__overlay p {
+  margin: 0;
+  max-width: 700px;
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: clamp(17px, 2.1vw, 22px);
+  font-weight: 600;
+  line-height: 1.6;
+  color: #ffffff;
 }
 
-/* IMAGE (WIDE, NOT TALL) */
-.wide-image {
-  width: 100%;
-  height: 140px;        /* 👈 controls height */
-  object-fit: cover;    /* 👈 keeps it wide without stretching */
-  border-radius: 8px;
+/* --------------------------------------------------------------------------
+   Tablet
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .dance-hero {
+    min-height: 540px;
+  }
 }
 
-/* TEXT */
-.feature-text {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: #334155;
-  max-width: 00px;
+@media (max-width: 768px) {
+  .dance-hero {
+    min-height: 480px;
+    background-position: 62% center;
+  }
+
+  /* On narrow screens the photo's bright areas sit behind the text, so the
+     left-to-right fade gives way to a stronger even scrim. */
+  .dance-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(180deg, rgba(8, 20, 36, 0.82) 0%, rgba(8, 20, 36, 0.7) 55%, rgba(8, 20, 36, 0.78) 100%);
+  }
+
+  .dance-hero__inner {
+    padding: 108px var(--dance-gutter) 64px;
+  }
+
+  .dance-hero__content {
+    max-width: none;
+  }
+
+  .dance-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dance-hero__actions .dance-btn {
+    width: 100%;
+  }
+
+  .dance-title {
+    font-size: 34px;
+  }
+
+  .dance-subtitle {
+    font-size: 27px;
+  }
+
+  .dance-copy p,
+  .dance-closing,
+  .dance-feature__overlay p {
+    font-size: 16px;
+  }
+
+  .dance-banner {
+    height: 190px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .dance-hero {
+    min-height: 440px;
+  }
+
+  .dance-hero__title {
+    font-size: 46px;
+  }
+
+  .dance-activities {
+    padding: 20px;
+  }
+
+  .dance-band {
+    padding: 48px 0;
+  }
+
+  .dance-divider {
+    margin: 30px 0;
+  }
+
+  .dance-feature img {
+    height: 380px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility - keep the reveals but drop them for reduced motion.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .dance-hero__content--animated,
+  .dance-program--animated {
+    opacity: 1;
+  }
+
+  .dance-hero__content--entered,
+  .dance-program--entered {
+    animation: none;
+  }
 }

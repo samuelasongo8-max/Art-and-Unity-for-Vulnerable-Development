@@ -26,10 +26,12 @@ body {
   flex: 1;
 }
 
-/* Footer styles stay as before */
+/* Legacy footer rule. The real footer styles live in src/components/Footer.css
+   (className="footer"), which is what actually renders. This rule used to win
+   the cascade and paint the band charcoal, so it now only keeps the page-level
+   padding and defers colour to Footer.css. Do not reintroduce a background
+   colour here — it would override the footer's own orange band. */
 .footer {
-  background: #222;
-  color: rgb(22, 234, 241);
   padding: 50px 20px;
 }
 

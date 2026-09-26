@@ -64,7 +64,7 @@ function ImpactHighlights() {
       <div className="auvd-donations-inner">
         <div className="auvd-donations-top">
           <div className="auvd-donations-heading">
-            <h2>Music Instrument</h2>
+            <h2>Music Instrument</h2>{" "}
             <h3>Donations:</h3>
             <h3 className="auvd-donations-subheading">Music That Reached Kakuma</h3>
             <p className="auvd-donations-intro">
@@ -127,11 +127,10 @@ function ImpactHighlights() {
         </div>
 
         <div className="auvd-donations-track" key={page}>
-          {visible.map((item, i) => (
+          {visible.map((item) => (
             <article
               key={item.title}
               className="auvd-donations-card"
-              style={{ animationDelay: `${i * 0.12}s` }}
             >
               <div className="auvd-donations-card-img">
                 <img src={item.img} alt={item.title} loading="lazy" />

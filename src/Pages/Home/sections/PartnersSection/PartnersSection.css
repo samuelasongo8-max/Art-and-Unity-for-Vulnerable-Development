@@ -5,8 +5,12 @@
 .partners-section {
   width: 100%;
   padding: 70px 20px 90px;
-  background: #ffffffa1;
-  color: #ff6600;
+  /* The section band is the brand orange, so the headings below switch to
+     white (they were orange, which would have been invisible on orange).
+     Partner logos are left exactly as they are — the per-logo white chips at
+     the end of this file keep any that need them legible. */
+  background: #ff6600;
+  color: #ffffff;
   overflow: hidden;
 }
 
@@ -36,7 +40,7 @@
   font-weight: 700;
   line-height: 1.2;
 
-  color: #ff6600;
+  color: #ffffff;
   text-align: center;
 
   letter-spacing: 0;
@@ -60,7 +64,7 @@
   letter-spacing: 3px;
   text-transform: uppercase;
 
-  color: #ff6600;
+  color: #ffffff;
 }
 
 
@@ -184,6 +188,14 @@
 
 .partner-card.kakuma {
   background-image: url("/Foundation_Logo_New_2017.png");
+  /* This logo is the only mostly-transparent one (measured 35.7% opaque;
+     the other eight are 100% opaque and carry their own background, so they
+     are left exactly as they were). On the orange band its orange-toned
+     artwork disappeared into the background, so it alone gets a small white
+     chip — padding with square corners. The logo image is unchanged. */
+  background-color: #ffffff;
+  border-radius: 0;
+  padding: 12px;
 }
 
 .partner-card.bright {

@@ -20,6 +20,24 @@
   background: #f6f9fc;
 }
 
+/* An individual section band recoloured to the brand orange (#ff6600) with
+   white text for contrast. Added as its own modifier (rather than changing
+   .auvd-story-section or --tint above) so only the two sections that ask for
+   it are affected and every other page keeps its current band colours.
+   Declared after the base/tint rules so it wins at equal specificity.
+   A flat colour only — no radius, shadow or gradient — and no change to
+   padding, layout or the .auvd-story-* structure, so spacing is untouched. */
+.auvd-story-section--orange {
+  background: #ff6600;
+}
+
+.auvd-story-section--orange .auvd-story-label,
+.auvd-story-section--orange .auvd-story-title,
+.auvd-story-section--orange .auvd-story-text,
+.auvd-story-section--orange .auvd-story-text p {
+  color: #ffffff;
+}
+
 .auvd-story-container {
   max-width: 940px;
   margin: 0 auto;

@@ -43,6 +43,26 @@
   padding-top: calc(81px + 48px);
 }
 
+/* The four stat cards along the bottom of this page's hero take a flat
+   #ff6600 panel in place of the shared rgba(8, 20, 36, 0.72), so the left
+   accent moves to navy — an orange rule could no longer read as an accent
+   against an orange card. The value, label, caption and program list are all
+   white: the label was orange (invisible on orange) and the body text was
+   90% white, so both are taken to full white for contrast. Scoped to this
+   page's bleed wrapper, so the hero on every other page is untouched, and the
+   hero photo, overlay, heading and paragraph are not affected. */
+.our-impact-hero-bleed .auvd-impact-hero__stat-card {
+  background: #ff6600;
+  border-left-color: var(--impact-navy, #12395f);
+}
+
+.our-impact-hero-bleed .auvd-impact-hero__stat-value,
+.our-impact-hero-bleed .auvd-impact-hero__stat-label,
+.our-impact-hero-bleed .auvd-impact-hero__stat-caption,
+.our-impact-hero-bleed .auvd-impact-hero__stat-list {
+  color: #ffffff;
+}
+
 @media (max-width: 768px) {
   .our-impact-hero-bleed .auvd-impact-hero__content {
     padding-top: calc(81px + 32px);

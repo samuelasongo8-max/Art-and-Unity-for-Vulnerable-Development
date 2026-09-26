@@ -104,7 +104,7 @@ const Pricing = () => {
         </div>
       </section>
 
-      <section className="auvd-story-section">
+      <section className="auvd-story-section auvd-story-section--orange">
         <div className="auvd-story-container">
           <p className="auvd-story-label">Our Approach</p>
           <div className="auvd-story-body">
