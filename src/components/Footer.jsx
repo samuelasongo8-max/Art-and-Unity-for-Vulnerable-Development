@@ -41,8 +41,11 @@ const Footer = () => {
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [message, setMessage] = useState("");
 
-  /* Honeypot: a real visitor never sees or fills this. */
-  const websiteRef = useRef(null);
+  /* Honeypot: a real visitor never sees or fills this. The name is a neutral
+     "hp_field" rather than "website" or "url", because browsers and password
+     managers autofill fields with those names — an autofilled honeypot would
+     make a real visitor look like a bot and silently drop their signup. */
+  const honeypotRef = useRef(null);
   /* Milliseconds since the form appeared, posted as `t`. The server treats
      anything under 3 seconds as a bot. */
   const appearedAtRef = useRef(Date.now());
@@ -55,6 +58,10 @@ const Footer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    /* Guards against a double submit: the button is also disabled below, but
+       Enter-key submits and fast double clicks can still fire twice. */
+    if (status === "sending") return;
 
     const trimmed = email.trim();
     const looksValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed);
@@ -73,15 +80,22 @@ const Footer = () => {
     setStatus("sending");
     setMessage(t("footer.subscribe.sending"));
 
+    /* Without this, a request that never settles leaves the button stuck on
+       "Sending..." forever. 15s is longer than any healthy call and well
+       inside what a visitor will tolerate. */
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+
     try {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           email: trimmed,
           topics: interests,
           lang: i18n.resolvedLanguage === "fr" ? "fr" : "en",
-          website: websiteRef.current?.value ?? "",
+          hp_field: honeypotRef.current?.value ?? "",
           t: Date.now() - appearedAtRef.current,
         }),
       });
@@ -90,13 +104,33 @@ const Footer = () => {
         throw new Error(`subscribe responded ${response.status}`);
       }
 
+      /* A rewrite or a proxy can answer 200 with an HTML page instead of JSON,
+         so the body is checked before the signup is treated as accepted. */
+      let result = null;
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error("subscribe returned a non-JSON body");
+      }
+      if (!result || result.ok !== true) {
+        throw new Error("subscribe did not confirm");
+      }
+
       setStatus("success");
       setMessage(t("footer.subscribe.success"));
       setEmail("");
       setInterests([]);
     } catch {
+      /* Every failure lands here: network error, timeout, non-2xx, non-JSON.
+         The typed email and the ticked interests are deliberately left in
+         place so the visitor can simply press Submit again. */
       setStatus("error");
       setMessage(t("footer.subscribe.error"));
+    } finally {
+      clearTimeout(timer);
+      /* Always leaves the sending state, so the button becomes clickable
+         again whatever happened. */
+      setStatus((current) => (current === "sending" ? "idle" : current));
     }
   };
 
@@ -154,17 +188,22 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Honeypot: pushed off-screen and out of the tab order, so only
-              an automated bot will ever fill it in. */}
+          {/* Honeypot. The label AND the input live inside one container that is
+              pushed off-screen, so nothing is visible and nothing is clickable.
+              The wrapper is aria-hidden and the input is out of the tab order.
+              display:none is deliberately NOT used: some bots skip hidden
+              elements, so it is moved off-screen instead. The name is a neutral
+              hp_field so no browser autofills it, and no visible "Website"
+              label is rendered anywhere. */}
           <div className="footer-hp" aria-hidden="true">
-            <label htmlFor="footer-website">Website</label>
             <input
-              id="footer-website"
-              name="website"
+              id="footer-hp-field"
+              name="hp_field"
               type="text"
               tabIndex={-1}
               autoComplete="off"
-              ref={websiteRef}
+              defaultValue=""
+              ref={honeypotRef}
             />
           </div>
 
