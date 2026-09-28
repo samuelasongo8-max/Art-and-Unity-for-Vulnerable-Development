@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import "./DanceSection.css";
 
 /* "Dance" — restyled into the Core Belief contained-background pattern used
@@ -8,7 +9,9 @@ import "./DanceSection.css";
    paragraph is white (Core Belief's color treatment). The four short lines
    are now a small tag row instead of big headings — the fourth one
    ("Community dance") keeps its link to /dance. Wording is unchanged. */
-function DanceSection({ navigate, danceParagraphs }) {
+function DanceSection({ navigate, descriptionKey }) {
+  const { t } = useTranslation();
+
   return (
     <section className="dance-section">
       <img
@@ -21,22 +24,22 @@ function DanceSection({ navigate, danceParagraphs }) {
 
       <div className="dance-content">
         <div className="dance-text-wrapper">
-          <h2 className="auvd-story-label dance-heading">Dance</h2>
+          <h2 className="auvd-story-label dance-heading">{t("home.dance.title")}</h2>
 
           <p className="dance-description">
-            {`${danceParagraphs.first} In an environment where many youth face stress, trauma, unemployment, and limited recreational opportunities, dance creates hope, inspiration, and a sense of belonging. AUVD uses dance not only as entertainment, but also as a pathway for empowerment, resilience, and community connection.`}
+            {t(descriptionKey)}
           </p>
 
           <div className="dance-tags">
-            <span className="dance-tag">Move with purpose and Dance with confidence.</span>
-            <span className="dance-tag">Express yourself through dance and creativity.</span>
-            <span className="dance-tag">Where talent meets opportunity.</span>
+            <span className="dance-tag">{t("home.dance.tagOne")}</span>
+            <span className="dance-tag">{t("home.dance.tagTwo")}</span>
+            <span className="dance-tag">{t("home.dance.tagThree")}</span>
             <button
               className="dance-tag dance-tag--link"
               onClick={() => navigate("/dance")}
               type="button"
             >
-              Community dance
+              {t("home.dance.tagFour")}
             </button>
           </div>
         </div>

@@ -15,6 +15,7 @@ import Portfolio from "./Pages/portfolio";
 import Pricing from "./Pages/pricing";
 import Contact from "./Pages/contact";
 import Donate from "./Pages/donate";
+import News from "./Pages/News";
 import Team from "./Pages/Team";
 import OurStory from "./Pages/OurStory";
 import SamuelAsongo from "./Pages/SamuelAsongo";
@@ -27,6 +28,7 @@ import ImpactReport from "./Pages/our-impact/Report";
 import DaddarioCommunityMusicGrant from "./Pages/DaddarioCommunityMusicGrant";
 
 import Vocational from "./Pages/programs/Vocational";
+import NotFound from "./Pages/NotFound";
  
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -61,6 +63,7 @@ function App() {
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/impact" element={<ImpactAll />} />
 
@@ -85,6 +88,10 @@ function App() {
             <Route path="/dance" element={<Dance />} />
             <Route path="/Music" element={<Music />} />
             <Route path="/Vocational" element={<Vocational />} />
+
+            {/* Catch-all so any unknown URL shows a fully translated 404 page
+                instead of a blank screen. */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./Footer.css";
@@ -8,19 +8,24 @@ const navLinks = [
   { to: "/Work", labelKey: "footer.links.work" },
   { to: "/our-impact", labelKey: "footer.links.impact" },
   { to: "/our-impact/blogs", labelKey: "footer.links.resources" },
+  { to: "/news", labelKey: "footer.links.news" },
   { to: "/contact", labelKey: "footer.links.contact" },
   { to: "/donate", labelKey: "footer.links.donate" },
 ];
 
-// Stored as translation keys so the checkbox labels follow the language.
-// The raw value is still what gets submitted, keeping the payload stable.
+/* The label is translated through its i18n key, while `value` is the stable
+   topic id that is posted to /api/subscribe and used by the newsletter
+   scripts. Keeping the id separate from the wording means a translation
+   change can never break a subscription. */
 const interestOptions = [
-  { value: "Education", key: "footer.interests.education" },
-  { value: "Music Program", key: "footer.interests.music" },
-  { value: "Dance Program", key: "footer.interests.dance" },
-  { value: "Vocational Training", key: "footer.interests.vocational" },
+  { value: "education", key: "footer.interests.education" },
+  { value: "music", key: "footer.interests.music" },
+  { value: "dance", key: "footer.interests.dance" },
+  { value: "vocational", key: "footer.interests.vocational" },
 ];
 
+// Social platform names are brand names, not translatable copy, so they stay
+// as written; only the aria-label/title need no translation.
 const socialLinks = [
   { href: "https://www.facebook.com/profile.php?id=61569926836907", icon: "bx bxl-facebook", label: "Facebook" },
   { href: "https://ke.linkedin.com--", icon: "bx bxl-linkedin", label: "LinkedIn" },
@@ -30,9 +35,17 @@ const socialLinks = [
 ];
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = useState("");
   const [interests, setInterests] = useState([]);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [message, setMessage] = useState("");
+
+  /* Honeypot: a real visitor never sees or fills this. */
+  const websiteRef = useRef(null);
+  /* Milliseconds since the form appeared, posted as `t`. The server treats
+     anything under 3 seconds as a bot. */
+  const appearedAtRef = useRef(Date.now());
 
   const toggleInterest = (value) => {
     setInterests((prev) =>
@@ -40,10 +53,51 @@ const Footer = () => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // hook up to your newsletter service here
-    console.log({ email, interests });
+
+    const trimmed = email.trim();
+    const looksValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed);
+
+    if (!looksValid) {
+      setStatus("error");
+      setMessage(t("footer.subscribe.invalidEmail"));
+      return;
+    }
+    if (interests.length === 0) {
+      setStatus("error");
+      setMessage(t("footer.subscribe.chooseInterest"));
+      return;
+    }
+
+    setStatus("sending");
+    setMessage(t("footer.subscribe.sending"));
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: trimmed,
+          topics: interests,
+          lang: i18n.resolvedLanguage === "fr" ? "fr" : "en",
+          website: websiteRef.current?.value ?? "",
+          t: Date.now() - appearedAtRef.current,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`subscribe responded ${response.status}`);
+      }
+
+      setStatus("success");
+      setMessage(t("footer.subscribe.success"));
+      setEmail("");
+      setInterests([]);
+    } catch {
+      setStatus("error");
+      setMessage(t("footer.subscribe.error"));
+    }
   };
 
   return (
@@ -55,7 +109,12 @@ const Footer = () => {
           <span className="footer-connect-title">{t("footer.connected")}</span>
         </div>
 
-        <form className="footer-connect-right" onSubmit={handleSubmit}>
+        <form
+          className="footer-connect-right"
+          id="stay-connected"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className="footer-connect-email">
             <label htmlFor="footer-email">{t("footer.emailLabel")}</label>
             <div className="footer-email-row">
@@ -66,8 +125,14 @@ const Footer = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder=""
+                aria-describedby={status !== "idle" ? "footer-subscribe-status" : undefined}
               />
-              <button type="submit" className="footer-email-arrow" aria-label={t("footer.emailSubmit")}>
+              <button
+                type="submit"
+                className="footer-email-arrow"
+                aria-label={t("footer.emailSubmit")}
+                disabled={status === "sending"}
+              >
                 <i className="bx bx-right-arrow-alt"></i>
               </button>
             </div>
@@ -89,16 +154,44 @@ const Footer = () => {
             </div>
           </div>
 
-          <button type="submit" className="footer-submit-btn">
-            Submit
+          {/* Honeypot: pushed off-screen and out of the tab order, so only
+              an automated bot will ever fill it in. */}
+          <div className="footer-hp" aria-hidden="true">
+            <label htmlFor="footer-website">Website</label>
+            <input
+              id="footer-website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              ref={websiteRef}
+            />
+          </div>
+
+          <button type="submit" className="footer-submit-btn" disabled={status === "sending"}>
+            {status === "sending" ? t("footer.subscribe.sending") : t("footer.submit")}
           </button>
+
+          <p
+            id="footer-subscribe-status"
+            className={`footer-subscribe-status footer-subscribe-status--${status}`}
+            role="status"
+            aria-live="polite"
+          >
+            {message}
+          </p>
+
+          <p className="footer-subscribe-notice">
+            {t("footer.subscribe.notice")}{" "}
+            <NavLink to="/privacy">{t("footer.subscribe.privacyLink")}</NavLink>
+          </p>
         </form>
       </div>
 
       {/* ===== DARK LINKS BAR ===== */}
       <div className="footer-bottom">
         <div className="footer-bottom-top">
-          <NavLink to="/" className="footer-logo">
+          <NavLink to="/" className="footer-logo" aria-label="AUVD">
             AUVD
           </NavLink>
 

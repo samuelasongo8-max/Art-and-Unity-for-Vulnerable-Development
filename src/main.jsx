@@ -5,7 +5,9 @@ import "./i18n"; // must load before App so the first paint is already translate
 import "./index.css";
 import { FaBullseye, FaEye } from "react-icons/fa";
 
-// Keep <html lang> correct on first load, before React renders.
+/* <html lang> is kept correct on first load, before React renders, so a screen
+   reader reads the first paint in the right language. i18n.js takes over from
+   here and keeps it in sync on every language change. */
 const storedLang = window.localStorage.getItem("auvd-lang");
 document.documentElement.setAttribute("lang", storedLang === "fr" ? "fr" : "en");
 
@@ -14,4 +16,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <App />
   </React.StrictMode>
 );
- 

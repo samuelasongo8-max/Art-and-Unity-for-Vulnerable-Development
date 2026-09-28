@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./VocationalSection.css";
 
 /* "Vocational Education Training (VET)" — restyled into the Our Impact
@@ -8,6 +9,7 @@ import "./VocationalSection.css";
    styled like the site's other links) sit in the right column. Layout
    comes from the shared .auvd-story-* classes (imported via Home.css). */
 function VocationalSection({ navigate, vocationalImages }) {
+  const { t } = useTranslation();
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -30,20 +32,18 @@ function VocationalSection({ navigate, vocationalImages }) {
             <img
               key={vocationalImages[currentImage].src}
               src={vocationalImages[currentImage].src}
-              alt={vocationalImages[currentImage].alt}
+              alt={t(vocationalImages[currentImage].altKey)}
               className="auvd-story-gallery-item auvd-story-gallery-item--1 vocational-image-fade"
             />
           </div>
 
           <div className="auvd-story-text">
             <h2 className="auvd-story-title">
-              Vocational Education Training (VET)
+              {t("home.vocational.title")}
             </h2>
 
             <p>
-              Our Vocational Education and Training (VET) programs empower youth, women, and
-              vulnerable community members with practical skills for self-reliance and personal
-              development.
+              {t("home.vocational.paragraph")}
             </p>
 
             <button
@@ -51,7 +51,7 @@ function VocationalSection({ navigate, vocationalImages }) {
               onClick={() => navigate("/Work#livelihoods-women")}
               type="button"
             >
-              Explore more
+              {t("home.vocational.explore")}
             </button>
           </div>
 

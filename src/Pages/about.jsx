@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { FaBullseye, FaEye, FaHandsHoldingCircle, FaPeopleGroup, FaSeedling } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import ImpactHero from "../components/ImpactHero";
@@ -13,31 +14,27 @@ import "./about.css";
    (no rule under it), a Bebas Neue title, Source Sans 3 body copy and two
    columns wherever there is an image. */
 
-const beneficiaries = [
-  "Refugees and displaced populations",
-  "Women and girls",
-  "Youth and children",
-  "Persons with disabilities",
-  "Host community members",
-];
-
+/* Only image paths stay here. Alt text and the beneficiary list are translation
+   keys resolved with t() on every render, so the whole page — including the
+   rotating gallery captions a screen reader reads — follows the language. */
 const beneficiaryImages = [
-  { src: "/together1.jpg", alt: "Community gathering in Kakuma" },
-  { src: "/class.jpg", alt: "Classroom learning activity" },
-  { src: "/dance77.jpg", alt: "Dance activity with youth" },
-  { src: "/Education1.jpg", alt: "Education support moment" },
-  { src: "/education88.jpg", alt: "Students participating in education program" },
-  { src: "/mental.jpg", alt: "Mental health and psychosocial support activity" },
+  { src: "/together1.jpg", altKey: "about.beneficiaries.images.one" },
+  { src: "/class.jpg", altKey: "about.beneficiaries.images.two" },
+  { src: "/dance77.jpg", altKey: "about.beneficiaries.images.three" },
+  { src: "/Education1.jpg", altKey: "about.beneficiaries.images.four" },
+  { src: "/education88.jpg", altKey: "about.beneficiaries.images.five" },
+  { src: "/mental.jpg", altKey: "about.beneficiaries.images.six" },
 ];
 
 /* The two photos this page's Mission slideshow already used, kept on the page
    side by side under the Mission / Vision cards. */
 const missionImages = [
-  { src: "/Upcoming project 1 (1).jpg", alt: "Mission" },
-  { src: "/AUVD.education.jpg", alt: "Vision" },
+  { src: "/Upcoming project 1 (1).jpg", altKey: "about.beneficiaries.images.one" },
+  { src: "/AUVD.education.jpg", altKey: "about.beneficiaries.images.two" },
 ];
 
 const EducationAccess = () => {
+  const { t } = useTranslation();
   const aboutStoryCopyRef = useRef(null);
 
   useEffect(() => {
@@ -71,15 +68,15 @@ const EducationAccess = () => {
           copy. This page has no hero button, so none is rendered. */}
       <div className="about-hero-bleed">
         <ImpactHero
-          heading="Creative empowerment for vulnerable communities in Kakuma."
-          paragraph="Art and Unity for Vulnerable Development (AUVD) is a nonprofit community-based and refugee-led organization working in Kakuma Refugee Camp, Kenya. Since 2022, AUVD has supported refugees, women, youth, children, and persons with disabilities through arts, skills development, and inclusive community programs."
+          heading={t("about.hero.heading")}
+          paragraph={t("about.hero.paragraph")}
           image="/together1.jpg"
-          imageAlt="Community gathering in Kakuma"
+          imageAlt={t("about.hero.imageAlt")}
           factCard={{
-            label: "Founded",
-            value: "2022",
-            caption:
-              "Formally registered in 2025 to expand healing, education, and livelihoods support.",
+            label: t("about.hero.factLabel"),
+            value: t("about.hero.factValue"),
+            caption: t("about.hero.factCaption"),
+              
           }}
         />
       </div>
@@ -94,10 +91,9 @@ const EducationAccess = () => {
               <div className="about-mv-icon" aria-hidden="true">
                 <FaBullseye />
               </div>
-              <p className="auvd-story-label">OUR MISSION</p>
+              <p className="auvd-story-label">{t("about.missionVision.missionLabel")}</p>
               <p className="about-mv-text">
-                Empower vulnerable communities through creative arts, inclusive education,
-                psychosocial support and sustainable development opportunities.
+                {t("about.missionVision.missionText")}
               </p>
             </article>
 
@@ -105,10 +101,9 @@ const EducationAccess = () => {
               <div className="about-mv-icon" aria-hidden="true">
                 <FaEye />
               </div>
-              <p className="auvd-story-label">OUR VISION</p>
+              <p className="auvd-story-label">{t("about.missionVision.visionLabel")}</p>
               <p className="about-mv-text">
-                A peaceful and inclusive community where vulnerable individuals thrive through art,
-                education, dignity and sustainable livelihoods.
+                {t("about.missionVision.visionText")}
               </p>
             </article>
           </div>
@@ -119,7 +114,7 @@ const EducationAccess = () => {
                 key={image.src}
                 className="about-mv-strip-item"
                 src={image.src}
-                alt={image.alt}
+                alt={t(image.altKey)}
               />
             ))}
           </div>
@@ -130,29 +125,24 @@ const EducationAccess = () => {
           narrower left column and the two paragraphs the right one. */}
       <section className="auvd-story-section">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Who We Are</p>
+          <p className="auvd-story-label">{t("about.whoWeAre.label")}</p>
           <div className="auvd-story-body">
             <h2 className="auvd-story-title auvd-story-title--lead">
-              Building hope through art, learning, and community action.
+              {t("about.whoWeAre.title")}
             </h2>
             <div ref={aboutStoryCopyRef} className="auvd-story-text about-text-reveal">
+              <p>{t("about.whoWeAre.p1")}</p>
+              <p>{t("about.whoWeAre.p2")}</p>
+              {/* The third paragraph contains a link to Samuel's profile, so it
+                  uses <Trans>: the whole sentence is translated as one unit
+                  while the link and its destination stay exactly as they were. */}
               <p>
-                AUVD was established in response to the social and economic challenges faced by
-                displaced and marginalized populations in Kakuma Refugee Camp and surrounding host
-                communities. We believe art and creativity are powerful tools for healing,
-                empowerment, education, and social transformation.
-              </p>
-              <p>
-                Through music, dance, visual arts, and community development programs, AUVD creates
-                safe spaces where people can develop confidence, strengthen their well-being, and
-                build pathways toward greater social and economic inclusion.
-              </p>
-              <p>
-                AUVD&apos;s leadership is led by{" "}
-                <Link to="/about/samuel-asongo" className="about-leadership-link">
-                  Samuel Asongo, Founder, Chairperson &amp; CEO
-                </Link>
-                . Matayo Bilibwa serves as Vice Chairperson.
+                <Trans
+                  i18nKey="about.whoWeAre.p3"
+                  components={{
+                    link: <Link to="/about/samuel-asongo" className="about-leadership-link" />,
+                  }}
+                />
               </p>
             </div>
           </div>
@@ -161,20 +151,20 @@ const EducationAccess = () => {
 
       <section className="auvd-story-section auvd-story-section--tint" aria-labelledby="about-leadership-heading">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Leadership</p>
+          <p className="auvd-story-label">{t("about.leadership.label")}</p>
           <div className="auvd-story-body">
             <h2 id="about-leadership-heading" className="auvd-story-title auvd-story-title--lead">
-              AUVD leadership
+              {t("about.leadership.title")}
             </h2>
             <div className="about-leadership-grid">
               <article className="about-leadership-card">
                 <h3>Samuel Asongo</h3>
-                <p>Founder | Chairperson &amp; Chief Executive Officer (CEO)</p>
-                <Link to="/about/samuel-asongo">Read Samuel&apos;s profile</Link>
+                <p>{t("about.leadership.samuelRole")}</p>
+                <Link to="/about/samuel-asongo">{t("about.leadership.readProfile")}</Link>
               </article>
               <article className="about-leadership-card">
                 <h3>Matayo Bilibwa</h3>
-                <p>Vice Chairperson</p>
+                <p>{t("about.leadership.matayoRole")}</p>
               </article>
             </div>
           </div>
@@ -189,23 +179,15 @@ const EducationAccess = () => {
             <div className="about-goal-icon" aria-hidden="true">
               <FaHandsHoldingCircle />
             </div>
-            <p className="auvd-story-label">Our Goal</p>
+            <p className="auvd-story-label">{t("about.goal.label")}</p>
           </div>
           <div className="auvd-story-body">
             <h2 className="auvd-story-title auvd-story-title--lead">
-              Resilient and empowered communities
+              {t("about.goal.title")}
             </h2>
             <div className="auvd-story-text">
-              <p>
-                Our goal is to create resilient and empowered vulnerable populations in Kakuma
-                Refugee Camp and host communities by improving mental well-being, strengthening
-                livelihood skills, and expanding opportunities for economic and social inclusion
-                through arts-based training and community development programs.
-              </p>
-              <p>
-                AUVD remains committed to promoting dignity, creativity, equality, and peaceful
-                coexistence among diverse communities.
-              </p>
+              <p>{t("about.goal.p1")}</p>
+              <p>{t("about.goal.p2")}</p>
             </div>
           </div>
         </div>
@@ -216,17 +198,17 @@ const EducationAccess = () => {
           left, title, intro and beneficiary list in the text column. */}
       <section className="auvd-story-section">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Target Beneficiaries</p>
+          <p className="auvd-story-label">{t("about.beneficiaries.label")}</p>
           <div className="auvd-story-body">
             <div
               className="auvd-story-gallery auvd-story-gallery--single about-beneficiary-gallery"
-              aria-label="AUVD beneficiary gallery"
+              aria-label={t("about.beneficiaries.galleryLabel")}
             >
               {beneficiaryImages.map((image, index) => (
                 <img
                   key={image.src}
                   src={image.src}
-                  alt={image.alt}
+                  alt={t(image.altKey)}
                   className="about-beneficiary-slide"
                   style={{ animationDelay: `${index * 5}s` }}
                 />
@@ -234,14 +216,14 @@ const EducationAccess = () => {
             </div>
 
             <div className="auvd-story-text">
-              <h2 className="auvd-story-title">Who We Serve</h2>
-              <p>
-                AUVD programs are designed to meet people where they are and strengthen dignity,
-                healing, inclusion, and opportunity across the community.
-              </p>
+              <h2 className="auvd-story-title">{t("about.beneficiaries.title")}</h2>
+              <p>{t("about.beneficiaries.intro")}</p>
 
+              {/* The beneficiary list is stored as an array and read back with
+                  t(key, { returnObjects: true }) on every render, so it
+                  switches language immediately without a reload. */}
               <ul className="about-beneficiary-list">
-                {beneficiaries.map((item, index) => (
+                {t("about.beneficiaries.list", { returnObjects: true }).map((item, index) => (
                   <li key={item} className="about-beneficiary-item">
                     <span className="about-beneficiary-icon" aria-hidden="true">
                       {index % 2 === 0 ? <FaPeopleGroup /> : <FaSeedling />}

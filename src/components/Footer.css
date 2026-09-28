@@ -416,3 +416,71 @@
     gap: 12px;
   }
 }
+
+/* ==========================================================================
+   Stay Connected — newsletter form additions.
+
+   The honeypot is moved off-screen rather than display:none, because a
+   hidden-but-present field is what a bot fills in. aria-hidden and
+   tabindex="-1" keep it away from real visitors and screen readers.
+   ========================================================================== */
+
+.footer-hp {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.footer-submit-btn:disabled,
+.footer-email-arrow:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* The Stay Connected bar sits on the footer's LIGHT background, not a dark
+   one, so all of the new text uses the same dark palette as the labels beside
+   it (--impact-muted / --impact-navy) to stay readable. */
+.footer-subscribe-status {
+  margin: 0;
+  flex: 1 1 100%;
+  min-height: 1.2em;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--impact-muted, #52606d);
+}
+
+.footer-subscribe-status--error {
+  color: #b3261e;
+  font-weight: 600;
+}
+
+.footer-subscribe-status--success {
+  color: #1c6b45;
+  font-weight: 600;
+}
+
+.footer-subscribe-notice {
+  margin: 0;
+  flex: 1 1 100%;
+  max-width: 560px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--impact-muted, #52606d);
+}
+
+.footer-subscribe-notice a {
+  color: var(--impact-blue, #1f76be);
+  text-decoration: underline;
+}
+
+.footer-subscribe-notice a:hover {
+  color: var(--impact-orange-dark, #b25a1e);
+}
+
+.footer-subscribe-notice a:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}

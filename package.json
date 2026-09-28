@@ -9,6 +9,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "i18n:check": "node scripts/check-i18n.js",
+    "news:check": "node scripts/validate-news.mjs",
+    "news:dry-run": "node scripts/send-news-emails.mjs --dry-run",
+    "news:send": "node scripts/send-news-emails.mjs",
     "preview": "vite preview",
     "server": "node server/index.js"
   },
@@ -19,6 +23,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "i18next": "^26.4.2",
+    "i18next-browser-languagedetector": "^8.2.1",
     "nodemailer": "^8.0.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

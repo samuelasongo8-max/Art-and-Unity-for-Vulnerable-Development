@@ -1,20 +1,19 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ImpactHero from "../components/ImpactHero";
 import "./about.css";
 import "./our-impact/OurStory.css";
 
-type StoryStat = {
-  value: string;
-  label: string;
-};
-
-const storyStats: ReadonlyArray<StoryStat> = [
-  { value: "2022", label: "Grassroots initiative launched" },
-  { value: "2024", label: "AUVD identity formalized" },
-  { value: "2025", label: "Registered as CBO and RLO" },
+/* Milestone years are data; their labels are translation keys resolved with
+   t() on every render so the strip follows the language. */
+const storyStatKeys: ReadonlyArray<{ year: string; key: string }> = [
+  { year: "2022", key: "ourStory.milestones.one" },
+  { year: "2024", key: "ourStory.milestones.two" },
+  { year: "2025", key: "ourStory.milestones.three" },
 ];
 
 function OurStory() {
+  const { t } = useTranslation();
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealElements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -49,21 +48,20 @@ function OurStory() {
       {/* Full-bleed hero — markup and styles live in the shared ImpactHero
           component so Work and Pricing reuse the exact same design. */}
       <ImpactHero
-        label="Started"
-        heading="vision of using creativity and art to bring hope."
-        paragraph="Art and Unity for Vulnerable Development (AUVD) began from a simple vision: using creativity and art to bring hope, healing, and opportunity to vulnerable communities in Kakuma Refugee Camp."
-        buttonText="Explore The Journey"
+        label={t("ourStory.hero.label")}
+        heading={t("ourStory.hero.heading")}
+        paragraph={t("ourStory.hero.paragraph")}
+        buttonText={t("ourStory.hero.button")}
         buttonHref="#story-journey"
         image="/together1.jpg"
-        imageAlt="AUVD community members gathered together"
-        tagline="Creativity, dignity, unity"
+        imageAlt={t("ourStory.hero.imageAlt")}
+        tagline={t("ourStory.hero.tagline")}
         factCard={{
-          label: "Started",
-          value: "2022",
-          caption:
-            "Founded by Samuel Asongo and shaped by refugee and host community youth in Kakuma.",
+          label: t("ourStory.hero.factLabel"),
+          value: t("ourStory.hero.factValue"),
+          caption: t("ourStory.hero.factCaption"),
         }}
-        milestones={storyStats.map((stat) => ({ year: stat.value, text: stat.label }))}
+        milestones={storyStatKeys.map((stat) => ({ year: stat.year, text: t(stat.key) }))}
       />
 
       <section className="auvd-story-origin" id="story-journey" aria-labelledby="story-origin-heading">
@@ -72,35 +70,24 @@ function OurStory() {
             <img
               className="auvd-story-origin-image-large"
               src="/Samuel%20Asongo%20image.png"
-              alt="Samuel Asongo, Founder, Chairperson and Chief Executive Officer of AUVD"
+              alt={t("ourStory.origin.alt")}
             />
           </div>
           <div className="auvd-story-origin-text">
-            <p className="auvd-story-origin-eyebrow">How It Started</p>
-            <h2 id="story-origin-heading">From one refugee musician&apos;s vision to a growing community movement.</h2>
+            <p className="auvd-story-origin-eyebrow">{t("ourStory.origin.eyebrow")}</p>
+            <h2 id="story-origin-heading">{t("ourStory.origin.title")}</h2>
             <p>
-              The organization was founded by Samuel Asongo, a refugee from the Democratic Republic
-              of Congo (DRC) who fled his home country because of war and conflict. After arriving in
-              Kakuma Refugee Camp, Samuel continued pursuing his passion for creative arts,
-              especially music. He was a musician, guitarist, and drummer who believed that art
-              could help people heal from pain, trauma, and displacement.
+              {t("ourStory.origin.p1")}
             </p>
             <p>
-              In 2022, Samuel started a small initiative together with a group of young people from
-              both refugee and host communities. At the beginning, the initiative focused on talent
-              shows, storytelling, interviews, and community activities that highlighted the talents
-              and experiences of artists and vulnerable youth in Kakuma. Through these activities,
-              they discovered that many young people had creativity, skills, and powerful stories,
-              but lacked opportunities and support.
+              {t("ourStory.origin.p2")}
             </p>
-            <h3 className="auvd-story-origin-founder">Samuel Asongo</h3>
+            <h3 className="auvd-story-origin-founder">{t("ourStory.origin.founder")}</h3>
             <p>
-              Samuel Asongo is AUVD&apos;s Founder, Chairperson and Chief Executive Officer (CEO). His
-              experience as a refugee and musician shaped AUVD&apos;s mission of healing, dignity, and
-              opportunity through art.
+              {t("ourStory.origin.founderBio")}
             </p>
             <blockquote className="auvd-story-origin-quote">
-              &quot;Art can help people heal from pain, trauma, and displacement.&quot;
+              {t("ourStory.origin.quote")}
             </blockquote>
           </div>
         </div>
@@ -109,22 +96,15 @@ function OurStory() {
       {/* Growth and Registration — no images: Bebas title left, copy right. */}
       <section className="auvd-story-section">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Growth and Registration</p>
+          <p className="auvd-story-label">{t("ourStory.growth.label")}</p>
           <div className="auvd-story-body">
-            <h2 className="auvd-story-title auvd-story-title--lead">The initiative grew into AUVD.</h2>
+            <h2 className="auvd-story-title auvd-story-title--lead">{t("ourStory.growth.title")}</h2>
             <div className="auvd-story-text">
               <p>
-                As the initiative continued growing, it became more than just a talent platform. It
-                evolved into a community movement focused on empowering vulnerable people through art,
-                education, livelihood support, and community engagement. In 2024, the initiative
-                officially became Art and Unity for Vulnerable Development (AUVD), and in 2025 it was
-                formally registered as a Community-Based Organization (CBO) and Refugee-Led
-                Organization (RLO) in Kenya.
+                {t("ourStory.growth.p1")}
               </p>
               <p>
-                Today, AUVD continues to grow by supporting vulnerable children, youth, women, and
-                persons with disabilities through creative arts, education, livelihood programs,
-                mentorship, and community development initiatives.
+                {t("ourStory.growth.p2")}
               </p>
             </div>
           </div>
@@ -134,19 +114,15 @@ function OurStory() {
       {/* Where We Are Today — second band (light tint). */}
       <section className="auvd-story-section auvd-story-section--tint auvd-story-section--orange">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Where We Are Today</p>
+          <p className="auvd-story-label">{t("ourStory.today.label")}</p>
           <div className="auvd-story-body">
-            <h2 className="auvd-story-title auvd-story-title--lead">Building self-reliance and opportunity</h2>
+            <h2 className="auvd-story-title auvd-story-title--lead">{t("ourStory.today.title")}</h2>
             <div className="auvd-story-text">
               <p>
-                The organization works to promote self-reliance and economic empowerment by providing
-                skills development opportunities, creative training, and community-based programs that
-                help vulnerable people improve their livelihoods and build a better future.
+                {t("ourStory.today.p1")}
               </p>
               <p>
-                AUVD also continues to work with local and international partners to create safe spaces
-                where people can express themselves, build confidence, learn new skills, strengthen
-                peaceful coexistence, and contribute positively to their communities.
+                {t("ourStory.today.p2")}
               </p>
             </div>
           </div>
@@ -157,28 +133,22 @@ function OurStory() {
           left collage column; title and paragraphs on the right. */}
       <section className="auvd-story-section">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Partnership Milestone</p>
+          <p className="auvd-story-label">{t("ourStory.partnership.label")}</p>
           <div className="auvd-story-body">
             <div className="auvd-story-gallery auvd-story-gallery--single">
               <img
                 className="auvd-story-gallery-item auvd-story-gallery-item--1"
                 src="/donation.jpg"
-                alt="Donation support for AUVD community programs"
+                alt={t("ourStory.partnership.alt")}
               />
             </div>
             <div className="auvd-story-text">
-              <h2 className="auvd-story-title">Support from Transylvanian Symphony Foundation helped AUVD expand.</h2>
+              <h2 className="auvd-story-title">{t("ourStory.partnership.title")}</h2>
               <p>
-                One important milestone in AUVD's journey came in 2024 when Samuel reached out to the
-                Transylvanian Symphony Foundation to request musical instruments for young artists in
-                Kakuma. The organization generously donated several music instruments, becoming AUVD's
-                first international partner. This support helped AUVD begin expanding its programs and
-                empowering vulnerable communities through music and creative arts.
+                {t("ourStory.partnership.p1")}
               </p>
               <p>
-                During this journey, Samuel also connected with Jeremy Rosado and Ron Ramsey from the
-                Transylvanian Symphony Foundation in Oklahoma, USA, who showed kindness, encouragement,
-                and continued support for AUVD's mission and programs.
+                {t("ourStory.partnership.p2")}
               </p>
             </div>
           </div>
@@ -188,15 +158,12 @@ function OurStory() {
       {/* Looking Ahead — fourth band (light tint). */}
       <section className="auvd-story-section auvd-story-section--tint">
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Looking Ahead</p>
+          <p className="auvd-story-label">{t("ourStory.ahead.label")}</p>
           <div className="auvd-story-body">
-            <h2 className="auvd-story-title auvd-story-title--lead">Creativity can transform pain into hope.</h2>
+            <h2 className="auvd-story-title auvd-story-title--lead">{t("ourStory.ahead.title")}</h2>
             <div className="auvd-story-text">
               <p>
-                AUVD believes that creativity can transform pain into hope, silence into powerful
-                stories, and vulnerable communities into empowered communities. Through art,
-                education, livelihoods, and unity, AUVD continues building opportunities and brighter
-                futures for refugee and host communities in Kakuma.
+                {t("ourStory.ahead.p1")}
               </p>
             </div>
           </div>
@@ -214,13 +181,12 @@ function OurStory() {
         />
         <div className="auvd-story-belief-overlay" aria-hidden="true"></div>
         <div className="auvd-story-container">
-          <p className="auvd-story-label">Core Belief</p>
+          <p className="auvd-story-label">{t("ourStory.belief.label")}</p>
           <div className="auvd-story-body">
-            <h2 className="auvd-story-title auvd-story-title--lead">Building brighter futures through art, education, and livelihoods.</h2>
+            <h2 className="auvd-story-title auvd-story-title--lead">{t("ourStory.belief.title")}</h2>
             <div className="auvd-story-text">
               <p>
-                AUVD continues creating safe spaces for expression, confidence, learning, and peaceful
-                coexistence across refugee and host communities.
+                {t("ourStory.belief.p1")}
               </p>
             </div>
           </div>

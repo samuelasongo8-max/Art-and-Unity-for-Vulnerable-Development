@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./NeedSection.css";
 
 /* "The Need" — restyled into the Our Impact two-column pattern:
@@ -9,6 +10,7 @@ import "./NeedSection.css";
    layout and typography come from the .auvd-story-* classes imported
    once via Home.css. */
 function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1400&auto=format&fit=crop'] }) {
+  const { t } = useTranslation();
   const [currentBackground, setCurrentBackground] = useState(0);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
             <div
               className="promo-image-wrapper"
               role="img"
-              aria-label="AUVD community programs"
+              aria-label={t("home.need.imageLabel")}
               style={{
                 backgroundImage: `url(${backgrounds[currentBackground]})`,
               }}
@@ -39,22 +41,16 @@ function PoolPromoBanner({ backgrounds = ['https://images.unsplash.com/photo-157
           </div>
 
           <div className="auvd-story-text">
-            <h2 className="auvd-story-title">The Need</h2>
+            <h2 className="auvd-story-title">{t("home.need.title")}</h2>
 
-            <p>
-              Children and young people in Kakuma Refugee Camp face many challenges caused by conflict, forced displacement, poverty, interrupted education, and prolonged uncertainty. These experiences can affect their mental health, emotional well-being, confidence, education, and future opportunities.
-            </p>
+            <p>{t("home.need.p1")}</p>
 
-            <p>
-              Many have limited access to safe spaces, quality education, psychosocial support, creative activities, and skills development that help them heal, learn, and reach their full potential.
-            </p>
+            <p>{t("home.need.p2")}</p>
 
-            <p>
-              AUVD responds to these challenges by providing community-led programs that combine creative arts, music education, psychosocial support, inclusive education, and life skills development. Through safe and inclusive spaces, we help children and young people build confidence, strengthen resilience, discover their talents, develop practical skills, and create positive pathways toward a brighter future.
-            </p>
+            <p>{t("home.need.p3")}</p>
 
             <a href="/donate" className="auvd-cta-link">
-              Join us
+              {t("home.need.joinUs")}
             </a>
           </div>
 

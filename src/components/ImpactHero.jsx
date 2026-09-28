@@ -1,4 +1,5 @@
 import { FaArrowRight } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 import "./ImpactHero.css";
 
 /* Props — label, heading, paragraph, buttonText, buttonHref, image,
@@ -24,6 +25,8 @@ function ImpactHero({
   milestones = [],
   stats = [],
 }) {
+  const { t } = useTranslation();
+
   return (
     <section className="auvd-impact-hero">
       <img className="auvd-impact-hero__image" src={image} alt={imageAlt} />
@@ -53,7 +56,7 @@ function ImpactHero({
         {tagline ? <p className="auvd-impact-hero__tagline">{tagline}</p> : null}
 
         {links.length > 0 ? (
-          <nav className="auvd-impact-hero__links" aria-label="On this page">
+          <nav className="auvd-impact-hero__links" aria-label={t("common.onThisPage")}>
             {links.map((link) => (
               <a className="auvd-impact-hero__pill" href={link.href} key={link.href}>
                 {link.label}
@@ -64,7 +67,7 @@ function ImpactHero({
       </div>
 
       {milestones.length > 0 ? (
-        <ul className="auvd-impact-hero__stats" aria-label="Milestones">
+        <ul className="auvd-impact-hero__stats" aria-label={t("common.milestones")}>
           {milestones.map((milestone) => (
             <li key={milestone.year + milestone.text} className="auvd-impact-hero__stat">
               <strong>{milestone.year}</strong>
@@ -79,7 +82,7 @@ function ImpactHero({
           Each stat is a card whose heading is the value, followed by its label,
           caption and — for the Core Programs card — the program list. */}
       {stats.length > 0 ? (
-        <div className="auvd-impact-hero__stat-row" aria-label="Key impact figures">
+        <div className="auvd-impact-hero__stat-row" aria-label={t("common.keyImpactFigures")}>
           {stats.map((stat) => (
             <div className="auvd-impact-hero__stat-card" key={stat.label}>
               <h2 className="auvd-impact-hero__stat-value">{stat.value}</h2>

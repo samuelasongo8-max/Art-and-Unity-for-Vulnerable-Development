@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Music.css";
 
 const musicTitle = "Music Education & Instrument Training";
 
-const musicActivities = [
-  "Vocal training, including singing techniques, voice control, and performance skills.",
-  "Guitar classes for children and adults.",
-  "Piano lessons for beginners and developing learners.",
-  "Ukulele training designed for children.",
-  "Instrument instruction covering bass, rhythm, and solo guitar.",
+const musicActivityKeys = [
+  "music.activities.one",
+  "music.activities.two",
+  "music.activities.three",
+  "music.activities.four",
+  "music.activities.five"
 ];
 
 const EducationAccess = () => {
+  const { t } = useTranslation();
+  // The typing animation is driven by the TRANSLATED title, so it types out
+  // the French title when the language changes.
+  const musicTitle = t("music.title");
   const [typedChars, setTypedChars] = useState(0);
 
   useEffect(() => {
@@ -20,6 +25,12 @@ const EducationAccess = () => {
     let timeoutId;
     const startDelayMs = 250;
     const typingSpeedMs = 38;
+
+    /* `musicTitle` is a dependency, not an empty array: the loop below closes
+       over the title and stops at its length, so on a language change the
+       effect has to re-run with the new string. Otherwise the loop keeps the
+       FRENCH title's length and truncates the English title mid-word. */
+    setTypedChars(0);
 
     const startTyping = () => {
       let lastTimestamp = 0;
@@ -52,7 +63,7 @@ const EducationAccess = () => {
       window.clearTimeout(timeoutId);
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [musicTitle]);
 
   const typedTitle = musicTitle.slice(0, typedChars);
   const isTypingComplete = typedChars >= musicTitle.length;
@@ -62,7 +73,7 @@ const EducationAccess = () => {
       <div className="music-page__inner">
         <div className="music-page__hero">
           <div className="music-page__headline music-page__headline--animated">
-            <p className="music-page__eyebrow music-page__fade music-page__fade--delay-1">Creative Learning</p>
+            <p className="music-page__eyebrow music-page__fade music-page__fade--delay-1">{t("music.eyebrow")}</p>
             <h1 className="music-page__title music-page__typing-title" aria-label={musicTitle}>
               {typedTitle}
               <span
@@ -73,13 +84,11 @@ const EducationAccess = () => {
               </span>
             </h1>
             <p className="music-page__summary">
-              We provide comprehensive music training for children and adults, helping
-              participants build artistic skills, discipline, confidence, and self-expression
-              through instrumental and vocal practice.
+              {t("music.summary")}
             </p>
             <div className="music-page__actions music-page__fade music-page__fade--delay-3">
               <Link className="music-page__cta" to="/contact">
-                Join the Program
+                {t("music.join")}
               </Link>
             </div>
           </div>
@@ -89,7 +98,7 @@ const EducationAccess = () => {
               src="/guitar2.webp"
               srcSet="/guitar2-sm.webp 720w, /guitar2.webp 1400w"
               sizes="(max-width: 1024px) 88vw, 420px"
-              alt="Young participant in AUVD music education"
+              alt={t("music.heroAlt")}
               className="music-page__image"
               width="420"
               height="525"
@@ -101,18 +110,18 @@ const EducationAccess = () => {
 
         <div className="music-page__content-card music-page__content-card--animated">
           <div className="music-page__section music-page__fade music-page__fade--delay-2">
-            <h2 className="music-page__section-title">Activities Include</h2>
+            <h2 className="music-page__section-title">{t("music.activitiesTitle")}</h2>
             <div className="music-page__divider"></div>
             <ul className="music-page__list">
-              {musicActivities.map((activity) => (
-                <li key={activity}>{activity}</li>
+              {musicActivityKeys.map((key) => (
+                <li key={key}>{t(key)}</li>
               ))}
             </ul>
             <img
               src="/drawing2.webp"
               srcSet="/drawing2-sm.webp 720w, /drawing2.webp 1200w"
               sizes="(max-width: 768px) 100vw, 420px"
-              alt="AUVD music activities session"
+              alt={t("music.activitiesAlt")}
               className="music-page__section-image music-page__section-image--animated"
               width="420"
               height="315"
@@ -122,19 +131,17 @@ const EducationAccess = () => {
           </div>
 
           <div className="music-page__section music-page__fade music-page__fade--delay-4">
-            <h2 className="music-page__section-title">Impact</h2>
+            <h2 className="music-page__section-title">{t("music.impactTitle")}</h2>
             <div className="music-page__divider"></div>
             <p className="music-page__impact">
-              Participants build confidence, strengthen emotional expression, and develop
-              practical musical skills that can lead to performance, leadership, and income
-              opportunities.
+              {t("music.impactText")}
             </p>
             <div className="music-page__impact-images">
               <img
                 src="/sami.webp"
                 srcSet="/sami-sm.webp 480w, /sami.webp 900w"
                 sizes="(max-width: 480px) 100vw, (max-width: 1024px) 44vw, 240px"
-                alt="AUVD participant during a music session"
+                alt={t("music.altOne")}
                 className="music-page__impact-image music-page__impact-image--animated music-page__impact-image--delay-1"
                 width="520"
                 height="292"
@@ -145,7 +152,7 @@ const EducationAccess = () => {
                 src="/muziki.webp"
                 srcSet="/muziki-sm.webp 480w, /muziki.webp 1100w"
                 sizes="(max-width: 480px) 100vw, (max-width: 1024px) 44vw, 240px"
-                alt="AUVD music training activity"
+                alt={t("music.altTwo")}
                 className="music-page__impact-image music-page__impact-image--animated music-page__impact-image--delay-2"
                 width="320"
                 height="240"
@@ -156,7 +163,7 @@ const EducationAccess = () => {
                 src="/violin.webp"
                 srcSet="/violin-sm.webp 480w, /violin.webp 900w"
                 sizes="(max-width: 480px) 100vw, (max-width: 1024px) 44vw, 240px"
-                alt="AUVD violin practice session"
+                alt={t("music.altThree")}
                 className="music-page__impact-image music-page__impact-image--animated music-page__impact-image--delay-3"
                 width="320"
                 height="240"
@@ -167,7 +174,7 @@ const EducationAccess = () => {
                 src="/youth.webp"
                 srcSet="/youth-sm.webp 480w, /youth.webp 1100w"
                 sizes="(max-width: 480px) 100vw, (max-width: 1024px) 44vw, 240px"
-                alt="AUVD youth music activity"
+                alt={t("music.altFour")}
                 className="music-page__impact-image music-page__impact-image--animated music-page__impact-image--delay-4"
                 width="320"
                 height="240"
@@ -178,7 +185,7 @@ const EducationAccess = () => {
                 src="/mataya.webp"
                 srcSet="/mataya-sm.webp 480w, /mataya.webp 900w"
                 sizes="(max-width: 480px) 100vw, (max-width: 1024px) 44vw, 240px"
-                alt="AUVD music participant performance moment"
+                alt={t("music.altFive")}
                 className="music-page__impact-image music-page__impact-image--animated music-page__impact-image--delay-5"
                 width="320"
                 height="240"

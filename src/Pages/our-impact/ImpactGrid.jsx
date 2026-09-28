@@ -4,7 +4,9 @@ import {
   FaFileLines,
   FaNewspaper,
 } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { formatDate, useWeeksAgo } from "../../utils/i18nFormat";
 import "../OurImpact.css";
 
 /* ==========================================================================
@@ -20,85 +22,85 @@ import "../OurImpact.css";
    NOT part of the impacts array, so they never show up in this grid.
    ========================================================================== */
 
-/* Icon + singular type used on each card for a given category. */
+/* Icon + singular type used on each card for a given category. The visible
+   type name is a translation key, so it follows the language. */
 const impactCategories = {
-  News: { type: "News", Icon: FaNewspaper },
-  Report: { type: "Report", Icon: FaChartColumn },
+  News: { typeKey: "impact.grid.categoryNews", Icon: FaNewspaper },
+  Report: { typeKey: "impact.grid.categoryReport", Icon: FaChartColumn },
 };
 
 // TODO: Update these category definitions if AUVD adds new impact categories.
-const findCategory = (key) => impactCategories[key] || { type: key, Icon: FaFileLines };
-
-/* ==========================================================================
-   Weeks-ago helper — every card counts in whole weeks and is recomputed from
-   today's date on each render, so the text moves up on its own every week
-   ("This week", "1 week ago", "5 weeks ago"). Never months or years.
-   ========================================================================== */
-const WEEK_IN_MS = 7 * 24 * 60 * 60 * 1000;
-
-const formatWeeksAgo = (isoDate) => {
-  if (!isoDate) {
-    return "";
-  }
-
-  const timestamp = new Date(isoDate).getTime();
-
-  if (Number.isNaN(timestamp)) {
-    return "";
-  }
-
-  const weeks = Math.floor((Date.now() - timestamp) / WEEK_IN_MS);
-
-  if (weeks < 1) {
-    return "This week";
-  }
-
-  return `${weeks} week${weeks === 1 ? "" : "s"} ago`;
-};
+const findCategory = (key) => impactCategories[key] || { typeKey: null, Icon: FaFileLines };
 
 const filterByCategory = (items, category) =>
   category === "All" ? items : items.filter((item) => item.category === category);
 
 const ImpactGrid = ({ category, items }) => {
+  const { t, i18n } = useTranslation();
+  const weeksAgo = useWeeksAgo();
   const visibleImpacts = filterByCategory(items, category);
 
   return (
     <>
-      <h2 className="auvd-impact-category">{category}</h2>
+      <h2 className="auvd-impact-category">
+        {category === "All" ? t("impact.grid.categoryAll") : t(`impact.grid.category${category}`)}
+      </h2>
 
       {visibleImpacts.length === 0 ? (
-        <p className="auvd-impact-empty">Nothing here yet.</p>
+        <p className="auvd-impact-empty">{t("impact.grid.empty")}</p>
       ) : (
         <div className="auvd-impact-grid">
           {visibleImpacts.map((entry) => {
             const {
               id,
-              title,
+              titleKey,
               buttonLink,
               category: itemCategory,
-              metaLabel,
+              metaDateKey,
+              metaRead,
               date,
-              excerpt,
-              tag,
+              excerptKey,
+              tagKey,
               image,
-              alt,
+              altKey,
               imageFit,
             } = entry;
             const meta = findCategory(itemCategory);
             const TypeIcon = meta.Icon;
-            const weeksAgo = formatWeeksAgo(date);
+            const title = titleKey ? t(titleKey) : "";
+
+            /* The meta row is rebuilt from parts so each one can be localized:
+               the date with Intl (13 August 2026 -> 13 août 2026), the read
+               time with a plural key (4 min read -> 4 min de lecture) and the
+               weeks-ago label with a plural key (5 weeks ago -> il y a 5
+               semaines). */
+            const metaParts = [];
+            if (metaDateKey) {
+              // The first card carries a full ISO date rather than a month.
+              metaParts.push(metaDateKey === "impact.items.one.date"
+                ? formatDate(date, i18n.language)
+                : t(metaDateKey));
+            }
+            if (metaRead) {
+              metaParts.push(t("impact.grid.minRead", { count: metaRead }));
+            }
+            const weeks = weeksAgo(date);
+            if (weeks) {
+              metaParts.push(weeks);
+            }
+            const metaText = metaParts.join(" · ");
+
             /* Card 1 keeps its logo uncropped; everything else defaults to "cover". */
             const imageClass = `auvd-impact-card-image${
               imageFit === "contain" ? " auvd-impact-card-image--contain" : ""
             }`;
-            const metaText = [metaLabel, weeksAgo].filter(Boolean).join(" · ");
 
             // TODO: Wrap this card in a <Link> once detail pages exist.
             // Entries with buttonLink show a "Learn more" button instead of
             // the title; the rest of the card (including the image alt, which
             // falls back to the title) is unchanged. Only the button is
             // clickable — never the whole card.
-            const imageAlt = alt || title;
+            const imageAlt = altKey ? t(altKey) : title;
             return (
               <article key={id} className="auvd-impact-card">
                 {image ? (
@@ -123,25 +125,25 @@ const ImpactGrid = ({ category, items }) => {
                     )}
                     <span className="auvd-impact-card-meta-item">
                       <TypeIcon className="auvd-impact-card-meta-icon" aria-hidden="true" />
-                      {meta.type}
+                      {meta.typeKey ? t(meta.typeKey) : itemCategory}
                     </span>
                   </p>
 
-                  {tag && <span className="auvd-impact-card-tag">{tag}</span>}
+                  {tagKey && <span className="auvd-impact-card-tag">{t(tagKey)}</span>}
 
                   {buttonLink ? (
                     <Link
                       className="auvd-impact-card-button"
                       to={buttonLink}
-                      aria-label="Learn more about the community music grant"
+                      aria-label={t("impact.grid.learnMoreLabel")}
                     >
-                      Learn more
+                      {t("impact.grid.learnMore")}
                     </Link>
                   ) : (
                     <h3 className="auvd-impact-card-title">{title}</h3>
                   )}
 
-                  {excerpt && <p className="auvd-impact-card-excerpt">{excerpt}</p>}
+                  {excerptKey && <p className="auvd-impact-card-excerpt">{t(excerptKey)}</p>}
                 </div>
               </article>
             );

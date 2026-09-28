@@ -12,9 +12,11 @@ import "./Hero.css";
      paragraph), each keeping its exact existing route.
    The five social links keep their markup, classes and hrefs; they sit
    over the photo's right side so the copy block matches the other heroes. */
-function Hero({ heroTitleParts, slides }) {
+function Hero({ heroTitleKey, slides }) {
   const { t } = useTranslation();
-  const heroTitleFull = `${heroTitleParts.before}${heroTitleParts.highlight}${heroTitleParts.after}`;
+  /* The whole heading is a single translated string, so French word order and
+     the longer French phrasing stay correct. */
+  const heroTitleFull = t(heroTitleKey);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Slideshow rotation — kept from the old hero (Home's own images).

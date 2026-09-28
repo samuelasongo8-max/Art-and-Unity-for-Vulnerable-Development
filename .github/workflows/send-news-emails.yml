@@ -1,0 +1,78 @@
+name: Send news emails
+
+# Fires after Vercel reports a deployment, and can also be run by hand from
+# the Actions tab. The default for a manual run is a dry run, so nobody can
+# send real mail by accident.
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview only (recommended). Set to false to send for real."
+        type: boolean
+        required: false
+        default: true
+
+# One run at a time. Queueing rather than cancelling matters here: if a
+# production deploy finishes while a previous send is still going, the second
+# run must still happen, it just has to wait.
+concurrency:
+  group: send-news-emails
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    # deployment_status also fires for previews, errors and cancellations, so
+    # the state and the environment are both checked. Vercel should name its
+    # production environment "Production".
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Log the deployment this run belongs to
+        run: |
+          echo "event:      ${{ github.event_name }}"
+          echo "state:      ${{ github.event.deployment_status.state || 'n/a' }}"
+          echo "environment: ${{ github.event.deployment.environment || 'n/a' }}"
+
+      # On a deployment event this is the exact commit Vercel deployed, so the
+      # mail matches the site that is live. A manual run uses the default branch.
+      - name: Check out the deployed code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha || github.sha }}
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate news.json
+        run: npm run news:check
+
+      - name: Send news emails
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          BREVO_SENDER_EMAIL: ${{ vars.BREVO_SENDER_EMAIL }}
+          BREVO_SENDER_NAME: ${{ vars.BREVO_SENDER_NAME }}
+        run: |
+          # A deployment event has no dry_run input and always sends for real —
+          # that is the whole point of the automation. Only a manual run can be
+          # turned into a preview, via the dry_run checkbox.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "Manual run: DRY RUN. No email will be sent."
+            npm run news:dry-run
+          else
+            echo "Production deployment: sending for real."
+            npm run news:send
+          fi

@@ -1,0 +1,63 @@
+{
+  "_note": "AUVD news feed. Every item here is shown on /news and, unless notify is false, emailed to the subscribers of its topic after a successful production deploy. An id is permanent: never edit or reuse one, because a changed id would re-send old news to people.",
+  "items": [
+    {
+      "id": "2026-08-community-music-grant",
+      "topic": "music",
+      "date": "2026-08-11",
+      "image": "/news/community-music-grant.png",
+      "imageAlt": {
+        "en": "D'Addario Foundation logo",
+        "fr": "Logo de la Fondation D'Addario"
+      },
+      "title": {
+        "en": "AUVD Receives a Community Music Grant from the D'Addario Foundation",
+        "fr": "AUVD reçoit une subvention pour la musique communautaire de la Fondation D'Addario"
+      },
+      "body": {
+        "en": [
+          "Art and Unity for Vulnerable Development (AUVD) is delighted to announce that we have been selected to receive a Community Music Grant from the D'Addario Foundation. This support is an important milestone for our organization and our Music Education Program in Kakuma Refugee Camp, Kenya.",
+          "The grant will help support our efforts to create more opportunities for young people to learn, develop their talents, and express themselves through music. We are deeply grateful to the D'Addario Foundation for believing in our work and supporting our commitment to expanding access to music education in our community."
+        ],
+        "fr": [
+          "Art et Unité pour le Développement des Personnes Vulnérables (AUVD) a le plaisir d'annoncer que nous avons été sélectionnés pour recevoir une Subvention pour la Musique Communautaire de la Fondation D'Addario. Ce soutien constitue une étape importante pour notre organisation et pour notre Programme d'éducation musicale au camp de réfugiés de Kakuma, au Kenya.",
+          "Cette subvention soutiendra nos efforts pour créer davantage d'opportunités pour les jeunes d'apprendre, de développer leurs talents et de s'exprimer par la musique. Nous sommes sincèrement reconnaissants envers la Fondation D'Addario d'avoir cru en notre travail et de soutenir notre engagement à élargir l'accès à l'éducation musicale dans notre communauté."
+        ]
+      },
+      "notify": false
+    },
+    {
+      "id": "sample-education-2026-08",
+      "topic": "education",
+      "date": "2026-08-04",
+      "image": "",
+      "imageAlt": { "en": "", "fr": "" },
+      "title": { "en": "Sample news title", "fr": "Exemple de titre d'article" },
+      "body": { "en": ["Replace this text."], "fr": ["Remplacez ce texte."] },
+      "_note": "placeholder, replace me",
+      "notify": false
+    },
+    {
+      "id": "sample-dance-2026-08",
+      "topic": "dance",
+      "date": "2026-08-04",
+      "image": "",
+      "imageAlt": { "en": "", "fr": "" },
+      "title": { "en": "Sample news title", "fr": "Exemple de titre d'article" },
+      "body": { "en": ["Replace this text."], "fr": ["Remplacez ce texte."] },
+      "_note": "placeholder, replace me",
+      "notify": false
+    },
+    {
+      "id": "sample-vocational-2026-08",
+      "topic": "vocational",
+      "date": "2026-08-04",
+      "image": "",
+      "imageAlt": { "en": "", "fr": "" },
+      "title": { "en": "Sample news title", "fr": "Exemple de titre d'article" },
+      "body": { "en": ["Replace this text."], "fr": ["Remplacez ce texte."] },
+      "_note": "placeholder, replace me",
+      "notify": false
+    }
+  ]
+}

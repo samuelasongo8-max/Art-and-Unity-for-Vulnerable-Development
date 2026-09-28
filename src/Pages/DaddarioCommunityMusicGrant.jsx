@@ -1,18 +1,22 @@
+import { useTranslation } from "react-i18next";
+import { formatLongDate } from "../utils/i18nFormat";
 import "./DaddarioCommunityMusicGrant.css";
 
 const grantImage = "/Foundation_Logo_Lockup.png";
+const grantDate = "2026-08-15";
 
 function DaddarioCommunityMusicGrant() {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
-    
     <article className="daddario-grant-article">
 <div className="daddario-grant-article__container">
         <header className="daddario-grant-article__header">
-<p className="daddario-grant-article__date">August 15, 2026</p>
-<p className="daddario-grant-article__location">Kakuma Refugee Camp, Kenya</p>
+<p className="daddario-grant-article__date">{formatLongDate(grantDate, i18n.language)}</p>
+<p className="daddario-grant-article__location">{t("grant.location")}</p>
 <h1 className="daddario-grant-article__title">
-            AUVD RECEIVES A COMMUNITY MUSIC GRANT FROM THE D’ADDARIO FOUNDATION
+            {t("grant.title")}
     </h1>
         </header>
 
@@ -20,23 +24,17 @@ function DaddarioCommunityMusicGrant() {
     <img
             className="daddario-grant-article__image"
             src={grantImage}
-            alt="AUVD music education program in Kakuma Refugee Camp"
+            alt={t("grant.alt")}
     />
         </div>
 
         <div className="daddario-grant-article__content">
     <p>
-            Art and Unity for Vulnerable Development (AUVD) is delighted to announce that we have been
-            selected to receive a Community Music Grant from the D’Addario Foundation. This support is an
-            important milestone for our organization and our Music Education Program in Kakuma Refugee Camp,
-            Kenya.
+            {t("grant.p1")}
         </p>
 
         <p>
-            The grant will help support our efforts to create more opportunities for young people to learn,
-            develop their talents, and express themselves through music. We are deeply grateful to the
-            D’Addario Foundation for believing in our work and supporting our commitment to expanding access
-            to music education in our community.
+            {t("grant.p2")}
     </p>
         </div>
     </div>
@@ -49,53 +47,38 @@ function DaddarioCommunityMusicGrant() {
     <div className="auvd-music-donation-right-content">
 
     <span className="auvd-music-donation-right-label">
-    "THANK YOU, D’ADDARIO FOUNDATION"|| || ||
+    {t("grant.label")}
     </span>
 
     <h2>
-        GRANT IMPACT <span>HIGHLIGHT</span>
+        {t("grant.titleBefore")} <span>{t("grant.titleAfter")}</span>
     </h2>
 
     <div className="auvd-music-donation-right-line"></div>
           <p>
         $1,500
-Cash Grant
+        {t("grant.amountOne")}
 
-and
+        {t("grant.amountOneConnector")}
 
-$500
-In-Kind Music Products
- 
+        $500
+        {t("grant.amountTwo")}
 
-<strong>" $2,000 Total "</strong>
-        <strong>Grant Support</strong> 
-         
+        <strong>{t("grant.totalOne")}</strong>
+        <strong>{t("grant.totalTwo")}</strong>
+
       </p>
 
     <p className="auvd-music-donation-right-intro">
-       "At AUVD, we believe that every young person deserves an opportunity to be seen, heard, and supported."
+       {t("grant.quoteOne")}
 
-"We extend our heartfelt appreciation to the D’Addario Foundation for believing in AUVD and supporting our commitment to expanding access to music education."
- 
+{t("grant.quoteTwo")}
 
-"Your support is not simply funding a program. You are investing in young people, their creativity, their confidence, and their dreams."
 
+{t("grant.quoteThree")}
 
 
       </p>
- 
-
-
-      {/* <p>
-        Later in 2025, through the support of the
-        <strong> Transylvanian Symphony Foundation in partnership with
-        Hungry for Music</strong>, AUVD received more than
-        <strong> 25 additional instruments</strong>, including pianos
-        and guitars. The instruments were shipped to Kakuma to help
-        expand access to music education.
-      </p> */}
-
-   
 
     </div>
 
@@ -103,7 +86,7 @@ In-Kind Music Products
     <div className="auvd-music-donation-right-image">
       <img
         src="/Back20.jpg"
-        alt="AUVD Grant from D'Addario Foundation"
+        alt={t("grant.imageAlt")}
       />
     </div>
 

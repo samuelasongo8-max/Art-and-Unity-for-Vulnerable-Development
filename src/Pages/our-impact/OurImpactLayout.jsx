@@ -6,6 +6,7 @@ import {
   FaFileLines,
   FaNewspaper,
 } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 import { OurImpactHero } from "../OurImpact";
 import "../OurImpact.css";
 
@@ -20,12 +21,14 @@ import "../OurImpact.css";
      /our-impact/report  -> Report
    ========================================================================== */
 
+/* Only the routes and icons live here; the labels are translation keys
+   resolved with t() on every render, so the sidebar follows the language. */
 const impactNavItems = [
-  { to: "/our-impact", label: "All", Icon: FaBars, end: true },
-  { to: "/our-impact/our-story", label: "Our Story", Icon: FaBookOpen },
-  { to: "/our-impact/news", label: "News", Icon: FaNewspaper },
-  { to: "/our-impact/blogs", label: "Blogs", Icon: FaFileLines },
-  { to: "/our-impact/report", label: "Report", Icon: FaChartColumn },
+  { to: "/our-impact", labelKey: "impact.layout.nav.all", Icon: FaBars, end: true },
+  { to: "/our-impact/our-story", labelKey: "impact.layout.nav.ourStory", Icon: FaBookOpen },
+  { to: "/our-impact/news", labelKey: "impact.layout.nav.news", Icon: FaNewspaper },
+  { to: "/our-impact/blogs", labelKey: "impact.layout.nav.blogs", Icon: FaFileLines },
+  { to: "/our-impact/report", labelKey: "impact.layout.nav.report", Icon: FaChartColumn },
 ];
 
 const navItemClass = ({ isActive }) =>
@@ -41,38 +44,42 @@ const OurImpactHeroSlot = () => {
   return pathname.replace(/\/+$/, "") === "/our-impact" ? <OurImpactHero /> : null;
 };
 
-const OurImpactLayout = () => (
-  <main className="auvd-impact-page">
-    <OurImpactHeroSlot />
+const OurImpactLayout = () => {
+  const { t } = useTranslation();
 
-    <div className="auvd-impact-layout">
-      <aside className="auvd-impact-sidebar">
-        <h1 className="auvd-impact-heading">Impacts</h1>
+  return (
+    <main className="auvd-impact-page">
+      <OurImpactHeroSlot />
 
-        <nav className="auvd-impact-nav" aria-label="Impact categories">
-          {impactNavItems.map((item) => {
-            const Icon = item.Icon;
+      <div className="auvd-impact-layout">
+        <aside className="auvd-impact-sidebar">
+          <h1 className="auvd-impact-heading">{t("impact.layout.heading")}</h1>
 
-            return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={navItemClass}
-              >
-                <Icon className="auvd-impact-nav-icon" aria-hidden="true" />
-                <span className="auvd-impact-nav-label">{item.label}</span>
-              </NavLink>
-            );
-          })}
-        </nav>
-      </aside>
+          <nav className="auvd-impact-nav" aria-label={t("impact.layout.navLabel")}>
+            {impactNavItems.map((item) => {
+              const Icon = item.Icon;
 
-      <section className="auvd-impact-content">
-        <Outlet />
-      </section>
-    </div>
-  </main>
-);
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  className={navItemClass}
+                >
+                  <Icon className="auvd-impact-nav-icon" aria-hidden="true" />
+                  <span className="auvd-impact-nav-label">{t(item.labelKey)}</span>
+                </NavLink>
+              );
+            })}
+          </nav>
+        </aside>
+
+        <section className="auvd-impact-content">
+          <Outlet />
+        </section>
+      </div>
+    </main>
+  );
+};
 
 export default OurImpactLayout;

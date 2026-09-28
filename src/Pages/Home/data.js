@@ -2,17 +2,21 @@ import kibodiii from "../../assets/kibodiii-lite.webp";
 import slide5 from "../../img/slides/5.webp";
 import slide7 from "../../img/slides/7.webp";
 
-export const heroTitleParts = {
-  before: "Empowering",
-  highlight: " Vulnerable Communities",
-  after: " Through Art and Innovation",
-};
+/* ==========================================================================
+   Home page data.
+
+   Every string here is a TRANSLATION KEY, never display text. The components
+   call t() while rendering, so switching language updates this content
+   immediately with no reload. Keeping it as keys (rather than moving the data
+   into the components) preserves the existing data/page separation.
+   ========================================================================== */
+export const heroTitleKey = "home.hero.title";
 
 export const slides = [
-  { image: slide5, title: "Awesome Design" },
-  { image: "/Background%20image%20AUVD1.jpg", title: "AUVD" },
-  { image: slide7, title: "Multi-purpose Theme" },
-  { image: "/Background%20image%20AUVD2.jpg", title: "AUVD" },
+  { image: slide5, titleKey: "home.hero.slides.one" },
+  { image: "/Background%20image%20AUVD1.jpg", titleKey: "home.hero.slides.auvd" },
+  { image: slide7, titleKey: "home.hero.slides.two" },
+  { image: "/Background%20image%20AUVD2.jpg", titleKey: "home.hero.slides.auvd" },
 ];
 
 export const partnerLinks = {
@@ -22,65 +26,65 @@ export const partnerLinks = {
 
 export const whySectionBackgrounds = ["/kakuma6.jpg", "/guitar2.jpg", kibodiii];
 
-export const danceParagraphs = {
-  first:
-    "Through structured dance classes, participants develop physical fitness, coordination, and artistic expression. Dance also serves as a medium for cultural expression and emotional well-being.",
-  second: "",
-};
+export const danceParagraphKey = "home.dance.description";
 
 export const vocationalImages = [
   {
     src: "/tailoring.jpg",
-    alt: "Tailoring and fashion design training",
+    altKey: "home.vocational.altOne",
   },
   {
     src: "/Cooking.webp",
-    alt: "Cooking and catering training",
+    altKey: "home.vocational.altTwo",
   },
 ];
 
+/* Each stat keeps its numeric value and icon here; the title and the info
+   lines are keys resolved with t() at render time. */
 export const impactStats = [
   {
     key: "reached",
     value: 500,
     suffix: "+",
-    title: "Refugees Reached",
+    titleKey: "home.impactStats.stats.reached.title",
     icon: "people",
-    info: ["Children, youth, and adults empowered through our programs"],
+    infoKeys: ["home.impactStats.stats.reached.info_one"],
   },
   {
     key: "programs",
     value: 7,
     suffix: "",
-    title: "Core Programs",
+    titleKey: "home.impactStats.stats.programs.title",
     icon: "list",
     wide: true,
-    info: [
-      "Arts, Healing & Psychosocial Well-being",
-      "Education, Youth Development & Empowerment",
-      "Livelihoods & Women Economic Empowerment",
-      "Peacebuilding & Community Inclusion",
-      "Humanitarian Outreach & Basic Needs Support",
+    infoKeys: [
+      "home.impactStats.stats.programs.info_one",
+      "home.impactStats.stats.programs.info_two",
+      "home.impactStats.stats.programs.info_three",
+      "home.impactStats.stats.programs.info_four",
+      "home.impactStats.stats.programs.info_five",
     ],
   },
   {
     key: "trained",
     value: 100,
     suffix: "+",
-    title: "Youth Trained",
+    titleKey: "home.impactStats.stats.trained.title",
     icon: "graduate",
-    info: ["Equipped with creative and life skills"],
+    infoKeys: ["home.impactStats.stats.trained.info_one"],
   },
   {
     key: "camps",
     value: 1,
     suffix: "",
-    title: "Refugee Camp",
+    titleKey: "home.impactStats.stats.camps.title",
     icon: "map",
-    info: ["Serving Kakuma community with safe creative spaces"],
+    infoKeys: ["home.impactStats.stats.camps.info_one"],
   },
 ];
 
+/* Partner organizations keep their own official names in both languages, so
+   the labels stay as written — only the section copy around them is keyed. */
 export const partnerCards = [
   { href: "https://www.transylvaniansymphony.org/", className: "tsf", label: "Transylvanian Symphony Foundation" },
   { href: "https://www.f2fmusicfoundation.org/", className: "f2f", label: "F2F Music Foundation", text: "F2F Music Foundation" },

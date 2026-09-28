@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Dance.css";
 import speakers from "../../assets/speakers.webp";
 
@@ -19,12 +20,21 @@ import speakers from "../../assets/speakers.webp";
    has been removed.
    ========================================================================== */
 const Dance = () => {
-  const danceDescriptionText =
-    "Through Art for Healing Program, We uses dance and movement as a powerful form of non-verbal expression to support emotional healing, physical well-being, and social connection among refugees in Kakuma Refugee Camp.";
+  const { t } = useTranslation();
+  // The typing animation is driven by the TRANSLATED description, so it types
+  // out the French text when the language changes.
+  const danceDescriptionText = t("danceProgram.description");
   const danceHeroContentRef = useRef(null);
   const academyContentRef = useRef(null);
   const [isDanceDescriptionVisible, setIsDanceDescriptionVisible] = useState(false);
   const [danceDescriptionTypedChars, setDanceDescriptionTypedChars] = useState(0);
+
+  // Start the typewriter over whenever the description changes language, so a
+  // French sentence is typed from the first letter instead of resuming at
+  // whatever character the English one happened to stop on.
+  useEffect(() => {
+    setDanceDescriptionTypedChars(0);
+  }, [danceDescriptionText]);
 
   useEffect(() => {
     const sectionElement = danceHeroContentRef.current;
@@ -61,7 +71,11 @@ const Dance = () => {
     }, 18);
 
     return () => window.clearTimeout(timeoutId);
-  }, [danceDescriptionText.length, danceDescriptionTypedChars, isDanceDescriptionVisible]);
+  /* Depend on the description ITSELF, not just its length: if the French and
+     English strings happened to have the same length the effect would not
+     re-run and the guard above would compare the new text against a stale
+     counter. */
+  }, [danceDescriptionText, danceDescriptionTypedChars, isDanceDescriptionVisible]);
 
   useEffect(() => {
     const sectionElement = academyContentRef.current;
@@ -104,9 +118,9 @@ const Dance = () => {
             ref={danceHeroContentRef}
             className="dance-hero__content dance-hero__content--animated"
           >
-            <p className="dance-eyebrow">Art for Healing Program</p>
+            <p className="dance-eyebrow">{t("danceProgram.eyebrow")}</p>
 
-            <h1 className="dance-hero__title">Dance</h1>
+            <h1 className="dance-hero__title">{t("danceProgram.title")}</h1>
 
             <p className="dance-hero__text">
               {danceDescriptionText.slice(0, danceDescriptionTypedChars)}
@@ -120,19 +134,19 @@ const Dance = () => {
                   academyContentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
                 }
               >
-                Community Dance
+                {t("danceProgram.button")}
               </button>
             </div>
 
             <div className="dance-activities">
-              <h2 className="dance-activities__title">Activities include:</h2>
+              <h2 className="dance-activities__title">{t("danceProgram.activitiesTitle")}</h2>
 
               <ul className="dance-activities__list">
-                <li>Traditional and contemporary dance</li>
-                <li>Creative movement and expression</li>
-                <li>Group choreography and performances</li>
-                <li>Safer and more inclusive schools</li>
-                <li>Cultural dance exchange and community showcases</li>
+                <li>{t("danceProgram.activities.one")}</li>
+                <li>{t("danceProgram.activities.two")}</li>
+                <li>{t("danceProgram.activities.three")}</li>
+                <li>{t("danceProgram.activities.four")}</li>
+                <li>{t("danceProgram.activities.five")}</li>
               </ul>
 
               <div className="dance-zigzag">
@@ -163,7 +177,7 @@ const Dance = () => {
          ------------------------------------------------------------------ */}
       <section className="dance-program-section">
         <div className="dance-banner">
-          <img src={speakers} alt="Chezacheza team" />
+          <img src={speakers} alt={t("danceProgram.bannerAlt")} />
           <div className="dance-banner__overlay"></div>
         </div>
 
@@ -173,50 +187,39 @@ const Dance = () => {
             className="dance-container dance-program dance-program--animated"
           >
             <h2 className="dance-title dance-title--highlight">
-              Dance Training Program
+              {t("danceProgram.programTitle")}
             </h2>
 
             <div className="dance-copy">
               <p>
-                Dance Training Program is a 3-month creative and empowerment initiative
-                designed to support children and youth in Kakuma Refugee Camp through
-                dance, artistic expression, and personal development.
+                {t("danceProgram.programP1")}
               </p>
 
               <p>
-                The program provides participants with a safe and inclusive environment
-                where they can develop their talents, improve physical fitness, build
-                confidence, and strengthen teamwork and social interaction skills. Through
-                dance and movement, participants are encouraged to express themselves
-                creatively while promoting emotional well-being and cultural exchange.
+                {t("danceProgram.programP2")}
               </p>
 
               <p>
-                The program runs for 3 months, giving participants consistent time to
-                learn, practice, grow in confidence, and engage in performance activities
-                throughout the training period.
+                {t("danceProgram.programP3")}
               </p>
 
               <p>
-                The Dance Training Program also creates opportunities for young people to
-                showcase their talents through community performances, creative events, and
-                cultural activities that promote unity and positive community engagement
-                in Kakuma Refugee Camp.
+                {t("danceProgram.programP4")}
               </p>
             </div>
 
             <div className="dance-divider"></div>
 
             <h3 className="dance-subtitle dance-subtitle--highlight">
-              3-Month Dance Training Program
+              {t("danceProgram.subtitle")}
             </h3>
 
             <div className="dance-facts">
               <p>
-                <strong>Program Duration:</strong> 3 Months
+                <strong>{t("danceProgram.durationLabel")}</strong> {t("danceProgram.durationValue")}
               </p>
               <p>
-                <strong>Location:</strong> Kakuma Refugee Camp, Kenya
+                <strong>{t("danceProgram.locationLabel")}</strong> {t("danceProgram.locationValue")}
               </p>
             </div>
 
@@ -224,15 +227,14 @@ const Dance = () => {
               className="dance-btn dance-btn--primary dance-join"
               to="/contact#creative-arts-application"
             >
-              Join the Program
+              {t("danceProgram.join")}
             </Link>
 
             <p className="dance-closing">
-              Join AUVD's Dance Program and become part of a creative space where talent,
-              confidence, and opportunity grow together.
+              {t("danceProgram.closing")}
             </p>
 
-            <section className="dance-video" aria-label="Dance program video">
+            <section className="dance-video" aria-label={t("danceProgram.videoLabel")}>
               <video
                 className="dance-video__player"
                 controls
@@ -240,7 +242,7 @@ const Dance = () => {
                 playsInline
               >
                 <source src="/Dance.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
+                {t("danceProgram.videoFallback")}
               </video>
             </section>
           </div>
@@ -253,11 +255,10 @@ const Dance = () => {
       <section className="dance-band dance-band--white">
         <div className="dance-container">
           <figure className="dance-feature">
-            <img src="/miodern dance.jpg" alt="Modern dance" />
+            <img src="/miodern dance.jpg" alt={t("danceProgram.featureAlt")} />
             <figcaption className="dance-feature__overlay">
               <p>
-                Dance is more than performance it is a pathway to confidence, creativity,
-                unity, and opportunity for young people in Kakuma Refugee Camp
+                {t("danceProgram.featureCaption")}
               </p>
             </figcaption>
           </figure>

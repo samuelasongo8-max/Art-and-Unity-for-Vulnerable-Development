@@ -1,6 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 import logo from "../assets/logo1.png";
 import "./Navbar.css";
 
@@ -218,11 +219,20 @@ function Navbar() {
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
         
-        {/* Logo Link Wrapper */}
-        <NavLink to="/" className="logo" onClick={closeMenus}>
-          <img src={logo} alt={t("nav.logoAlt")} />
+        {/* Logo Link Wrapper. "AUVD" is the organization's name, so it is a plain
+            literal and never a t() key: it must read identically in every
+            language. It is exactly the four letters — no extra characters, no
+            trailing period, no whitespace.
+
+            aria-label pins the link's accessible name to "AUVD" so screen
+            readers announce the name alone. Without it the name was computed
+            from the subtree and came out as "AUVD logo A U V D .".
+
+            The nested <span>s stay: .logo-text span colours U and D with the
+            shared --impact-blue, which is the wordmark's only colour accent. */}
+        <NavLink to="/" className="logo" onClick={closeMenus} aria-label="AUVD">
+          <img src={logo} alt="" />
           <span className="logo-text">A<span className="text-U">U</span>V<span className="text-D">D</span></span>
-          <span className="logo-dot">.</span>
         </NavLink>
 
         {/* Mobile Hamburger Toggle */}
@@ -238,13 +248,24 @@ function Navbar() {
 
         {/* Brand Utility Label for Mobile Viewports */}
         <div className="nav-utility">
-          <NavLink to="/" className="nav-brand-small" onClick={closeMenus}>
+          <NavLink to="/" className="nav-brand-small" onClick={closeMenus} aria-label="AUVD">
             AUVD
           </NavLink>
         </div>
 
+        {/* Mobile language switcher — sits in the header bar, immediately before
+            the hamburger, so the language is always reachable without opening
+            the menu. Hidden on desktop, where the switcher in the nav bar shows. */}
+        <LanguageSwitcher className="lang-switch--mobile-header" onChange={closeMenus} />
+
         {/* Core Links & Controls Container */}
         <div id="mobile-nav-links" className={`nav-links ${menuOpen ? "open" : ""}`}>
+          {/* Same EN | FR control at the very top of the mobile menu, so it is
+              the first thing a visitor sees once the menu opens. */}
+          <div className="lang-switch--mobile-menu">
+            <LanguageSwitcher onChange={closeMenus} />
+          </div>
+
           <NavLink
             to="/"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
@@ -367,26 +388,7 @@ function Navbar() {
           {/* Language switcher — placed directly after "Contact" in the shared
               .nav-links container, so it appears in the desktop bar and the
               mobile menu from a single insertion point. */}
-          <div className="lang-switch" role="group" aria-label={t("nav.language.label")}>
-            {["en", "fr"].map((code) => {
-              const isActive = i18n.language === code;
-              return (
-                <button
-                  key={code}
-                  type="button"
-                  className={`lang-switch-btn ${isActive ? "is-active" : ""}`}
-                  onClick={() => {
-                    i18n.changeLanguage(code);
-                    closeMenus();
-                  }}
-                  aria-current={isActive ? "true" : undefined}
-                  lang={code}
-                >
-                  {t(`nav.language.${code}`)}
-                </button>
-              );
-            })}
-          </div>
+          <LanguageSwitcher onChange={closeMenus} />
 
           {/* Actions Subsection (Search Shell & Donate Button) */}
           <div className="nav-actions">

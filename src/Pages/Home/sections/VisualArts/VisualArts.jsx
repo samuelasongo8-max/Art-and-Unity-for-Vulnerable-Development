@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from "react-i18next";
 import "./VisualArts.css";
 import useRevealClass from "../../hooks/useRevealClass";
 
@@ -9,6 +10,7 @@ import useRevealClass from "../../hooks/useRevealClass";
    Source Sans 3 body styles (src/components/ImpactSections.css, imported
    once via Home.css). Wording is unchanged. */
 function VisualArts() {
+  const { t } = useTranslation();
   const sectionRef = useRevealClass("content-entered", 0.3);
 
   return (
@@ -20,28 +22,33 @@ function VisualArts() {
             <img
               className="auvd-story-gallery-item auvd-story-gallery-item--1"
               src="/drawing.jpg"
-              alt="Child exploring visual arts"
+              alt={t("home.visualArts.alt")}
             />
           </div>
 
           <div ref={sectionRef} className="auvd-story-text visual-text-block content-animated">
-            <h2 className="auvd-story-title">Visual Arts</h2>
+            <h2 className="auvd-story-title">{t("home.visualArts.title")}</h2>
 
+            {/* These two paragraphs contain inline markup (bold / highlighted
+                runs), so they use <Trans> — the whole sentence is translated as
+                one unit while the original spans stay exactly where they were. */}
             <p>
-              This program uses <span>visual arts</span> as a powerful tool for self-expression,
-              emotional healing, and personal development for refugees in Kakuma Refugee Camp.
-              Through participatory activities such as <span>drawing, painting, and creative crafts</span>,
-              participants are encouraged to explore their inner experiences and communicate
-              thoughts and feelings that may be difficult to articulate through words alone.
+              <Trans
+                i18nKey="home.visualArts.p1"
+                components={{
+                  strong: <span />,
+                  em: <span />,
+                }}
+              />
             </p>
 
             <p>
-              <span className="visual-highlight">
-                Art-making provides a safe, non-judgmental space where individuals can reflect,
-                create, and connect with themselves and others.
-              </span>{" "}
-              Research shows that engaging in visual art can help individuals express emotions,
-              build confidence, and improve emotional regulation and well-being.
+              <Trans
+                i18nKey="home.visualArts.p2"
+                components={{
+                  highlight: <span className="visual-highlight" />,
+                }}
+              />{" "}
             </p>
           </div>
 

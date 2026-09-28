@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import {
-  danceParagraphs,
-  heroTitleParts,
+  danceParagraphKey,
+  heroTitleKey,
   impactStats,
   partnerCards,
   partnerLinks,
   slides,
   vocationalImages,
-  whySectionBackgrounds, 
+  whySectionBackgrounds,
 } from "./data";
 import DanceSection from "./sections/DanceSection/DanceSection";
 import FeaturedVideo from "./sections/FeaturedVideo/FeaturedVideo";
@@ -34,7 +34,7 @@ function Home() {
 
   return ( 
     <> 
-      <Hero navigate={navigate} heroTitleParts={heroTitleParts} slides={slides} />
+      <Hero navigate={navigate} heroTitleKey={heroTitleKey} slides={slides} />
       <JaggedBanner />
       <GrantNews />
       <VideoSection />
@@ -46,7 +46,7 @@ function Home() {
       <ProgramsToggleSection />
       <TherapeuticApproach />
       <VisualArts />
-      <DanceSection navigate={navigate} danceParagraphs={danceParagraphs} />
+      <DanceSection navigate={navigate} descriptionKey={danceParagraphKey} />
       <VocationalSection navigate={navigate} vocationalImages={vocationalImages} />
       <ImpactStatsSection impactStats={impactStats} />
       <PartnersSection partnerCards={partnerCards} />

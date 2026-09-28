@@ -1,130 +1,118 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ImpactHero from "../components/ImpactHero";
 import "./Work.css";
 
 const womenLivelihoodImages = ["/women.png", "/tailoring.jpg", "/Cooking.webp"];
 const outreachImages = ["/Shoes.png", "/shoes2.webp"];
 
+/* ==========================================================================
+   The five program pillars.
+
+   Only routes, images and TRANSLATION KEYS live here. Every visible string is
+   resolved with t() while rendering, so switching language updates the whole
+   page immediately with no reload. The ids double as the anchor targets the
+   hero pills and #livelihoods-women deep link rely on, so they are unchanged.
+   ========================================================================== */
 const programPillars = [
 	{
 		id: "arts-healing",
-		title: "Arts, Healing & Psychosocial Well-being",
-		intro:
-			"This program focuses on emotional healing, creativity, and mental health support through arts-based approaches.",
+		titleKey: "work.programs.pillars.arts-healing.title",
+		introKey: "work.programs.pillars.arts-healing.intro",
 		image: "/drawing2.jpg",
 		actions: [
-			{
-				to: "/Music",
-				label: "Explore music",
-			},
-			{
-				to: "/dance",
-				label: "Explore dance",
-			},
+			{ to: "/Music", labelKey: "work.programs.pillars.arts-healing.actions_one" },
+			{ to: "/dance", labelKey: "work.programs.pillars.arts-healing.actions_two" },
 		],
 		programs: [
-			"Creative Arts & Expression Program",
-			"Mental Health & Psychosocial Support (MHPSS) Program",
+			"work.programs.pillars.arts-healing.programs_one",
+			"work.programs.pillars.arts-healing.programs_two",
 		],
 		focus: [
-			"Trauma healing through art",
-			"Emotional well-being and resilience",
-			"Safe spaces for expression",
-			"Creative talent development",
+			"work.programs.pillars.arts-healing.focus_one",
+			"work.programs.pillars.arts-healing.focus_two",
+			"work.programs.pillars.arts-healing.focus_three",
+			"work.programs.pillars.arts-healing.focus_four",
 		],
 	},
 	{
 		id: "education-youth",
-		title: "Education, Youth Development & Empowerment",
-		intro:
-			"This program focuses on learning, skills development, and preparing young people for the future.",
+		titleKey: "work.programs.pillars.education-youth.title",
+		introKey: "work.programs.pillars.education-youth.intro",
 		image: "/Education2.jpg",
-		action: {
-			to: "/pricing",
-			label: "Explore more",
-		},
+		action: { to: "/pricing", labelKey: "work.programs.pillars.education-youth.action" },
 		programs: [
-			"Youth Empowerment & Skills Development Program",
-			"Inclusive Education & After-School Support Program",
+			"work.programs.pillars.education-youth.programs_one",
+			"work.programs.pillars.education-youth.programs_two",
 		],
 		focus: [
-			"Life skills and leadership development",
-			"Academic support for learners",
-			"Digital and vocational skills",
-			"Mentorship and career guidance",
+			"work.programs.pillars.education-youth.focus_one",
+			"work.programs.pillars.education-youth.focus_two",
+			"work.programs.pillars.education-youth.focus_three",
+			"work.programs.pillars.education-youth.focus_four",
 		],
 	},
 	{
 		id: "livelihoods-women",
-		title: "Livelihoods & Women Economic Empowerment",
-		intro:
-			"This program focuses on income generation, self-reliance, and women’s economic inclusion.",
+		titleKey: "work.programs.pillars.livelihoods-women.title",
+		introKey: "work.programs.pillars.livelihoods-women.intro",
 		rotatingImages: womenLivelihoodImages,
 		programs: [
-			"Women’s Empowerment Program",
-			"Vocational Training & Livelihood Program",
+			"work.programs.pillars.livelihoods-women.programs_one",
+			"work.programs.pillars.livelihoods-women.programs_two",
 		],
 		focus: [
-			"Entrepreneurship and small business development",
-			"Skills training (tailoring, catering, crafts, beauty)",
-			"Savings groups and financial literacy",
-			"Women’s leadership and independence",
+			"work.programs.pillars.livelihoods-women.focus_one",
+			"work.programs.pillars.livelihoods-women.focus_two",
+			"work.programs.pillars.livelihoods-women.focus_three",
+			"work.programs.pillars.livelihoods-women.focus_four",
 		],
 	},
 	{
 		id: "peacebuilding",
-		title: "Peacebuilding & Community Inclusion",
-		intro:
-			"This program promotes unity, coexistence, and community participation.",
+		titleKey: "work.programs.pillars.peacebuilding.title",
+		introKey: "work.programs.pillars.peacebuilding.intro",
 		image: "/Unity.webp",
 		programs: [
-			"Peacebuilding & Community Dialogue Program",
-			"Community Engagement & Inclusion Program",
+			"work.programs.pillars.peacebuilding.programs_one",
+			"work.programs.pillars.peacebuilding.programs_two",
 		],
 		focus: [
-			"Conflict resolution and dialogue",
-			"Social cohesion between refugees and host communities",
-			"Community participation and awareness",
-			"Volunteerism and civic engagement",
+			"work.programs.pillars.peacebuilding.focus_one",
+			"work.programs.pillars.peacebuilding.focus_two",
+			"work.programs.pillars.peacebuilding.focus_three",
+			"work.programs.pillars.peacebuilding.focus_four",
 		],
 	},
 	{
 		id: "outreach-basic-needs",
-		title: "Humanitarian Outreach & Basic Needs Support",
-		intro:
-			"This program addresses urgent needs and supports dignity for vulnerable people.",
+		titleKey: "work.programs.pillars.outreach-basic-needs.title",
+		introKey: "work.programs.pillars.outreach-basic-needs.intro",
 		rotatingImages: outreachImages,
-		action: {
-			to: "/portfolio",
-			label: "Explore more",
-		},
-		programs: [
-			"Outreach Program (Shoes Distribution in partnership with Because International)",
-		],
+		action: { to: "/portfolio", labelKey: "work.programs.pillars.outreach-basic-needs.action" },
+		programs: ["work.programs.pillars.outreach-basic-needs.programs_one"],
 		focus: [
-			"Shoes distribution for children and vulnerable groups",
-			"School support and dignity enhancement",
-			"Emergency and basic needs assistance",
-			"Community-based outreach services",
+			"work.programs.pillars.outreach-basic-needs.focus_one",
+			"work.programs.pillars.outreach-basic-needs.focus_two",
+			"work.programs.pillars.outreach-basic-needs.focus_three",
+			"work.programs.pillars.outreach-basic-needs.focus_four",
 		],
 	},
 ];
 
 function Work() {
+	const { t } = useTranslation();
 	const location = useLocation();
 	const programsHeadingRef = useRef(null);
 	const programCardRefs = useRef([]);
 	/* Existing in-hero anchor pills: same three destinations the old Work hero
 	   showed, mapped onto ImpactHero's links slot. */
 	const impactHighlights = [
-		{ label: "Healing Through Creativity", targetId: "arts-healing" },
-		{ label: "Education and Skills Access", targetId: "education-youth" },
-		{ label: "Community Dignity and Inclusion", targetId: "peacebuilding" },
+		{ labelKey: "work.hero.links.one", targetId: "arts-healing" },
+		{ labelKey: "work.hero.links.two", targetId: "education-youth" },
+		{ labelKey: "work.hero.links.three", targetId: "peacebuilding" },
 	];
-	const heroTitle = "AUVD Programs in Kakuma Refugee Camp";
-	const heroLead =
-		"Art and Unity for Vulnerable Development (AUVD) works in Kakuma Refugee Camp by creating safe, practical, and inclusive programs that help children, youth, women, and vulnerable families heal, learn, grow skills, and participate fully in community life. Our approach combines arts, education, livelihood support, peacebuilding, and humanitarian outreach so that people can rebuild dignity, strengthen resilience, and access real opportunities for a better future.";
 
 	useEffect(() => {
 		const animatedElements = [
@@ -199,12 +187,12 @@ function Work() {
 			    sections below. */}
 			<div className="work-hero-bleed">
 				<ImpactHero
-					heading={heroTitle}
-					paragraph={heroLead}
+					heading={t("work.hero.heading")}
+					paragraph={t("work.hero.paragraph")}
 					image="/donation.jpg"
-					imageAlt="AUVD community members gathered together"
+					imageAlt={t("work.hero.imageAlt")}
 					links={impactHighlights.map((highlight) => ({
-						label: highlight.label,
+						label: t(highlight.labelKey),
 						href: `#${highlight.targetId}`,
 					}))}
 				/>
@@ -214,8 +202,8 @@ function Work() {
 				{/* Section band: this page's existing kicker is the label, its
 				    existing heading is promoted to the section title. */}
 				<section ref={programsHeadingRef} className="work-section-heading work-scroll-panel">
-					<p className="work-programs-kicker"> Our Programs</p>
-					<h2 className="work-section-title">Five program pillars guiding AUVD’s work in Kakuma</h2>
+					<p className="work-programs-kicker"> {t("work.programs.kicker")}</p>
+					<h2 className="work-section-title">{t("work.programs.title")}</h2>
 				</section>
 
 				<div className="work-programs-grid">
@@ -234,13 +222,17 @@ function Work() {
 							>
 								{/* Same text the pillar heading already carried; it
 								    now sits above the body as the section label. */}
-								<p className="work-pillar-label">{pillar.title}</p>
+								<p className="work-pillar-label">{t(pillar.titleKey)}</p>
 
 								<div className="work-pillar-body">
 									<div className={`work-collage work-collage--${images.length}`}>
 										{images.map((source, imageIndex) => (
 											<img
-												alt={imageIndex === 0 ? pillar.title : `${pillar.title} - additional photo ${imageIndex + 1}`}
+												alt={
+									imageIndex === 0
+										? t(pillar.titleKey)
+										: t("work.programs.pillars." + pillar.id + ".additionalPhoto", { count: imageIndex + 1 })
+									}
 												className={`work-collage-item work-collage-item--${imageIndex + 1}`}
 												key={source}
 												src={source}
@@ -249,20 +241,20 @@ function Work() {
 									</div>
 
 									<div className="work-pillar-text">
-										<h2 className="work-pillar-title">{pillar.title}</h2>
-										<p className="work-pillar-intro">{pillar.intro}</p>
+										<h2 className="work-pillar-title">{t(pillar.titleKey)}</h2>
+										<p className="work-pillar-intro">{t(pillar.introKey)}</p>
 
 										<div className="work-program-block">
-											<h4>Programs under this pillar</h4>
+											<h4>{t("work.programs.programsHeading")}</h4>
 											<ul>
 												{pillar.programs.map((item) => (
-													<li key={item}>{item}</li>
+													<li key={item}>{t(item)}</li>
 												))}
 											</ul>
 										</div>
 
 										<div className="work-program-block">
-											<h4>Focus</h4>
+											<h4>{t("work.programs.focusHeading")}</h4>
 											<ul className="work-focus-list">
 												{pillar.focus.map((item) => (
 													<li key={item}>{item}</li>
@@ -274,7 +266,7 @@ function Work() {
 											<div className="work-program-actions">
 												{(pillar.actions || [pillar.action]).map((action) => (
 													<Link className="work-program-button" key={`${pillar.id}-${action.to}`} to={action.to}>
-														{action.label}
+														{t(action.labelKey)}
 													</Link>
 												))}
 											</div>

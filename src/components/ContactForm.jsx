@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./ContactForm.css";
 
 const web3FormsAccessKey = "720af78f-5c60-44e9-9ed4-2098092ebc40";
@@ -12,51 +13,55 @@ const initialValues = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const normalizeSubmitError = (error) => {
+/* Every user-facing string in this form is a translation key, so a French
+   visitor sees French labels, placeholders, validation errors and status
+   messages — and switching back to English restores the original wording. */
+const normalizeSubmitError = (error, t) => {
   if (!(error instanceof Error)) {
-    return "Your message could not be sent right now. Please try again.";
+    return t("contact.form.errors.sendFailed");
   }
 
   const message = error.message.trim();
 
   if (!message) {
-    return "Your message could not be sent right now. Please try again.";
+    return t("contact.form.errors.sendFailed");
   }
 
   if (message.startsWith("<!DOCTYPE html") || message.startsWith("<html")) {
-    return "The contact form returned an unexpected HTML response. Please check the form service configuration and try again.";
+    return t("contact.form.errors.htmlResponse");
   }
 
   return message;
 };
 
-const validateValues = (values) => {
+const validateValues = (values, t) => {
   const errors = {};
 
   if (!values.fullName.trim()) {
-    errors.fullName = "Full name is required.";
+    errors.fullName = t("contact.form.errors.fullName");
   }
 
   if (!values.email.trim()) {
-    errors.email = "Email address is required.";
+    errors.email = t("contact.form.errors.emailRequired");
   } else if (!emailPattern.test(values.email.trim())) {
-    errors.email = "Enter a valid email address.";
+    errors.email = t("contact.form.errors.emailInvalid");
   }
 
   if (!values.subject.trim()) {
-    errors.subject = "Subject is required.";
+    errors.subject = t("contact.form.errors.subject");
   }
 
   if (!values.message.trim()) {
-    errors.message = "Message is required.";
+    errors.message = t("contact.form.errors.messageRequired");
   } else if (values.message.trim().length < 20) {
-    errors.message = "Message should be at least 20 characters.";
+    errors.message = t("contact.form.errors.messageShort");
   }
 
   return errors;
 };
 
 function ContactForm({ className = "", ...restProps }) {
+  const { t } = useTranslation();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [submitState, setSubmitState] = useState({ status: "idle", message: "" });
@@ -87,12 +92,12 @@ function ContactForm({ className = "", ...restProps }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const validationErrors = validateValues(values);
+    const validationErrors = validateValues(values, t);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setSubmitState({
         status: "error",
-        message: "Please complete the form correctly before sending.",
+        message: t("contact.form.errors.formInvalid"),
       });
       return;
     }
@@ -118,19 +123,19 @@ function ContactForm({ className = "", ...restProps }) {
       const payload = await response.json().catch(() => ({}));
 
       if (!response.ok || payload.success === false) {
-        throw new Error(payload.message || "Message delivery failed.");
+        throw new Error(payload.message || t("contact.form.errors.sendFailed"));
       }
 
       setValues(initialValues);
       setErrors({});
       setSubmitState({
         status: "success",
-        message: payload.message || "Message sent successfully. We will get back to you soon.",
+        message: payload.message || t("contact.form.errors.success"),
       });
     } catch (error) {
       setSubmitState({
         status: "error",
-        message: normalizeSubmitError(error),
+        message: normalizeSubmitError(error, t),
       });
     }
   };
@@ -138,20 +143,20 @@ function ContactForm({ className = "", ...restProps }) {
   return (
     <section className={`contact-email-card ${className}`.trim()} {...restProps}>
       <div className="contact-email-card__header">
-        <p className="contact-email-card__eyebrow">Contact Us</p>
-        <h2>Partner With AUVD</h2>
+        <p className="contact-email-card__eyebrow">{t("contact.form.eyebrow")}</p>
+        <h2>{t("contact.form.title")}</h2>
       </div>
 
       <form className="contact-email-form" onSubmit={handleSubmit} noValidate>
         <div className="contact-email-form__grid">
           <div className="contact-email-field">
-            <label htmlFor="contact-full-name">Full Name</label>
+            <label htmlFor="contact-full-name">{t("contact.form.fullName")}</label>
             <input
               id="contact-full-name"
               name="fullName"
               type="text"
               autoComplete="name"
-              placeholder="Your full name"
+              placeholder={t("contact.form.fullNamePlaceholder")}
               value={values.fullName}
               onChange={handleChange}
               aria-invalid={Boolean(errors.fullName)}
@@ -165,13 +170,13 @@ function ContactForm({ className = "", ...restProps }) {
           </div>
 
           <div className="contact-email-field">
-            <label htmlFor="contact-email-address">Email Address</label>
+            <label htmlFor="contact-email-address">{t("contact.form.email")}</label>
             <input
               id="contact-email-address"
               name="email"
               type="email"
               autoComplete="email"
-              placeholder="yourname@example.com"
+              placeholder={t("contact.form.emailPlaceholder")}
               value={values.email}
               onChange={handleChange}
               aria-invalid={Boolean(errors.email)}
@@ -186,12 +191,12 @@ function ContactForm({ className = "", ...restProps }) {
         </div>
 
         <div className="contact-email-field">
-          <label htmlFor="contact-subject">Subject</label>
+          <label htmlFor="contact-subject">{t("contact.form.subject")}</label>
           <input
             id="contact-subject"
             name="subject"
             type="text"
-            placeholder="Tell us what you would like to discuss"
+            placeholder={t("contact.form.subjectPlaceholder")}
             value={values.subject}
             onChange={handleChange}
             aria-invalid={Boolean(errors.subject)}
@@ -205,12 +210,12 @@ function ContactForm({ className = "", ...restProps }) {
         </div>
 
         <div className="contact-email-field">
-          <label htmlFor="contact-message">Message</label>
+          <label htmlFor="contact-message">{t("contact.form.message")}</label>
           <textarea
             id="contact-message"
             name="message"
             rows="7"
-            placeholder="Type your message here..."
+            placeholder={t("contact.form.messagePlaceholder")}
             value={values.message}
             onChange={handleChange}
             aria-invalid={Boolean(errors.message)}
@@ -218,9 +223,9 @@ function ContactForm({ className = "", ...restProps }) {
           />
           <div className="contact-email-field__meta">
             <span id="contact-message-note" className="contact-email-field__note">
-              Share your partnership idea, support request, or collaboration message.
+              {t("contact.form.messageNote")}
             </span>
-            <span className="contact-email-field__count">{values.message.trim().length} characters</span>
+            <span className="contact-email-field__count">{t("common.characters", { count: values.message.trim().length })}</span>
           </div>
           {errors.message ? (
             <span id="contact-message-error" className="contact-email-field__error" role="alert">
@@ -234,7 +239,7 @@ function ContactForm({ className = "", ...restProps }) {
           type="submit"
           disabled={submitState.status === "submitting"}
         >
-          <span>{submitState.status === "submitting" ? "Sending Message..." : "Send Message"}</span>
+          <span>{submitState.status === "submitting" ? t("contact.form.sending") : t("contact.form.send")}</span>
         </button>
 
         <div className="contact-email-form__status" aria-live="polite" aria-atomic="true">

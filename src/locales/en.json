@@ -7,7 +7,22 @@
     "contact": "Contact",
     "submit": "Submit",
     "loading": "Loading...",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "joinUs": "Join us",
+    "readMoreArrow": "Read more →",
+    "onThisPage": "On this page",
+    "milestones": "Milestones",
+    "keyImpactFigures": "Key impact figures",
+    "characters_one": "{{count}} character",
+    "characters_other": "{{count}} characters",
+    "previous": "Previous",
+    "next": "Next",
+    "previousAlt": "Previous donations",
+    "nextAlt": "Next donations",
+    "previousTestimonial": "Previous Testimonial",
+    "nextTestimonial": "Next Testimonial",
+    "arrow": "→",
+    "donateToday": "DONATE TODAY"
   },
   "nav": {
     "home": "Home",
@@ -40,8 +55,12 @@
     "language": {
       "label": "Language",
       "en": "EN",
-      "fr": "FR"
+      "fr": "FR",
+      "english": "English",
+      "french": "Français"
     },
+    "aboutShort": "About",
+    "leadership": "Leadership",
     "searchPages": {
       "home": {
         "title": "Home",
@@ -115,10 +134,7 @@
         "title": "Vocational Program",
         "description": "Vocational skills development and learning pathways"
       }
-    },
-    "logoAlt": "AUVD logo",
-    "aboutShort": "About",
-    "leadership": "Leadership"
+    }
   },
   "footer": {
     "stay": "stay",
@@ -141,17 +157,33 @@
       "impact": "Our Impact",
       "resources": "Resources",
       "contact": "Contact",
-      "donate": "Donate"
+      "donate": "Donate",
+      "news": "News"
     },
     "legal": {
       "terms": "Terms of Use",
       "privacy": "Privacy Policy",
       "sitemap": "Sitemap"
+    },
+    "subscribe": {
+      "invalidEmail": "Please enter a valid email address.",
+      "chooseInterest": "Please choose at least one interest.",
+      "sending": "Sending...",
+      "success": "Almost done! Check your inbox and click the confirmation link to complete your subscription.",
+      "error": "Something went wrong. Please try again later.",
+      "notice": "By subscribing you agree to receive news emails from AUVD. You can unsubscribe at any time.",
+      "privacyLink": "Privacy Policy"
     }
   },
   "home": {
     "hero": {
+      "slides": {
+        "one": "Awesome Design",
+        "two": "Multi-purpose Theme",
+        "auvd": "AUVD"
+      },
       "label": "Art & Unity for Vulnerable Development",
+      "title": "Empowering Vulnerable Communities Through Art and Innovation",
       "paragraph": "Art and Unity for Vulnerable Development (AUVD) is a refugee-led organization transforming lives in Kakuma Refugee Camp through creativity, skills development, and inclusive community programs.",
       "button": "Learn more about us",
       "socialLabel": "Social media links",
@@ -169,6 +201,1237 @@
       "p2": "Our organization was created in response to the social and economic challenges faced by displaced populations. We believe that art and creativity are powerful tools for healing, education, and transformation.",
       "p3": "Today, AUVD stands as a growing organization in Kakuma, dedicated to nurturing talent, promoting social cohesion, and advancing sustainable development.",
       "readMore": "Read more"
+    },
+    "banner": {
+      "text": "[TOGETHER, WE CREATE OPPORTUNITIES, EMPOWER COMMUNITIES, AND TRANSFORM LIVES THROUGH CREATIVITY, EDUCATION, INCLUSION, AND INNOVATION.\n]"
+    },
+    "grantNews": {
+      "location": "KAKUMA REFUGEE CAMP | KENYA",
+      "imageLabel": "AUVD music program image",
+      "imageAlt": "AUVD music program and community celebration",
+      "title": "WE RECEIVED A COMMUNITY MUSIC GRANT!",
+      "p1": "Art and Unity for Vulnerable Development (AUVD) is delighted to announce that we have been selected to receive a Community Music Grant from the D’Addario Foundation.",
+      "p2": "This support is helping young people in Kakuma Refugee Camp, Kenya, discover their talents, develop their skills, build confidence, and express themselves through music.",
+      "link": "LEARN MORE",
+      "date": "2026-08-11"
+    },
+    "donations": {
+      "titleLine1": "Music Instrument",
+      "titleLine2": "Donations:",
+      "subheading": "Music That Reached Kakuma",
+      "intro": "Our music education journey grew through the generosity of partners who believed that every young person deserves an opportunity to learn, create, and express themselves through music.",
+      "viewAll": "View All",
+      "prevLabel": "Previous donations",
+      "nextLabel": "Next donations",
+      "items": {
+        "one": {
+          "tag": "2025 - Delivery",
+          "title": "Our First Major Instrument Donation",
+          "text": "In 2025, AUVD received its first major donation of musical instruments from the Transylvanian Symphony Foundation."
+        },
+        "two": {
+          "tag": "Partnership",
+          "title": "Continuing the Support",
+          "text": "Later in 2025, through the support of the Transylvanian Symphony Foundation in partnership with Hungry for Music,."
+        },
+        "three": {
+          "tag": "Community",
+          "title": "Music Reaches Every Corner",
+          "text": "Dozens of children and youth gathered with their new instruments, from violins to keyboards, ready to start learning together."
+        },
+        "four": {
+          "tag": "First Notes",
+          "title": "A New Ukulele, A New Start",
+          "text": "For many children, this was the first instrument they had ever held. Small moments like this build confidence and joy."
+        },
+        "five": {
+          "tag": "Celebration",
+          "title": "Certificates and Gratitude",
+          "text": "The donation was marked with a small ceremony, honoring the partnership that made the new music program possible."
+        }
+      }
+    },
+    "video": {
+      "iframeTitle": "Global Innovation Challenge video",
+      "title": "Empowering young voices through music",
+      "paragraph": "Every note is a step toward confidence, creativity, and a brighter future. We believe music gives young people the opportunity to discover their talents, express themselves, and dream bigger."
+    },
+    "featuredVideo": {
+      "velLewis": {
+        "iframeTitle": "Vel Lewis Debuts New Music And Shares His Global Journey",
+        "title": "Vel Lewis Debuts New Music And Shares His Global Journey",
+        "paragraph": "Partnership with Art and Unity for Vulnerable Development (AUVD) and how we organized Youth Peace Week workshops."
+      },
+      "peaceWeek": {
+        "iframeTitle": "AUVD YouTube video",
+        "title": "Music Across Youth Peace Week",
+        "paragraph": "Art and Unity for Vulnerable Development (AUVD), in partnership with <f2f>F2F Music Foundation</f2f>, UnityNet International, Andrew Network - AHIAGBA TV, and <tsf>Transylvanian Symphony Foundation</tsf>, successfully delivered three impactful workshops during Youth Peace Week in Kakuma Refugee Camp.",
+        "openOnYouTube": "Open on YouTube",
+        "statLabel": "3 Workshops Conducted",
+        "upcomingTitle": "2026 UPCOMING EVENTS",
+        "upcomingHeading": "No Events Scheduled Yet",
+        "upcomingText": "We are currently planning our upcoming community activities, workshops, performances, and outreach programs. Please check back soon or follow our updates to stay informed about future events."
+      },
+      "upcoming": {
+        "title": "Our Upcoming Initiative",
+        "itemOne": ".Because International Shoe Distribution",
+        "itemTwo": ".The Right to Be Free Project"
+      },
+      "testimonials": {
+        "one": {
+          "text": "In partnership with Because International, AUVD will soon distribute the shoe That Grows to Vulnerable Children, helping protect their health, improve school attendence, and promote dignity.",
+          "author": "- Statsu: Coming Soon School: Kismayo Light Academy, Location: Kakuma 2, Zone 1, Block 6"
+        },
+        "two": {
+          "text": "More than a shoe distribution, this initiative is about protecting children's health, improving school attendance, and restoring dignity. The Shoe That Grows expands up to five sizes, allowing children to safely walk, learn, and play for years.",
+          "author": "- Coming Soon"
+        },
+        "three": {
+          "text": "Empowering refugee children and youth through music, storytelling, creative expression, and healing. | Partner : The Bridge Life Music Career Advancement, Inc",
+          "author": "-Target Reach: 2,000 Children & Youth in Kakuma refugee Camp, Kenya"
+        }
+      },
+      "prevLabel": "Previous Testimonial",
+      "nextLabel": "Next Testimonial",
+      "learnMoreShoes": "Learn more about the shoes that Grow"
+    },
+    "need": {
+      "imageLabel": "AUVD community programs",
+      "title": "The Need",
+      "p1": "Children and young people in Kakuma Refugee Camp face many challenges caused by conflict, forced displacement, poverty, interrupted education, and prolonged uncertainty. These experiences can affect their mental health, emotional well-being, confidence, education, and future opportunities.",
+      "p2": "Many have limited access to safe spaces, quality education, psychosocial support, creative activities, and skills development that help them heal, learn, and reach their full potential.",
+      "p3": "AUVD responds to these challenges by providing community-led programs that combine creative arts, music education, psychosocial support, inclusive education, and life skills development. Through safe and inclusive spaces, we help children and young people build confidence, strengthen resilience, discover their talents, develop practical skills, and create positive pathways toward a brighter future.",
+      "joinUs": "Join us"
+    },
+    "programsIntro": {
+      "title": "From Hard Times to Hope: Healing Through Creativity"
+    },
+    "programs": {
+      "title": "Art as Therapy and Social-Emotional Learning at AUVD in Kakuma",
+      "cardOne": {
+        "alt": "Art Therapy",
+        "badge": "Program",
+        "meta": "AUVD",
+        "title": "Art as Therapy and Social-Emotional Learning",
+        "text": "This program supports refugees through music, visual arts and storytelling, helping participants improve emotional well-being, confidence and resilience while strengthening community relationships."
+      },
+      "cardTwo": {
+        "alt": "Challenges",
+        "badge": "Challenge",
+        "meta": "Kakuma",
+        "title": "Limited Arts Opportunities in Kakuma",
+        "text": "Many children and youth have little access to structured arts education, creative spaces and professional mentorship, reducing opportunities for healing, creativity and talent development."
+      },
+      "cardThree": {
+        "alt": "Impact",
+        "badge": "Impact",
+        "meta": "AUVD",
+        "title": "Art for Healing",
+        "text": "Music, painting, dance and storytelling create safe spaces where refugees process difficult experiences, improve mental well-being, rebuild confidence and strengthen social connections."
+      },
+      "readMore": "Read more →"
+    },
+    "visualArts": {
+      "alt": "Child exploring visual arts",
+      "title": "Visual Arts",
+      "p1": "This program uses <strong>visual arts</strong> as a powerful tool for self-expression, emotional healing, and personal development for refugees in Kakuma Refugee Camp. Through participatory activities such as <em>drawing, painting, and creative crafts</em>, participants are encouraged to explore their inner experiences and communicate thoughts and feelings that may be difficult to articulate through words alone.",
+      "p2": "<highlight>Art-making provides a safe, non-judgmental space where individuals can reflect, create, and connect with themselves and others.</highlight> Research shows that engaging in visual art can help individuals express emotions, build confidence, and improve emotional regulation and well-being."
+    },
+    "dance": {
+      "title": "Dance",
+      "description": "Through structured dance classes, participants develop physical fitness, coordination, and artistic expression. Dance also serves as a medium for cultural expression and emotional well-being. In an environment where many youth face stress, trauma, unemployment, and limited recreational opportunities, dance creates hope, inspiration, and a sense of belonging. AUVD uses dance not only as entertainment, but also as a pathway for empowerment, resilience, and community connection.",
+      "tagOne": "Move with purpose and Dance with confidence.",
+      "tagTwo": "Express yourself through dance and creativity.",
+      "tagThree": "Where talent meets opportunity.",
+      "tagFour": "Community dance"
+    },
+    "vocational": {
+      "altOne": "Tailoring and fashion design training",
+      "altTwo": "Cooking and catering training",
+      "title": "Vocational Education Training (VET)",
+      "paragraph": "Our Vocational Education and Training (VET) programs empower youth, women, and vulnerable community members with practical skills for self-reliance and personal development.",
+      "explore": "Explore more"
+    },
+    "impactStats": {
+      "alt": "AUVD community programs",
+      "title": "Our Impact",
+      "paragraph": "Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp",
+      "stats": {
+        "reached": {
+          "title": "Refugees Reached",
+          "info_one": "Children, youth, and adults empowered through our programs"
+        },
+        "programs": {
+          "title": "Core Programs",
+          "info_one": "Arts, Healing & Psychosocial Well-being",
+          "info_two": "Education, Youth Development & Empowerment",
+          "info_three": "Livelihoods & Women Economic Empowerment",
+          "info_four": "Peacebuilding & Community Inclusion",
+          "info_five": "Humanitarian Outreach & Basic Needs Support"
+        },
+        "trained": {
+          "title": "Youth Trained",
+          "info_one": "Equipped with creative and life skills"
+        },
+        "camps": {
+          "title": "Refugee Camp",
+          "info_one": "Serving Kakuma community with safe creative spaces"
+        }
+      }
+    },
+    "partners": {
+      "heading": "OUR PARTNERS:",
+      "subheading": "Trusted by Global Partners and Funders"
+    }
+  },
+  "about": {
+    "hero": {
+      "heading": "Creative empowerment for vulnerable communities in Kakuma.",
+      "paragraph": "Art and Unity for Vulnerable Development (AUVD) is a nonprofit community-based and refugee-led organization working in Kakuma Refugee Camp, Kenya. Since 2022, AUVD has supported refugees, women, youth, children, and persons with disabilities through arts, skills development, and inclusive community programs.",
+      "imageAlt": "Community gathering in Kakuma",
+      "factLabel": "Founded",
+      "factValue": "2022",
+      "factCaption": "Formally registered in 2025 to expand healing, education, and livelihoods support."
+    },
+    "missionVision": {
+      "missionLabel": "OUR MISSION",
+      "missionText": "Empower vulnerable communities through creative arts, inclusive education, psychosocial support and sustainable development opportunities.",
+      "visionLabel": "OUR VISION",
+      "images": {
+        "mission": "Mission",
+        "vision": "Vision"
+      },
+      "visionText": "A peaceful and inclusive community where vulnerable individuals thrive through art, education, dignity and sustainable livelihoods."
+    },
+    "whoWeAre": {
+      "label": "Who We Are",
+      "title": "Building hope through art, learning, and community action.",
+      "p1": "AUVD was established in response to the social and economic challenges faced by displaced and marginalized populations in Kakuma Refugee Camp and surrounding host communities. We believe art and creativity are powerful tools for healing, empowerment, education, and social transformation.",
+      "p2": "Through music, dance, visual arts, and community development programs, AUVD creates safe spaces where people can develop confidence, strengthen their well-being, and build pathways toward greater social and economic inclusion.",
+      "p3": "AUVD's leadership is led by <link>Samuel Asongo, Founder, Chairperson &amp; CEO</link>. Matayo Bilibwa serves as Vice Chairperson."
+    },
+    "leadership": {
+      "label": "Leadership",
+      "title": "AUVD leadership",
+      "samuelRole": "Founder | Chairperson &amp; Chief Executive Officer (CEO)",
+      "readProfile": "Read Samuel's profile",
+      "matayoRole": "Vice Chairperson"
+    },
+    "goal": {
+      "label": "Our Goal",
+      "title": "Resilient and empowered communities",
+      "p1": "Our goal is to create resilient and empowered vulnerable populations in Kakuma Refugee Camp and host communities by improving mental well-being, strengthening livelihood skills, and expanding opportunities for economic and social inclusion through arts-based training and community development programs.",
+      "p2": "AUVD remains committed to promoting dignity, creativity, equality, and peaceful coexistence among diverse communities."
+    },
+    "beneficiaries": {
+      "label": "Target Beneficiaries",
+      "galleryLabel": "AUVD beneficiary gallery",
+      "title": "Who We Serve",
+      "intro": "AUVD programs are designed to meet people where they are and strengthen dignity, healing, inclusion, and opportunity across the community.",
+      "list": [
+        "Refugees and displaced populations",
+        "Women and girls",
+        "Youth and children",
+        "Persons with disabilities",
+        "Host community members"
+      ],
+      "images": {
+        "one": "Community gathering in Kakuma",
+        "two": "Classroom learning activity",
+        "three": "Dance activity with youth",
+        "four": "Education support moment",
+        "five": "Students participating in education program",
+        "six": "Mental health and psychosocial support activity"
+      }
+    }
+  },
+  "ourStory": {
+    "hero": {
+      "label": "Started",
+      "heading": "vision of using creativity and art to bring hope.",
+      "paragraph": "Art and Unity for Vulnerable Development (AUVD) began from a simple vision: using creativity and art to bring hope, healing, and opportunity to vulnerable communities in Kakuma Refugee Camp.",
+      "button": "Explore The Journey",
+      "imageAlt": "AUVD community members gathered together",
+      "tagline": "Creativity, dignity, unity",
+      "factLabel": "Started",
+      "factValue": "2022",
+      "factCaption": "Founded by Samuel Asongo and shaped by refugee and host community youth in Kakuma."
+    },
+    "milestones": {
+      "one": "Grassroots initiative launched",
+      "two": "AUVD identity formalized",
+      "three": "Registered as CBO and RLO"
+    },
+    "origin": {
+      "alt": "Samuel Asongo, Founder, Chairperson and Chief Executive Officer of AUVD",
+      "eyebrow": "How It Started",
+      "title": "From one refugee musician's vision to a growing community movement.",
+      "p1": "The organization was founded by Samuel Asongo, a refugee from the Democratic Republic of Congo (DRC) who fled his home country because of war and conflict. After arriving in Kakuma Refugee Camp, Samuel continued pursuing his passion for creative arts, especially music. He was a musician, guitarist, and drummer who believed that art could help people heal from pain, trauma, and displacement.",
+      "p2": "In 2022, Samuel started a small initiative together with a group of young people from both refugee and host communities. At the beginning, the initiative focused on talent shows, storytelling, interviews, and community activities that highlighted the talents and experiences of artists and vulnerable youth in Kakuma. Through these activities, they discovered that many young people had creativity, skills, and powerful stories, but lacked opportunities and support.",
+      "founder": "Samuel Asongo",
+      "founderBio": "Samuel Asongo is AUVD's Founder, Chairperson and Chief Executive Officer (CEO). His experience as a refugee and musician shaped AUVD's mission of healing, dignity, and opportunity through art.",
+      "quote": "Art can help people heal from pain, trauma, and displacement."
+    },
+    "growth": {
+      "label": "Growth and Registration",
+      "title": "The initiative grew into AUVD.",
+      "p1": "As the initiative continued growing, it became more than just a talent platform. It evolved into a community movement focused on empowering vulnerable people through art, education, livelihood support, and community engagement. In 2024, the initiative officially became Art and Unity for Vulnerable Development (AUVD), and in 2025 it was formally registered as a Community-Based Organization (CBO) and Refugee-Led Organization (RLO) in Kenya.",
+      "p2": "Today, AUVD continues to grow by supporting vulnerable children, youth, women, and persons with disabilities through creative arts, education, livelihood programs, mentorship, and community development initiatives."
+    },
+    "today": {
+      "label": "Where We Are Today",
+      "title": "Building self-reliance and opportunity",
+      "p1": "The organization works to promote self-reliance and economic empowerment by providing skills development opportunities, creative training, and community-based programs that help vulnerable people improve their livelihoods and build a better future.",
+      "p2": "AUVD also continues to work with local and international partners to create safe spaces where people can express themselves, build confidence, learn new skills, strengthen peaceful coexistence, and contribute positively to their communities."
+    },
+    "partnership": {
+      "label": "Partnership Milestone",
+      "alt": "Donation support for AUVD community programs",
+      "title": "Support from Transylvanian Symphony Foundation helped AUVD expand.",
+      "p1": "One important milestone in AUVD's journey came in 2024 when Samuel reached out to the Transylvanian Symphony Foundation to request musical instruments for young artists in Kakuma. The organization generously donated several music instruments, becoming AUVD's first international partner. This support helped AUVD begin expanding its programs and empowering vulnerable communities through music and creative arts.",
+      "p2": "During this journey, Samuel also connected with Jeremy Rosado and Ron Ramsey from the Transylvanian Symphony Foundation in Oklahoma, USA, who showed kindness, encouragement, and continued support for AUVD's mission and programs."
+    },
+    "ahead": {
+      "label": "Looking Ahead",
+      "title": "Creativity can transform pain into hope.",
+      "p1": "AUVD believes that creativity can transform pain into hope, silence into powerful stories, and vulnerable communities into empowered communities. Through art, education, livelihoods, and unity, AUVD continues building opportunities and brighter futures for refugee and host communities in Kakuma."
+    },
+    "belief": {
+      "label": "Core Belief",
+      "title": "Building brighter futures through art, education, and livelihoods.",
+      "p1": "AUVD continues creating safe spaces for expression, confidence, learning, and peaceful coexistence across refugee and host communities."
+    }
+  },
+  "impact": {
+    "layout": {
+      "heading": "Impacts",
+      "navLabel": "Impact categories",
+      "nav": {
+        "all": "All",
+        "ourStory": "Our Story",
+        "news": "News",
+        "blogs": "Blogs",
+        "report": "Report"
+      }
+    },
+    "hero": {
+      "heading": "Our Impact",
+      "paragraph": "Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp",
+      "imageAlt": "Children and youth learning to play ukuleles and guitars with their teacher in Kakuma"
+    },
+    "stats": {
+      "reached": {
+        "label": "Refugees Reached",
+        "caption": "Children, youth, and adults empowered through our programs"
+      },
+      "programs": {
+        "label": "Core Programs",
+        "list_one": "Arts, Healing & Psychosocial Well-being",
+        "list_two": "Education, Youth Development & Empowerment",
+        "list_three": "Livelihoods & Women Economic Empowerment",
+        "list_four": "Peacebuilding & Community Inclusion",
+        "list_five": "Humanitarian Outreach & Basic Needs Support"
+      },
+      "trained": {
+        "label": "Youth Trained",
+        "caption": "Equipped with creative and life skills"
+      },
+      "camps": {
+        "label": "Refugee Camp",
+        "caption": "Serving Kakuma community with safe creative spaces"
+      }
+    },
+    "grid": {
+      "empty": "Nothing here yet.",
+      "learnMore": "Learn more",
+      "learnMoreLabel": "Learn more about the community music grant",
+      "categoryAll": "All",
+      "categoryNews": "News",
+      "categoryReport": "Report",
+      "weeksThisWeek": "This week",
+      "weeksAgo_one": "{{count}} week ago",
+      "weeksAgo_other": "{{count}} weeks ago",
+      "minRead_one": "{{count}} min read",
+      "minRead_other": "{{count}} min read"
+    },
+    "items": {
+      "one": {
+        "alt": "Foundation logo",
+        "date": "2026-08-13"
+      },
+      "two": {
+        "title": "Youth Peace Week workshops used music to build peace, healing, and opportunity.",
+        "metaDate": "October 2025",
+        "metaRead": 4,
+        "excerpt": "The workshops used music and creative arts to promote peacebuilding, mental well-being, education, and community empowerment among refugee and host community youth. Each event focused on a distinct global day, giving young people space to learn, perform, reflect, and connect through music. By blending music, conversation, and collective participation, the workshops created an environment where young people could engage deeply with peacebuilding themes while also growing in confidence and expression."
+      },
+      "three": {
+        "title": "Receiving music instruments through international partnership and support.",
+        "metaDate": "2025 Milestone",
+        "metaRead": 3,
+        "excerpt": "AUVD received music instruments through the support of the Transylvanian Symphony Foundation, helping expand access to music education for young artists in Kakuma. This support strengthened AUVD's music education work by placing real instruments into the hands of children and youth who were eager to learn, practice, and grow through creative expression. The initiative was also supported by Hungry for Music, whose mission of putting quality musical instruments into young hands aligns closely with AUVD's goal of building opportunity, confidence, and hope through music."
+      },
+      "four": {
+        "tag": "Community",
+        "title": "Music Reaches Every Corner",
+        "excerpt": "Dozens of children and youth gathered with their new instruments, from violins to keyboards, ready to start learning together."
+      },
+      "five": {
+        "tag": "First Notes",
+        "title": "A New Ukulele, A New Start",
+        "excerpt": "For many children, this was the first instrument they had ever held. Small moments like this build confidence and joy."
+      }
+    },
+    "report": {
+      "heading": "Report",
+      "noticeTitle": "Our report is under preparation",
+      "noticeTextBefore": "We have the report, but it has not yet been published on our website because we are updating the site. Our team is working to add it to this page. If you would like it in the meantime, please contact us by email at",
+      "noticeTextAfter": "and our team will send it to you for your review.",
+      "mailSubject": "Report request"
+    },
+    "all": {
+      "heroAlt": "Refugee supported by RefugePoint",
+      "heroTitle": "Investing <em> in Music.</em> Empowering Young People.",
+      "heroP1": "See how generous partners have helped bring hundreds of musical instruments to young people in Kakuma Refugee Camp.",
+      "heroP2": "More than 200 musical instruments. More opportunities to learn, create, and grow.",
+      "heroP3": "Today, these donations continue to support young musicians as they learn, practice, perform, and discover their talents through music. But the need continues. With your support, we can put more instruments into the hands of young people and expand access to quality music education in our community.",
+      "supportButton": "Support Our Work",
+      "sectionOne": {
+        "alt": "Young people learning and playing music in Kakuma",
+        "label": "OUR MUSIC JOURNEY || ||",
+        "titleBefore": "Music That",
+        "titleAfter": "Reached Kakuma",
+        "intro": "Every instrument can open a door to learning, creativity, confidence, and opportunity for a young person.",
+        "p1": "In 2025, AUVD received its first major donation of musical instruments from the <partner>Transylvanian Symphony Foundation</partner>. More than <figure>180 musical instruments</figure> reached Kakuma, including guitars, clarinets, saxophones, violins, a piano, and other instruments.",
+        "p2": "This donation helped establish and strengthen AUVD's <program>Music Education Program, giving young people in Kakuma greater access</program> to instruments and music training."
+      },
+      "sectionTwo": {
+        "alt": "Young people learning and playing music in Kakuma",
+        "label": "Continued Support || ||",
+        "titleBefore": "2025 — More Instruments",
+        "titleAfter": "Reached Kakuma",
+        "intro": "Later in 2025, through the support of the Transylvanian Symphony Foundation in partnership with Hungry for Music, AUVD received more than 25 additional musical instruments.",
+        "p": "These included pianos, guitars, and other instruments, <shipped>which were shipped to Kakuma to help expand</shipped> access to music education and <more>support more</more> young musicians."
+      }
+    }
+  },
+  "work": {
+    "hero": {
+      "heading": "AUVD Programs in Kakuma Refugee Camp",
+      "paragraph": "Art and Unity for Vulnerable Development (AUVD) works in Kakuma Refugee Camp by creating safe, practical, and inclusive programs that help children, youth, women, and vulnerable families heal, learn, grow skills, and participate fully in community life. Our approach combines arts, education, livelihood support, peacebuilding, and humanitarian outreach so that people can rebuild dignity, strengthen resilience, and access real opportunities for a better future.",
+      "imageAlt": "AUVD community members gathered together",
+      "links": {
+        "one": "Healing Through Creativity",
+        "two": "Education and Skills Access",
+        "three": "Community Dignity and Inclusion"
+      }
+    },
+    "programs": {
+      "kicker": "Our Programs",
+      "title": "Five program pillars guiding AUVD’s work in Kakuma",
+      "programsHeading": "Programs under this pillar",
+      "focusHeading": "Focus",
+      "pillars": {
+        "arts-healing": {
+          "title": "Arts, Healing & Psychosocial Well-being",
+          "intro": "This program focuses on emotional healing, creativity, and mental health support through arts-based approaches.",
+          "additionalPhoto": "additional photo {{count}}",
+          "actions_one": "Explore music",
+          "actions_two": "Explore dance",
+          "programs_one": "Creative Arts & Expression Program",
+          "programs_two": "Mental Health & Psychosocial Support (MHPSS) Program",
+          "focus_one": "Trauma healing through art",
+          "focus_two": "Emotional well-being and resilience",
+          "focus_three": "Safe spaces for expression",
+          "focus_four": "Creative talent development"
+        },
+        "education-youth": {
+          "title": "Education, Youth Development & Empowerment",
+          "intro": "This program focuses on learning, skills development, and preparing young people for the future.",
+          "action": "Explore more",
+          "additionalPhoto": "additional photo {{count}}",
+          "programs_one": "Youth Empowerment & Skills Development Program",
+          "programs_two": "Inclusive Education & After-School Support Program",
+          "focus_one": "Life skills and leadership development",
+          "focus_two": "Academic support for learners",
+          "focus_three": "Digital and vocational skills",
+          "focus_four": "Mentorship and career guidance"
+        },
+        "livelihoods-women": {
+          "title": "Livelihoods & Women Economic Empowerment",
+          "intro": "This program focuses on income generation, self-reliance, and women’s economic inclusion.",
+          "additionalPhoto": "additional photo {{count}}",
+          "programs_one": "Women’s Empowerment Program",
+          "programs_two": "Vocational Training & Livelihood Program",
+          "focus_one": "Entrepreneurship and small business development",
+          "focus_two": "Skills training (tailoring, catering, crafts, beauty)",
+          "focus_three": "Savings groups and financial literacy",
+          "focus_four": "Women’s leadership and independence"
+        },
+        "peacebuilding": {
+          "title": "Peacebuilding & Community Inclusion",
+          "intro": "This program promotes unity, coexistence, and community participation.",
+          "additionalPhoto": "additional photo {{count}}",
+          "programs_one": "Peacebuilding & Community Dialogue Program",
+          "programs_two": "Community Engagement & Inclusion Program",
+          "focus_one": "Conflict resolution and dialogue",
+          "focus_two": "Social cohesion between refugees and host communities",
+          "focus_three": "Community participation and awareness",
+          "focus_four": "Volunteerism and civic engagement"
+        },
+        "outreach-basic-needs": {
+          "title": "Humanitarian Outreach & Basic Needs Support",
+          "intro": "This program addresses urgent needs and supports dignity for vulnerable people.",
+          "action": "Explore more",
+          "additionalPhoto": "additional photo {{count}}",
+          "programs_one": "Outreach Program (Shoes Distribution in partnership with Because International)",
+          "focus_one": "Shoes distribution for children and vulnerable groups",
+          "focus_two": "School support and dignity enhancement",
+          "focus_three": "Emergency and basic needs assistance",
+          "focus_four": "Community-based outreach services"
+        }
+      }
+    }
+  },
+  "pricing": {
+    "hero": {
+      "label": "Education Program",
+      "heading": "Inclusive Learning for All",
+      "paragraph": "We support inclusive and quality learning for vulnerable children and youth in Kakuma Refugee Camp and nearby host communities. Through education, creativity, and community support, we help reduce dropout rates and improve learning outcomes for all.",
+      "imageAlt": "Children learning in a classroom"
+    },
+    "focusAreas": {
+      "label": "Focus Areas",
+      "title": "How AUVD strengthens education access",
+      "intro": "We work closely with learners, families, schools, and communities to remove barriers to education and help children and youth build both academic and life skills.",
+      "items": {
+        "one": {
+          "title": "Access to Learning",
+          "description": "We focus on making education more accessible for children and young people who face barriers to learning, including those out of school or at risk of dropping out."
+        },
+        "two": {
+          "title": "Girls' Education & Retention",
+          "description": "We support girls to stay in school by addressing challenges such as early marriage, poverty, and limited learning support."
+        },
+        "three": {
+          "title": "Boys' Learning & Participation",
+          "description": "We help boys stay engaged in school and improve their academic performance through mentorship, guidance, and positive participation."
+        },
+        "four": {
+          "title": "Safe & Inclusive Learning Spaces",
+          "description": "We work to create safe, welcoming, and inclusive spaces for all learners, including children with disabilities."
+        },
+        "five": {
+          "title": "Reducing Dropout Rates",
+          "description": "We identify learners at risk of dropping out and provide support to help them remain in school or successfully return."
+        },
+        "six": {
+          "title": "Community-Based Education",
+          "description": "We involve parents, teachers, and local leaders to build stronger community support systems around education."
+        }
+      }
+    },
+    "approach": {
+      "label": "Our Approach",
+      "title": "Our Approach",
+      "intro": "We deliver our programs through:",
+      "items": [
+        "Community learning spaces",
+        "Creative learning through drama, music, storytelling, and art",
+        "Mentorship and peer learning",
+        "Partnerships with schools and community leaders",
+        "Youth-led education activities"
+      ]
+    },
+    "impact": {
+      "label": "Expected Impact",
+      "title": "Expected Impact",
+      "imageAlt": "African school girls studying with books",
+      "items": [
+        "More children staying in school",
+        "Lower dropout rates",
+        "Better learning outcomes",
+        "Safer and more inclusive schools",
+        "Stronger community support for education"
+      ]
+    }
+  },
+  "events": {
+    "hero": {
+      "heading": "Partnership for Impact: Music Across Youth Peace Week",
+      "paragraph": "Art and Unity for Vulnerable Development (AUVD), in partnership with F2F Music Foundation, UnityNet International, Andrew Network - AHIAGBA TV, and Transylvanian Symphony Foundation, successfully delivered three impactful workshops during Youth Peace Week in Kakuma Refugee Camp.",
+      "imageAlt": "Participants during the World Mental Health Day workshop in a large featured moment"
+    },
+    "overview": {
+      "label": "Overview",
+      "alt": "Youth Peace Week participants gathered in a music and peacebuilding session",
+      "title": "Youth Peace Week workshops used music to build peace, healing, and opportunity.",
+      "p1": "The workshops used music and creative arts to promote peacebuilding, mental well-being, education, and community empowerment among refugee and host community youth.",
+      "p2": "Each event focused on a distinct global day, giving young people space to learn, perform, reflect, and connect through music."
+    },
+    "workshops": {
+      "one": {
+        "title": "World Teachers' Day",
+        "theme": "The Joy Within Music",
+        "alt": "Muziki image for World Teachers' Day",
+        "posterHeadline": "Celebrate teachers through music, gratitude, and community voices.",
+        "posterDetails": "Live performances, appreciation, and creative expression in Kakuma Refugee Camp.",
+        "description": "Students honored teachers and mentors through music performances celebrating guidance, appreciation, and education."
+      },
+      "two": {
+        "title": "World Mental Health Day",
+        "theme": "The Power Within Music",
+        "description": "This workshop focused on how music supports emotional healing, resilience, and mental well-being.",
+        "gallery": {
+          "one": "Participants during the World Mental Health Day workshop in a large featured moment",
+          "two": "Participants during the World Mental Health Day music workshop",
+          "three": "Young people taking part in a music and wellness session",
+          "four": "Workshop moment focused on healing, resilience, and well-being",
+          "five": "Sharmante during the World Mental Health Day music workshop"
+        }
+      },
+      "three": {
+        "title": "World Food Day",
+        "theme": "The Peace of God Within Music",
+        "alt": "Participants exploring music and art conversations around hope and livelihoods",
+        "description": "Participants explored how art and music can inspire hope, dignity, and conversations around food security and livelihoods."
+      }
+    },
+    "impact": {
+      "label": "Impact Created",
+      "title": "What the partnership made possible",
+      "points_one": "188 students from refugee and host communities participated in the workshops.",
+      "points_two": "Young refugee artists gained international online visibility.",
+      "points_three": "The workshops connected music with education, mental health, peacebuilding, and livelihoods.",
+      "points_four": "The partnership strengthened collaboration between local and international organizations.",
+      "p1": "Through this initiative, AUVD demonstrated that music is more than entertainment. It is a powerful tool for healing, unity, and positive social change within vulnerable communities.",
+      "p2": "We sincerely thank all our partners for believing in the talent, creativity, and potential of young people in Kakuma Refugee Camp.",
+      "quote": "\"This is what unity sounds like.\""
+    }
+  },
+  "blogs": {
+    "hero": {
+      "title": "Stories of Creativity, Hope & Impact",
+      "intro": "Discover stories from AUVD’s work in Kakuma and beyond. Explore moments of creativity, music, peacebuilding, education, and community empowerment—and see how art and opportunity are helping children and young people build confidence, connection, and a brighter future.",
+      "viewAll": "View All"
+    },
+    "carousel": {
+      "label": "Carousel controls",
+      "previous": "Previous",
+      "next": "Next",
+      "previousAlt": "Previous stories",
+      "nextAlt": "Next stories"
+    },
+    "stories": {
+      "one": {
+        "title": "Youth Peace Week workshops used music to build peace, healing, and opportunity.",
+        "description": "The workshops used music and creative arts to promote peacebuilding, mental well-being, education, and community empowerment among refugee and host community youth. Each event focused on a distinct global day, giving young people space to learn, perform, reflect, and connect through music. By blending music, conversation, and collective participation, the workshops created an environment where young people could engage deeply with peacebuilding themes while also growing in confidence and expression.",
+        "alt": "Young people participating in Youth Peace Week workshops"
+      },
+      "two": {
+        "title": "Receiving music instruments through international partnership and support.",
+        "description": "AUVD received music instruments through the support of the Transylvanian Symphony Foundation, helping expand access to music education for young artists in Kakuma. This support strengthened AUVD's music education work by placing real instruments into the hands of children and youth who were eager to learn, practice, and grow through creative expression. The initiative was also supported by Hungry for Music, whose mission of putting quality musical instruments into young hands aligns closely with AUVD's goal of building opportunity, confidence, and hope through music.",
+        "alt": "Musical instruments donated to AUVD"
+      },
+      "three": {
+        "title": "Music Reaches Every Corner",
+        "description": "Dozens of children and youth gathered with their new instruments, from violins to keyboards, ready to start learning together.",
+        "alt": "Young musician learning to play violin"
+      },
+      "four": {
+        "title": "A New Ukulele, A New Start",
+        "description": "For many children, this was the first instrument they had ever held. Small moments like this build confidence and joy.",
+        "alt": "Child exploring a newly donated instrument"
+      }
+    }
+  },
+  "portfolio": {
+    "hero": {
+      "label": "Outreach Program",
+      "eyebrowBefore": "AUVD",
+      "eyebrowAfter": "Kakuma Refugee Camp",
+      "title": "Shoes Distribution Program",
+      "p1": "At AUVD, we believe every child deserves to walk safely, attend school with confidence, and live with dignity. Through our Shoes Distribution Program, we provide safe and proper footwear to vulnerable children and families in Kakuma Refugee Camp, helping improve protection, school attendance, health, and overall well-being.",
+      "p2": "Your support helps AUVD coordinate shoe distribution activities, outreach, transportation, and logistics to ensure shoes reach vulnerable children and families safely and effectively.",
+      "donate": "Donate",
+      "summaryFocus": "Focus",
+      "summaryFocusValue": "Protection, dignity, and school participation",
+      "summaryApproach": "Approach",
+      "summaryApproachValue": "Distribution, outreach, and community partnership",
+      "metricOne": "Safe footwear for children and families most at risk.",
+      "metricTwo": "Improved school attendance, health, and daily confidence."
+    },
+    "coreImpact": {
+      "label": "Core impact",
+      "title": "Designed around what children need most",
+      "items": {
+        "one": {
+          "title": "Protection",
+          "text": "Proper footwear helps protect children from injuries, infections, and harsh walking conditions within schools, homes, and community spaces."
+        },
+        "two": {
+          "title": "Education",
+          "text": "With safe and comfortable shoes, children are better able to attend school regularly, participate confidently, and focus on learning."
+        },
+        "three": {
+          "title": "Health & Well-Being",
+          "text": "The program contributes to child protection, personal dignity, health, and daily well-being for children and youth across the camp."
+        }
+      }
+    },
+    "whyMatters": {
+      "label": "Why This Program Matters",
+      "title": "Restoring dignity through practical support",
+      "p1": "We partner with Because International, with AUVD serving as a distributor in Kakuma Refugee Camp. Because International donates Shoes That Grow, and together we support children and families who lack proper footwear, helping improve safety, dignity, and access to education.",
+      "p2": "Many children in Kakuma walk long distances every day without shoes, exposing them to injuries, health risks, and challenges attending school comfortably. Through this program, AUVD seeks to restore confidence, protection, and hope while supporting children to live healthier and safer lives.",
+      "listOneTitle": "Partnership &amp; Community Collaboration",
+      "listOneP1": "Because International donates Shoes That Grow, while AUVD helps distribute them to vulnerable children and families in Kakuma Refugee Camp alongside other supporting partners.",
+      "listOneP2": "Through partnership, we strengthen outreach efforts, improve distribution capacity, and increase support for vulnerable children and families.",
+      "listTwoTitle": "Partnership value",
+      "listTwoP1": "Stronger logistics, better coordination, and wider support for families who need help most."
+    },
+    "support": {
+      "label": "The program supports",
+      "title": "Support that reaches both children and the wider community",
+      "items": {
+        "one": {
+          "title": "Vulnerable Children & Families",
+          "text": "The program prioritizes children and households most in need of safe and proper footwear support."
+        },
+        "two": {
+          "title": "School Attendance & Participation",
+          "text": "Children are better able to attend school comfortably, move confidently, and participate fully in daily activities."
+        },
+        "three": {
+          "title": "Health, Protection & Dignity",
+          "text": "Proper footwear strengthens protection, reduces health risks, and promotes dignity and well-being among children and youth."
+        },
+        "four": {
+          "title": "Community Empowerment",
+          "text": "The initiative encourages collaboration, trust, and community participation in supporting vulnerable families."
+        }
+      }
+    },
+    "getInvolved": {
+      "label": "Get Involved",
+      "title": "There are practical ways to create lasting impact",
+      "intro": "There are many ways individuals, organizations, and partners can support this program and create lasting impact in the community.",
+      "items": {
+        "one": {
+          "title": "Partner with AUVD",
+          "text": "Collaborate with AUVD to strengthen the implementation, outreach, and long-term sustainability of the Shoes Distribution Program."
+        },
+        "two": {
+          "title": "Support Distribution Activities",
+          "text": "Help expand logistics, transportation, community outreach, and shoe distribution efforts across Kakuma Refugee Camp."
+        },
+        "three": {
+          "title": "Volunteer in Community Outreach",
+          "text": "Contribute your time, skills, and experience to support community engagement and outreach activities."
+        },
+        "four": {
+          "title": "Donate for Impact",
+          "text": "Your support helps provide dignity, safety, comfort, and hope to vulnerable children and families through access to proper footwear."
+        }
+      },
+      "volunteerLabel": "Volunteer With Us",
+      "volunteerTitle": "If you want to volunteer with us, send an expression of interest by email.",
+      "volunteerTextBefore": "Email us at",
+      "volunteerTextAfter": "and one of our team members will get back to you within four days.",
+      "sendExpression": "Send expression of interest"
+    }
+  },
+  "contact": {
+    "hero": {
+      "label": "Contact Us",
+      "heading": "Partnership Inquiry Form",
+      "paragraph": "We invite organizations, foundations, donors, and partners who share our vision of empowering vulnerable communities to collaborate with AUVD in creating meaningful and lasting impact in Kakuma Refugee Camp and surrounding host communities."
+    },
+    "intro": {
+      "note": "<blueOne>For individuals who wish to connect with AUVD,</blueOne> please reach out via email <blueTwo>at artandunityforvulnerable.org@gmail.com. We will get back to you within 48 hours.</blueTwo>",
+      "storyOne": "<lead>We</lead> invite organizations, foundations, donors, and partners who share our vision of empowering vulnerable communities to collaborate with AUVD in creating meaningful and lasting impact in Kakuma Refugee Camp and surrounding host communities.",
+      "storyTwo": "Through partnership and support, AUVD can expand its programs in creative arts, mental health and psychosocial support, youth empowerment, education, women&apos;s empowerment, livelihood development, peacebuilding, and humanitarian outreach initiatives such as shoes distribution programs implemented in partnership with Because International.",
+      "storyThree": "Your collaboration will help us create safe, inclusive, and empowering spaces where refugees, women, youth, children, and persons with disabilities can express themselves, develop skills, strengthen resilience, and access opportunities for personal and community growth.",
+      "storyFour": "Together, we can promote dignity, creativity, peaceful coexistence, and sustainable development while transforming lives through community-driven solutions.",
+      "storyFive": "We welcome opportunities to work together in building stronger, more resilient, and empowered communities."
+    },
+    "methods": {
+      "label": "AUVD contact information",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "locationValue": "Kakuma Refugee Camp, Kenya",
+      "locationLabel": "AUVD location"
+    },
+    "mapTitle": "Map showing Art and Unity for Vulnerable Development in Kakuma Refugee Camp",
+    "form": {
+      "eyebrow": "Contact Us",
+      "title": "Partner With AUVD",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "yourname@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Tell us what you would like to discuss",
+      "message": "Message",
+      "messagePlaceholder": "Type your message here...",
+      "messageNote": "Share your partnership idea, support request, or collaboration message.",
+      "sending": "Sending Message...",
+      "send": "Send Message",
+      "errors": {
+        "fullName": "Full name is required.",
+        "emailRequired": "Email address is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "subject": "Subject is required.",
+        "messageRequired": "Message is required.",
+        "messageShort": "Message should be at least 20 characters.",
+        "formInvalid": "Please complete the form correctly before sending.",
+        "sendFailed": "Your message could not be sent right now. Please try again.",
+        "htmlResponse": "The contact form returned an unexpected HTML response. Please check the form service configuration and try again.",
+        "success": "Message sent successfully. We will get back to you soon."
+      }
+    }
+  },
+  "donate": {
+    "hero": {
+      "label": "AUVD donation highlights",
+      "title": "Support creativity, education, and unity in Kakuma.",
+      "text": "Your giving helps AUVD keep building safe, inspiring spaces for art, learning, and community support."
+    },
+    "main": {
+      "title": "Give with confidence through a professional and verified donation process.",
+      "text": "Your bank donation helps AUVD continue community programs in arts, education, psychosocial support, skills development, and humanitarian support for vulnerable communities in Kakuma Refugee Camp.",
+      "trust_one": "Official AUVD bank account",
+      "trust_two": "Donation confirmed by email",
+      "trust_three": "Secure bank-transfer giving",
+      "cards": {
+        "one": {
+          "title": "Transparent giving",
+          "text": "Every donation can be confirmed using the donor name, amount, and transaction reference so the AUVD team can verify support clearly."
+        },
+        "two": {
+          "title": "Direct community impact",
+          "text": "Your support helps sustain arts healing, education, youth development, and outreach work in Kakuma Refugee Camp."
+        },
+        "three": {
+          "title": "Professional follow-up",
+          "text": "Once the donor emails the donation details, the organization can review the details and follow up where verification is needed."
+        }
+      }
+    },
+    "bank": {
+      "label": "Official Bank Details",
+      "title": "Donate by Bank Account",
+      "bankLabel": "Bank",
+      "accountNameLabel": "Account Name",
+      "accountNumberLabel": "Account Number",
+      "hideNumber": "Hide Number",
+      "showNumber": "Show Full Number",
+      "copyNumber": "Copy Account Number",
+      "copySuccess": "Account number copied successfully!",
+      "copyFailed": "Copy failed."
+    },
+    "process": {
+      "label": "How To Donate",
+      "title": "Three simple steps",
+      "steps_one": "Transfer your donation to the official AUVD Equity Bank account.",
+      "steps_two": "Keep your transaction reference after the bank deposit or transfer.",
+      "steps_three": "Email the donor details to AUVD so the team can record your support."
+    },
+    "confirmation": {
+      "label": "Donation Confirmation",
+      "title": "Confirm Your Donation By Email",
+      "subtitle": "After sending your donation through the bank account above, the donor can email {email} so AUVD can review and record the contribution professionally.",
+      "alert": "To confirm the donation, send the donor name, donation amount, and transaction reference to {email}.",
+      "noteOne": "Please make sure the donor name, amount, and transaction reference match the bank transfer.",
+      "noteTwo": "Donation confirmation email: {email}."
+    }
+  },
+  "team": {
+    "label": "Leadership",
+    "title": "Leadership Team",
+    "intro": "AUVD is led by community organizers committed to dignity, accountability, and practical support for vulnerable communities in Kakuma.",
+    "sectionLabel": "Leadership Team",
+    "sectionText": "This leadership team provides direction, accountability, and day-to-day coordination for AUVD programs.",
+    "supportKicker": "Members &amp; Volunteers",
+    "supportTitle": "Support Team",
+    "supportText": "Additional members and volunteers who support AUVD programs and community work.",
+    "viewProfile": "View Samuel Asongo's profile",
+    "viewPortfolio": "View Portfolio",
+    "roles": {
+      "founder": "Founder | Chairperson &amp; Chief Executive Officer (CEO)",
+      "viceChairperson": "Vice Chairperson",
+      "treasurer": "Treasurer",
+      "secretary": "Secretary",
+      "viceSecretary": "Vice Secretary",
+      "logistics": "Logistics Coordinator",
+      "member": "Member",
+      "volunteer": "Volunteer"
+    }
+  },
+  "samuel": {
+    "title": "Samuel Asongo – Founder, Chairperson &amp; CEO | AUVD",
+    "description": "Samuel Asongo is the Founder, Chairperson and Chief Executive Officer (CEO) of Art and Unity for Vulnerable Development (AUVD), a refugee-led organization based in Kakuma Refugee Camp, Kenya.",
+    "label": "AUVD Leadership",
+    "heading": "Samuel Asongo – Founder, Chairperson &amp; Chief Executive Officer (CEO) of AUVD",
+    "intro": "Samuel Asongo is the Founder, Chairperson and Chief Executive Officer (CEO) of Art and Unity for Vulnerable Development (AUVD), a refugee-led organization working with refugees, youth, women, children and vulnerable communities in Kakuma Refugee Camp, Kenya.",
+    "alt": "Samuel Asongo, Founder, Chairperson and Chief Executive Officer of AUVD",
+    "profileTitle": "AUVD founder and organizational leader",
+    "p1": "Samuel founded the initiative that became Art and Unity for Vulnerable Development (AUVD) in Kakuma Refugee Camp. His experience as a refugee and musician shaped the organization&apos;s mission of using creativity and art to support healing, dignity, and opportunity.",
+    "p2": "AUVD began in 2022 and formally registered as a Community-Based Organization and Refugee-Led Organization in Kenya in 2025. The organization works through arts, education, youth development, livelihoods, and inclusive community programs.",
+    "roleLabel": "Official role:",
+    "roleValue": "Founder | Chairperson &amp; Chief Executive Officer (CEO)",
+    "meetTeam": "Meet the AUVD leadership team",
+    "readStory": "Read AUVD&apos;s story"
+  },
+  "grant": {
+    "date": "August 15, 2026",
+    "location": "Kakuma Refugee Camp, Kenya",
+    "title": "AUVD RECEIVES A COMMUNITY MUSIC GRANT FROM THE D’ADDARIO FOUNDATION",
+    "alt": "AUVD music education program in Kakuma Refugee Camp",
+    "p1": "Art and Unity for Vulnerable Development (AUVD) is delighted to announce that we have been selected to receive a Community Music Grant from the D’Addario Foundation. This support is an important milestone for our organization and our Music Education Program in Kakuma Refugee Camp, Kenya.",
+    "p2": "The grant will help support our efforts to create more opportunities for young people to learn, develop their talents, and express themselves through music. We are deeply grateful to the D’Addario Foundation for believing in our work and supporting our commitment to expanding access to music education in our community.",
+    "label": "\"THANK YOU, D’ADDARIO FOUNDATION\"|| || ||",
+    "titleBefore": "GRANT IMPACT",
+    "titleAfter": "HIGHLIGHT",
+    "amountOne": "Cash Grant",
+    "amountOneConnector": "and",
+    "amountTwo": "In-Kind Music Products",
+    "totalOne": "\" $2,000 Total \"",
+    "totalTwo": "Grant Support",
+    "quoteOne": "\"At AUVD, we believe that every young person deserves an opportunity to be seen, heard, and supported.\"",
+    "quoteTwo": "\"We extend our heartfelt appreciation to the D’Addario Foundation for believing in AUVD and supporting our commitment to expanding access to music education.\"",
+    "quoteThree": "\"Your support is not simply funding a program. You are investing in young people, their creativity, their confidence, and their dreams.\"",
+    "imageAlt": "AUVD Grant from D'Addario Foundation"
+  },
+  "music": {
+    "title": "Music Education & Instrument Training",
+    "eyebrow": "Creative Learning",
+    "summary": "We provide comprehensive music training for children and adults, helping participants build artistic skills, discipline, confidence, and self-expression through instrumental and vocal practice.",
+    "join": "Join the Program",
+    "heroAlt": "Young participant in AUVD music education",
+    "activitiesTitle": "Activities Include",
+    "activitiesAlt": "AUVD music activities session",
+    "activities": {
+      "one": "Vocal training, including singing techniques, voice control, and performance skills.",
+      "two": "Guitar classes for children and adults.",
+      "three": "Piano lessons for beginners and developing learners.",
+      "four": "Ukulele training designed for children.",
+      "five": "Instrument instruction covering bass, rhythm, and solo guitar."
+    },
+    "impactTitle": "Impact",
+    "impactText": "Participants build confidence, strengthen emotional expression, and develop practical musical skills that can lead to performance, leadership, and income opportunities.",
+    "altOne": "AUVD participant during a music session",
+    "altTwo": "AUVD music training activity",
+    "altThree": "AUVD violin practice session",
+    "altFour": "AUVD youth music activity",
+    "altFive": "AUVD music participant performance moment"
+  },
+  "danceProgram": {
+    "description": "Through Art for Healing Program, We uses dance and movement as a powerful form of non-verbal expression to support emotional healing, physical well-being, and social connection among refugees in Kakuma Refugee Camp.",
+    "eyebrow": "Art for Healing Program",
+    "title": "Dance",
+    "button": "Community Dance",
+    "activitiesTitle": "Activities include:",
+    "activities": {
+      "one": "Traditional and contemporary dance",
+      "two": "Creative movement and expression",
+      "three": "Group choreography and performances",
+      "four": "Safer and more inclusive schools",
+      "five": "Cultural dance exchange and community showcases"
+    },
+    "bannerAlt": "Chezacheza team",
+    "programTitle": "Dance Training Program",
+    "programP1": "Dance Training Program is a 3-month creative and empowerment initiative designed to support children and youth in Kakuma Refugee Camp through dance, artistic expression, and personal development.",
+    "programP2": "The program provides participants with a safe and inclusive environment where they can develop their talents, improve physical fitness, build confidence, and strengthen teamwork and social interaction skills. Through dance and movement, participants are encouraged to express themselves creatively while promoting emotional well-being and cultural exchange.",
+    "programP3": "The program runs for 3 months, giving participants consistent time to learn, practice, grow in confidence, and engage in performance activities throughout the training period.",
+    "programP4": "The Dance Training Program also creates opportunities for young people to showcase their talents through community performances, creative events, and cultural activities that promote unity and positive community engagement in Kakuma Refugee Camp.",
+    "subtitle": "3-Month Dance Training Program",
+    "durationLabel": "Program Duration:",
+    "durationValue": "3 Months",
+    "locationLabel": "Location:",
+    "locationValue": "Kakuma Refugee Camp, Kenya",
+    "join": "Join the Program",
+    "closing": "Join AUVD&apos;s Dance Program and become part of a creative space where talent, confidence, and opportunity grow together.",
+    "videoLabel": "Dance program video",
+    "videoFallback": "Your browser does not support the video tag.",
+    "featureAlt": "Modern dance",
+    "featureCaption": "Dance is more than performance it is a pathway to confidence, creativity, unity, and opportunity for young people in Kakuma Refugee Camp"
+  },
+  "vocational": {
+    "hero": {
+      "label": "Artist Submissions",
+      "heading": "Artist submission form",
+      "paragraph": "Share your talent professionally with AUVD. This form is designed for artists in Kakuma Refugee Camp to submit music, visual art, dance, poetry, drama, crafts, and other creative work.",
+      "imageAlt": "Artists showcasing their talent at AUVD"
+    },
+    "theme": {
+      "label": "Submission page settings",
+      "settingsLabel": "Page Settings",
+      "title": "Choose Theme Color",
+      "options": {
+        "blue": "Blue",
+        "green": "Green",
+        "orange": "Orange",
+        "purple": "Purple",
+        "pink": "Pink",
+        "default": "Default"
+      }
+    },
+    "guidelines": {
+      "label": "Submission Guidelines",
+      "title": "Submit your talent in a professional way",
+      "badge": "Submission Guidelines",
+      "text": "Share your creativity with us. This platform is for artists in Kakuma Refugee Camp to showcase their talent in music, visual arts, dance, and other creative expressions.",
+      "noticeLabel": "NB:",
+      "notice": "We will only review submissions when opportunities are officially announced on our social media platforms. Please submit your work after following our official updates and announcements."
+    },
+    "form": {
+      "title": "Submit Your Talent",
+      "subtitle": "Complete the form below carefully. Our team will review the information and contact selected applicants.",
+      "highlight": "Share your strongest work clearly and professionally. Add correct details, a good artwork title, and valid links so our team can review your creativity properly.",
+      "fields": {
+        "artistName": "Full Name / Artist Name",
+        "artistNamePlaceholder": "Enter your full name or artist name",
+        "age": "Age",
+        "agePlaceholder": "Age (Optional)",
+        "gender": "Gender",
+        "genderPlaceholder": "Gender (Optional)",
+        "phone": "Phone Number",
+        "phonePlaceholder": "Phone Number",
+        "email": "Email Address",
+        "emailPlaceholder": "Email Address",
+        "confirmEmail": "Confirm Email Address",
+        "confirmEmailPlaceholder": "Confirm Email Address",
+        "location": "Location",
+        "locationPlaceholder": "Location (Kakuma Block / Country)",
+        "artTitle": "Title of Your Talent or Work",
+        "artTitlePlaceholder": "Title of Your Talent or Work",
+        "socialHandle": "Social Media Handle",
+        "socialHandlePlaceholder": "Social Media Handle (Optional)",
+        "artCategory": "Select Art Category",
+        "artCategoryPlaceholder": "Select Art Category",
+        "artDescription": "Describe Your Talent or Artwork",
+        "artDescriptionPlaceholder": "Describe your talent or artwork...",
+        "artistStory": "Your Story as an Artist",
+        "artistStoryPlaceholder": "Tell us your story as an artist (optional but recommended)",
+        "portfolioLink": "Your Portfolio / Instagram / YouTube Link",
+        "portfolioLinkPlaceholder": "Your Portfolio / Instagram / YouTube Link",
+        "artworkLink": "Link to Your Artwork",
+        "artworkLinkPlaceholder": "Link to your artwork (Google Drive / Video / Audio)",
+        "artworkLinkNote": "Only a valid link URL is accepted for artwork review.",
+        "experienceLevel": "Experience Level",
+        "experienceLevelPlaceholder": "Experience Level",
+        "message": "Additional Message or Request",
+        "messagePlaceholder": "Any additional message or request..."
+      },
+      "options": {
+        "artCategory": {
+          "placeholder": "Select Art Category",
+          "music": "Music",
+          "dance": "Dance",
+          "visualArt": "Visual Art",
+          "poetry": "Poetry",
+          "drama": "Drama / Acting",
+          "crafts": "Crafts",
+          "fashion": "Fashion / Design",
+          "storytelling": "Storytelling",
+          "other": "Other"
+        },
+        "experienceLevel": {
+          "placeholder": "Experience Level",
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "professional": "Professional"
+        }
+      },
+      "emailBody": {
+        "title": "Artist Submission Details",
+        "notApplicable": "N/A",
+        "reviewConfirmation": "Review Confirmation",
+        "yes": "Yes",
+        "no": "No",
+        "robotConfirmation": "Robot Confirmation",
+        "confirmed": "Confirmed",
+        "notConfirmed": "Not confirmed"
+      },
+      "emailSubject": "New AUVD artist submission",
+      "consentReview": "I confirm that this submission is complete and ready for AUVD review.",
+      "consentRobot": "Confirm that you are not a robot.",
+      "submitting": "Submitting...",
+      "submit": "Submit Your Art",
+      "errors": {
+        "artistName": "Full name or artist name is required.",
+        "age": "Age must be a number only.",
+        "phone": "Phone number is required.",
+        "emailRequired": "Email address is required.",
+        "emailInvalid": "Enter a valid email address.",
+        "confirmEmailRequired": "Please confirm your email address.",
+        "confirmEmailMatch": "Email addresses must match.",
+        "location": "Location is required.",
+        "artTitle": "Title of your talent or work is required.",
+        "artCategory": "Please select an art category.",
+        "artDescription": "Describe your talent or artwork.",
+        "portfolioLink": "Portfolio link must be a valid http or https URL.",
+        "artworkLinkRequired": "A link to your artwork is required.",
+        "artworkLink": "Artwork link must be a valid http or https URL.",
+        "experienceLevel": "Please choose your experience level.",
+        "agreeToReview": "You must confirm your information before submitting.",
+        "confirmNotRobot": "Please confirm that you are not a robot.",
+        "formInvalid": "Please complete the form correctly before submitting.",
+        "sendFailed": "Your submission could not be sent right now. Please try again in a moment.",
+        "htmlResponse": "The submission service returned an unexpected response. Please try again in a moment.",
+        "success": "Thank you for your submission. Our team will review it and will get back at you only if you have been selected. Thank you."
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found | AUVD",
+    "heading": "Page not found",
+    "text": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "meta": {
+    "default": {
+      "title": "Art and Unity for Vulnerable Development (AUVD) | Samuel Asongo – Founder, Chairperson & CEO",
+      "description": "Art and Unity for Vulnerable Development (AUVD) is a refugee-led, community-based organization in Kakuma Refugee Camp, Kenya. Samuel Asongo is AUVD's Founder, Chairperson and Chief Executive Officer (CEO)."
+    },
+    "pages": {
+      "home": {
+        "path": "/",
+        "title": "Art and Unity for Vulnerable Development (AUVD) | Samuel Asongo – Founder, Chairperson & CEO",
+        "description": "Art and Unity for Vulnerable Development (AUVD) is a refugee-led, community-based organization in Kakuma Refugee Camp, Kenya. Samuel Asongo is AUVD's Founder, Chairperson and Chief Executive Officer (CEO)."
+      },
+      "about": {
+        "path": "/about",
+        "title": "About Us | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Mission, vision, and overview of Art and Unity for Vulnerable Development (AUVD), a nonprofit community-based and refugee-led organization in Kakuma Refugee Camp, Kenya."
+      },
+      "ourStory": {
+        "path": "/our-impact/our-story",
+        "title": "Our Story | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "How Art and Unity for Vulnerable Development (AUVD) began, from one refugee musician's vision to a growing community movement in Kakuma."
+      },
+      "team": {
+        "path": "/about/team",
+        "title": "Leadership Team | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Meet the AUVD leadership team, including Samuel Asongo and Matayo Bilibwa."
+      },
+      "samuel": {
+        "path": "/about/samuel-asongo",
+        "title": "Samuel Asongo – Founder, Chairperson & CEO | AUVD",
+        "description": "Samuel Asongo is the Founder, Chairperson and Chief Executive Officer (CEO) of Art and Unity for Vulnerable Development (AUVD), a refugee-led organization based in Kakuma Refugee Camp, Kenya."
+      },
+      "work": {
+        "path": "/work",
+        "title": "Our Work | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "AUVD Programs in Kakuma Refugee Camp: arts, education, livelihood support, peacebuilding, and humanitarian outreach."
+      },
+      "events": {
+        "path": "/events",
+        "title": "Events | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Youth Peace Week, music workshops, and recent events by Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "blogs": {
+        "path": "/our-impact/blogs",
+        "title": "Blogs | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Stories of creativity, hope and impact from Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "portfolio": {
+        "path": "/portfolio",
+        "title": "Shoes Distribution Program | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "The AUVD Shoes Distribution Program provides safe and proper footwear to vulnerable children and families in Kakuma Refugee Camp."
+      },
+      "pricing": {
+        "path": "/pricing",
+        "title": "Education | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Inclusive and quality learning for vulnerable children and youth in Kakuma Refugee Camp and nearby host communities."
+      },
+      "ourImpact": {
+        "path": "/our-impact",
+        "title": "Our Impact | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp."
+      },
+      "news": {
+        "path": "/our-impact/news",
+        "title": "Impact News | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Latest news and updates from Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "report": {
+        "path": "/our-impact/report",
+        "title": "Impact Reports | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Annual and project reports published by Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "donate": {
+        "path": "/donate",
+        "title": "Donate | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Support Art and Unity for Vulnerable Development (AUVD) through a professional and verified donation process."
+      },
+      "contact": {
+        "path": "/contact",
+        "title": "Contact | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Get in touch with Art and Unity for Vulnerable Development (AUVD) in Kakuma Refugee Camp, Kenya."
+      },
+      "dance": {
+        "path": "/dance",
+        "title": "Dance Program | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Dance activities and the creative movement program of Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "music": {
+        "path": "/music",
+        "title": "Music Program | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Music training, learning, and performance programs by Art and Unity for Vulnerable Development (AUVD)."
+      },
+      "vocational": {
+        "path": "/vocational",
+        "title": "Artist Submission | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Submit your talent to Art and Unity for Vulnerable Development (AUVD): music, visual art, dance, poetry, drama, crafts, and other creative work."
+      },
+      "grant": {
+        "path": "/news/daddario-community-music-grant",
+        "title": "AUVD Receives a Community Music Grant from the D’Addario Foundation | AUVD",
+        "description": "Art and Unity for Vulnerable Development (AUVD) has been selected to receive a Community Music Grant from the D’Addario Foundation."
+      },
+      "newsPage": {
+        "path": "/news",
+        "title": "News | Art and Unity for Vulnerable Development (AUVD)",
+        "description": "Stories and updates from AUVD's programs in Kakuma Refugee Camp."
+      }
+    }
+  },
+  "news": {
+    "hero": {
+      "label": "Our impact",
+      "title": "News",
+      "intro": "Stories and updates from AUVD's programs in Kakuma Refugee Camp.",
+      "cta": "Get these updates by email"
+    },
+    "topicsNav": {
+      "label": "News topics"
+    },
+    "topics": {
+      "education": {
+        "label": "Latest updates",
+        "title": "Education"
+      },
+      "music": {
+        "label": "Latest updates",
+        "title": "Music Program"
+      },
+      "dance": {
+        "label": "Latest updates",
+        "title": "Dance Program"
+      },
+      "vocational": {
+        "label": "Latest updates",
+        "title": "Vocational Training"
+      }
+    },
+    "empty": "No news in this section yet.",
+    "donateCta": "Donate today",
+    "subscribed": {
+      "notice": "Thank you! Your subscription is confirmed.",
+      "dismiss": "Dismiss"
     }
   }
 }

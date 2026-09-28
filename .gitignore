@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Email previews written by "npm run news:dry-run". They are build output,
+# not source, and can contain unpublished wording.
+email-previews/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

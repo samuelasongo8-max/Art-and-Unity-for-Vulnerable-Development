@@ -1,15 +1,17 @@
+import { useTranslation } from "react-i18next";
 import "./PartnersSection.css";
 import useRevealClass from "../../hooks/useRevealClass";
 
 function PartnersSection({ partnerCards }) {
+  const { t } = useTranslation();
   const introRef = useRevealClass("partners-copy-entered", 0.3);
 
   return (
     <section className="partners-section">
       <div className="container">
         <div ref={introRef} className="partners-copy partners-copy-animated">
-      <h1 className="partners-heading">OUR PARTNERS:</h1>
-      <p className="partners-heading">Trusted by Global Partners and Funders</p>
+      <h1 className="partners-heading">{t("home.partners.heading")}</h1>
+      <p className="partners-heading">{t("home.partners.subheading")}</p>
           
         </div>
 

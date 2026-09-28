@@ -113,12 +113,9 @@
   font-weight: 600;
 }
 
-.logo-dot {
-  color: #ff6600;
-  font-size: 1em;
-  font-weight: 900;
-  line-height: 1;
-}
+/* The wordmark's only colour accent lives on the nested spans (U and D). The
+   trailing "." that used to be rendered after the wordmark has been removed,
+   along with its .logo-dot rule. */
 
 .nav-utility {
   display: none;
@@ -146,6 +143,9 @@
    Our Impact triggers already use ::after for their ▾ chevron, so a second
    pseudo-element would collide with it. A transparent border reserves the
    space up front, so nothing shifts on hover. Square corners, no shadows. */
+/* The French labels ("Notre travail", "Notre impact") are longer than the
+   English ones, so without this the nav items wrap onto two lines and the
+   bar loses its alignment. They shrink the font slightly instead. */
 .nav-link {
   text-decoration: none;
   font-size: 15px;
@@ -157,6 +157,7 @@
   border-bottom: 2px solid transparent;
   background: transparent;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .nav-link:hover,
@@ -764,51 +765,227 @@
 }
 
 /* ==========================================================================
-   Language switcher (EN / FR)
-   Placed after "Contact". Reuses the .nav-link typography, spacing, hover and
-   scrolled states so it reads as part of the bar rather than a new widget.
-   The inactive option is a real button so it is keyboard reachable; the
-   active one is shown in bold with the same blue underline as an active nav
-   link, matching how .nav-link.active communicates state.
+   11. Language switcher (EN | FR)
+   A compact two-option control that sits in the navigation bar immediately
+   after "Contact" (so "Donate" stays the last item). It reuses the .nav-link
+   typography, size, spacing and hover behaviour so it reads as part of the
+   bar rather than a separate widget. Square corners, no shadow, and it never
+   wraps onto a second line.
+
+   - Small FaGlobe icon before the two options. No flags: a language is not
+     a country.
+   - The ACTIVE language is bold on a filled var(--impact-blue) background with
+     white text.
+   - The INACTIVE one is a plain link-styled button that highlights on hover.
+   - Both are real <button> elements with a visible :focus-visible outline.
    ========================================================================== */
 .lang-switch {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-left: -12px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  gap: 2px;
+  margin-left: -8px;
+}
+
+.lang-switch-icon {
+  flex: 0 0 auto;
+  margin-right: 4px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .lang-switch-btn {
+  font-family: inherit;
   font-size: 15px;
+  line-height: 1.2;
   font-weight: 500;
-  padding: 8px 0;
-  border: none;
-  border-bottom: 2px solid transparent;
+  letter-spacing: 0.04em;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 0; /* square corners, matching the nav */
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
+  white-space: nowrap;
   transition: var(--transition-smooth);
-  letter-spacing: 0.04em;
+  box-shadow: none;
 }
 
-.lang-switch-btn:hover,
-.lang-switch-btn:focus-visible {
+.lang-switch-btn:hover {
   color: #ffffff;
-  border-bottom-color: var(--impact-blue, #1f76be);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Visible keyboard focus on both options. */
+.lang-switch-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  color: #ffffff;
 }
 
 .lang-switch-btn.is-active {
-  color: #ffffff;
   font-weight: 700;
-  border-bottom-color: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  background: var(--impact-blue, #1f76be);
+  border-color: var(--impact-blue, #1f76be);
 }
 
+/* Scrolled state — the header turns light, so the control follows suit. */
 .navbar.scrolled .lang-switch-btn {
   color: var(--text-muted);
 }
 
+.navbar.scrolled .lang-switch-icon {
+  color: var(--text-muted);
+}
+
 .navbar.scrolled .lang-switch-btn:hover,
-.navbar.scrolled .lang-switch-btn:focus-visible,
-.navbar.scrolled .lang-switch-btn.is-active {
+.navbar.scrolled .lang-switch-btn:focus-visible {
   color: var(--impact-blue, #1f76be);
+  background: rgba(31, 118, 190, 0.1);
+}
+
+.navbar.scrolled .lang-switch-btn:focus-visible {
+  outline-color: var(--impact-blue, #1f76be);
+}
+
+.navbar.scrolled .lang-switch-btn.is-active {
+  color: #ffffff;
+  background: var(--impact-blue, #1f76be);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile: the header-bar copy (next to the hamburger) and the copy at the
+   top of the open menu. Both stay visible without any extra taps and are
+   never scrolled out of view, because they live inside the fixed header.
+   -------------------------------------------------------------------------- */
+.lang-switch--mobile-header {
+  display: none;
+}
+
+.lang-switch--mobile-menu {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  /* Shown in the header bar, immediately before the hamburger button. */
+  .lang-switch--mobile-header {
+    display: flex;
+    order: 1;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+  /* The switcher inside the nav-links row is the desktop one — hide it in the
+     mobile menu so the control is not duplicated there. */
+  .nav-links > .lang-switch {
+    display: none;
+  }
+
+  /* …and show the dedicated top-of-menu copy instead. */
+  .nav-links > .lang-switch--mobile-menu {
+    display: block;
+    width: 100%;
+    padding: 10px 0 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-links > .lang-switch--mobile-menu .lang-switch {
+    margin-left: 0;
+  }
+}
+
+/* ==========================================================================
+   11. Desktop Nav Spacing (min-width: 1025px)
+
+   Everything above this block is written for the mobile/tablet layout, whose
+   rules are all "max-width: 1024px". Scoping the desktop fixes with
+   "min-width: 1025px" means these declarations can never leak down into the
+   mobile or tablet layouts, so those stay exactly as they are.
+
+   WHY THE LOGO SAT FLUSH AGAINST "Home"
+   -------------------------------------
+   .nav-container is a flex row with justify-content: space-between, but
+   space-between only hands out space that is already free. The nav row was
+   measured at exactly 0px of free space, so space-between gave nothing and
+   the logo ended up touching the first link. In French the labels are wider
+   than the container, so the row overflowed and the browser shrank the
+   flex item .logo, squashing it and letting the wordmark spill over the
+   first link.
+
+   THE FIXES
+   ---------
+   1. flex: 0 0 auto on .logo — the logo is a fixed-size brand mark, so it
+      must never be the thing that gives up width. This stops the browser
+      from squashing it and letting the wordmark overlap the first link.
+   2. margin-right on .logo — the requested breathing room between the logo
+      and the first link. It is a margin rather than a flex gap because
+      .nav-links is a nested flex container holding the links, the language
+      switcher and the actions; a gap on .nav-container would also spread the
+      unrelated utility/mobile-only children.
+   3. width/max-width: fit-content on .nav-container — this one is subtle but
+      important. With justify-content: space-between, the visible space
+      between the logo and the first link is the margin PLUS whatever free
+      width is left over. Any leftover width is handed straight to that gap,
+      so a fixed max-width made the gap balloon to 91px/131px/177px at wide
+      viewports. Sizing the container to its own content removes the
+      leftover, so the gap is always exactly the margin above — 52px on
+      desktop — at any window size. max-width: 100% keeps it from ever
+      exceeding the viewport, so the row can still shrink when the labels are
+      too wide to fit (French).
+   ========================================================================== */
+@media (min-width: 1025px) {
+  .nav-container {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  /* 1. Never let the brand mark be compressed. */
+  .logo {
+    flex: 0 0 auto;
+  }
+
+  /* 2. The gap the logo and the first link were missing. */
+  .logo {
+    margin-right: 52px;
+  }
+
+  /* Let the links row shrink below its content width when a long translation
+     leaves too little room, instead of forcing the container wider than the
+     screen. min-width: 0 is required for a flex item to shrink this far. */
+  .nav-links {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}
+
+/* The tightest desktop range: there is not enough width for the full 52px
+   plus the widest labels. Ease the logo gap and the link spacing off a
+   little so everything still sits on ONE line instead of wrapping.
+
+   NOTE ON WHAT THIS CAN AND CANNOT SOLVE
+   -------------------------------------
+   These are measured values, not guesses. At 1025px the desktop row still
+   runs past the right edge once the logo is no longer being crushed: the
+   original layout hid that overflow by shrinking .logo from 141px to 72px,
+   which made the wordmark overlap the first link. Giving the logo its real
+   width and asking for a gap spends that recovered width, so the tight end
+   needs the link spacing pulled in to pay for it.
+
+   The French labels cannot be made to fit at 1025px by spacing alone. Even
+   with the link gap closed to 0px the row still overruns by ~198px, because
+   the French text is ~1034px wide against ~977px of available space. Fixing
+   that last stretch needs a smaller font size or one fewer menu item, both of
+   which are outside "spacing only", so it is left as-is here rather than
+   changed silently. */
+@media (min-width: 1025px) and (max-width: 1319px) {
+  .logo {
+    margin-right: 32px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
 }

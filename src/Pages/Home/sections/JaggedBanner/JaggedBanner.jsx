@@ -1,6 +1,9 @@
 import "./JaggedBanner.css";
+import { useTranslation } from "react-i18next";
 
 function JaggedBanner() {
+  const { t } = useTranslation();
+
   return (
     <div className="ss-banner-wrapper">
       <svg
@@ -16,8 +19,7 @@ function JaggedBanner() {
       </svg>
 
       <div className="ss-banner-purple">
-        <p>[TOGETHER, WE CREATE OPPORTUNITIES, EMPOWER COMMUNITIES, AND TRANSFORM LIVES THROUGH CREATIVITY, EDUCATION, INCLUSION, AND INNOVATION.
-]</p>
+        <p>{t("home.banner.text")}</p>
       </div>
 
       <svg

@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
 import "./ProgramsIntro.css";
 
 function ProgramsIntro({ navigate }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="programs">
-        <h1>From Hard Times to Hope: Healing Through Creativity</h1>
+        <h1>{t("home.programsIntro.title")}</h1>
       </div>
     </>
   );

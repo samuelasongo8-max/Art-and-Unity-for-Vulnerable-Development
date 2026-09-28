@@ -6,6 +6,7 @@ import {
   FaUserGraduate,
 } from "react-icons/fa6";
 import "./ImpactStatsSection.css";
+import { useTranslation } from "react-i18next";
 import useOnceInView from "../../hooks/useOnceInView";
 import useRevealClass from "../../hooks/useRevealClass";
 
@@ -27,6 +28,7 @@ const iconMap = {
 };
 
 function ImpactStatsSection({ impactStats }) {
+  const { t } = useTranslation();
   const [cardsRef, isVisible] = useOnceInView(0.25);
   const textRef = useRevealClass("content-entered", 0.3);
   const [counts, setCounts] = useState({ reached: 0, programs: 0, trained: 0, camps: 0 });
@@ -77,15 +79,15 @@ function ImpactStatsSection({ impactStats }) {
             <img
               className="auvd-story-gallery-item auvd-story-gallery-item--1"
               src="/Upcoming%20project%20%20(2).jpg"
-              alt="AUVD community programs"
+              alt={t("home.impactStats.alt")}
             />
           </div>
 
           <div ref={textRef} className="auvd-story-text impact-text-block content-animated">
-            <h2 className="auvd-story-title">Our Impact</h2>
+            <h2 className="auvd-story-title">{t("home.impactStats.title")}</h2>
 
             <p>
-              Transforming lives through art, healing, and opportunity in Kakuma Refugee Camp
+              {t("home.impactStats.paragraph")}
             </p>
           </div>
 
@@ -109,10 +111,10 @@ function ImpactStatsSection({ impactStats }) {
                   {stat.suffix}
                 </h3>
               </div>
-              <h4 className="impactTitle">{stat.title}</h4>
-              {stat.info.map((line) => (
-                <p key={line} className="impactInfo">
-                  {line}
+              <h4 className="impactTitle">{t(stat.titleKey)}</h4>
+              {stat.infoKeys.map((key) => (
+                <p key={key} className="impactInfo">
+                  {t(key)}
                 </p>
               ))}
             </div>

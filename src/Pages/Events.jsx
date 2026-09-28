@@ -1,73 +1,42 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ImpactHero from "../components/ImpactHero";
+import { formatLongDate } from "../utils/i18nFormat";
 import "./Events.css";
 
-const heroTitle = "Partnership for Impact: Music Across Youth Peace Week";
-
-const heroLead =
-  "Art and Unity for Vulnerable Development (AUVD), in partnership with F2F Music Foundation, UnityNet International, Andrew Network - AHIAGBA TV, and Transylvanian Symphony Foundation, successfully delivered three impactful workshops during Youth Peace Week in Kakuma Refugee Camp.";
-
+/* ==========================================================================
+   Only image paths and the per-event translation-key prefix live here. Each
+   date is stored as an ISO string and rendered with Intl for the active
+   language ("October 5, 2025" becomes "5 octobre 2025"), and every title,
+   theme, poster line, description and alt text is resolved with t() while
+   rendering, so the page follows the language with no reload.
+   ========================================================================== */
 const workshopEvents = [
+  { key: "one", date: "2025-10-05", image: "/muziki.jpg", variant: "poster" },
   {
-    date: "October 5, 2025",
-    title: "World Teachers' Day",
-    theme: "The Joy Within Music",
-    image: "/muziki.jpg",
-    alt: "Muziki image for World Teachers' Day",
-    variant: "poster",
-    posterHeadline: "Celebrate teachers through music, gratitude, and community voices.",
-    posterDetails: "Live performances, appreciation, and creative expression in Kakuma Refugee Camp.",
-    description:
-      "Students honored teachers and mentors through music performances celebrating guidance, appreciation, and education.",
-  },
-  {
-    date: "October 10, 2025",
-    title: "World Mental Health Day",
-    theme: "The Power Within Music",
-    description:
-      "This workshop focused on how music supports emotional healing, resilience, and mental well-being.",
+    key: "two",
+    date: "2025-10-10",
     galleryImages: [
-      {
-        src: "/ani1.jpg",
-        alt: "Participants during the World Mental Health Day workshop in a large featured moment",
-        featured: true,
-      },
-      {
-        src: "/mental.jpg",
-        alt: "Participants during the World Mental Health Day music workshop",
-      },
-      {
-        src: "/mental2.jpg",
-        alt: "Young people taking part in a music and wellness session",
-      },
-      {
-        src: "/menatal3.jpg",
-        alt: "Workshop moment focused on healing, resilience, and well-being",
-      },
-      {
-        src: "/Sharmante1.jpg",
-        alt: "Sharmante during the World Mental Health Day music workshop",
-      },
+      { src: "/ani1.jpg", altKey: "events.workshops.two.gallery.one", featured: true },
+      { src: "/mental.jpg", altKey: "events.workshops.two.gallery.two" },
+      { src: "/mental2.jpg", altKey: "events.workshops.two.gallery.three" },
+      { src: "/menatal3.jpg", altKey: "events.workshops.two.gallery.four" },
+      { src: "/Sharmante1.jpg", altKey: "events.workshops.two.gallery.five" },
     ],
   },
-  {
-    date: "October 16, 2025",
-    title: "World Food Day",
-    theme: "The Peace of God Within Music",
-    image: "/furaha.jpg",
-    alt: "Participants exploring music and art conversations around hope and livelihoods",
-    description:
-      "Participants explored how art and music can inspire hope, dignity, and conversations around food security and livelihoods.",
-  },
+  { key: "three", date: "2025-10-16", image: "/furaha.jpg" },
 ];
 
-const impactPoints = [
-  "188 students from refugee and host communities participated in the workshops.",
-  "Young refugee artists gained international online visibility.",
-  "The workshops connected music with education, mental health, peacebuilding, and livelihoods.",
-  "The partnership strengthened collaboration between local and international organizations.",
+const impactPointKeys = [
+  "events.impact.points_one",
+  "events.impact.points_two",
+  "events.impact.points_three",
+  "events.impact.points_four",
 ];
+
 function Events() {
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
     const revealedElements = Array.from(document.querySelectorAll("[data-reveal]"));
 
@@ -97,6 +66,8 @@ function Events() {
     return () => observer.disconnect();
   }, []);
 
+  const isMentalHealthDay = (key) => key === "two";
+
   return (
     <section className="events-page">
       {/* Full-bleed hero — the shared ImpactHero component (the exact design
@@ -105,10 +76,10 @@ function Events() {
           are added. */}
       <div className="auvd-events-hero-bleed">
         <ImpactHero
-          heading={heroTitle}
-          paragraph={heroLead}
+          heading={t("events.hero.heading")}
+          paragraph={t("events.hero.paragraph")}
           image="/mental.jpg"
-          imageAlt="Participants during the World Mental Health Day workshop in a large featured moment"
+          imageAlt={t("events.hero.imageAlt")}
         />
       </div>
 
@@ -117,61 +88,54 @@ function Events() {
         {/* Overview — the Our Impact section pattern: label (no rule), then a
             two-column body with the image collage on the left. */}
         <section id="events-overview" className="auvd-events-section auvd-events-section--white" data-reveal>
-          <p className="events-section-label">Overview</p>
+          <p className="events-section-label">{t("events.overview.label")}</p>
           <div className="auvd-events-body">
             <div className="auvd-events-collage auvd-events-collage--single">
-              <img src="/youth peace.jpg" alt="Youth Peace Week participants gathered in a music and peacebuilding session" />
+              <img src="/youth peace.jpg" alt={t("events.overview.alt")} />
             </div>
             <div className="auvd-events-text">
-              <h2 className="auvd-events-title">Youth Peace Week workshops used music to build peace, healing, and opportunity.</h2>
-              <p>
-                The workshops used music and creative arts to promote peacebuilding, mental
-                well-being, education, and community empowerment among refugee and host
-                community youth.
-              </p>
-              <p>
-                Each event focused on a distinct global day, giving young people space to learn,
-                perform, reflect, and connect through music.
-              </p>
+              <h2 className="auvd-events-title">{t("events.overview.title")}</h2>
+              <p>{t("events.overview.p1")}</p>
+              <p>{t("events.overview.p2")}</p>
             </div>
           </div>
         </section>
 
         {workshopEvents.map((event, index) => (
           <section
-            key={event.title}
+            key={event.key}
             className={`auvd-events-section${index % 2 === 0 ? " auvd-events-section--flip" : ""}${
-              event.title === "World Mental Health Day" ? " auvd-events-section--white" : ""
+              isMentalHealthDay(event.key) ? " auvd-events-section--white" : ""
             }`}
             data-reveal
             style={{ transitionDelay: `${index * 120}ms` }}
           >
-            <p className="event-story-date">{event.date}</p>
+            <p className="event-story-date">{formatLongDate(event.date, i18n.language)}</p>
             <div className="auvd-events-body">
               <div className={`auvd-events-collage auvd-events-collage--${event.galleryImages ? "five" : "single"}`}>
                 {event.galleryImages
                   ? event.galleryImages.map((image) => (
-                      <img key={image.src} src={image.src} alt={image.alt} />
+                      <img key={image.src} src={image.src} alt={t(image.altKey)} />
                     ))
                   : event.variant === "poster"
                     ? (
                       <div className="event-story-image event-story-image-poster">
-                        <img src={event.image} alt={event.alt} />
-                        {event.posterHeadline ? (
+                        <img src={event.image} alt={t(`events.workshops.${event.key}.alt`)} />
+                        {t(`events.workshops.${event.key}.posterHeadline`) ? (
                           <div className="event-story-poster-copy">
-                            <h4>{event.posterHeadline}</h4>
-                            <p>{event.posterDetails}</p>
+                            <h4>{t(`events.workshops.${event.key}.posterHeadline`)}</h4>
+                            <p>{t(`events.workshops.${event.key}.posterDetails`)}</p>
                           </div>
                         ) : null}
                       </div>
                     )
-                    : <img src={event.image} alt={event.alt} />}
+                    : <img src={event.image} alt={t(`events.workshops.${event.key}.alt`)} />}
               </div>
 
               <div className="auvd-events-text">
-                <h2 className="auvd-events-title">{event.title}</h2>
-                <h3 className="event-story-theme">{event.theme}</h3>
-                <p>{event.description}</p>
+                <h2 className="auvd-events-title">{t(`events.workshops.${event.key}.title`)}</h2>
+                <h3 className="event-story-theme">{t(`events.workshops.${event.key}.theme`)}</h3>
+                <p>{t(`events.workshops.${event.key}.description`)}</p>
               </div>
             </div>
           </section>
@@ -186,27 +150,20 @@ function Events() {
                 >
                   <div className="auvd-events-body">
                     <div className="auvd-events-impact-head">
-                      <p className="events-section-label">Impact Created</p>
-                      <h2 className="auvd-events-title">What the partnership made possible</h2>
+                      <p className="events-section-label">{t("events.impact.label")}</p>
+                      <h2 className="auvd-events-title">{t("events.impact.title")}</h2>
                     </div>
                     <div className="auvd-events-text">
                       <ul className="impact-list">
-                        {impactPoints.map((point) => (
-                          <li key={point}>{point}</li>
+                        {impactPointKeys.map((key) => (
+                          <li key={key}>{t(key)}</li>
                         ))}
                       </ul>
 
                       <div className="events-closing">
-                <p>
-                  Through this initiative, AUVD demonstrated that music is more than
-                  entertainment. It is a powerful tool for healing, unity, and positive social
-                  change within vulnerable communities.
-                </p>
-                <p>
-                  We sincerely thank all our partners for believing in the talent, creativity,
-                  and potential of young people in Kakuma Refugee Camp.
-                </p>
-                <blockquote>"This is what unity sounds like."</blockquote>
+                <p>{t("events.impact.p1")}</p>
+                <p>{t("events.impact.p2")}</p>
+                <blockquote>{t("events.impact.quote")}</blockquote>
               </div>
             </div>
           </div>

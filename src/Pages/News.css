@@ -1,0 +1,382 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap");
+
+/* ==========================================================================
+   /news — the newsletter page.
+
+   Same design language as the other Bebas Neue / Source Sans 3 pages on the
+   site: small uppercase orange label, big Bebas Neue title, Source Sans 3
+   body, square corners, and the --impact-* palette from src/index.css.
+   Sections alternate white / #f6f9fc (--impact-surface) with no rules
+   between them.
+   ========================================================================== */
+
+.auvd-news {
+  font-family: "Source Sans 3", Arial, sans-serif;
+  color: var(--impact-text, #1f2933);
+  background: #ffffff;
+}
+
+/* src/index.css sets a bare element rule — `p { font-family: "Cormorant
+   Garamond" }` — which targets the paragraphs directly and therefore beats
+   plain inheritance from .auvd-news. Every paragraph on this page is body
+   copy in Source Sans 3, so it is restated here with enough specificity to
+   win. Headings are deliberately NOT included: their Bebas Neue comes from
+   the class rules further down, which this rule would otherwise override. */
+.auvd-news p {
+  font-family: "Source Sans 3", Arial, sans-serif;
+}
+
+/* ---------- Hero ---------- */
+
+.auvd-news-hero {
+  background: var(--impact-navy, #12395f);
+  color: #fff;
+  padding: clamp(56px, 9vw, 104px) 0 clamp(48px, 7vw, 88px);
+}
+
+.auvd-news-hero__inner {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.auvd-news-hero__label {
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--impact-orange, #ff6600);
+}
+
+.auvd-news-hero__title {
+  margin: 0 0 18px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(44px, 7vw, 80px);
+  line-height: 1.05;
+  color: #fff;
+}
+
+.auvd-news-hero__intro {
+  margin: 0 0 28px;
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.auvd-news-hero__cta {
+  display: inline-block;
+  padding: 0 22px;
+  height: 40px;
+  line-height: 40px;
+  background: var(--impact-orange, #ff6600);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.auvd-news-hero__cta:hover {
+  background: #e65c00;
+}
+
+.auvd-news-hero__cta:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---------- Subscription notice ---------- */
+
+.auvd-news-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 1240px;
+  margin: 24px auto 0;
+  padding: 16px 20px;
+  background: var(--impact-orange-tint, #fcf1e8);
+  border-left: 4px solid var(--impact-orange, #ff6600);
+}
+
+.auvd-news-notice__text {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--impact-text, #1f2933);
+}
+
+.auvd-news-notice__close {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--impact-orange, #ff6600);
+  color: var(--impact-orange-dark, #b25a1e);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.auvd-news-notice__close:hover {
+  background: var(--impact-orange, #ff6600);
+  color: #fff;
+}
+
+.auvd-news-notice__close:focus-visible {
+  outline: 2px solid var(--impact-orange, #ff6600);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Topic anchor row (not sticky) ---------- */
+
+.auvd-news-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  border-bottom: 1px solid var(--impact-border, #dde5ee);
+}
+
+.auvd-news-topics__link {
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--impact-blue, #1f76be);
+  text-decoration: none;
+}
+
+.auvd-news-topics__link:hover {
+  color: var(--impact-orange, #ff6600);
+  text-decoration: underline;
+}
+
+.auvd-news-topics__link:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 3px;
+}
+
+/* ---------- Sections ---------- */
+
+.auvd-news-section {
+  background: #ffffff;
+  /* Keeps the section heading clear of the fixed navigation bar when the
+     anchor links are followed. */
+  scroll-margin-top: 90px;
+}
+
+.auvd-news-section--tint {
+  background: var(--impact-surface, #f6f9fc);
+}
+
+.auvd-news-section__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(44px, 6vw, 76px) 24px;
+}
+
+.auvd-news-section__header {
+  margin-bottom: 34px;
+}
+
+.auvd-news-section__label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--impact-orange, #ff6600);
+}
+
+.auvd-news-section__title {
+  margin: 0;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4.4vw, 46px);
+  line-height: 1.1;
+  color: var(--impact-navy, #12395f);
+}
+
+.auvd-news-section__empty {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--impact-muted, #52606d);
+}
+
+/* ---------- Featured item: image left ~58%, text right ---------- */
+
+.auvd-news-featured {
+  display: flex;
+  align-items: stretch;
+  gap: 34px;
+  margin-bottom: 40px;
+  scroll-margin-top: 90px;
+}
+
+.auvd-news-featured__media {
+  flex: 0 0 58%;
+}
+
+.auvd-news-featured__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.auvd-news-featured__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.auvd-news-featured__date {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--impact-muted, #52606d);
+}
+
+.auvd-news-featured__title {
+  margin: 0 0 16px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.12;
+  color: var(--impact-navy, #12395f);
+}
+
+.auvd-news-featured__text p,
+.auvd-news-card__text p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--impact-text, #1f2933);
+}
+
+.auvd-news-featured__text p:last-child,
+.auvd-news-card__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Card grid: 2 per row on desktop ---------- */
+
+.auvd-news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 34px;
+}
+
+.auvd-news-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  scroll-margin-top: 90px;
+}
+
+.auvd-news-card__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin-bottom: 18px;
+}
+
+.auvd-news-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.auvd-news-card__date {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--impact-muted, #52606d);
+}
+
+.auvd-news-card__title {
+  margin: 0 0 12px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+  color: var(--impact-navy, #12395f);
+}
+
+/* ---------- Donate button ---------- */
+
+.auvd-news__donate {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 0 22px;
+  height: 40px;
+  line-height: 40px;
+  background: var(--impact-orange, #ff6600);
+  color: #fff;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.auvd-news__donate:hover {
+  background: #e65c00;
+}
+
+.auvd-news__donate:focus-visible {
+  outline: 3px solid var(--impact-orange, #ff6600);
+  outline-offset: 3px;
+}
+
+/* ---------- Mobile: one column ---------- */
+
+@media (max-width: 820px) {
+  .auvd-news-featured {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .auvd-news-featured__media {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .auvd-news-featured__title {
+    font-size: 32px;
+  }
+
+  .auvd-news-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .auvd-news-section__inner {
+    padding: 40px 20px;
+  }
+
+  .auvd-news-topics {
+    padding: 24px 20px;
+  }
+}

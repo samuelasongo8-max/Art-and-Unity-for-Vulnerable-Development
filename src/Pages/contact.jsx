@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from "react-i18next";
 import ImpactHero from "../components/ImpactHero";
 import "./contact.css";
 import ContactForm from "../components/ContactForm";
@@ -7,42 +8,50 @@ import ContactForm from "../components/ContactForm";
    ImpactHero with a solid navy background carrying this page's own H1 and
    intro paragraph. */
 const Contact = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="contact-page">
       <div className="contact-hero-bleed">
         <ImpactHero
-          label="Contact Us"
-          heading="Partnership Inquiry Form"
-          paragraph="We invite organizations, foundations, donors, and partners who share our vision of empowering vulnerable communities to collaborate with AUVD in creating meaningful and lasting impact in Kakuma Refugee Camp and surrounding host communities."
+          label={t("contact.hero.label")}
+          heading={t("contact.hero.heading")}
+          paragraph={t("contact.hero.paragraph")}
         />
       </div>
       <div className="contact-layout">
         <div className="contact-intro-panel">
           <div className="contact-intro-copy">
+            {/* These two paragraphs contain inline markup, so they use <Trans>:
+                the whole sentence is translated as one unit and the original
+                spans stay exactly where they were. */}
             <p className="contact-primary-note">
-              <span className="contact-highlight-blue">For individuals who wish to connect with AUVD,</span> please reach out via email <span className="contact-highlight-blue">at artandunityforvulnerable.org@gmail.com. We will get back to you within 48 hours.</span>
+              <Trans
+                i18nKey="contact.intro.note"
+                components={{
+                  blueOne: <span className="contact-highlight-blue" />,
+                  blueTwo: <span className="contact-highlight-blue" />,
+                }}
+              />
             </p>
 
             <div className="contact-primary-copy">
               <p className="contact-primary-story">
-                <span className="contact-primary-story__lead">We</span> invite organizations, foundations, donors, and partners who share our vision of empowering vulnerable communities to collaborate with AUVD in creating meaningful and lasting impact in Kakuma Refugee Camp and surrounding host communities.
+                <Trans
+                  i18nKey="contact.intro.storyOne"
+                  components={{
+                    lead: <span className="contact-primary-story__lead" />,
+                  }}
+                />
               </p>
-              <p className="contact-primary-story">
-                Through partnership and support, AUVD can expand its programs in creative arts, mental health and psychosocial support, youth empowerment, education, women&apos;s empowerment, livelihood development, peacebuilding, and humanitarian outreach initiatives such as shoes distribution programs implemented in partnership with Because International.
-              </p>
-              <p className="contact-primary-story">
-                Your collaboration will help us create safe, inclusive, and empowering spaces where refugees, women, youth, children, and persons with disabilities can express themselves, develop skills, strengthen resilience, and access opportunities for personal and community growth.
-              </p>
-              <p className="contact-primary-story">
-                Together, we can promote dignity, creativity, peaceful coexistence, and sustainable development while transforming lives through community-driven solutions.
-              </p>
-              <p className="contact-primary-story">
-                We welcome opportunities to work together in building stronger, more resilient, and empowered communities.
-              </p>
+              <p className="contact-primary-story">{t("contact.intro.storyTwo")}</p>
+              <p className="contact-primary-story">{t("contact.intro.storyThree")}</p>
+              <p className="contact-primary-story">{t("contact.intro.storyFour")}</p>
+              <p className="contact-primary-story">{t("contact.intro.storyFive")}</p>
             </div>
           </div>
 
-          <div className="contact-methods" aria-label="AUVD contact information">
+          <div className="contact-methods" aria-label={t("contact.methods.label")}>
             <a className="contact-method-card" href="mailto:artandunityforvulnerable.org@gmail.com">
               <span className="contact-method-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
@@ -50,7 +59,7 @@ const Contact = () => {
                 </svg>
               </span>
               <span className="contact-method-content">
-                <strong>Email</strong>
+                <strong>{t("contact.methods.email")}</strong>
                 <span>artandunityforvulnerable.org@gmail.com</span>
               </span>
             </a>
@@ -62,21 +71,21 @@ const Contact = () => {
                 </svg>
               </span>
               <span className="contact-method-content">
-                <strong>Phone</strong>
+                <strong>{t("contact.methods.phone")}</strong>
                 <span>(+254) 784062882</span>
                 <span>(+254) 102930604</span>
               </span>
             </a>
 
-            <div className="contact-method-card" role="group" aria-label="AUVD location">
+            <div className="contact-method-card" role="group" aria-label={t("contact.methods.locationLabel")}>
               <span className="contact-method-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
                   <path d="M12 2.5a7 7 0 0 1 7 7c0 4.91-5.05 10.44-6.46 11.88a.75.75 0 0 1-1.08 0C10.05 19.94 5 14.41 5 9.5a7 7 0 0 1 7-7Zm0 9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" fill="currentColor" />
                 </svg>
               </span>
               <span className="contact-method-content">
-                <strong>Location</strong>
-                <span>Kakuma Refugee Camp, Kenya</span>
+                <strong>{t("contact.methods.location")}</strong>
+                <span>{t("contact.methods.locationValue")}</span>
               </span>
             </div>
           </div>
@@ -93,7 +102,7 @@ const Contact = () => {
             <div className="contact-map-frame-wrapper">
               <iframe
                 className="contact-map-frame"
-                title="Map showing Art and Unity for Vulnerable Development in Kakuma Refugee Camp"
+                title={t("contact.mapTitle")}
                 src="https://www.google.com/maps?q=Kakuma%20Refugee%20Camp%2C%20Kenya%2C%20Kakuma%202%20Block%202%2C%20Zone%201&output=embed"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

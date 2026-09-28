@@ -1,10 +1,13 @@
 import "./VideoSection.css";
+import { useTranslation } from "react-i18next";
 
 /* "Empowering young voices through music" — restyled into the Our Impact
    two-column pattern: title + paragraph in one column, the existing video
    embed in the media column (video on the right here; the Grant section
    above has its image on the left, so the sides alternate). */
 function VideoSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="auvd-story-section auvd-story-section--tint">
       <div className="auvd-story-container">
@@ -14,7 +17,7 @@ function VideoSection() {
             <div className="auvd-story-media-frame">
               <iframe
                 src="https://www.youtube.com/embed/omWzt2QkaJE"
-                title="Global Innovation Challenge video"
+                title={t("home.video.iframeTitle")}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -22,9 +25,9 @@ function VideoSection() {
           </div>
 
           <div className="auvd-story-text">
-            <h1 className="auvd-story-title">Empowering young voices through music</h1>
+            <h1 className="auvd-story-title">{t("home.video.title")}</h1>
             <p>
-              Every note is a step toward confidence, creativity, and a brighter future. We believe music gives young people the opportunity to discover their talents, express themselves, and dream bigger.
+              {t("home.video.paragraph")}
             </p>
           </div>
 
