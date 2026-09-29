@@ -13,6 +13,7 @@
     "news:check": "node scripts/validate-news.mjs",
     "news:dry-run": "node scripts/send-news-emails.mjs --dry-run",
     "news:send": "node scripts/send-news-emails.mjs",
+    "news:setup": "node --env-file=.env.local scripts/setup-resend.mjs",
     "test:subscribe": "node scripts/test-subscribe.mjs",
     "preview": "vite preview",
     "server": "node server/index.js"

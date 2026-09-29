@@ -1,265 +1,309 @@
-# AUVD News — Setup Guide
+# AUVD News — Setup Guide (Resend)
 
 This guide is for you, the person who publishes the news. It explains how to
 set the newsletter up **once**, and then how to publish news afterwards without
 opening any dashboard.
 
 **How it works, in one paragraph:** visitors subscribe through the "Stay
-Connected" form in the footer. Their address goes into a Brevo list for the
-topic and language they picked. When you publish news, you add an item to
-`src/data/news.json` and push to GitHub. Vercel rebuilds the site, GitHub
-Actions notices the deployment finished, and a script emails your new item to
-exactly the people who asked for that topic — once, and never twice.
+Connected" form in the footer. Their address is saved as a Resend contact, and
+they are opted in to the Resend *Topic* for each box they ticked. When you
+publish news, you add an item to `src/data/news.json` and push to GitHub.
+Vercel rebuilds the site, GitHub Actions notices the deployment finished, and a
+script emails your new item to exactly the people who asked for that topic —
+once, and never twice.
 
-Nothing here needs a database, a server you maintain, or a Brevo login after
+There is **no confirmation email**. Someone who fills in the form and presses
+Submit is subscribed immediately. Every email carries an unsubscribe link that
+Resend manages for you.
+
+Nothing here needs a database, a server you maintain, or a Resend login after
 the initial setup.
 
 ---
 
 ## Part A — Things only you can do (one time)
 
-### 1. Create a free Brevo account
+### 1. Create a free Resend account
 
-1. Go to <https://www.brevo.com> and click **Sign up**. The free plan is enough
-   to get started.
+1. Go to <https://resend.com> and click **Sign Up**. The free plan (3,000
+   emails a month, 100 a day) is enough to get started.
 2. Verify your email address, then log in.
-3. Go to **Account → Senders & Domains → SMTP & API** and add the address you
-   want to send from (for example `news@yourdomain.org`).
-4. Click the verification email Brevo sends you to finish confirming it.
-   **You cannot send anything until this is done.**
-5. Go to **Account → Sender information** and fill in the organization's
-   postal address. Marketing emails are legally required to show a real
-   physical address, and Brevo will not send without it.
 
-### 2. Create a Brevo API key
+### 2. Add and verify your sending domain
 
-1. Go to **SMTP & API → API Keys**.
-2. Click **Generate a new API key**.
-3. Give it a name such as `auvd-website`.
-4. **Copy the key immediately** — Brevo shows it only once. Keep it somewhere
-   safe; you will paste it into Vercel in step 4. Do not put it in the code.
+Resend will only send from a domain you have proved you own. This is the step
+that decides whether your mail lands in the inbox or in spam.
 
-### 3. Create a double opt-in template and note its ID
+1. Go to **Domains** in the Resend dashboard and click **Add Domain**.
+2. Enter your domain — for example `yourdomain.org`. (Not the `https://` and
+   not a path.)
+3. Resend shows you the exact DNS records to create. **Copy the values from
+   the Resend dashboard** — they are generated per account, and the exact host,
+   name and value are not something to guess at or copy from this document.
+   You will normally be asked for some combination of:
+   - a **TXT** record (domain verification / SPF)
+   - a **CNAME** record or two (DKIM)
+   - an **MX** record (if Resend asks you to route mail for the subdomain)
+4. Create those records at your DNS host (GoDaddy, Namecheap, Cloudflare, your
+   registrar's panel — wherever your domain's DNS is managed).
+5. Back in Resend, the domain moves to **Verified**. This can take a few
+   minutes, occasionally up to an hour while DNS propagates.
 
-A "double opt-in" means Brevo emails the visitor a confirmation link first.
-Nobody is added to your list until they click that link. This is the
-anti-spam, legally-safer option, and it is what keeps your sending reputation
-good.
+**You cannot send anything until this shows Verified.**
 
-1. Go to **Automation → Templates**, then **Create template → Design your own**.
-2. Choose the **HTML** content type.
-3. Write your email. Here is the exact text to use — the English paragraph
-   first, then the French paragraph. Both visitors get the same email, so they
-   can pick the language they read:
+You can test before finishing: Resend lets you send to your own address using
+`onboarding@resend.dev` as the sender, which needs no domain at all. That is a
+good way to check the wording while you sort the DNS out.
 
-   > **Subject:** Please confirm your AUVD news subscription / Merci de confirmer votre abonnement aux actualités d'AUVD
-   >
-   > Hello,
-   >
-   > Thank you for subscribing to news from Art and Unity for Vulnerable
-   > Development (AUVD). Please confirm your subscription by clicking the link
-   > below. You will only receive news about the programs you chose.
-   >
-   > Bonjour,
-   >
-   > Merci de vous être abonné aux actualités d'Art et Unité pour le
-   > Développement des Personnes Vulnérables (AUVD). Veuillez confirmer votre
-   > abonnement en cliquant sur le lien ci-dessous. Vous ne recevrez que les
-   > nouvelles concernant les programmes que vous avez choisis.
-   >
-   > Click here to confirm: <a href="**{{ params.DOIurl }}**">Confirm my subscription / Confirmer mon abonnement</a>
+### 3. Create a Resend API key
 
-4. **Save the template, then save and send it to yourself** as a test. When the
-   test arrives, check the link works.
-5. Look at the template's URL or details panel and **note the numeric ID**
-   (a small whole number). You need it in step 4.
+1. Go to **API Keys** in the Resend dashboard.
+2. Click **Create API Key**.
+3. Name it something like `auvd-website`, with **Full access**. (The newsletter
+   scripts also create topics, segments and broadcasts, so read-only or
+   sending-only access is not enough.)
+4. **Copy the key immediately** — Resend shows it only once. It starts with
+   `re_`. Keep it somewhere safe; you will paste it into Vercel and GitHub in
+   the next steps. Do not put it in the code and do not commit it.
 
-### 4. Add the environment variables in Vercel
+### 4. Run the one-time setup script
 
-1. Open your project on <https://vercel.com>.
-2. Go to **Settings → Environment Variables**.
-3. Add these three, for the **Production** environment:
+This creates four Resend **Topics** (one per newsletter topic) and one
+**Segment** called `AUVD News`, and writes their ids into
+`src/data/resend-config.json`. It is safe to run twice.
 
-   | Name | Value |
-   | --- | --- |
-   | `BREVO_API_KEY` | the key you copied in step 2 |
-   | `BREVO_DOI_TEMPLATE_ID` | the template number from step 3 (digits only) |
-   | `SITE_URL` | your public site address, e.g. `https://auvd.org` — **no trailing slash** |
+1. Create a file called `.env.local` in the project root (create it if it does
+   not exist) containing:
 
-   Never start any of these names with `VITE_`. Vite would then publish them
-   to every visitor in the page source.
-4. Click **Save**, then go to **Deployments** and re-deploy the latest commit
-   (⋯ menu → **Redeploy**) so the variables take effect.
+   ```
+   RESEND_API_KEY=re_your-real-key-here
+   ```
 
-### 5. Add the secret and variables in GitHub
+   `.env.local` is already ignored by `.gitignore` (the `*.local` rule), so the
+   key is never committed. Double-check that before you continue.
 
-1. Open your repository on GitHub → **Settings → Secrets and variables →
-   Actions**.
+2. Run:
+
+   ```
+   npm run news:setup
+   ```
+
+
+### 5. Set the environment variables in Vercel
+
+1. Open your project in Vercel → **Settings** → **Environment Variables**.
+2. Make sure the environment is set to **Production**.
+3. Add all three:
+
+   | Name | Value | Secret? |
+   | --- | --- | --- |
+   | `RESEND_API_KEY` | the `re_...` key you copied in step 3 | **Yes** |
+   | `RESEND_FROM` | `AUVD News <news@yourdomain.org>` | No |
+   | `SITE_URL` | your public site address, e.g. `https://auvd.org` — **no trailing slash** | No |
+
+   `RESEND_FROM` must use an address on the domain you verified in step 2. The
+   part before the angle brackets is the name subscribers see.
+4. Click **Save** for each one, then **redeploy** the site so the new variables
+   take effect. Editing a variable does not restart a running deployment.
+
+> Never prefix any of these with `VITE_`. Anything named `VITE_*` is bundled
+> into the JavaScript that every visitor downloads, which would publish your API
+> key to the whole internet.
+
+### 6. Set the environment variables in GitHub
+
+The GitHub Action that sends the news runs separately from Vercel, so it needs
+its own copy.
+
+1. Open your repository on GitHub → **Settings** → **Secrets and variables** →
+   **Actions**.
 2. On the **Secrets** tab, add:
-   - `BREVO_API_KEY` — the same key as before.
+   - `RESEND_API_KEY` — the same key as before.
 3. On the **Variables** tab, add:
+   - `RESEND_FROM` — for example `AUVD News <news@yourdomain.org>`.
    - `SITE_URL` — your public site address, no trailing slash.
-   - `BREVO_SENDER_EMAIL` — the address you verified in Brevo (step 1).
-   - `BREVO_SENDER_NAME` — for example `AUVD News`.
 4. Click **Save** for each one.
 
-### 6. Check the name of your production environment in Vercel
-
-The automatic sending only runs for a deployment Vercel calls **Production**.
-
-1. In Vercel, open **Settings → Environments**.
-2. Confirm your production environment is named exactly `Production`.
-3. If it has a different name, either rename it, or open
-   `.github/workflows/send-news-emails.yml` and change `Production` on the
-   line that reads `github.event.deployment.environment == 'Production'`.
-
-The first run prints the actual value it received in the log
-(`environment: ...`), so you can confirm this from the first run rather than
-guessing.
+You can check that the site sees its variables by opening
+`https://yourdomain.org/api/health`. It prints `true` or `false` for each
+variable and never prints their values. If something is `false`, that name is
+missing or was added to the wrong environment. **Delete `api/health.js` once
+everything works.**
 
 ---
 
-## Part B — How to publish news (every time)
+## Part B — Publishing news (the part you do often)
 
-1. Put the picture in **`public/news/`** (create the folder if it is missing).
-   Use a `.jpg`, `.png` or `.webp`. Reference it as `/news/your-file.jpg`.
-2. Open **`src/data/news.json`** and add your new item to the `items` array:
+### Add your article
 
-   ```json
-   {
-     "id": "2026-09-violin-lessons",
-     "topic": "music",
-     "date": "2026-09-15",
-     "image": "/news/violin-lessons.jpg",
-     "imageAlt": { "en": "A student learning the violin", "fr": "Une élève qui apprend le violon" },
-     "title": { "en": "Twenty students begin violin lessons", "fr": "Vingt élèves commencent les cours de violon" },
-     "body": {
-       "en": ["First paragraph.", "Second paragraph."],
-       "fr": ["Premier paragraphe.", "Deuxième paragraphe."]
-     }
-   }
-   ```
+Open `src/data/news.json` and add an object to the `items` array:
 
-3. Run the checks:
+```json
+{
+  "id": "2026-09-community-music-grant",
+  "topic": "music",
+  "date": "2026-09-15",
+  "image": "/news/my-photo.jpg",
+  "imageAlt": {
+    "en": "Children playing drums outdoors",
+    "fr": "Des enfants jouant des batterie en plein air"
+  },
+  "title": {
+    "en": "English title",
+    "fr": "Titre en français"
+  },
+  "body": {
+    "en": ["First paragraph.", "Second paragraph."],
+    "fr": ["Premier paragraphe.", "Deuxième paragraphe."]
+  },
+  "notify": true
+}
+```
 
-   ```
-   npm run news:check
-   ```
+Field rules:
 
-   It tells you if an id is duplicated, a topic is misspelled, a translation
-   is missing, a date is wrong, or the image is not in `public/`.
-4. Commit and push to GitHub.
-5. Vercel deploys. When the deployment reports **success**, GitHub Actions
-   emails the new item. That is all — there is nothing to click.
+| Field | Rule |
+| --- | --- |
+| `id` | **Permanent and unique.** Never edit or reuse one. A changed id re-sends old news to people, and a duplicate id fails the check. |
+| `topic` | One of `education`, `music`, `dance`, `vocational`. This decides who gets the email. |
+| `date` | `YYYY-MM-DD`. |
+| `image` | Optional. Must start with `/` and the file must exist in `public/`. |
+| `imageAlt` | Required if you set an image, in both languages. |
+| `title` / `body` | Required in **both** English and French. `body` is an array of paragraphs. |
+| `notify` | `true` to email it, `false` to publish it on `/news` only. |
 
-### Rules that protect you from mistakes
+### Check it
 
-- **An `id` is permanent.** Never change or reuse one. The script remembers
-  what it has already emailed by reading the ids out of the names of the
-  campaigns it created. If you reuse an id, the second story is never sent.
-- **Editing an existing item never re-sends it.** That is on purpose, so a
-  typo fix does not spam your subscribers.
-- **To send something again, publish a NEW item with a NEW id.**
-- **`"notify": false` shows the item on the website but never emails it.**
-  Use this for anything you are not ready to announce by email.
-- **Keep both languages.** A missing French title or body fails
-  `npm run news:check`. The site falls back to English, but the check exists
-  to stop that happening by accident.
-- **First push sends nothing.** Every item that ships with this feature is
-  `"notify": false`, so your first deployment cannot email anyone.
+```
+npm run news:check
+```
 
-### Checking a newsletter email before it goes to real people
+This fails on a duplicate id, an unknown topic, a missing translation, a bad
+date, or a missing image. Run it before every push — it is the same check the
+GitHub Action runs, so a mistake is caught before any real mail goes out.
 
-You can build the emails without sending them:
+### Preview the email without sending it
 
 ```
 npm run news:dry-run
 ```
 
-This writes what the emails would look like into the `email-previews/` folder
-as `.html` and `.txt` files. Double-click an `.html` file to open it in your
-browser. This folder is ignored by Git, so previews are never committed.
+Writes the exact HTML of every email that would be sent into
+`email-previews/`. Open those files in a browser to check the wording and
+layout. **No email is sent and nothing is created in Resend.**
+
+### Publish
+
+```
+git add src/data/news.json src/data/resend-config.json
+git commit -m "Add news: <short description>"
+git push
+```
 
 
 ---
 
-## Part C — Testing, step by step
+## Part C — Test plan (do this once, after setup)
 
-Do these in order. They are the same steps the feature was built against.
-
-**a. The first push must send nothing.** Push the feature and watch the
-GitHub Actions run. The log should say every item is `notify: false` and that
-there is nothing to do. If an email arrives at this point, stop and check
-`news.json`.
-
-**b. Subscribe yourself.** Open your live site → `/news`, scroll to the
-footer, type your real email address, tick **Music Program**, and submit. You
-should see *"Almost done! Check your inbox…"*. Open the confirmation email and
-click the link. You are now subscribed to the English music list. (Check the
-spam folder if it does not arrive within a few minutes.)
-
-**c. Publish a real item.** Add a new music item to `news.json` — this time
-with no `"notify": false` — with a **new** id, put its image in
-`public/news/`, run `npm run news:check`, commit and push. After Vercel
-finishes, check your inbox and the spam folder, and open the
-**Actions → Send news emails** run to read the summary table.
-
-**d. Check the links.** In the received email, confirm that **Read more on our
-website** jumps to the story, that **Donate today** opens `/donate`, and that
-**Unsubscribe** works. Unsubscribing uses Brevo's standard link; the message
-must keep it or the email can be treated as spam.
-
-**e. Repeat in French.** Switch the site to French, subscribe again choosing
-**Programme musique**, confirm, then publish another music item. The French
-list and the French email are separate, so this is a genuinely separate test.
-
-If the Action fails, open the run and read the log. The most common causes are
-a typo in a variable name, or the environment not being named `Production`.
+1. **Subscribe with your real email address.** Go to the live site, scroll to
+   the footer, enter your address, tick one topic, and press Submit. You should
+   see *"You're subscribed! You'll receive news about your chosen topics."*
+   immediately — there is no confirmation email to wait for.
+2. **Check Resend.** In the dashboard, **Contacts** should list your address
+   within a few seconds, with the topic you ticked showing as opted in.
+3. **Subscribe to a second topic with the same address.** You should end up
+   opted in to both — signing up again adds, it does not replace.
+4. **Add a news item** for that topic with `"notify": true`, then
+   `npm run news:check`, commit and push.
+5. **Wait for the deploy** (a few minutes). Check the GitHub Actions tab to
+   confirm the run went green and see the recipient count.
+6. **Check your inbox — and your spam folder.** Confirm the email arrived, that
+   **Read more** jumps to the story, and that **Donate today** opens `/donate`.
+   If it is in spam, mark it as not spam: that tells Gmail the sender is
+   legitimate and helps the next one land properly.
+7. **Test the unsubscribe link.** Click **Unsubscribe** at the bottom of the
+   email. Resend opens a preference page where you can turn off that one topic
+   or everything. Resend then marks your contact as unsubscribed
+   automatically — there is no list to update by hand.
+8. **Confirm it is respected.** Submit the footer form again with the same
+   address. The site will say you are subscribed, but nothing will be written
+   in Resend: the code deliberately leaves a contact who unsubscribed alone
+   rather than silently resubscribing them. To start receiving mail again, tick
+   the box back on the Resend preference page.
+9. **Confirm nothing is sent twice.** Push another unrelated commit, or re-run
+   the Action manually. The script sees the earlier broadcast in Resend and
+   reports that everything eligible has already been emailed.
 
 ---
 
-## Part D — Limits worth knowing
+## Part D — Limits and things worth knowing
 
-**Brevo free plan**
-- **300 emails per day.** The script prints a warning if one run would go over
-  that. Brevo simply stops sending the surplus that day; the rest still go.
-  Note this is per day across *all* your Brevo sending, not just this site.
-- Brevo adds its own small logo to free-plan marketing emails. This is normal
-  and is not something the code can remove.
-- Free-plan contact lists are capped too (a few hundred contacts).
+**Resend free plan**
+- **3,000 emails a month, 100 a day.** The script prints a warning if one run
+  would go over either. Resend will start refusing the surplus; the rest still
+  go out. This is per account, not per site.
+- Check your current usage under **Usage** in the Resend dashboard.
 
-**Vercel free plan**
-- Serverless functions have a daily execution allowance. A signup is a very
-  small amount of work, so a normal newsletter list will not come close to it.
-- Preview deployments do **not** send email. Only production does. You can
-  therefore test the site freely on a preview branch.
+**Language**
+- Each broadcast contains the English version followed by the French version,
+  each under its own heading. Resend segments can only be given filter
+  conditions through the dashboard, not the API, so there is no way to build
+  "Music **and** language = French" audiences automatically. One bilingual
+  email is the trade-off that keeps the whole setup to a single script.
+- If you would rather have separate language emails, create the segments by
+  hand in the Resend dashboard and change the script to target them.
 
-**Google and Yahoo sender rules**
-- Bulk senders must support one-click unsubscribe. Brevo adds the required
-  header automatically; the visible unsubscribe link in the footer of every
-  email is the other half of that requirement, which is why the template
-  always includes it.
+**Existing subscribers**
+- The old Brevo list was **not** migrated. Resend contacts only appear once
+  somebody submits the form. To import an existing list, use
+  **Contacts → Import** in the Resend dashboard and tick the matching topics
+  for the imported contacts.
+
+**Unsubscribes**
+- The unsubscribe link is required by law and by the Gmail and Yahoo one-click
+  sender rules. It is a Resend placeholder in the email template, and Resend
+  also adds the required header. The email must keep it, or the message can be
+  treated as spam.
+
+**Spam complaints**
+- A newsletter sent to people who did not ask for it is the fastest way to
+  damage the sending reputation. If you ever import an old list, only import
+  people who opted in with you.
 
 ---
 
-## Where things are
+## Troubleshooting
 
-| What | Where |
+| Symptom | Cause and fix |
 | --- | --- |
-| The news itself | `src/data/news.json` |
-| The `/news` page | `src/Pages/News.jsx` and `src/Pages/News.css` |
-| The signup form | the footer, `src/components/Footer.jsx` |
-| The function that receives signups | `api/subscribe.js` |
-| The script that sends the emails | `scripts/send-news-emails.mjs` |
-| The data checker | `scripts/validate-news.mjs` |
-| The automation | `.github/workflows/send-news-emails.yml` |
-| News pictures | `public/news/` |
-| Email previews (not committed) | `email-previews/` |
+| The form says "Something went wrong" | Open `https://yourdomain.org/api/health`. Any variable showing `false` is missing from Vercel for **Production**. Redeploy after changing it. |
+| `api/health` shows all `true` but signups still fail | The log line names the failing step. `a topic id is missing` means `npm run news:setup` has not been run, or `src/data/resend-config.json` was not committed. |
+| Signup works, no email is ever sent | Check the item has `"notify": true` and is not `false`. Then check the **Actions** tab for a failed run. |
+| Every run says "Everything eligible has already been emailed" | Working as intended. Each item is emailed once. Publish a **new** item with a **new** id. |
+| Emails land in spam | The domain is almost certainly not verified yet — check **Domains** in Resend. Also mark a received email as "not spam" so the next one is trusted. |
+| A broadcast says 0 recipients | Nobody is opted in to that topic yet, so it is saved as a draft. The ids are still recorded, so that news will not be sent later to people who subscribe after the fact. |
+| Resend rejects the key (401) | The key is wrong, revoked, or lacks access. Create a new one with full access. |
 
-**Local testing note:** `npm run dev` starts only the website, so
-`/api/subscribe` will not answer. To exercise the signup function on your own
-machine, install the Vercel CLI once with `npm i -g vercel`, then run
-`vercel dev` in the project folder and use the address it prints. The
-newsletter emails themselves are only ever sent by GitHub Actions, never from
-your laptop.
+Vercel rebuilds and redeploys. When the production deployment reports success,
+the GitHub Action runs on its own and emails your new item. You do not have to
+press anything.
 
+### See what the Action did
+
+GitHub → your repository → the **Actions** tab → **Send news emails**. It can
+also be run by hand from there, and a manual run defaults to a dry run — a real
+send needs the **dry_run** checkbox ticked off.
+
+3. It prints the ids it created. **Commit `src/data/resend-config.json`** —
+   those ids are not secrets, and both the site and the email script read them
+   from there.
+
+> **Why Topics?** A Resend Topic is how Resend itself records "which topics did
+> this person tick". Opting in is additive, so somebody who subscribes to Music
+> and later ticks Dance ends up subscribed to both rather than losing Music.
+> It also drives the preference page a contact sees after clicking unsubscribe.
+>
+> The four topics are created with their default set to **opt-out** on purpose.
+> That means "only people who explicitly ticked this box", which is what the
+> footer form does. If they were opt-in, the first broadcast would go to every
+> contact in the account.

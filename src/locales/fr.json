@@ -169,8 +169,9 @@
       "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
       "chooseInterest": "Veuillez choisir au moins un centre d'intérêt.",
       "sending": "Envoi en cours...",
-      "success": "C'est presque terminé ! Consultez votre boîte de réception et cliquez sur le lien de confirmation pour valider votre abonnement.",
+      "success": "Vous êtes abonné(e) ! Vous recevrez les actualités des sujets choisis.",
       "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+      "unsubscribeNote": "Vous pouvez vous désabonner à tout moment via le lien présent dans chaque e-mail.",
       "notice": "En vous abonnant, vous acceptez de recevoir les actualités d'AUVD par e-mail. Vous pouvez vous désabonner à tout moment.",
       "privacyLink": "Politique de confidentialité"
     }
@@ -1428,10 +1429,6 @@
       }
     },
     "empty": "Aucune nouvelle dans cette rubrique pour le moment.",
-    "donateCta": "Faire un don",
-    "subscribed": {
-      "notice": "Merci ! Votre abonnement est confirmé.",
-      "dismiss": "Fermer"
-    }
+    "donateCta": "Faire un don"
   }
 }

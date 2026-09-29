@@ -493,3 +493,14 @@
   outline: 2px solid var(--impact-blue, #1f76be);
   outline-offset: 2px;
 }
+
+/* The "you can unsubscribe any time" line under the Submit button. Same
+   muted palette as the notice below it, one step smaller. */
+.footer-subscribe-note {
+  margin: 0;
+  flex: 1 1 100%;
+  max-width: 560px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--impact-muted, #52606d);
+}

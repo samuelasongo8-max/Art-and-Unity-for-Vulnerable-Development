@@ -1,0 +1,17 @@
+{
+  "_note": "Resend ids, written by scripts/setup-resend.mjs. These are NOT secrets and are meant to be committed. api/subscribe.js reads the four topic ids and scripts/send-news-emails.mjs reads the segment id, so a signup or a send never has to create anything. Until you run the setup script the placeholder values below are empty strings, and both scripts refuse to run rather than failing obscurely.",
+  "segmentId": "",
+  "segmentName": "AUVD News",
+  "topics": {
+    "education": "",
+    "music": "",
+    "dance": "",
+    "vocational": ""
+  },
+  "topicNames": {
+    "education": "AUVD News - Education",
+    "music": "AUVD News - Music",
+    "dance": "AUVD News - Dance",
+    "vocational": "AUVD News - Vocational Training"
+  }
+}

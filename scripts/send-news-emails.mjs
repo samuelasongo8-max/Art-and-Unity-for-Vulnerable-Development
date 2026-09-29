@@ -3,22 +3,52 @@
  * send-news-emails — emails news that has never been emailed before.
  *
  * Runs on GitHub Actions after a successful PRODUCTION Vercel deployment.
- * There is no dashboard and no database: Brevo's own campaign list is the
+ * There is no dashboard and no database: Resend's own broadcast list is the
  * record of what has already gone out.
  *
  * HOW "ALREADY SENT" IS TRACKED
  * -----------------------------
- * Every campaign this script creates is named
+ * Every broadcast this script creates is named
  *
- *     news|<topic>|<lang>|<id1>,<id2>
+ *     news|<topic>|<ids>
  *
- * where the ids are the news items covered by that campaign. Before sending,
- * the script lists every existing campaign and reads the ids back out of
- * those names, so an item is never emailed twice. Editing an item in
- * news.json does not change its id and therefore does not resend it; to send
- * something again, publish a NEW item with a NEW id.
+ * where the ids are the news items covered by that broadcast. Before sending,
+ * the script lists every existing broadcast and reads the ids back out of
+ * those names, so an item is never emailed twice. Resend's GET /broadcasts
+ * returns a `name` field for every broadcast, so the same trick the Brevo
+ * version used still works and NO extra log file has to be kept in the repo.
+ * A committed sent-log.json would be easy to forget to commit, and a run from
+ * a stale checkout would then re-send everything.
+ *
+ * Editing an item in news.json does not change its id and therefore does not
+ * resend it; to send something again, publish a NEW item with a NEW id.
  *
  * An item with "notify": false is never emailed.
+ *
+ * WHO RECEIVES WHAT
+ * -----------------
+ * Each broadcast is sent to the "AUVD News" segment (required by the Resend
+ * broadcasts API) AND scoped to that topic's Resend Topic. Resend therefore
+ * does the topic filtering itself: only contacts who ticked that box on the
+ * footer form — and who have not since unsubscribed — are mailed. Nobody has
+ * to be added to a list by hand.
+ *
+ * LANGUAGE
+ * --------
+ * Resend segments can only be created through the API with a name; their
+ * filter conditions are set in the dashboard. There is therefore no API-only
+ * way to build "music AND language = fr" segments, so this script sends ONE
+ * broadcast per topic containing the English version followed by the French
+ * version, each under its own language heading. A subscriber who only reads
+ * one language scrolls past the other; nobody receives a mail in a language
+ * they did not ask for AND in the one they did.
+ *
+ * UNSUBSCRIBE
+ * -----------
+ * Resend's own placeholder {{{RESEND_UNSUBSCRIBE_URL}}} is used in the
+ * footer. Resend replaces it with a per-contact link, and clicking it opens
+ * the preference page where the contact can turn individual topics off or
+ * unsubscribe from everything. Nothing here has to track that.
  *
  * DRY RUN
  * --------
@@ -29,23 +59,27 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { validateNews, TOPICS, LANGUAGES } from "./validate-news.mjs";
+import { validateNews, TOPICS } from "./validate-news.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(here, "..");
 const PREVIEW_DIR = path.join(projectRoot, "email-previews");
+const CONFIG_FILE = path.join(projectRoot, "src", "data", "resend-config.json");
 
-const BREVO_BASE = "https://api.brevo.com/v3";
+const RESEND_BASE = "https://api.resend.com";
 const ORANGE = "#ff6600";
 const NAVY = "#12395f";
 const MUTED = "#52606d";
 
-/* Brevo's free plan allows 300 emails per day. Warn rather than block, so a
-   legitimate larger send is still possible on a paid plan. */
-const DAILY_SEND_LIMIT = 300;
+/* Resend's free plan allows 100 emails a day and 3,000 a month. Warn rather
+   than block, so a legitimate larger send is still possible on a paid plan. */
+const DAILY_SEND_LIMIT = 100;
+const MONTHLY_SEND_LIMIT = 3000;
 
 const CAMPAIGN_PREFIX = "news";
-const FOLDER_NAME = "AUVD News";
+
+/* Resend's documented liquid placeholder for the per-contact unsubscribe URL. */
+const UNSUBSCRIBE_URL = "{{{RESEND_UNSUBSCRIBE_URL}}}";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 
@@ -70,6 +104,8 @@ const WORDING = {
     receiving: (topic) =>
       `You are receiving this email because you subscribed to AUVD news about ${topic}.`,
     newFrom: (topic) => `New from AUVD: ${topic}`,
+    languageHeading: "English",
+    otherLanguage: "This message is also available in French below.",
   },
   fr: {
     readMore: "Lire la suite sur notre site",
@@ -78,6 +114,8 @@ const WORDING = {
     receiving: (topic) =>
       `Vous recevez cet e-mail parce que vous êtes abonné aux actualités d'AUVD sur ${topic}.`,
     newFrom: (topic) => `Nouveau chez AUVD : ${topic}`,
+    languageHeading: "Français",
+    otherLanguage: "Ce message est également disponible en anglais ci-dessus.",
   },
 };
 
@@ -96,9 +134,8 @@ const TOPIC_NAMES = {
   },
 };
 
-/* Must match api/subscribe.js exactly: both sides derive the name the same
-   way, so the two can never drift apart. */
-const listName = (topic, lang) => `news-${topic}-${lang}`;
+/** The topic name in both languages, for the bilingual email header. */
+const bilingualTopicName = (topic) => `${TOPIC_NAMES.en[topic]} / ${TOPIC_NAMES.fr[topic]}`;
 
 const pick = (field, lang) => {
   if (!field) return "";
@@ -137,23 +174,23 @@ const escapeHtml = (value) =>
     .replace(/"/g, "&quot;");
 
 /* ------------------------------------------------------------------ *
- * Brevo API
+ * Resend API
  * ------------------------------------------------------------------ */
 
 let apiKey = "";
 
-async function brevo(path, { method = "GET", body } = {}) {
-  const response = await fetch(`${BREVO_BASE}${path}`, {
+async function resend(pathname, { method = "GET", body } = {}) {
+  const response = await fetch(`${RESEND_BASE}${pathname}`, {
     method,
     headers: {
-      "api-key": apiKey,
+      Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
 
-  const text = await response.text();
+  const text = await response.text().catch(() => "");
   let payload = null;
   if (text) {
     try {
@@ -165,7 +202,7 @@ async function brevo(path, { method = "GET", body } = {}) {
 
   if (!response.ok) {
     fail(
-      `Brevo ${method} ${path} responded ${response.status}` +
+      `Resend ${method} ${pathname} responded ${response.status}` +
         `${payload?.message ? `: ${payload.message}` : ""}`
     );
   }
@@ -173,49 +210,59 @@ async function brevo(path, { method = "GET", body } = {}) {
   return payload;
 }
 
-/** Every campaign Brevo knows about, following pagination. */
-async function fetchAllCampaigns() {
-  const campaigns = [];
-  const limit = 50;
-  let offset = 0;
+/** Every broadcast Resend knows about, following its `after` pagination. */
+async function fetchAllBroadcasts() {
+  const broadcasts = [];
+  let url = "/broadcasts?limit=100";
 
   for (;;) {
-    const page = await brevo(
-      `/emailCampaigns?limit=${limit}&offset=${offset}&sort=asc&excludeHtmlContent=true`
-    );
-    const batch = page?.campaigns ?? [];
-    campaigns.push(...batch);
-    if (batch.length < limit) break;
-    offset += limit;
+    const page = await resend(url);
+    const batch = Array.isArray(page?.data) ? page.data : [];
+    broadcasts.push(...batch);
+    if (!page?.has_more || batch.length === 0) break;
+    url = `/broadcasts?limit=100&after=${encodeURIComponent(batch[batch.length - 1].id)}`;
   }
 
-  return campaigns;
+  return broadcasts;
 }
 
-/** All contact lists, keyed by name. */
-async function fetchListsByName() {
-  const lists = [];
-  const limit = 100;
-  let offset = 0;
+/**
+ * How many contacts are really subscribed to a topic.
+ *
+ * There is no per-topic count endpoint, so this walks the segment's contacts
+ * and asks for each one's topics. The segment holds every contact in the
+ * account, which on a site of this size is a short list, and the walk happens
+ * once per run rather than once per broadcast.
+ *
+ * The count is only used to choose between "send" and "record a draft" and to
+ * warn about the free-plan limit, so a contact whose lookup fails counts as
+ * subscribed: over-counting is harmless, under-counting would silently skip a
+ * real send.
+ */
+async function countTopicSubscribers(segmentId, topicId) {
+  const contacts = [];
+  let url = `/segments/${segmentId}/contacts?limit=100`;
 
   for (;;) {
-    const page = await brevo(`/contacts/lists?limit=${limit}&offset=${offset}&sort=asc`);
-    const batch = page?.lists ?? [];
-    lists.push(...batch);
-    if (batch.length < limit) break;
-    offset += limit;
+    const page = await resend(url);
+    const batch = Array.isArray(page?.data) ? page.data : [];
+    contacts.push(...batch);
+    if (!page?.has_more || batch.length === 0) break;
+    url = `/segments/${segmentId}/contacts?limit=100&after=${encodeURIComponent(batch[batch.length - 1].id)}`;
   }
 
-  return new Map(lists.map((list) => [list.name, list]));
-}
-
-/** The "AUVD News" folder id, or null when it does not exist yet. */
-async function findFolderId() {
-  const page = await brevo("/contacts/folders?limit=100&offset=0&sort=asc");
-  const folder = (page?.folders ?? []).find((entry) => entry.name === FOLDER_NAME);
-  if (folder) return folder.id;
-  dry(`folder "${FOLDER_NAME}" does not exist yet — the subscribe function creates it on the first signup`);
-  return null;
+  let count = 0;
+  for (const contact of contacts) {
+    if (contact?.unsubscribed === true) continue;
+    try {
+      const topics = await resend(`/contacts/${encodeURIComponent(contact.email)}/topics`);
+      const list = Array.isArray(topics?.data) ? topics.data : [];
+      if (list.some((entry) => entry?.id === topicId && entry?.subscription === "opt_in")) count += 1;
+    } catch {
+      count += 1;
+    }
+  }
+  return count;
 }
 
 
@@ -227,8 +274,9 @@ async function findFolderId() {
    message has to survive a plain-text-only reader.
 
    The unsubscribe link is required by law and by the Gmail/Yahoo one-click
-   sender rules. Brevo replaces the {{ unsubscribe }} tag with the real
-   per-contact unsubscribe URL when it sends the campaign.
+   sender rules. Resend replaces the {{{RESEND_UNSUBSCRIBE_URL}}} liquid tag
+   with the real per-contact unsubscribe URL when it sends the broadcast, and
+   handles the preference page and the List-Unsubscribe header behind it.
    ------------------------------------------------------------------ */
 
 const STACK = `-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif`;
@@ -273,12 +321,31 @@ function itemBlock(item, lang, siteUrl) {
       </td></tr>`;
 }
 
-function buildEmail({ items, topic, lang, siteUrl }) {
+/** One language section: a heading, then every item in that language. */
+function languageSection(items, lang, siteUrl) {
   const words = WORDING[lang];
-  const topicName = TOPIC_NAMES[lang][topic];
+  return `
+        <tr><td style="padding:0 0 6px 0;font-family:${STACK};font-size:12px;font-weight:700;
+                       text-transform:uppercase;letter-spacing:0.08em;color:${MUTED};">
+          ${escapeHtml(words.languageHeading)}
+        </td></tr>
+        <tr><td style="padding:0 0 10px 0;font-family:${STACK};font-size:13px;line-height:1.6;
+                       color:${MUTED};">
+          ${escapeHtml(words.otherLanguage)}
+        </td></tr>
+        <tr><td style="padding:0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${items
+            .map((item) => itemBlock(item, lang, siteUrl))
+            .join("")}</table>
+        </td></tr>`;
+}
 
+function buildEmail({ items, topic, siteUrl }) {
+  const topicName = bilingualTopicName(topic);
+
+  /* Both languages, English first, separated by a rule. */
   return `<!DOCTYPE html>
-<html lang="${lang}">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -305,20 +372,21 @@ function buildEmail({ items, topic, lang, siteUrl }) {
         </td></tr>
 
         <tr><td style="padding:28px 24px 8px 24px;">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${items
-            .map((item) => itemBlock(item, lang, siteUrl))
-            .join("")}
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+            ${languageSection(items, "en", siteUrl)}
+            <tr><td style="padding:0 0 8px 0;border-top:1px solid #dde5ee;"></td></tr>
+            ${languageSection(items, "fr", siteUrl)}
           </table>
         </td></tr>
 
         <tr><td style="padding:20px 24px 28px 24px;border-top:1px solid #dde5ee;">
           <p style="margin:0 0 10px 0;font-family:${STACK};font-size:13px;line-height:1.6;
                     color:${MUTED};">
-            ${escapeHtml(words.receiving(topicName))}
+            ${escapeHtml(`${WORDING.en.receiving(TOPIC_NAMES.en[topic])} / ${WORDING.fr.receiving(TOPIC_NAMES.fr[topic])}`)}
           </p>
           <p style="margin:0;font-family:${STACK};font-size:13px;line-height:1.6;">
-            <a href="{{ unsubscribe }}" style="color:${NAVY};text-decoration:underline;">${escapeHtml(
-    words.unsubscribe
+            <a href="${UNSUBSCRIBE_URL}" style="color:${NAVY};text-decoration:underline;">${escapeHtml(
+    `${WORDING.en.unsubscribe} / ${WORDING.fr.unsubscribe}`
   )}</a>
           </p>
         </td></tr>
@@ -331,35 +399,57 @@ function buildEmail({ items, topic, lang, siteUrl }) {
 </html>`;
 }
 
-function buildText({ items, topic, lang, siteUrl }) {
-  const words = WORDING[lang];
-  const topicName = TOPIC_NAMES[lang][topic];
+function buildText({ items, topic, siteUrl }) {
+  const section = (lang) => {
+    const words = WORDING[lang];
+    const blocks = items.map((item) => {
+      const first = paragraphs(item.body, lang)[0] ?? "";
+      return [
+        formatDate(item.date, lang),
+        pick(item.title, lang),
+        "",
+        excerpt(first),
+        "",
+        `${words.readMore}: ${siteUrl}/news#${item.id}`,
+        `${words.donate}: ${siteUrl}/donate`,
+      ].join("\n");
+    });
+    return [`### ${words.languageHeading} ###`, "", ...blocks].join("\n");
+  };
 
-  const blocks = items.map((item) => {
-    const first = paragraphs(item.body, lang)[0] ?? "";
-    return [
-      formatDate(item.date, lang),
-      pick(item.title, lang),
-      "",
-      excerpt(first),
-      "",
-      `${words.readMore}: ${siteUrl}/news#${item.id}`,
-      `${words.donate}: ${siteUrl}/donate`,
-    ].join("\n");
-  });
-
-  const lines = [`AUVD — ${topicName}`, "=".repeat(40), ""];
-  blocks.forEach((block, index) => {
-    if (index > 0) lines.push("");
-    lines.push(block);
-  });
-  lines.push("", "-".repeat(40));
-  lines.push(words.receiving(topicName));
-  lines.push(`${words.unsubscribe}: {{ unsubscribe }}`);
+  const lines = [
+    `AUVD — ${bilingualTopicName(topic)}`,
+    "=".repeat(40),
+    "",
+    section("en"),
+    "",
+    "-".repeat(40),
+    "",
+    section("fr"),
+    "",
+    "-".repeat(40),
+    `${WORDING.en.receiving(TOPIC_NAMES.en[topic])} / ${WORDING.fr.receiving(TOPIC_NAMES.fr[topic])}`,
+    `${WORDING.en.unsubscribe} / ${WORDING.fr.unsubscribe}: ${UNSUBSCRIBE_URL}`,
+  ];
 
   return lines.join("\n");
 }
 
+
+/** Segment and topic ids written by scripts/setup-resend.mjs. */
+let config = { segmentId: "", topics: {} };
+
+function loadConfig() {
+  try {
+    config = JSON.parse(fs.readFileSync(CONFIG_FILE, "utf8"));
+  } catch (error) {
+    config = { segmentId: "", topics: {} };
+    dry(`could not read ${path.relative(projectRoot, CONFIG_FILE)} (${error?.message ?? error})`);
+  }
+}
+
+/** The Resend topic id for a topic, or "" when setup has not been run. */
+const topicIdFor = (topic) => String(config?.topics?.[topic] ?? "").trim();
 
 /* ------------------------------------------------------------------ *
  * Main
@@ -371,6 +461,7 @@ function readEnv(name) {
 }
 
 const { items, errors } = validateNews();
+loadConfig();
 if (errors.length) {
   console.error("✖ news.json is not valid, so nothing was sent:\n");
   for (const error of errors) console.error(`  ${error}`);
@@ -378,9 +469,8 @@ if (errors.length) {
 }
 
 const siteUrl = readEnv("SITE_URL").replace(/\/+$/, "");
-const senderEmail = readEnv("BREVO_SENDER_EMAIL");
-const senderName = readEnv("BREVO_SENDER_NAME");
-apiKey = readEnv("BREVO_API_KEY");
+const from = readEnv("RESEND_FROM");
+apiKey = readEnv("RESEND_API_KEY");
 
 console.log(DRY_RUN ? "▶ send-news-emails (DRY RUN — no email will be sent)" : "▶ send-news-emails");
 console.log(`  news.json: ${items.length} item(s)`);
@@ -388,13 +478,19 @@ console.log(`  news.json: ${items.length} item(s)`);
 if (!DRY_RUN) {
   const missing = [
     ["SITE_URL", siteUrl],
-    ["BREVO_SENDER_EMAIL", senderEmail],
-    ["BREVO_SENDER_NAME", senderName],
-    ["BREVO_API_KEY", apiKey],
+    ["RESEND_FROM", from],
+    ["RESEND_API_KEY", apiKey],
   ]
     .filter(([, value]) => !value)
     .map(([name]) => name);
   if (missing.length) fail(`Missing environment variable(s): ${missing.join(", ")}`);
+
+  if (!String(config?.segmentId ?? "").trim()) {
+    fail(
+      "src/data/resend-config.json has no segmentId.\n" +
+        "  Run:  node --env-file=.env.local scripts/setup-resend.mjs"
+    );
+  }
 }
 
 /* notify defaults to true, so only an explicit false is excluded. */
@@ -405,27 +501,26 @@ if (candidates.length === 0) {
   process.exit(0);
 }
 
+
+
 /* ---- Which items have already been emailed? ---- */
 
 let alreadySent = new Set();
-let existingLists = new Map();
 
 if (!DRY_RUN) {
-  const campaigns = await fetchAllCampaigns();
-  for (const campaign of campaigns) {
-    const name = campaign?.name ?? "";
+  const broadcasts = await fetchAllBroadcasts();
+  for (const broadcast of broadcasts) {
+    const name = broadcast?.name ?? "";
     if (!name.startsWith(`${CAMPAIGN_PREFIX}|`)) continue;
     const parts = name.split("|");
-    if (parts.length < 4) continue;
-    for (const id of parts[3].split(",")) {
+    if (parts.length < 3) continue;
+    for (const id of parts[2].split(",")) {
       if (id) alreadySent.add(id);
     }
   }
-  console.log(`  ${alreadySent.size} item id(s) already recorded in existing campaigns.`);
-  existingLists = await fetchListsByName();
-  await findFolderId();
+  console.log(`  ${alreadySent.size} item id(s) already recorded in existing broadcasts.`);
 } else {
-  /* In a dry run the campaign history is unknown, so nothing counts as sent
+  /* In a dry run the broadcast history is unknown, so nothing counts as sent
      and the output shows what a first real run would do. */
   console.log("  Dry run: assuming no item has been emailed yet.");
 }
@@ -439,14 +534,13 @@ if (fresh.length === 0) {
 
 console.log(`  ${fresh.length} new item(s): ${fresh.map((item) => item.id).join(", ")}`);
 
-/* ---- Group by topic, then one email per topic per language ---- */
+/* ---- Group by topic, then one email per topic ---- */
 
 const byTopic = new Map();
 for (const item of fresh) {
   if (!byTopic.has(item.topic)) byTopic.set(item.topic, []);
   byTopic.get(item.topic).push(item);
 }
-
 
 const rows = [];
 let estimatedRecipients = 0;
@@ -458,81 +552,66 @@ for (const topic of TOPICS) {
   /* Newest first inside the email as well. */
   const ordered = [...topicItems].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
   const ids = ordered.map((item) => item.id);
+  const name = `${CAMPAIGN_PREFIX}|${topic}|${ids.join(",")}`;
+  const topicId = topicIdFor(topic);
 
-  for (const lang of LANGUAGES) {
-    const name = `${CAMPAIGN_PREFIX}|${topic}|${lang}|${ids.join(",")}`;
-    const list = existingLists.get(listName(topic, lang));
-    const recipientCount = list?.totalSubscribers ?? 0;
-    estimatedRecipients += recipientCount;
-
-    const subject =
-      ordered.length === 1
-        ? pick(ordered[0].title, lang)
-        : WORDING[lang].newFrom(TOPIC_NAMES[lang][topic]);
-
-    const previewUrl = siteUrl || "https://example.org";
-    const html = buildEmail({ items: ordered, topic, lang, siteUrl: previewUrl });
-    const text = buildText({ items: ordered, topic, lang, siteUrl: previewUrl });
-
-    let campaignId = null;
-    let action;
-
-    if (DRY_RUN) {
-      fs.mkdirSync(PREVIEW_DIR, { recursive: true });
-      const file = path.join(PREVIEW_DIR, `${topic}-${lang}.html`);
-      fs.writeFileSync(file, html, "utf8");
-      fs.writeFileSync(file.replace(/\.html$/, ".txt"), text, "utf8");
-      action = "preview";
-      dry(
-        recipientCount === 0
-          ? `no subscribers on ${listName(topic, lang)} — a real run records a draft and never sends`
-          : `would email ${recipientCount} subscriber(s) of ${listName(topic, lang)}`
-      );
-    } else if (recipientCount === 0) {
-      /* Nobody is subscribed yet. The campaign is still created as a DRAFT so
-         the ids are recorded, and this item is therefore never sent later to
-         people who subscribe after it was published. */
-      const created = await brevo("/emailCampaigns", {
-        method: "POST",
-        body: {
-          name,
-          subject,
-          htmlContent: html,
-          textContent: text,
-          sender: { name: senderName, email: senderEmail },
-        },
-      });
-      campaignId = created?.id ?? null;
-      action = "draft (no subscribers)";
-    } else {
-      const created = await brevo("/emailCampaigns", {
-        method: "POST",
-        body: {
-          name,
-          subject,
-          htmlContent: html,
-          textContent: text,
-          sender: { name: senderName, email: senderEmail },
-          recipientListIds: [list.id],
-        },
-      });
-      campaignId = created?.id ?? null;
-      await brevo(`/emailCampaigns/${campaignId}/sendNow`, { method: "POST" });
-      action = "sent";
-    }
-
-    rows.push({
-      topic,
-      language: lang,
-      items: ids.length,
-      recipients: recipientCount,
-      campaignId: campaignId ?? "—",
-      action,
-    });
-    console.log(
-      `  ${topic}/${lang}: ${ids.length} item(s), ${recipientCount} recipient(s) — ${action}`
+  if (!DRY_RUN && !topicId) {
+    fail(
+      `No Resend topic id for "${topic}" in src/data/resend-config.json.\n` +
+        "  Run:  node --env-file=.env.local scripts/setup-resend.mjs"
     );
   }
+
+  /* Resend does the topic filtering itself. The count is only used to decide
+     between a real send and a recorded draft, and to warn about the limit. */
+  const recipientCount = DRY_RUN ? 0 : await countTopicSubscribers(config.segmentId, topicId);
+  estimatedRecipients += recipientCount;
+
+  const subject =
+    ordered.length === 1
+      ? pick(ordered[0].title, "en")
+      : WORDING.en.newFrom(TOPIC_NAMES.en[topic]);
+
+  const previewUrl = siteUrl || "https://example.org";
+  const html = buildEmail({ items: ordered, topic, siteUrl: previewUrl });
+  const text = buildText({ items: ordered, topic, siteUrl: previewUrl });
+
+  let broadcastId = null;
+  let action;
+
+  if (DRY_RUN) {
+    fs.mkdirSync(PREVIEW_DIR, { recursive: true });
+    const file = path.join(PREVIEW_DIR, `${topic}.html`);
+    fs.writeFileSync(file, html, "utf8");
+    fs.writeFileSync(file.replace(/\.html$/, ".txt"), text, "utf8");
+    action = "preview";
+    dry(`would send ${ordered.length} item(s) to this topic's subscribers`);
+  } else {
+    /* POST /broadcasts requires a segment_id; topic_id narrows it to the
+       people who ticked this topic on the footer form. `name` records which
+       news ids went out, so nothing is ever emailed twice. */
+    const created = await resend("/broadcasts", {
+      method: "POST",
+      body: {
+        name,
+        segment_id: config.segmentId,
+        topic_id: topicId,
+        from,
+        subject,
+        html,
+        text,
+        /* Nobody is subscribed yet: keep it as a draft so the ids are still
+           recorded and this news is never sent later to people who subscribe
+           after it was published. */
+        send: recipientCount > 0,
+      },
+    });
+    broadcastId = created?.id ?? null;
+    action = recipientCount > 0 ? "sent" : "draft (no subscribers)";
+  }
+
+  rows.push({ topic, items: ids.length, recipients: recipientCount, broadcastId: broadcastId ?? "—", action });
+  console.log(`  ${topic}: ${ids.length} item(s), ${recipientCount} recipient(s) — ${action}`);
 }
 
 if (rows.length === 0) {
@@ -546,17 +625,16 @@ if (rows.length === 0) {
 console.log("\nSummary");
 console.log("-".repeat(78));
 console.log(
-  ["topic".padEnd(12), "lang".padEnd(5), "items".padStart(5), "recips".padStart(7), "campaign".padStart(9), "result"].join(" ")
+  ["topic".padEnd(12), "items".padStart(5), "recips".padStart(7), "broadcast".padStart(9), "result"].join(" ")
 );
 console.log("-".repeat(78));
 for (const row of rows) {
   console.log(
     [
       row.topic.padEnd(12),
-      row.language.padEnd(5),
       String(row.items).padStart(5),
       String(row.recipients).padStart(7),
-      String(row.campaignId).padStart(9),
+      String(row.broadcastId).padStart(9),
       row.action,
     ].join(" ")
   );
@@ -566,10 +644,15 @@ console.log(`Total recipients this run: ${estimatedRecipients}`);
 
 if (estimatedRecipients > DAILY_SEND_LIMIT) {
   console.log(
-    `\n⚠ WARNING: ${estimatedRecipients} emails in one run is over the Brevo free plan's ` +
-      `${DAILY_SEND_LIMIT}-per-day limit. Brevo will start refusing the surplus today.`
+    `\n⚠ WARNING: ${estimatedRecipients} emails in one run is over the Resend free plan's ` +
+      `${DAILY_SEND_LIMIT}-per-day limit. Resend will start refusing the surplus today.`
+  );
+}
+if (estimatedRecipients > MONTHLY_SEND_LIMIT) {
+  console.log(
+    `⚠ WARNING: ${estimatedRecipients} emails in one run is also over the free plan's ` +
+      `${MONTHLY_SEND_LIMIT}-per-month limit.`
   );
 }
 
-console.log(DRY_RUN ? "\n✔ Dry run finished. No campaign was created and no email was sent." : "\n✔ Done.");
-
+console.log(DRY_RUN ? "\n✔ Dry run finished. No broadcast was created and no email was sent." : "\n✔ Done.");

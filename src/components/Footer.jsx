@@ -81,10 +81,11 @@ const Footer = () => {
     setMessage(t("footer.subscribe.sending"));
 
     /* Without this, a request that never settles leaves the button stuck on
-       "Sending..." forever. 15s is longer than any healthy call and well
-       inside what a visitor will tolerate. */
+       "Sending..." forever. 12s is longer than the function's own 8s budget
+       (see api/subscribe.js), so the form always stops before the server's
+       own deadline and the visitor is never left waiting. */
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15000);
+    const timer = setTimeout(() => controller.abort(), 12000);
 
     try {
       const response = await fetch("/api/subscribe", {
@@ -101,7 +102,11 @@ const Footer = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`subscribe responded ${response.status}`);
+        const text = await response.text().catch(() => "<unreadable>");
+        console.error(`[subscribe] HTTP ${response.status} from /api/subscribe: ${text}`);
+        setStatus("error");
+        setMessage(t("footer.subscribe.error"));
+        return;
       }
 
       /* A rewrite or a proxy can answer 200 with an HTML page instead of JSON,
@@ -110,26 +115,40 @@ const Footer = () => {
       try {
         result = await response.json();
       } catch {
-        throw new Error("subscribe returned a non-JSON body");
+        console.error("[subscribe] HTTP 200 but the body was not JSON — /api may be swallowed by a rewrite");
+        setStatus("error");
+        setMessage(t("footer.subscribe.error"));
+        return;
       }
       if (!result || result.ok !== true) {
-        throw new Error("subscribe did not confirm");
+        console.error("[subscribe] server did not confirm:", JSON.stringify(result));
+        setStatus("error");
+        setMessage(t("footer.subscribe.error"));
+        return;
       }
 
       setStatus("success");
       setMessage(t("footer.subscribe.success"));
       setEmail("");
       setInterests([]);
-    } catch {
-      /* Every failure lands here: network error, timeout, non-2xx, non-JSON.
-         The typed email and the ticked interests are deliberately left in
-         place so the visitor can simply press Submit again. */
+    } catch (error) {
+      /* Two different failures end up here. The visitor sees the same generic
+         translated message either way — the wording must not change — but the
+         console says which one it was, so a timeout is never mistaken for a
+         dead server. The typed email and the ticked interests are left alone
+         so the visitor can simply press Submit again. */
+      const timedOut = error?.name === "AbortError";
+      console.error(
+        timedOut
+          ? "[subscribe] the request timed out after 12s and was cancelled"
+          : `[subscribe] network error: ${error?.message ?? error}`
+      );
       setStatus("error");
       setMessage(t("footer.subscribe.error"));
     } finally {
       clearTimeout(timer);
-      /* Always leaves the sending state, so the button becomes clickable
-         again whatever happened. */
+      /* Always leaves the sending state, so the button becomes clickable again
+         whatever happened. */
       setStatus((current) => (current === "sending" ? "idle" : current));
     }
   };
@@ -206,6 +225,8 @@ const Footer = () => {
               ref={honeypotRef}
             />
           </div>
+
+          <p className="footer-subscribe-note">{t("footer.subscribe.unsubscribeNote")}</p>
 
           <button type="submit" className="footer-submit-btn" disabled={status === "sending"}>
             {status === "sending" ? t("footer.subscribe.sending") : t("footer.submit")}

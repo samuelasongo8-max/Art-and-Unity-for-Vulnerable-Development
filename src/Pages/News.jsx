@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../utils/i18nFormat";
 import news from "../data/news.json";
@@ -32,7 +32,6 @@ const byNewestFirst = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)
 
 function News() {
   const { t, i18n } = useTranslation();
-  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const lang = i18n.resolvedLanguage === "fr" ? "fr" : "en";
 
@@ -45,22 +44,6 @@ function News() {
     }
     return grouped;
   }, []);
-
-  /* The confirmation link from the double opt-in email lands on
-     /news?subscribed=1. The notice is DERIVED from the URL rather than
-     copied into state by an effect: `dismissed` only records that the visitor
-     closed it, so arriving on the URL later shows it again, and closing it
-     also takes the parameter out of the address. */
-  const justSubscribed = searchParams.get("subscribed") === "1";
-  const [dismissed, setDismissed] = useState(false);
-  const noticeVisible = justSubscribed && !dismissed;
-
-  const dismissNotice = () => {
-    setDismissed(true);
-    const next = new URLSearchParams(searchParams);
-    next.delete("subscribed");
-    setSearchParams(next, { replace: true });
-  };
 
   /* /news#<id> — the id sits on the item itself, so the browser does the
      scrolling. This only nudges it, because the page mounts after the
@@ -128,20 +111,6 @@ function News() {
           </a>
         </div>
       </section>
-
-      {noticeVisible ? (
-        <div className="auvd-news-notice" role="status">
-          <p className="auvd-news-notice__text">{t("news.subscribed.notice")}</p>
-          <button
-            type="button"
-            className="auvd-news-notice__close"
-            onClick={dismissNotice}
-            aria-label={t("news.subscribed.dismiss")}
-          >
-            {t("news.subscribed.dismiss")}
-          </button>
-        </div>
-      ) : null}
 
       <nav className="auvd-news-topics" aria-label={t("news.topicsNav.label")}>
         {SECTIONS.map((section) => (
