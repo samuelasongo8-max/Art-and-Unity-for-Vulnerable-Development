@@ -519,6 +519,11 @@
 .auvd-impact-notice-link {
   color: var(--impact-blue);
   text-decoration: underline;
+  /* An e-mail address has no hyphen or space to break at, so a long one
+     (artandunityforvulnerable.org@gmail.com) is a single unbreakable inline
+     box that pushed the page 29px wider than a 320px screen. `anywhere`
+     lets the browser break inside the address when it does not fit. */
+  overflow-wrap: anywhere;
 }
 
 .auvd-impact-notice-link:hover {

@@ -343,10 +343,29 @@
 
 /* ----- Mobile ----- */
 @media (max-width: 600px) {
+  /* flex-wrap must be turned OFF here. The base rule sets flex-wrap: wrap so
+     the desktop row can wrap; once flex-direction becomes column, wrapping
+     means "start a NEW COLUMN to the right" instead of "go to the next line".
+     That laid the button, the status line and the privacy notice out at
+     x=650..1264 and made the whole page horizontally scrollable on a phone.
+     nowrap + column is the intended "stack everything vertically". */
   .footer-connect-right {
     flex-direction: column;
     align-items: stretch;
+    flex-wrap: nowrap;
     gap: 20px;
+  }
+
+  /* These three are "flex: 1 1 100%" in the base rules so each takes a full
+     ROW on desktop. In a column container flex-basis is resolved against the
+     HEIGHT instead, so the same value would fight the vertical stacking. They
+     become ordinary auto-height blocks that simply fill the width. */
+  .footer-connect-right > .footer-subscribe-status,
+  .footer-connect-right > .footer-subscribe-note,
+  .footer-connect-right > .footer-subscribe-notice {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
   }
 
   .footer-connect-email,

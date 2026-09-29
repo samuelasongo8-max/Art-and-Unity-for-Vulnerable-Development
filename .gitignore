@@ -26,3 +26,6 @@ email-previews/
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+.env*
