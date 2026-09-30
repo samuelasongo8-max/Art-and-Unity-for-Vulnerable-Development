@@ -25,7 +25,10 @@ import OurImpact from "./Pages/OurImpact";
 import OurImpactLayout from "./Pages/our-impact/OurImpactLayout";
 import ImpactNews from "./Pages/our-impact/News";
 import ImpactReport from "./Pages/our-impact/Report";
+import ImpactPost from "./Pages/our-impact/Post";
 import DaddarioCommunityMusicGrant from "./Pages/DaddarioCommunityMusicGrant";
+import AdminLogin from "./Pages/admin/AdminLogin";
+import AdminPost from "./Pages/admin/AdminPost";
 
 import Vocational from "./Pages/programs/Vocational";
 import NotFound from "./Pages/NotFound";
@@ -74,6 +77,7 @@ function App() {
               <Route path="news" element={<ImpactNews />} />
               <Route path="blogs" element={<Blogs />} />
               <Route path="report" element={<ImpactReport />} />
+              <Route path="post" element={<ImpactPost />} />
             </Route>
 
             {/* Our Story lives under /our-impact but renders full width with
@@ -88,6 +92,20 @@ function App() {
             <Route path="/dance" element={<Dance />} />
             <Route path="/Music" element={<Music />} />
             <Route path="/Vocational" element={<Vocational />} />
+
+            {/* ===== ADMIN (internal) =====
+                The single-admin backend. Reached through the small lock icon in
+                the footer, which opens the same login form in a modal; these two
+                routes are where that form and the dashboard live.
+
+                Neither renders <Navbar> or <Footer>: they are internal pages and
+                have no business wearing the public chrome. /admin/post is only a
+                route guard — every write it performs is independently checked
+                server-side by lib/requireAdmin.js, and the dashboard itself
+                verifies the session via GET /api/admin/me before showing
+                anything. */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/post" element={<AdminPost />} />
 
             {/* Catch-all so any unknown URL shows a fully translated 404 page
                 instead of a blank screen. */}

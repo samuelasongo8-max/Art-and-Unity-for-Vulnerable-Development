@@ -4,6 +4,7 @@ import {
   FaBookOpen,
   FaChartColumn,
   FaFileLines,
+  FaImages,
   FaNewspaper,
 } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
@@ -19,6 +20,7 @@ import "../OurImpact.css";
      /our-impact/news    -> News
      /our-impact/blogs   -> Blogs   (the existing Blogs.jsx page)
      /our-impact/report  -> Report
+     /our-impact/post    -> Post    (the Instagram-style social feed)
    ========================================================================== */
 
 /* Only the routes and icons live here; the labels are translation keys
@@ -29,15 +31,16 @@ const impactNavItems = [
   { to: "/our-impact/news", labelKey: "impact.layout.nav.news", Icon: FaNewspaper },
   { to: "/our-impact/blogs", labelKey: "impact.layout.nav.blogs", Icon: FaFileLines },
   { to: "/our-impact/report", labelKey: "impact.layout.nav.report", Icon: FaChartColumn },
+  { to: "/our-impact/post", labelKey: "impact.layout.nav.post", Icon: FaImages },
 ];
 
 const navItemClass = ({ isActive }) =>
   `auvd-impact-nav-item${isActive ? " auvd-impact-nav-item--active" : ""}`;
 
 /* The All view (/our-impact) opens with the shared hero — full-bleed at the
-   very top of the page, above the sidebar and the card grid. The News, Blogs
-   and Report sub pages keep the plain padded layout they had, so the hero is
-   only mounted on the index route. */
+   very top of the page, above the sidebar and the card grid. The News, Blogs,
+   Report and Post sub pages keep the plain padded layout they had, so the hero
+   is only mounted on the index route. */
 const OurImpactHeroSlot = () => {
   const { pathname } = useLocation();
 

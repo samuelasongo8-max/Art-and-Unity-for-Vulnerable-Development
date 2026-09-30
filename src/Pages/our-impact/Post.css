@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
+
+/* ==========================================================================
+   Post — /our-impact/post, the Instagram-style social feed. Rendered by
+   Post.jsx inside the shared OurImpactLayout.
+
+   Site design language, unchanged: square corners everywhere (no border-radius
+   on the card, the image or anything else), no shadows, and no animation or
+   hover state anywhere on the page. The --impact-* palette from src/index.css.
+   Instagram's own 1px #dbdbdb border is kept as specified — it reads as a
+   hairline against white rather than as a heavy box.
+
+   Isolation: every selector is prefixed .auvd-post, a name used nowhere else
+   in the project, so nothing here can restyle the News cards, the sidebar or
+   any other page.
+
+   NOTE ON FONT-FAMILY: src/index.css sets `p { font-family: "Cormorant
+   Garamond" }` and the same for h1-h4 as bare element selectors, which
+   override the family they would otherwise inherit from .auvd-post-feed. So
+   Source Sans 3 is set directly on every text rule below rather than left to
+   inherit — otherwise the whole feed silently falls back to the serif. The
+   page heading is NOT set here: it uses the shared .auvd-impact-category class
+   so it stays in Lora, exactly like the other sub pages.
+   ========================================================================== */
+
+/* Feed ===================================================== */
+
+.auvd-post-feed {
+  /* One centred column, the width a real Instagram post renders at. */
+  max-width: 470px;
+  margin: 28px auto 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  color: var(--impact-text, #1f2933);
+}
+
+.auvd-post-feed *,
+.auvd-post-feed *::before,
+.auvd-post-feed *::after {
+  box-sizing: border-box;
+}
+
+.auvd-post-intro {
+  max-width: 62ch;
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--impact-muted, #52606d);
+}
+
+/* Filter chips ============================================ */
+
+.auvd-post-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 24px 0 0;
+}
+
+/* Every chip is the same fill: the navigation bar's own token,
+   var(--impact-orange) = #ff6600, reused rather than re-picked. Selected and
+   unselected chips are NOT separated by colour — they are one flat orange, by
+   design. What remains is the weight (700 vs 600) plus the light inset ring
+   on the selected one, and the 1px border colour.
+
+   The literal is a fallback for the var() on the next line, so the chips never
+   fall back to a transparent background. */
+.auvd-post-filter {
+  margin: 0;
+  padding: 8px 16px;
+  border: 1px solid #c95e15;
+  border-radius: 0;
+  background-color: #ff6600;
+  background-color: var(--impact-orange, #ff6600);
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* No :hover rule and no transition, so nothing on these chips changes while
+   the cursor is over them. Focus-visible below is kept — keyboard users still
+   need to see where they are. */
+
+/* Selected: same orange fill, a heavier weight and a light inset ring, so the
+   chosen chip still reads as chosen now that colour no longer separates them. */
+.auvd-post-filter--active {
+  border-color: #ff6600;
+  background-color: #ff6600;
+  background-color: var(--impact-orange, #ff6600);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.45);
+}
+
+.auvd-post-filter:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
+.auvd-post-empty {
+  margin: 0;
+  padding: 48px 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: center;
+  color: var(--impact-muted, #52606d);
+}
+
+
+/* A single post. Every card is identical — no featured size, no alternating
+   sides — exactly as a real feed reads. */
+.auvd-post-card {
+  margin: 0 0 36px;
+  border: 1px solid #dbdbdb;
+  border-radius: 0;
+  background-color: #ffffff;
+}
+
+/* Header: avatar + account name on the left, date on the right. The 1px rule
+   under it is Instagram's own way of separating the header from the image. */
+.auvd-post-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.auvd-post-avatar {
+  /* Circular, because that is the one place the design allows a round shape:
+     the avatar, not the card or the image. */
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f2f5f8;
+}
+
+.auvd-post-account {
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--impact-text, #1f2933);
+}
+
+.auvd-post-date {
+  margin-left: auto;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--impact-muted, #52606d);
+  white-space: nowrap;
+}
+
+/* Square 1:1 image, flush under the header with no gap, cropped to cover. */
+.auvd-post-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  background-color: #e8eef5;
+}
+
+/* Decorative heart + share icons. aria-hidden is set in the markup. */
+.auvd-post-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 12px 14px 0;
+  color: #262626;
+}
+
+.auvd-post-action-icon {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.auvd-post-body {
+  padding: 12px 14px 16px;
+}
+
+/* The caption is an h3 for document structure but is set as body text, with
+   the account name bold inline — the way Instagram runs the two together. */
+.auvd-post-caption {
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--impact-text, #1f2933);
+}
+
+.auvd-post-caption-account {
+  font-weight: 700;
+}
+
+.auvd-post-paragraph {
+  margin: 8px 0 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--impact-text, #1f2933);
+}
+
+/* Understated topic tag: small and muted, not a coloured badge. */
+.auvd-post-topic {
+  margin: 10px 0 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--impact-muted, #52606d);
+}
+
+/* Mobile (under 500px) ==================================== */
+
+@media (max-width: 500px) {
+  /* The column is already narrow, so it simply fills the width it has and the
+     header, image and caption stack exactly as they do on desktop. */
+  .auvd-post-feed {
+    max-width: 100%;
+  }
+}

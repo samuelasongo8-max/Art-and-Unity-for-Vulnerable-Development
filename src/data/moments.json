@@ -1,0 +1,45 @@
+{
+  "_note": "PLACEHOLDER FEED. These four entries are structural examples only — every caption, paragraph and image is generic and must be replaced with real, verified Moments content before this section is published. Nothing here is a real event, person, place detail or claim. An id is permanent: never edit or reuse one. This file is completely separate from src/data/news.json, so adding a Moment can never change the existing News items.",
+  "items": [
+    {
+      "_note": "placeholder, replace with real content",
+      "id": "placeholder-education-2026-08",
+      "date": "2026-08-15",
+      "topic": "education",
+      "image": "/moments/education-study-group.jpg",
+      "imageAlt": "Placeholder image — students in a classroom, to be replaced with a real Moment photo",
+      "caption": "Morning Study Groups",
+      "paragraph": "Placeholder text. This entry shows the shape of an education Moment: a short headline, a two to four sentence explanation, and a date with a topic label. Replace the copy, swap in a real photograph from the programme, and confirm the date before publishing."
+    },
+    {
+      "_note": "placeholder, replace with real content",
+      "id": "placeholder-music-2026-06",
+      "date": "2026-06-20",
+      "topic": "music",
+      "image": "/moments/music-rehearsal.jpg",
+      "imageAlt": "Placeholder image — a musical instrument on a table, to be replaced with a real Moment photo",
+      "caption": "Band Rehearsal Afternoon",
+      "paragraph": "Placeholder text. This entry shows the shape of a music Moment and is not a record of a real session. Replace the copy with a short account of who took part and why the session mattered, then attach a real photograph from the programme folder."
+    },
+    {
+      "_note": "placeholder, replace with real content",
+      "id": "placeholder-dance-2026-05",
+      "date": "2026-05-09",
+      "topic": "dance",
+      "image": "/moments/dance-class.jpg",
+      "imageAlt": "Placeholder image — a dance class in progress, to be replaced with a real Moment photo",
+      "caption": "Community Dance Class",
+      "paragraph": "Placeholder text. This entry stands in for a dance Moment and describes no real event. Replace it with two to four sentences about who took part, what was practised, and why it matters, and pair it with a real photograph before it goes live."
+    },
+    {
+      "_note": "placeholder, replace with real content",
+      "id": "placeholder-vocational-2026-03",
+      "date": "2026-03-12",
+      "topic": "vocational",
+      "image": "/moments/vocational-tailoring.jpg",
+      "imageAlt": "Placeholder image — a tailoring workspace, to be replaced with a real Moment photo",
+      "caption": "Tailoring Workshop Review",
+      "paragraph": "Placeholder text. This entry marks a vocational Moment and makes no claim about real training or results. Replace the copy with a short, factual description of the workshop and what participants went on to do, and add a real photograph from the programme."
+    }
+  ]
+}

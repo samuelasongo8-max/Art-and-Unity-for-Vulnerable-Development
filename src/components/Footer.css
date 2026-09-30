@@ -304,6 +304,102 @@
 .footer-legal-divider {
   color: #1a1a1a;
   font-size: 11px;
+
+/* =====================================================
+   ADMIN SIGN-IN (the lock icon + its modal)
+
+   The icon sits in the legal row and is deliberately the quietest thing in
+   the footer: no visible label, sized to match the Terms/Privacy links next to
+   it, and muted until hovered. It is a way in for whoever maintains the site,
+   not something offered to visitors, so nothing about it should read as a
+   button you are meant to press.
+
+   The modal matches the site's design language exactly: white background,
+   square corners, a 1px border, no shadow.
+   ===================================================== */
+
+.footer-admin-link {
+  display: inline-flex;
+  align-items: center;
+  /* No visible label, so the accessible name comes from aria-label. */
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 11px;
+  line-height: 1;
+  color: #6b7684;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.footer-admin-link:hover,
+.footer-admin-link:focus-visible {
+  opacity: 1;
+  color: var(--impact-blue, #1f76be);
+}
+
+.footer-admin-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* A plain dim, not a blur: the page behind stays legible but clearly
+     inactive while the dialog is open. */
+  background-color: rgba(15, 23, 32, 0.45);
+}
+
+.footer-admin-modal {
+  width: 100%;
+  max-width: 340px;
+  border: 1px solid #cbd2d9;
+  border-radius: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: none;
+}
+
+.footer-admin-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-admin-modal-title {
+  margin: 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--impact-muted, #52606d);
+}
+
+.footer-admin-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 17px;
+  line-height: 1;
+  color: #6b7684;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer-admin-close:hover {
+  color: #1f2933;
+}
+
 }
 
 /* =====================================================

@@ -1,0 +1,116 @@
+/* ==========================================================================
+   AdminLoginForm — the login form, used in the footer modal and at
+   /admin/login.
+
+   Site design language, unchanged: square corners (no border-radius anywhere),
+   no shadows, a 1px border, white background. The modal wrapper in Footer.css
+   carries the border; these rules are the form itself.
+
+   Isolation: every class is prefixed .auvd-admin, a name used nowhere else in
+   the project, so nothing here can restyle the footer's newsletter form or any
+   other page — even though both forms sit inside the same <footer> element.
+   ========================================================================== */
+
+.auvd-admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+}
+
+.auvd-admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.auvd-admin-field label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--impact-muted, #52606d);
+}
+
+.auvd-admin-field input {
+  /* Square corners, matching every other input on the site. */
+  border-radius: 0;
+  border: 1px solid #cbd2d9;
+  background-color: #ffffff;
+  padding: 10px 12px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--impact-text, #1f2933);
+  transition: border-color 0.2s ease;
+}
+
+.auvd-admin-field input:focus {
+  outline: none;
+  border-color: var(--impact-orange, #ff6600);
+}
+
+.auvd-admin-field input:disabled {
+  background-color: #f5f6f8;
+  color: #9aa5b1;
+}
+
+/* The inline error / status line. It is always present in the DOM (rather than
+   only when there is a message) so the form does not jump in height when an
+   error appears. Empty means invisible. */
+.auvd-admin-message {
+  margin: 0;
+  min-height: 17px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #b42318;
+}
+
+/* The heading for the register form. It repeats what the modal/page heading
+   would say in login mode, so the two states are visually consistent. */
+.auvd-admin-form-title {
+  margin: 0 0 4px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--impact-muted, #52606d);
+}
+
+/* The small grey note under the password field on the register form, e.g.
+   "At least 10 characters." It states the rule up front instead of letting
+   someone discover it through a rejected submit. */
+.auvd-admin-hint {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--impact-muted, #52606d);
+}
+
+.auvd-admin-submit {
+  /* Square corners and the site's own orange, like the buttons elsewhere. */
+  border-radius: 0;
+  border: 1px solid #c95e15;
+  background-color: var(--impact-orange, #ff6600);
+  color: #ffffff;
+  padding: 11px 18px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.auvd-admin-submit:hover:not(:disabled) {
+  background-color: var(--impact-orange-dark, #b25a1e);
+  border-color: var(--impact-orange-dark, #b25a1e);
+}
+
+.auvd-admin-submit:disabled {
+  background-color: #cbd2d9;
+  border-color: #cbd2d9;
+  cursor: not-allowed;
+}

@@ -1,0 +1,40 @@
+/* ==========================================================================
+   /admin/login — the standalone login page.
+
+   Deliberately plain: white background, square corners, a 1px border, one
+   centred box. It is an internal page, so it borrows the site's tokens where
+   they are free to use but does not try to match the public pages.
+   ========================================================================== */
+
+.auvd-adminlogin {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.auvd-adminlogin-box {
+  width: 100%;
+  max-width: 340px;
+  border: 1px solid #cbd2d9;
+  background-color: #ffffff;
+  padding: 28px 24px 24px;
+}
+
+.auvd-adminlogin-icon {
+  margin: 0 0 12px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--impact-muted, #52606d);
+}
+
+.auvd-adminlogin-title {
+  margin: 0 0 20px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--impact-text, #1f2933);
+}

@@ -35,4 +35,13 @@ export default defineConfig([
       globals: globals.node,
     },
   },
+  {
+    // lib/ is server-only too — it is imported by /api functions and by the
+    // one-time scripts in /scripts, both of which run on Node. Without this the
+    // browser globals above would flag process.env as undefined in these files.
+    files: ['lib/**/*.js', 'scripts/**/*.js', 'scripts/**/*.mjs', 'server/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ])

@@ -165,6 +165,28 @@
       "privacy": "Politique de confidentialité",
       "sitemap": "Plan du site"
     },
+    "admin": {
+      "open": "Connexion administrateur",
+      "close": "Fermer",
+      "title": "Connexion administrateur",
+      "registerTitle": "Créez votre compte administrateur",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "passwordHint": "Au moins {{count}} caractères.",
+      "passwordTooShort": "Votre mot de passe doit contenir au moins {{count}} caractères.",
+      "onceOnly": "Ceci ne peut être fait qu'une seule fois. Il n'y a qu'un compte administrateur pour ce site.",
+      "mismatch": "Les deux mots de passe ne correspondent pas.",
+      "create": "Créer le compte",
+      "creating": "Création du compte...",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours...",
+      "error": "Adresse e-mail ou mot de passe incorrect.",
+      "exists": "Un compte administrateur existe déjà. Veuillez vous connecter.",
+      "statusError": "Impossible de vérifier l'état de la configuration. Veuillez réessayer.",
+      "checking": "Vérification...",
+      "timeout": "Le serveur a mis trop de temps à répondre. Veuillez réessayer."
+    },
     "subscribe": {
       "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
       "chooseInterest": "Veuillez choisir au moins un centre d'intérêt.",
@@ -512,7 +534,8 @@
         "ourStory": "Notre histoire",
         "news": "Actualités",
         "blogs": "Blogs",
-        "report": "Rapport"
+        "report": "Rapport",
+        "post": "Publications"
       }
     },
     "hero": {
@@ -613,6 +636,27 @@
         "titleAfter": "ont atteint Kakuma",
         "intro": "Plus tard en 2025, grâce au soutien de la Transylvanian Symphony Foundation en partenariat avec Hungry for Music, AUVD a reçu plus de 25 instruments de musique supplémentaires.",
         "p": "Ils comprenaient notamment des pianos, des guitares et d’autres instruments, <shipped>qui ont été expédiés à Kakuma afin d’élargir</shipped> l’accès à l’éducation musicale et de <more>soutenir davantage de</more> jeunes musiciens."
+      }
+    },
+    "post": {
+      "heading": "Nos publications",
+      "intro": "Voici quelques-unes des publications que nous partageons sur nos réseaux sociaux. Si vous ne nous suivez pas là-bas, vous pouvez tout de même voir nos actualités ici — nous mettons cette page à jour environ toutes les deux semaines.",
+      "filtersLabel": "Filtrer les publications par thème",
+      "empty": "Aucune publication dans cette catégorie pour le moment.",
+      "loading": "Chargement des publications...",
+      "error": "Impossible de charger les publications pour le moment.",
+      "filters": {
+        "all": "Tous",
+        "education": "Éducation",
+        "music": "Musique",
+        "dance": "Danse",
+        "vocational": "Formation professionnelle"
+      },
+      "topics": {
+        "education": "Éducation",
+        "music": "Musique",
+        "dance": "Danse",
+        "vocational": "Formation"
       }
     }
   },

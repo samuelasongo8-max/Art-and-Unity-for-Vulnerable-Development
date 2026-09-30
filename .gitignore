@@ -28,4 +28,11 @@ email-previews/
 *.sw?
 
 .vercel
+# Real secrets never belong in the repo. .env.local (the file the seed scripts
+# read), .env.production.local and .env.vercel are all caught by this rule.
 .env*
+# ...but the blank TEMPLATE is meant to be committed, so it is exempted. Without
+# this line ".env*" would match ".env.local.example" too and the template would
+# be impossible to share.
+!.env.example
+!.env.local.example

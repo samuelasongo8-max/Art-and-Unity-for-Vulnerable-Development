@@ -165,6 +165,28 @@
       "privacy": "Privacy Policy",
       "sitemap": "Sitemap"
     },
+    "admin": {
+      "open": "Admin sign in",
+      "close": "Close",
+      "title": "Admin sign in",
+      "registerTitle": "Create your admin account",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "passwordHint": "At least {{count}} characters.",
+      "passwordTooShort": "Your password must be at least {{count}} characters.",
+      "onceOnly": "This can only be done once. There is one admin account for this site.",
+      "mismatch": "The two passwords do not match.",
+      "create": "Create account",
+      "creating": "Creating account...",
+      "submit": "Log in",
+      "submitting": "Signing in...",
+      "error": "Invalid email or password.",
+      "exists": "An admin account already exists. Please log in instead.",
+      "statusError": "Could not check the setup status. Please try again.",
+      "checking": "Checking...",
+      "timeout": "The server took too long to answer. Please try again."
+    },
     "subscribe": {
       "invalidEmail": "Please enter a valid email address.",
       "chooseInterest": "Please choose at least one interest.",
@@ -512,7 +534,8 @@
         "ourStory": "Our Story",
         "news": "News",
         "blogs": "Blogs",
-        "report": "Report"
+        "report": "Report",
+        "post": "Post"
       }
     },
     "hero": {
@@ -613,6 +636,27 @@
         "titleAfter": "Reached Kakuma",
         "intro": "Later in 2025, through the support of the Transylvanian Symphony Foundation in partnership with Hungry for Music, AUVD received more than 25 additional musical instruments.",
         "p": "These included pianos, guitars, and other instruments, <shipped>which were shipped to Kakuma to help expand</shipped> access to music education and <more>support more</more> young musicians."
+      }
+    },
+    "post": {
+      "heading": "Our Posts",
+      "intro": "These are some of the posts we share on our social media. If you don't follow us there, you can still catch our updates right here — we refresh this page roughly every two weeks.",
+      "filtersLabel": "Filter posts by topic",
+      "empty": "No posts in this category yet.",
+      "loading": "Loading posts...",
+      "error": "Couldn't load posts right now.",
+      "filters": {
+        "all": "All",
+        "education": "Education",
+        "music": "Music",
+        "dance": "Dance",
+        "vocational": "Vocational Training"
+      },
+      "topics": {
+        "education": "Education",
+        "music": "Music",
+        "dance": "Dance",
+        "vocational": "Training"
       }
     }
   },

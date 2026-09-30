@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FaLock } from "react-icons/fa6";
+import AdminLoginForm from "./AdminLoginForm";
 import "./Footer.css";
 
 const navLinks = [
@@ -41,6 +43,20 @@ const Footer = () => {
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [message, setMessage] = useState("");
 
+  /* Admin sign-in. The lock icon in the legal row opens a small modal, and
+     `adminOpen` is the only state that controls it — there is no separate
+     route involved, so nothing about the login is visible to a visitor until
+     they deliberately click that one icon. */
+  const [adminOpen, setAdminOpen] = useState(false);
+  /* Which form the modal is currently showing, reported by AdminLoginForm.
+     Used only to decide the modal's own heading. */
+  const [adminMode, setAdminMode] = useState("checking");
+  const navigate = useNavigate();
+  const adminDialogRef = useRef(null);
+  /* Remembers where focus was before the modal opened, so Escape and the
+     close button can return the visitor exactly where they were. */
+  const adminTriggerRef = useRef(null);
+
   /* Honeypot: a real visitor never sees or fills this. The name is a neutral
      "hp_field" rather than "website" or "url", because browsers and password
      managers autofill fields with those names — an autofilled honeypot would
@@ -55,6 +71,57 @@ const Footer = () => {
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
     );
   };
+
+  /* ----- Admin modal ----- */
+
+  const openAdmin = () => {
+    /* The trigger is remembered so focus can be handed back on close. */
+    adminTriggerRef.current = document.activeElement;
+    setAdminOpen(true);
+  };
+
+  const closeAdmin = () => {
+    setAdminOpen(false);
+    /* Returning focus to the lock icon is what makes the modal usable from the
+       keyboard: tabbing continues from where the visitor left off rather than
+       from the top of the page. */
+    adminTriggerRef.current?.focus?.();
+  };
+
+  /* Escape closes the modal, and Tab is kept inside it while it is open. The
+     latter is what stops a keyboard user tabbing into the page behind an open
+     dialog and losing track of where they are. */
+  useEffect(() => {
+    if (!adminOpen) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeAdmin();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = adminDialogRef.current?.querySelectorAll(
+        'button, input, select, textarea, a[href]'
+      );
+      if (!focusable || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [adminOpen]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -282,7 +349,78 @@ const Footer = () => {
           <NavLink to="/privacy">{t("footer.legal.privacy")}</NavLink>
           <span className="footer-legal-divider">|</span>
           <NavLink to="/sitemap">{t("footer.legal.sitemap")}</NavLink>
+
+          {/* The admin entry point. Deliberately the quietest thing in the
+              footer: a bare lock icon, the same size as the legal links
+              beside it, with no visible label. It is a way in for the person
+              who maintains the site, not a feature offered to visitors, so it
+              is not styled like a call to action. The accessible name still
+              says what it is, because an unlabelled icon is unusable with a
+              screen reader. */}
+          <span className="footer-legal-divider">|</span>
+          <button
+            type="button"
+            className="footer-admin-link"
+            onClick={openAdmin}
+            aria-label={t("footer.admin.open")}
+            title={t("footer.admin.open")}
+          >
+            <FaLock aria-hidden="true" />
+          </button>
         </div>
+
+        {/* The admin sign-in modal. Rendered only while it is open, so nothing
+            about the login is in the DOM for a visitor who never clicks the
+            lock icon. */}
+        {adminOpen ? (
+          <div
+            className="footer-admin-overlay"
+            onClick={closeAdmin}
+            role="presentation"
+          >
+            <div
+              className="footer-admin-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="footer-admin-modal-title"
+              ref={adminDialogRef}
+              /* A click inside the dialog must not bubble up to the overlay,
+                  or closing the modal would also register as a click on the
+                  field being typed in. */
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="footer-admin-modal-head">
+                <h2 className="footer-admin-modal-title" id="footer-admin-modal-title">
+                  {/* Hidden in register mode, because the form draws its own
+                      "Create your admin account" heading there. Showing both
+                      would read as a contradiction. */}
+                  {adminMode === "register" ? null : t("footer.admin.title")}
+                </h2>
+                <button
+                  type="button"
+                  className="footer-admin-close"
+                  onClick={closeAdmin}
+                  aria-label={t("footer.admin.close")}
+                >
+                  <i className="bx bx-x" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              {/* On success the modal goes straight to the dashboard. The
+                  session is an httpOnly cookie set by the server, so there is
+                  no token to carry across by hand. Whichever form the form
+                  itself decides to show — register or login — this is where it
+                  goes on success. */}
+              <AdminLoginForm
+                onModeChange={setAdminMode}
+                onSuccess={() => {
+                  setAdminOpen(false);
+                  navigate("/admin/post");
+                }}
+              />
+            </div>
+          </div>
+        ) : null}
       </div>
     </footer>
   );
