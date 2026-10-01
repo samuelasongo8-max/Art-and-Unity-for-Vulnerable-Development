@@ -181,7 +181,7 @@ export default async function handler(req, res) {
     await attempts.deleteOne({ _id: attemptKey(email) });
 
     const token = signAdminToken(admin.email);
-    setAdminCookie(res, token);
+    setAdminCookie(req, res, token);
 
     log("signed in", `${mask(admin.email)} expires in ${getExpiresIn()}`);
     /* The response carries the email and nothing else. The token went out

@@ -32,11 +32,13 @@ const uniqueIndex = { fields: null };
 
 const violatesUnique = (rows, candidate) => {
   /* MongoDB treats a missing field as null for a unique index, so a document
-     without `singleton` still occupies the single slot. */
-  const value = candidate.singleton ?? null;
-  return rows.some(
-    (row) => String(row._id) === String(candidate._id) || (row.singleton ?? null) === value
-  );
+     without `singleton` still occupies the single slot. Only documents that
+     actually carry the field are subject to that index — a "posts" document
+     has no singleton field and no unique index on it, so it must not collide
+     with every other post inserted before it. */
+  if (rows.some((row) => String(row._id) === String(candidate._id))) return true;
+  if (candidate.singleton === undefined) return false;
+  return rows.some((row) => (row.singleton ?? null) === candidate.singleton);
 };
 
 const duplicateKeyError = () => {

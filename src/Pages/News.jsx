@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../utils/i18nFormat";
@@ -35,15 +35,67 @@ function News() {
   const location = useLocation();
   const lang = i18n.resolvedLanguage === "fr" ? "fr" : "en";
 
+  /* ------------------------------------------------------------------------
+     NEWS FROM THE ADMIN DASHBOARD
+
+     The four items in src/data/news.json above are the site's original news and
+     stay exactly as they are — same content, same order, same images, same
+     styling. They are still imported from the file and are never written to.
+
+     News an admin publishes in the dashboard lives in MongoDB and arrives from
+     GET /api/news. It is already shaped like the file items (localised title,
+     paragraph array, image) by the API, so it renders through the SAME card
+     components below with no markup change.
+
+     The two are simply concatenated and sorted by the SAME date the page has
+     always sorted by. That is what puts an admin-created item at the TOP of its
+     topic when its date is the newest — no ordering code is special-cased for
+     either source.
+     ------------------------------------------------------------------------ */
+  const [adminNews, setAdminNews] = useState([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const load = async () => {
+      try {
+        /* Public read: no session and no credentials, like the page itself. */
+        const response = await fetch("/api/news", { signal: controller.signal });
+        const result = await response.json().catch(() => null);
+
+        if (!response.ok || !result || result.ok !== true || !Array.isArray(result.news)) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        setAdminNews(result.news);
+      } catch (error) {
+        /* A visitor navigating away is not a failure. Anything else leaves the
+           page showing the original file-backed news, exactly as before — a new
+           feature being unavailable must never take the existing page down. */
+        if (error?.name === "AbortError") return;
+        console.error(`[news] could not load dashboard news: ${error?.message ?? error}`);
+      }
+    };
+
+    load();
+    return () => controller.abort();
+  }, []);
+
+  /* The file items and the dashboard items together, ordered newest first. */
+  const allItems = useMemo(
+    () => [...news.items, ...adminNews].sort(byNewestFirst),
+    [adminNews]
+  );
+
   const itemsByTopic = useMemo(() => {
     const grouped = {};
     for (const section of SECTIONS) {
-      grouped[section.id] = news.items
+      grouped[section.id] = allItems
         .filter((item) => item.topic === section.id)
         .sort(byNewestFirst);
     }
     return grouped;
-  }, []);
+  }, [allItems]);
 
   /* /news#<id> — the id sits on the item itself, so the browser does the
      scrolling. This only nudges it, because the page mounts after the

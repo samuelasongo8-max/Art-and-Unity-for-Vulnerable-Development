@@ -20,6 +20,12 @@ export default function handler(req, res) {
     RESEND_API_KEY: present("RESEND_API_KEY"),
     RESEND_FROM: present("RESEND_FROM"),
     SITE_URL: present("SITE_URL"),
+    /* The admin backend. A 500 from /api/admin/setup-status almost always
+       means one of these is missing on the deployment, and this endpoint is
+       how you find out which without opening the Vercel dashboard. */
+    MONGODB_URI: present("MONGODB_URI"),
+    JWT_SECRET: present("JWT_SECRET"),
+    JWT_EXPIRES_IN: present("JWT_EXPIRES_IN"),
   };
 
   console.log("[health] node", process.version, JSON.stringify(env));

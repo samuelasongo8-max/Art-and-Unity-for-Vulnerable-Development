@@ -28,7 +28,9 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   /* Reported by the form, so this page's own <h1> never contradicts what the
-     form below it is actually asking for. */
+     form below it is actually asking for. The form now always opens on the
+     login form, so "login" is the ordinary state and "register" is the
+     deliberate second step. */
   const [mode, setMode] = useState("checking");
 
   return (
@@ -38,9 +40,15 @@ const AdminLogin = () => {
           <FaLock />
         </p>
 
-        {/* Hidden in register mode, where the form supplies its own heading. */}
-        {mode === "register" ? null : (
-          <h1 className="auvd-adminlogin-title">{t("footer.admin.title")}</h1>
+        {/* The page heading is always "Admin Login": it is the login page, and
+            the form below switches between login and registration. In register
+            mode the form carries its own "Create New Admin Account" <h2>, so
+            hiding this one stops the two headings contradicting each other. */}
+        {mode === "register" || mode === "exists" ? null : (
+          <>
+            <h1 className="auvd-adminlogin-title">{t("footer.admin.loginTitle")}</h1>
+            <p className="auvd-adminlogin-subtitle">{t("footer.admin.loginSubtitle")}</p>
+          </>
         )}
 
         <AdminLoginForm

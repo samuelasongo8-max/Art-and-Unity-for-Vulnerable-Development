@@ -119,7 +119,16 @@ export default async function handler(req, res) {
     }
 
     log("updated", `${String(id)} by ${email}`);
-    return sendJson(res, 200, { ok: true, post: toPublicPost(result) });
+    /* A null here would mean the document that was just saved is unusable, which
+       validation above makes impossible. Answered as 500 rather than returning a
+       null post, so the client can never cache "saved" against an empty body. */
+    const post = toPublicPost(result);
+    if (!post) {
+      log("failed after save", `${String(id)} did not produce a readable post`);
+      return sendJson(res, 500, SERVER_ERROR);
+    }
+
+    return sendJson(res, 200, { ok: true, post });
   } catch (error) {
     log("failed", safeMessage(error));
     return sendJson(res, 500, SERVER_ERROR);

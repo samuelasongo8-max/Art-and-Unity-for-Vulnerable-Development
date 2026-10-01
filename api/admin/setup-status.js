@@ -37,7 +37,7 @@
  *   MONGODB_URI   the connection string, never prefixed with VITE_
  */
 import { getDb, safeMessage } from "../../lib/db.js";
-import { hasAdmin } from "../../lib/adminSetup.js";
+import { hasAdmin, allowsMultipleAdmins } from "../../lib/adminSetup.js";
 import { sendJson } from "../../lib/requireAdmin.js";
 
 /** Vercel calls this as (req, res). Every branch answers. */
@@ -57,7 +57,17 @@ export default async function handler(req, res) {
     const db = await getDb();
     const adminExists = await hasAdmin(db);
 
-    return sendJson(res, 200, { ok: true, hasAdmin: adminExists });
+    /* TEMPORARY (local testing): whether the registration form should be
+       reachable. In the normal one-admin design this is simply `!adminExists`.
+       With ALLOW_MULTIPLE_ADMINS=true it stays true even when an account already
+       exists, because more accounts are allowed in that mode.
+
+       This is CONVENIENCE ONLY, and the backend is still the authority: register
+       itself re-checks the flag and refuses what this says it would refuse. The
+       frontend must never be the thing enforcing the rule. */
+    const allowRegistration = !adminExists || allowsMultipleAdmins();
+
+    return sendJson(res, 200, { ok: true, hasAdmin: adminExists, allowRegistration });
   } catch (error) {
     console.error(`[admin/setup-status] failed: ${safeMessage(error)}`);
     return sendJson(res, 500, { ok: false, error: "Server error" });

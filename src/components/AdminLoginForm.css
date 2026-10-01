@@ -88,6 +88,80 @@
   color: var(--impact-muted, #52606d);
 }
 
+/* The "could not check the setup status" state: an error line plus a way out
+   of it, so a transient failure is not a dead end. */
+.auvd-admin-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* The retry button. Outlined rather than filled, so it reads as a secondary
+   action next to the form's primary submit button. */
+.auvd-admin-secondary-btn {
+  border-radius: 0;
+  border: 1px solid #cbd2d9;
+  background-color: #ffffff;
+  color: var(--impact-text, #1f2933);
+  padding: 9px 16px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.auvd-admin-secondary-btn:hover {
+  border-color: var(--impact-orange, #ff6600);
+  color: var(--impact-orange-dark, #b25a1e);
+}
+
+/* The "Don't have an admin account?" / "Create New Account" pair below the
+   form, and its mirror image on the register form.
+
+   It is separated by a hairline rather than a heavy divider so the two forms
+   read as two views of one page, not as two competing sections. */
+.auvd-admin-switch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid #e4e7eb;
+  text-align: center;
+}
+
+.auvd-admin-switch-text {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--impact-muted, #52606d);
+}
+
+/* A text button rather than a filled one: switching views is a secondary
+   action, and the site's orange is reserved for the form's real submit. */
+.auvd-admin-switch-btn {
+  border: 0;
+  background: none;
+  padding: 2px 4px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--impact-orange, #ff6600);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.auvd-admin-switch-btn:hover {
+  color: var(--impact-orange-dark, #b25a1e);
+}
+
 .auvd-admin-submit {
   /* Square corners and the site's own orange, like the buttons elsewhere. */
   border-radius: 0;

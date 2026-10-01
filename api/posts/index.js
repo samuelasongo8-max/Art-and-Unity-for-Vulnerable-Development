@@ -78,7 +78,11 @@ async function listPosts(res) {
     .sort({ date: -1, createdAt: -1 })
     .toArray();
 
-  const posts = documents.map(toPublicPost);
+  /* toPublicPost returns null for a document that is missing fields (the
+     database holds some that contain only an _id). Those are not published, and
+     importantly they are not deleted either — the data is left exactly as it
+     is, it is simply not handed to the feed. */
+  const posts = documents.map(toPublicPost).filter(Boolean);
   log("listed", `${posts.length} post(s)`);
 
   /* Public content, so it may be cached briefly. `no-store` is still the safe

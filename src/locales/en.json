@@ -169,7 +169,16 @@
       "open": "Admin sign in",
       "close": "Close",
       "title": "Admin sign in",
-      "registerTitle": "Create your admin account",
+      "loginTitle": "Admin Login",
+      "loginSubtitle": "Sign in to access the AUVD administration dashboard.",
+      "registerTitle": "Create New Admin Account",
+      "registerSubtitle": "Create the administrator account for AUVD.",
+      "noAccountPrompt": "Don't have an admin account?",
+      "createNewAccount": "Create New Account",
+      "haveAccountPrompt": "Already have an account?",
+      "existsTitle": "Admin account already exists.",
+      "existsBody": "Please log in with the existing administrator account. Only one administrator account is allowed.",
+      "goToLogin": "Go to Login",
       "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm password",
@@ -184,6 +193,9 @@
       "error": "Invalid email or password.",
       "exists": "An admin account already exists. Please log in instead.",
       "statusError": "Could not check the setup status. Please try again.",
+      "statusNotDeployed": "The admin API is not available at this address (404). The /api/admin/setup-status endpoint is not deployed.",
+      "statusServerError": "The server could not reach its database (500). Please try again.",
+      "tryAgain": "Try again",
       "checking": "Checking...",
       "timeout": "The server took too long to answer. Please try again."
     },
@@ -236,7 +248,9 @@
       "p1": "Art and Unity for Vulnerable Development (AUVD) is delighted to announce that we have been selected to receive a Community Music Grant from the D’Addario Foundation.",
       "p2": "This support is helping young people in Kakuma Refugee Camp, Kenya, discover their talents, develop their skills, build confidence, and express themselves through music.",
       "link": "LEARN MORE",
-      "date": "2026-08-11"
+      "date": "2026-08-11",
+      "latestTitle": "LATEST COMMUNITY UPDATES",
+      "latestLink": "LEARN MORE"
     },
     "donations": {
       "titleLine1": "Music Instrument",

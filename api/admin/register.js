@@ -60,8 +60,8 @@
  *   JWT_EXPIRES_IN   optional, e.g. "7d"
  */
 import bcrypt from "bcryptjs";
-import { getDb, safeMessage } from "../../lib/db.js";
-import { hasAdmin, insertAdmin } from "../../lib/adminSetup.js";
+import { getDb, ADMIN_COLLECTION, safeMessage } from "../../lib/db.js";
+import { hasAdmin, insertAdmin, allowsMultipleAdmins } from "../../lib/adminSetup.js";
 import { sendJson, signAdminToken, setAdminCookie, getExpiresIn } from "../../lib/requireAdmin.js";
 
 /**
@@ -78,8 +78,15 @@ const BCRYPT_COST = 12;
  */
 export const MIN_PASSWORD_LENGTH = 10;
 
-/** The only two failure messages the caller ever receives. */
-const ALREADY_EXISTS = { ok: false, error: "An admin account already exists." };
+/** The only two failure messages the caller ever receives.
+ *
+ *  TEMPORARY: while ALLOW_MULTIPLE_ADMINS=true this is also the answer to
+ *  registering an address that already has an account, which is the only
+ *  registration failure that can still occur in that mode. */
+const ALREADY_EXISTS = {
+  ok: false,
+  error: "Admin account already exists. Only one administrator account is allowed.",
+};
 const INVALID_FORMAT = { ok: false, error: "Invalid email or password format." };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -126,12 +133,18 @@ export default async function handler(req, res) {
 
     const db = await getDb();
 
+    /* TEMPORARY (local testing): with ALLOW_MULTIPLE_ADMINS=true the
+       closed-door check below is skipped, so a second account can be registered.
+       Removing that one branch restores the original behaviour exactly — the
+       check is still here, it is just no longer reached. */
+    const multi = allowsMultipleAdmins();
+
     /* ---- THE CLOSED-DOOR CHECK ----
        Runs before the body is even read, so once an account exists this
        endpoint is a fixed 403 that does no further work: no validation, no
        bcrypt, no insert. This is the fast path, not the guarantee — the
        guarantee is the unique _id and index inside insertAdmin(). */
-    if (await hasAdmin(db)) {
+    if (!multi && (await hasAdmin(db))) {
       log("refused", "an admin account already exists");
       return sendJson(res, 403, ALREADY_EXISTS);
     }
@@ -143,6 +156,15 @@ export default async function handler(req, res) {
 
     const email = String(body.email ?? "").trim().toLowerCase();
     const password = String(body.password ?? "");
+
+    /* Multi-admin mode still allows only ONE account per address: the unique
+       email index enforces it, and this check turns it into the same friendly
+       403 rather than a duplicate-key error. It is a UX shortcut, not the
+       guarantee. */
+    if (multi && (await db.collection(ADMIN_COLLECTION).findOne({ email }, { projection: { _id: 1 } }))) {
+      log("refused", "that email address already has an account");
+      return sendJson(res, 403, ALREADY_EXISTS);
+    }
 
     /* The email gets a basic shape check; the password only a length rule. A
        stricter policy here (uppercase, symbols, a breach list) would reject
@@ -175,7 +197,7 @@ export default async function handler(req, res) {
     /* Creating the account signs the admin straight in: the same JWT, the same
        cookie name and attributes, so /api/admin/me accepts it immediately and
        the dashboard opens with no second step. */
-    setAdminCookie(res, signAdminToken(email));
+    setAdminCookie(req, res, signAdminToken(email));
 
     log("created", `${mask(email)} — signed in, expires in ${getExpiresIn()}`);
     /* The body carries the email and nothing else. The token went out through

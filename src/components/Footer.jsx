@@ -391,10 +391,12 @@ const Footer = () => {
             >
               <div className="footer-admin-modal-head">
                 <h2 className="footer-admin-modal-title" id="footer-admin-modal-title">
-                  {/* Hidden in register mode, because the form draws its own
-                      "Create your admin account" heading there. Showing both
-                      would read as a contradiction. */}
-                  {adminMode === "register" ? null : t("footer.admin.title")}
+                  {/* Hidden in register and "already exists" modes, because the
+                      form draws its own heading there. Showing both would read as
+                      a contradiction. */}
+                  {adminMode === "register" || adminMode === "exists"
+                    ? null
+                    : t("footer.admin.title")}
                 </h2>
                 <button
                   type="button"

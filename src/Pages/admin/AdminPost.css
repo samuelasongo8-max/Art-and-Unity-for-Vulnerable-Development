@@ -294,6 +294,76 @@
   background-color: #f5f6f8;
 }
 
+/* ---- FEATURED IMAGE PICKER ----
+   The native file input is hidden with the clip technique rather than
+   display:none, because a display:none input cannot be focused and the label
+   would stop working with a keyboard. The visible control is the label styled
+   as a button, which is what actually opens the OS file dialog. */
+
+.auvd-admin-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.auvd-admin-image-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* Square corners and the site's orange, matching every other button here. */
+.auvd-admin-file-btn {
+  display: inline-block;
+  border: 1px solid #c95e15;
+  background-color: var(--impact-orange, #ff6600);
+  color: #ffffff;
+  padding: 8px 14px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.auvd-admin-file-btn:hover {
+  background-color: var(--impact-orange-dark, #b25a1e);
+  border-color: var(--impact-orange-dark, #b25a1e);
+}
+
+/* The file input is disabled while saving, so the label is dimmed with it —
+   clicking a disabled input would silently do nothing. */
+.auvd-admin-file-input:disabled + .auvd-admin-image-row .auvd-admin-file-btn {
+  background-color: #cbd2d9;
+  border-color: #cbd2d9;
+  cursor: not-allowed;
+}
+
+.auvd-admin-image-status {
+  font-size: 12px;
+  color: var(--impact-muted, #52606d);
+}
+
+/* The chosen filename, or "No image selected". Monospace so a long generated
+   filename is recognisable rather than blending into the sentence above it. */
+.auvd-admin-image-name {
+  margin: 6px 0 0;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--impact-muted, #52606d);
+  word-break: break-all;
+}
+
 .auvd-admin-dash-error {
   margin: 0;
   font-size: 13px;

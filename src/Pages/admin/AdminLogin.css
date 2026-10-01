@@ -31,10 +31,21 @@
 }
 
 .auvd-adminlogin-title {
-  margin: 0 0 20px;
+  margin: 0 0 6px;
   font-family: "Source Sans 3", Arial, sans-serif;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--impact-text, #1f2933);
+}
+
+/* The line under the page heading, e.g. "Sign in to access the AUVD
+   administration dashboard." Kept small and muted so it reads as a
+   description of the form below rather than competing with the <h1>. */
+.auvd-adminlogin-subtitle {
+  margin: 0 0 20px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--impact-muted, #52606d);
 }

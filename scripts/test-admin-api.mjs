@@ -10,6 +10,7 @@
  */
 import assert from "node:assert/strict";
 import { register } from "node:module";
+import express from "express";
 
 /* The hook has to be installed BEFORE lib/db.js is first imported, which is
    why this runs before the dynamic imports below. */
@@ -57,6 +58,11 @@ const { default: setupStatus } = await import("../api/admin/setup-status.js");
 const postsIndex = (await import("../api/posts/index.js")).default;
 const postsById = (await import("../api/posts/[id].js")).default;
 const bcrypt = (await import("bcryptjs")).default;
+
+/* Used by the local-server check at the end: the cookie name and the signing
+   helper are read from the real module rather than hardcoded, so the test cannot
+   quietly drift away from the implementation. */
+const { ADMIN_COOKIE, signAdminToken } = await import("../lib/requireAdmin.js");
 
 const req = (method, { body, query, cookie } = {}) => ({
   method,
@@ -275,7 +281,7 @@ globalThis.__auvdAdminIndexPromise = null;
 res = makeRes();
 await setupStatus(req("GET"), res);
 assert.equal(res.statusCode, 200);
-assert.deepEqual(res.body, { ok: true, hasAdmin: false });
+assert.deepEqual(res.body, { ok: true, hasAdmin: false, allowRegistration: true });
 
 /* -- bad input is refused before anything is written -- */
 for (const bad of [
@@ -331,7 +337,10 @@ for (let attempt = 0; attempt < 5; attempt += 1) {
     res
   );
   assert.equal(res.statusCode, 403, `attempt ${attempt + 1} must be refused with 403`);
-  assert.deepEqual(res.body, { ok: false, error: "An admin account already exists." });
+  assert.deepEqual(res.body, {
+  ok: false,
+  error: "Admin account already exists. Only one administrator account is allowed.",
+});
   assert.equal("token" in res.body, false);
 }
 assert.equal(store.admin.length, 1, "there must still be exactly one admin document");
@@ -350,7 +359,7 @@ assert.equal(res.statusCode, 401, "the refused account must not be able to log i
 /* -- the unique index exists, so the guarantee is the database's, not a check -- */
 res = makeRes();
 await setupStatus(req("GET"), res);
-assert.deepEqual(res.body, { ok: true, hasAdmin: true });
+assert.deepEqual(res.body, { ok: true, hasAdmin: true, allowRegistration: false });
 
 /* -- the race: two simultaneous registrations, one must lose ----------
    Both requests pass the hasAdmin() check before either insert lands, which is
@@ -377,7 +386,176 @@ assert.equal(
   `exactly one racer must win, got ${raceRes.map((r) => r.statusCode).join(", ")}`
 );
 assert.equal(losers.length, 1, "the other racer must be refused with 403");
-assert.deepEqual(losers[0].body, { ok: false, error: "An admin account already exists." });
+assert.deepEqual(losers[0].body, {
+  ok: false,
+  error: "Admin account already exists. Only one administrator account is allowed.",
+});
 assert.equal(store.admin.length, 1, "the race must still leave exactly one admin");
+
+/* ---------- 12. The cookie's Secure flag follows the real scheme ----------
+   A browser DISCARDS a `Secure` cookie that arrives over plain http, so
+   hardcoding `Secure` meant the session was never stored during local
+   development at http://localhost:5173 — login answered 200 and the dashboard
+   still got 401. It must be set for https and omitted for http. */
+console.log("12. Secure is set only for a request that arrived over https");
+
+/* A known account, so the logins below cannot be refused for an unrelated
+   reason (the rate-limit group above deliberately locked an email out). */
+store.admin.length = 0;
+store.login_attempts.length = 0;
+store.admin.push({
+  email: "scheme@example.org",
+  passwordHash: await bcrypt.hash("correct-horse-battery", 4),
+});
+
+const loginOver = async (headers) => {
+  store.login_attempts.length = 0;
+  const target = makeRes();
+  await login(
+    {
+      method: "POST",
+      body: { email: "scheme@example.org", password: "correct-horse-battery" },
+      query: {},
+      headers,
+    },
+    target
+  );
+  assert.equal(target.statusCode, 200, "the login itself must still succeed");
+  return target.headers["set-cookie"];
+};
+
+/* Behind Vercel, TLS is terminated by the proxy and the original scheme arrives
+   in x-forwarded-proto. https must keep Secure. */
+const httpsCookie = await loginOver({ "x-forwarded-proto": "https" });
+assert.match(httpsCookie, /Secure/, "a cookie sent over https must be marked Secure");
+assert.match(httpsCookie, /HttpOnly/);
+assert.match(httpsCookie, /SameSite=Strict/);
+assert.match(httpsCookie, /Path=\//);
+
+/* Local development is plain http. Secure here is the bug: the browser would
+   throw the cookie away and /api/admin/me would never see a session. */
+const httpCookie = await loginOver({ "x-forwarded-proto": "http" });
+assert.doesNotMatch(
+  httpCookie,
+  /Secure/,
+  "a cookie sent over http must NOT be marked Secure, or the browser discards it"
+);
+assert.match(httpCookie, /HttpOnly/, "HttpOnly is unconditional");
+assert.match(httpCookie, /SameSite=Strict/);
+assert.match(httpCookie, /Path=\//);
+
+/* Unknown scheme must fail safe and keep Secure rather than silently
+   downgrading the cookie. A req with no socket at all (a stub, as above) is the
+   only genuinely unknowable case. */
+const unknownCookie = await loginOver({});
+assert.match(unknownCookie, /Secure/, "a request with no socket must keep Secure");
+
+/* THE TRAP THIS FUNCTION IS EASY TO GET WRONG. A real plain http connection has
+   NO `encrypted` property at all — Node sets it only on a TLS socket. So a check
+   written as `socket.encrypted === false` never matches a real http request, and
+   `Secure` is silently kept — the original bug, still there. This goes through a
+   REAL socket to prove the flag is genuinely dropped for plain http. */
+const app = express();
+
+/* The real server parses JSON bodies before forwarding them; the login handler
+   reads req.body, so the test app has to do the same or the request looks empty. */
+app.use(express.json());
+
+/* Both mounted through the exact forwarding line server/index.js uses, so the
+   cookie has to survive the same hop it does in development. */
+app.post("/api/admin/login", async (request, response) => {
+  await login({ ...request, headers: request.headers, body: request.body, query: {} }, response);
+});
+app.get("/api/admin/me", async (request, response) => {
+  await me({ ...request, headers: request.headers, body: undefined, query: {} }, response);
+});
+
+const server = await new Promise((resolve) => {
+  const listener = app.listen(0, () => resolve(listener));
+});
+const origin = `http://127.0.0.1:${server.address().port}`;
+
+const realHttpLogin = await fetch(`${origin}/api/admin/login`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email: "scheme@example.org", password: "correct-horse-battery" }),
+});
+assert.equal(realHttpLogin.status, 200);
+const realHttpCookie = realHttpLogin.headers.get("set-cookie") ?? "";
+assert.doesNotMatch(
+  realHttpCookie,
+  /Secure/,
+  "a login over a real plain-http socket must not be marked Secure, or the " +
+    "browser silently discards the session cookie and /api/admin/me stays 401"
+);
+assert.match(realHttpCookie, /HttpOnly/);
+assert.match(realHttpCookie, /Path=\//);
+
+/* Both variants still produce a session the gate accepts, so the cookie's
+   attributes are the only thing that differs. */
+res = makeRes();
+await me(req("GET", { cookie: httpCookie.split(";")[0] }), res);
+assert.equal(res.statusCode, 200, "the http-issued cookie must still authenticate");
+assert.equal(res.body.email, "scheme@example.org");
+
+/* Logout must mirror the scheme, otherwise the clearing cookie does not match
+   the stored one and the browser keeps a stale session. */
+res = makeRes();
+await logout({ method: "POST", query: {}, headers: { "x-forwarded-proto": "http" } }, res);
+assert.equal(res.statusCode, 200);
+assert.doesNotMatch(res.headers["set-cookie"], /Secure/);
+assert.match(res.headers["set-cookie"], /auvd_admin=;/);
+assert.match(res.headers["set-cookie"], /Max-Age=0/);
+
+res = makeRes();
+await logout({ method: "POST", query: {}, headers: { "x-forwarded-proto": "https" } }, res);
+assert.match(res.headers["set-cookie"], /Secure/);
+assert.match(res.headers["set-cookie"], /Max-Age=0/);
+
+/* ---------- 13. The local server must hand the handler its headers ----------
+   This is the bug that made the dashboard 401 while login still succeeded.
+
+   server/index.js serves the real Vercel functions by spreading the Express
+   request. `req.headers` is an ACCESSOR on the request prototype, not an own
+   property, so `{ ...req }` drops it — and lib/requireAdmin.js reads the
+   session cookie from `req.headers.cookie`. The result is that every protected
+   endpoint answered 401 no matter what the browser sent.
+
+   The check below runs the REAL /api/admin/me handler behind a REAL Express
+   request and asserts the cookie survives the hop. */
+console.log("13. the cookie survives the hop from Express to the handler");
+
+/* Signed with the same JWT_SECRET the handler verifies against, so a 200 here
+   proves the token itself was fine and only the transport was broken. */
+const liveToken = signAdminToken("scheme@example.org");
+
+/* Reuses the Express app and listener from group 12, already pointed at the real
+   login and /me handlers. */
+const meWithCookie = await fetch(`${origin}/api/admin/me`, {
+  headers: { Cookie: `${ADMIN_COOKIE}=${liveToken}` },
+});
+assert.equal(
+  meWithCookie.status,
+  200,
+  "a valid cookie sent through Express must reach /api/admin/me — the headers " +
+    "must not be lost when the request is forwarded to the handler"
+);
+const meBody = await meWithCookie.json();
+assert.equal(meBody.ok, true);
+assert.equal(meBody.email, "scheme@example.org");
+
+/* The same request with no cookie must still be refused: this test proves the
+   gate is genuinely reading the header, not that the endpoint was made public. */
+const meAnonymous = await fetch(`${origin}/api/admin/me`);
+assert.equal(meAnonymous.status, 401, "an anonymous request must still be 401");
+
+/* And a tampered cookie must still fail, so nothing was weakened to make the
+   round trip work. */
+const meForged = await fetch(`${origin}/api/admin/me`, {
+  headers: { Cookie: `${ADMIN_COOKIE}=not.a.real.token` },
+});
+assert.equal(meForged.status, 401, "a forged token must still be 401");
+
+await new Promise((resolve) => server.close(resolve));
 
 console.log("\n✔ All API checks passed.\n");

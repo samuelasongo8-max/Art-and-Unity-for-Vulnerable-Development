@@ -110,6 +110,142 @@
   outline-offset: 2px;
 }
 
+/* ==========================================================================
+   Latest Updates — the automatic four-post strip.
+
+   Deliberately built from the SAME tokens the grant above already uses
+   (--impact-navy, --impact-blue, Bebas Neue for the title, Source Sans 3 for
+   everything else, 4px radii, the same blue "Learn more" pill) so it reads as
+   part of this section rather than a widget dropped underneath it.
+
+   The grid is capped at four columns and collapses to one, so the layout is
+   correct whether the API returns one card or four.
+   ========================================================================== */
+
+.grant-news__latest {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid #e2e6ea;
+}
+
+.grant-news__latest-title {
+  margin: 0 0 28px;
+  font-family: "Bebas Neue", Impact, sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--impact-navy, #12395f);
+}
+
+/* auto-fit + minmax means one card fills the row, four sit side by side, and
+   two or three land on two rows at a sensible width — no breakpoint maths. */
+.grant-news__latest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grant-news__latest-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e6ea;
+  border-radius: 4px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.grant-news__latest-image {
+  display: block;
+  width: 100%;
+  /* A fixed box rather than the image's own ratio, so a row of cards keeps a
+     straight edge however differently shaped the photos are. */
+  height: 150px;
+  object-fit: cover;
+}
+
+.grant-news__latest-date {
+  margin: 14px 16px 6px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--impact-muted, #52606d);
+}
+
+.grant-news__latest-caption {
+  margin: 0 16px 8px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--impact-navy, #12395f);
+}
+
+.grant-news__latest-excerpt {
+  margin: 0 16px 16px;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555555;
+}
+
+/* margin-top:auto pins the link to the bottom of every card, so the buttons
+   line up across the row instead of following variable-length text. */
+.grant-news__latest-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: auto 16px 16px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: background-color 0.2s ease;
+}
+
+.grant-news__latest-link:hover {
+  background-color: var(--impact-blue-dark, #14507f);
+  color: #ffffff;
+}
+
+.grant-news__latest-link:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .grant-news__latest {
+    margin-top: 40px;
+    padding-top: 32px;
+  }
+
+  .grant-news__latest-title {
+    font-size: 24px;
+  }
+
+  /* One card per row on a phone, as asked for. */
+  .grant-news__latest-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .grant-news__latest-image {
+    height: 190px;
+  }
+}
+
 /* Mobile: one column, media on top, title 34px */
 @media (max-width: 768px) {
   .grant-news {

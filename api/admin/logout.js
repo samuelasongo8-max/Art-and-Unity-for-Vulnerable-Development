@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       return sendJson(res, 405, { ok: false, error: "Method not allowed" });
     }
 
-    clearAdminCookie(res);
+    clearAdminCookie(req, res);
     log("session cookie cleared");
     return sendJson(res, 200, { ok: true });
   } catch (error) {

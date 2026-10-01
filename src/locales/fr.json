@@ -169,7 +169,16 @@
       "open": "Connexion administrateur",
       "close": "Fermer",
       "title": "Connexion administrateur",
-      "registerTitle": "Créez votre compte administrateur",
+      "loginTitle": "Connexion administrateur",
+      "loginSubtitle": "Connectez-vous pour accéder au tableau de bord d'administration d'AUVD.",
+      "registerTitle": "Créer un nouveau compte administrateur",
+      "registerSubtitle": "Créez le compte administrateur d'AUVD.",
+      "noAccountPrompt": "Vous n'avez pas de compte administrateur ?",
+      "createNewAccount": "Créer un nouveau compte",
+      "haveAccountPrompt": "Vous avez déjà un compte ?",
+      "existsTitle": "Un compte administrateur existe déjà.",
+      "existsBody": "Veuillez vous connecter avec le compte administrateur existant. Un seul compte administrateur est autorisé.",
+      "goToLogin": "Aller à la connexion",
       "email": "Adresse e-mail",
       "password": "Mot de passe",
       "confirmPassword": "Confirmer le mot de passe",
@@ -184,6 +193,9 @@
       "error": "Adresse e-mail ou mot de passe incorrect.",
       "exists": "Un compte administrateur existe déjà. Veuillez vous connecter.",
       "statusError": "Impossible de vérifier l'état de la configuration. Veuillez réessayer.",
+      "statusNotDeployed": "L'API d'administration n'est pas disponible à cette adresse (404). Le point de terminaison /api/admin/setup-status n'est pas déployé.",
+      "statusServerError": "Le serveur n'a pas pu accéder à sa base de données (500). Veuillez réessayer.",
+      "tryAgain": "Réessayer",
       "checking": "Vérification...",
       "timeout": "Le serveur a mis trop de temps à répondre. Veuillez réessayer."
     },
@@ -236,7 +248,9 @@
       "p1": "Art et Unité pour le Développement des Personnes Vulnérables (AUVD) a le plaisir d’annoncer que nous avons été sélectionnés pour recevoir une Subvention pour la Musique Communautaire de la Fondation D’Addario.",
       "p2": "Ce soutien aide les jeunes du camp de réfugiés de Kakuma, au Kenya, à découvrir leurs talents, à développer leurs compétences, à renforcer leur confiance en eux et à s’exprimer par la musique.",
       "link": "EN SAVOIR PLUS",
-      "date": "2026-08-11"
+      "date": "2026-08-11",
+      "latestTitle": "DERNIÈRES ACTUALITÉS DE LA COMMUNAUTÉ",
+      "latestLink": "EN SAVOIR PLUS"
     },
     "donations": {
       "titleLine1": "Dons d’instruments",

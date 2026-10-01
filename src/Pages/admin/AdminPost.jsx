@@ -56,6 +56,40 @@ const EMPTY_FORM = {
 const readJson = async (response) => response.json().catch(() => null);
 
 /**
+ * POST /api/admin/upload — sends the chosen image to the server.
+ *
+ * The File is passed straight through as the request body with its own
+ * Content-Type, which is why there is no FormData here: the server stores one
+ * image and hands back its URL. The response URL is what goes into the post, so
+ * the image is on disk and referenced by the database the moment this resolves —
+ * which is why it survives a refresh, a logout and a server restart.
+ *
+ * @returns {Promise<{ ok: boolean, url?: string, error?: string }>}
+ */
+async function uploadImage(file) {
+  const response = await fetch("/api/admin/upload", {
+    method: "POST",
+    headers: { "Content-Type": file.type || "application/octet-stream" },
+    credentials: "include",
+    body: file,
+  });
+
+  const result = await readJson(response);
+  if (!response.ok || !result?.ok) {
+    return { ok: false, error: result?.error || `The image could not be saved (HTTP ${response.status}).` };
+  }
+
+  return { ok: true, url: result.url };
+}
+
+/** The formats the picker offers, mirroring what the server accepts. */
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+/** The same 8 MB limit the server enforces. Checked here so the file is
+ *  refused before it is uploaded, not after. */
+const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+
+/**
  * POST /api/posts — adds a post.
  * @returns {Promise<{ ok: boolean, error?: string }>}
  */
@@ -132,6 +166,18 @@ const AdminPost = () => {
   const [formError, setFormError] = useState("");
   const [notice, setNotice] = useState("");
 
+  /* ---- THE FEATURED IMAGE ----
+     `image` in the form is always the stored URL that goes into MongoDB, never a
+     temporary preview. `imageName` is the administrator's own filename, shown so
+     they can recognise what they picked; it is never used as the stored path.
+     `imagePreview` is a local object URL used ONLY to preview the file before it
+     is uploaded, and it is revoked as soon as it is replaced — it is never
+     saved, because an object URL dies with the page and would leave a broken
+     image on the public page. */
+  const [imageName, setImageName] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+  const [uploading, setUploading] = useState(false);
+
   /* The list, refetched after every successful write so what is on screen is
      always what the database actually holds. */
   const refreshPosts = useCallback(async () => {
@@ -205,9 +251,81 @@ const AdminPost = () => {
     setFormError("");
   };
 
+  /* ---- IMAGE SELECTION ---- */
+
+  /** Drops the local preview URL so the browser can free the blob. */
+  const clearPreview = useCallback(() => {
+    setImagePreview((current) => {
+      if (current) URL.revokeObjectURL(current);
+      return "";
+    });
+  }, []);
+
+  /* The preview URL is released when the component unmounts, so navigating away
+     mid-selection cannot leak the blob for the life of the tab. */
+  useEffect(() => clearPreview, [clearPreview]);
+
+  /**
+   * Handles the device file picker.
+   *
+   * The file is validated here for an immediate answer, then uploaded straight
+   * away — before the post is saved. That ordering is deliberate: by the time
+   * Save is pressed, `form.image` already holds a real stored URL, so the post
+   * can never be written pointing at an image that does not exist.
+   */
+  const handleImageChange = async (event) => {
+    const file = event.target.files?.[0];
+    /* Cleared so choosing the same file twice in a row still fires onChange. */
+    event.target.value = "";
+    if (!file) return;
+
+    setFormError("");
+
+    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+      setFormError(
+        `“${file.name}” is not a supported image. Please choose a JPG, PNG or WEBP file.`
+      );
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_BYTES) {
+      setFormError(
+        `“${file.name}” is too large (max ${MAX_IMAGE_BYTES / (1024 * 1024)} MB). Please choose a smaller image.`
+      );
+      return;
+    }
+
+    clearPreview();
+    setImagePreview(URL.createObjectURL(file));
+    setImageName(file.name);
+    setUploading(true);
+
+    const result = await uploadImage(file);
+    setUploading(false);
+
+    if (!result.ok) {
+      /* Nothing was stored, so the form must not be left holding a preview that
+         looks chosen but would save as a broken post. */
+      clearPreview();
+      setImageName("");
+      setFormError(result.error);
+      return;
+    }
+
+    setForm((current) => ({ ...current, image: result.url }));
+  };
+
+  /** Removes the selected image, leaving the field empty. */
+  const handleRemoveImage = () => {
+    clearPreview();
+    setImageName("");
+    setForm((current) => ({ ...current, image: "" }));
+    setFormError("");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (saving) return;
+    if (saving || uploading) return;
 
     setSaving(true);
     setFormError("");
@@ -222,8 +340,12 @@ const AdminPost = () => {
     }
 
     /* Saved: clear the form back to "add new" and reload the list, so the next
-       post starts from a blank form rather than the one just submitted. */
+       post starts from a blank form rather than the one just submitted. The
+       image state is cleared with it, or the next post would appear to already
+       have the previous post's image. */
     setForm(EMPTY_FORM);
+    clearPreview();
+    setImageName("");
     setEditingId(null);
     setNotice(editingId ? "Post updated." : "Post added.");
     setSaving(false);
@@ -240,6 +362,13 @@ const AdminPost = () => {
       caption: post.caption,
       paragraph: post.paragraph,
     });
+    /* The post's saved image is already in `form.image`, so it stays exactly
+       as it is unless a new file is chosen. The preview is cleared because the
+       <img> below falls back to form.image for an existing post, and the
+       administrator's original filename is not stored anywhere we can read it
+       back from. */
+    clearPreview();
+    setImageName("");
     setEditingId(post.id);
     setFormError("");
     setNotice("");
@@ -248,6 +377,8 @@ const AdminPost = () => {
   /** Returns the form to "add new" without saving anything. */
   const handleCancel = () => {
     setForm(EMPTY_FORM);
+    clearPreview();
+    setImageName("");
     setEditingId(null);
     setFormError("");
   };
@@ -350,24 +481,65 @@ const AdminPost = () => {
               </select>
             </div>
 
+            {/* ---- FEATURED IMAGE ----
+                A file picker, not a URL box. The image is uploaded the moment it
+                is chosen and `form.image` is set to the stored URL, so what
+                Save writes to MongoDB is always a path that really exists.
+                While an existing post is being edited its saved image is shown
+                and left alone unless a new file is chosen. */}
             <div className="auvd-admin-dash-field">
-              <label htmlFor="ap-image">Image URL</label>
+              <label htmlFor="ap-image">Featured Image</label>
+
+              {/* The real input is visually hidden but still the control the
+                  label points at, so the picker opens on click AND on
+                  keyboard activation, and it is a native file input — the OS
+                  dialog does the rest. */}
               <input
                 id="ap-image"
-                type="text"
-                required
-                placeholder="/moments/example.jpg or https://..."
-                value={form.image}
-                onChange={handleField("image")}
-                disabled={saving}
+                type="file"
+                className="auvd-admin-file-input"
+                accept={ACCEPTED_IMAGE_TYPES.join(",")}
+                onChange={handleImageChange}
+                disabled={saving || uploading}
               />
 
-              {/* A live preview once there is something to preview, so a wrong
-                  URL is obvious before the post is saved. alt is empty because
-                  this is a preview of an image whose real alt text is a
-                  separate field below, and repeating it would be noise. */}
-              {form.image.trim() ? (
-                <img className="auvd-admin-preview" src={form.image.trim()} alt="" />
+              <div className="auvd-admin-image-row">
+                <label htmlFor="ap-image" className="auvd-admin-file-btn">
+                  {imageName || form.image ? "Change Image" : "Choose Image"}
+                </label>
+
+                {uploading ? <span className="auvd-admin-image-status">Uploading…</span> : null}
+
+                {/* Only offered once something is actually chosen, so it can
+                    never clear a field that was already empty. */}
+                {imageName || form.image ? (
+                  <button
+                    type="button"
+                    className="auvd-admin-secondary"
+                    onClick={handleRemoveImage}
+                    disabled={saving || uploading}
+                  >
+                    Remove
+                  </button>
+                ) : null}
+              </div>
+
+              <p className="auvd-admin-image-name">
+                {imageName || form.image || "No image selected"}
+              </p>
+
+              {/* The preview shows the local file while it uploads, and the
+                  STORED url afterwards. Falling back to form.image is what
+                  makes an existing post's image visible when it is opened for
+                  editing — no temporary blob is ever saved. alt is empty
+                  because this is a preview, and the real alt text is the field
+                  below. */}
+              {imagePreview || form.image ? (
+                <img
+                  className="auvd-admin-preview"
+                  src={imagePreview || form.image.trim()}
+                  alt=""
+                />
               ) : null}
             </div>
 
