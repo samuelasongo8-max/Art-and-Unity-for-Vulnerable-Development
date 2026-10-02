@@ -1,4 +1,4 @@
-import { apiUrl } from "../../utils/api";
+import { apiUrl, imageUrl } from "../../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminPost.css";
@@ -538,7 +538,7 @@ const AdminPost = () => {
               {imagePreview || form.image ? (
                 <img
                   className="auvd-admin-preview"
-                  src={imagePreview || form.image.trim()}
+                  src={imagePreview || imageUrl(form.image)}
                   alt=""
                 />
               ) : null}
@@ -626,7 +626,7 @@ const AdminPost = () => {
             <ul className="auvd-admin-list">
               {posts.map((post) => (
                 <li className="auvd-admin-list-item" key={post.id}>
-                  <img className="auvd-admin-thumb" src={post.image} alt="" />
+                  <img className="auvd-admin-thumb" src={imageUrl(post.image)} alt="" />
 
                   <div className="auvd-admin-list-body">
                     <p className="auvd-admin-list-caption">{post.caption}</p>

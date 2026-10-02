@@ -1,4 +1,4 @@
-import { apiUrl } from "../../utils/api";
+import { apiUrl, imageUrl } from "../../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminPost.css";
@@ -402,7 +402,7 @@ function AdminNews() {
               </p>
 
               {imagePreview || form.image ? (
-                <img className="auvd-admin-preview" src={imagePreview || form.image.trim()} alt="" />
+                <img className="auvd-admin-preview" src={imagePreview || imageUrl(form.image)} alt="" />
               ) : null}
             </div>
 
@@ -462,7 +462,7 @@ function AdminNews() {
             <ul className="auvd-admin-list">
               {items.map((item) => (
                 <li className="auvd-admin-list-item" key={item.id}>
-                  {item.image ? <img className="auvd-admin-thumb" src={item.image} alt="" /> : null}
+                  {item.image ? <img className="auvd-admin-thumb" src={imageUrl(item.image)} alt="" /> : null}
 
                   <div className="auvd-admin-list-body">
                     <p className="auvd-admin-list-caption">{item.title?.en}</p>

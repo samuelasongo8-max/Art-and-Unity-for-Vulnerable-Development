@@ -59,3 +59,41 @@ export function apiUrl(path) {
   const normalised = suffix.startsWith("/") ? suffix : `/${suffix}`;
   return `${API_BASE_URL}${normalised}`;
 }
+
+/**
+ * Resolves a stored image value to a URL the browser can actually load.
+ *
+ * WHY THIS IS NEEDED
+ * -------------------
+ * A post's image is stored as a path such as "/uploads/post-....jpg". That path
+ * is relative, so a browser renders it against the FRONTEND's domain — and the
+ * frontend does not serve those files, only the backend does. The image silently
+ * fails to load. This resolves such a path against the backend instead.
+ *
+ * The rules, in order:
+ *   1. An absolute http(s) URL is returned UNCHANGED. This is what the backend
+ *      now stores for new uploads, and it also covers any external image, so no
+ *      unrelated URL is ever rewritten.
+ *   2. A path under /uploads/ is resolved against the backend base — these are
+ *      the files the backend owns.
+ *   3. Anything else (e.g. "/moments/dance-class.jpg") is returned unchanged.
+ *      Those are the site's own images, shipped in public/ and served by the
+ *      frontend, so the backend origin would break them.
+ *
+ * @param {string} value the stored image value
+ * @returns {string} a URL usable in an <img src>
+ */
+export function imageUrl(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+
+  /* 1. already absolute (including protocol-relative "//host/..."). */
+  if (/^(https?:)?\/\//i.test(raw)) return raw;
+  if (/^(data:|blob:)/i.test(raw)) return raw;
+
+  /* 2. an uploaded file, which lives on the backend. */
+  if (raw.startsWith("/uploads/")) return apiUrl(raw);
+
+  /* 3. a site image, served by the frontend itself. */
+  return raw;
+}

@@ -1,4 +1,4 @@
-import { apiUrl } from "../../utils/api";
+import { apiUrl, imageUrl } from "../../utils/api";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaHeart, FaPaperPlane } from "react-icons/fa6";
@@ -66,7 +66,7 @@ const Post = ({ entry, language }) => (
 
     <img
       className="auvd-post-image"
-      src={entry.image}
+      src={imageUrl(entry.image)}
       alt={entry.imageAlt}
       loading="lazy"
       decoding="async"

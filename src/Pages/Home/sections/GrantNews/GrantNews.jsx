@@ -1,22 +1,105 @@
-import { apiUrl } from "../../../../utils/api";
+import { apiUrl, imageUrl } from "../../../../utils/api";
 import "./GrantNews.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../../../../utils/i18nFormat";
 const grantImage = "/AUVD, Music education grants.png";
 
 /* ==========================================================================
+   THE 7-DAY ROTATION
+   ==========================================================================
+   Only posts the admin created through the Admin Dashboard take part: they come
+   straight from GET /api/posts, the same call the public feed makes, so nothing
+   is hard-coded and there is no second post system.
+
+   The rule has two halves, and both matter:
+
+     1. ELIGIBILITY — a post joins the rotation once it is at least
+        ROTATION_DAYS old. A brand-new post is never shown.
+     2. THE ROTATION — eligible posts are read oldest to newest and dealt out
+        into consecutive groups of GROUP_SIZE. Which group is on screen is
+        decided by the CURRENT DATE, so the page walks forward on its own every
+        ROTATION_DAYS.
+
+   Taking the newest four would freeze the same four posts forever, which is why
+   the group is indexed by the date rather than sliced off the front.
+
+   All arithmetic is in UTC at midnight, so a post's age does not wobble with the
+   visitor's timezone and two visitors always see the same four posts.
+   ========================================================================== */
+
+/** How old a post must be before it may appear. */
+const ROTATION_DAYS = 7;
+
+/** How many posts are on screen at once. */
+const GROUP_SIZE = 4;
+
+const MS_PER_DAY = 86_400_000;
+
+/** "YYYY-MM-DD" -> UTC midnight, or NaN when the value is not a usable date. */
+function parseDay(value) {
+  const raw = String(value ?? "").trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return Number.NaN;
+  const ms = Date.parse(`${raw}T00:00:00Z`);
+  return Number.isNaN(ms) ? Number.NaN : ms;
+}
+
+/** Today, as UTC midnight. */
+function todayUtc(now) {
+  return Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+}
+
+/**
+ * Chooses the posts on screen right now.
+ *
+ * @param {Array<{id?:string,date?:string}>} posts every post from GET /api/posts
+ * @param {Date} now the current time
+ * @returns {Array} at most GROUP_SIZE posts for the current rotation window
+ */
+export function selectRotationPosts(posts, now = new Date()) {
+  const today = todayUtc(now);
+
+  /* Chronological, oldest first, so the groups run forwards in time. `id` breaks
+     a tie between posts sharing a date, which keeps the order identical on
+     every request and for every visitor — without it, two posts on one day
+     could swap places between loads. */
+  const ordered = [...(Array.isArray(posts) ? posts : [])]
+    .filter((post) => Number.isFinite(parseDay(post?.date)))
+    .sort((a, b) => {
+      const diff = parseDay(a.date) - parseDay(b.date);
+      return diff !== 0 ? diff : String(a.id ?? "").localeCompare(String(b.id ?? ""));
+    });
+
+  /* Half 1: nothing younger than the limit can appear. */
+  const eligible = ordered.filter(
+    (post) => (today - parseDay(post.date)) / MS_PER_DAY >= ROTATION_DAYS
+  );
+  if (eligible.length === 0) return [];
+
+  /* Half 2: which group is due. The oldest eligible post anchors the schedule, so
+     window 0 covers its first week, window 1 the next week, and so on. The
+     window index WRAPS with modulo, so the sequence cycles through every group
+     and comes back round: with 20 posts it shows 1-4, then 5-8, then 9-12, then
+     13-16, then 17-20, then starts again. Wrapping is what keeps the strip
+     populated forever — without it a visitor arriving after the last group
+     would see nothing at all. */
+  const anchor = parseDay(eligible[0].date);
+  const elapsedDays = Math.floor((today - anchor) / MS_PER_DAY);
+  const groupCount = Math.ceil(eligible.length / GROUP_SIZE);
+  const windowIndex = Math.floor(elapsedDays / ROTATION_DAYS) % groupCount;
+
+  const start = windowIndex * GROUP_SIZE;
+  return eligible.slice(start, start + GROUP_SIZE);
+}
+
+/* ==========================================================================
    LatestUpdates — the automatic four-post strip below the grant.
 
-   It fetches /api/posts/featured, which has already done all of the deciding:
-   which posts are at least two weeks old, newest first, capped at four. This
-   component only draws what it is given, so the selection cannot drift from what
-   the server thinks and there is no second copy of the date rule to keep in
-   sync.
-
-   Nothing here is a "featured" flag or a stored id list. The admin publishes a
-   post and this changes on its own once the post is two weeks old.
+   It fetches /api/posts, which is the very same data the Admin Dashboard writes
+   to MongoDB, and then decides which four belong in the current 7-day window.
+   Nothing here is a "featured" flag or a stored id list: the admin publishes a
+   post and it takes part on its own once it is old enough.
    ========================================================================== */
 function LatestUpdates() {
   const { t, i18n } = useTranslation();
@@ -27,13 +110,22 @@ function LatestUpdates() {
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState("loading");
 
+  /* Bumped at each 7-day boundary so the rotation recomputes and picks up
+     anything the admin published while the page was open. */
+  const [rotationTick, setRotationTick] = useState(0);
+
   useEffect(() => {
     const controller = new AbortController();
 
     const load = async () => {
       try {
-        /* Public, like the feed: no session and no credentials needed. */
-        const response = await fetch(apiUrl("/api/posts/featured"), { signal: controller.signal });
+        /* Public, like the feed: no session and no credentials needed.
+
+           This is the SAME endpoint the public posts feed uses, so the posts
+           shown here are exactly the ones the admin created, edited and deleted
+           through the Admin Dashboard. Nothing is hard-coded and there is no
+           second source of posts. */
+        const response = await fetch(apiUrl("/api/posts"), { signal: controller.signal });
         const result = await response.json().catch(() => null);
 
         if (!response.ok || !result || result.ok !== true || !Array.isArray(result.posts)) {
@@ -52,20 +144,34 @@ function LatestUpdates() {
 
     load();
     return () => controller.abort();
-  }, []);
+  }, [rotationTick]);
+
+  /* Re-schedule at the next 7-day boundary, not on a per-second timer. Both the
+     eligibility rule and the rotation change at midnight UTC, so waking once at
+     the next midnight is enough — and it re-runs the fetch, so a post published
+     in the meantime is picked up. */
+  useEffect(() => {
+    const now = new Date();
+    const nextMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
+    const timer = setTimeout(() => setRotationTick((n) => n + 1), Math.max(1000, nextMidnight - Date.now()));
+    return () => clearTimeout(timer);
+  }, [rotationTick]);
+
+  /* Which four posts belong in the rotation right now. */
+  const rotatingPosts = useMemo(() => selectRotationPosts(posts, new Date()), [posts, rotationTick]);
 
   /* Nothing eligible yet, or the request failed: the whole strip is omitted
      rather than leaving an empty heading above the footer. */
-  if (status !== "ready" || posts.length === 0) return null;
+  if (status !== "ready" || rotatingPosts.length === 0) return null;
 
   return (
     <div className="grant-news__latest">
       <h2 className="grant-news__latest-title">{t("home.grantNews.latestTitle")}</h2>
 
       <ul className="grant-news__latest-grid">
-        {posts.map((post) => (
+        {rotatingPosts.map((post) => (
           <li key={post.id} className="grant-news__latest-card">
-            <img className="grant-news__latest-image" src={post.image} alt={post.imageAlt} loading="lazy" />
+            <img className="grant-news__latest-image" src={imageUrl(post.image)} alt={post.imageAlt} loading="lazy" />
 
             <p className="grant-news__latest-date">{formatDate(post.date, i18n.language)}</p>
 
