@@ -1,3 +1,4 @@
+import { apiUrl } from "../../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminPost.css";
@@ -42,7 +43,7 @@ const readJson = async (response) => response.json().catch(() => null);
 
 /** Sends the chosen image to the existing upload endpoint and returns its URL. */
 async function uploadImage(file) {
-  const response = await fetch("/api/admin/upload", {
+  const response = await fetch(apiUrl("/api/admin/upload"), {
     method: "POST",
     headers: { "Content-Type": file.type || "application/octet-stream" },
     credentials: "include",
@@ -78,7 +79,7 @@ function AdminNews() {
   const refresh = useCallback(async () => {
     setListStatus("loading");
     try {
-      const response = await fetch("/api/news", { credentials: "include" });
+      const response = await fetch(apiUrl("/api/news"), { credentials: "include" });
       const result = await readJson(response);
 
       if (!response.ok || !result?.ok || !Array.isArray(result.news)) {
@@ -102,7 +103,7 @@ function AdminNews() {
 
     const check = async () => {
       try {
-        const response = await fetch("/api/admin/me", { credentials: "include" });
+        const response = await fetch(apiUrl("/api/admin/me"), { credentials: "include" });
         if (cancelled) return;
 
         if (response.ok) {
@@ -202,7 +203,7 @@ function AdminNews() {
     setFormError("");
     setNotice("");
 
-    const url = editingId ? `/api/news/${encodeURIComponent(editingId)}` : "/api/news";
+    const url = editingId ? apiUrl(`/api/news/${encodeURIComponent(editingId)}`) : apiUrl("/api/news");
     const method = editingId ? "PUT" : "POST";
 
     try {
@@ -270,7 +271,7 @@ function AdminNews() {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`/api/news/${encodeURIComponent(item.id)}`, {
+      const response = await fetch(apiUrl(`/api/news/${encodeURIComponent(item.id)}`), {
         method: "DELETE",
         credentials: "include",
       });

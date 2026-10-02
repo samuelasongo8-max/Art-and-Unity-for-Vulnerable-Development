@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaLock } from "react-icons/fa6";
 import AdminLoginForm from "./AdminLoginForm";
+import { apiUrl } from "../utils/api";
 import "./Footer.css";
 
 const navLinks = [
@@ -155,7 +156,7 @@ const Footer = () => {
     const timer = setTimeout(() => controller.abort(), 12000);
 
     try {
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch(apiUrl("/api/subscribe"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: controller.signal,

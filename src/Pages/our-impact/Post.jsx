@@ -1,3 +1,4 @@
+import { apiUrl } from "../../utils/api";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaHeart, FaPaperPlane } from "react-icons/fa6";
@@ -115,7 +116,7 @@ const PostFeed = () => {
 
     const load = async () => {
       try {
-        const response = await fetch("/api/posts", { signal: controller.signal });
+        const response = await fetch(apiUrl("/api/posts"), { signal: controller.signal });
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);

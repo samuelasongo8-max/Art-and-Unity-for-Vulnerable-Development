@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "node server/index.js",
+    "dev:server": "node backends/server/index.js",
     "build": "vite build",
     "lint": "eslint .",
     "optimize:images": "node scripts/optimize-images.mjs",
@@ -21,7 +21,7 @@
     "test:admin-api": "node scripts/test-admin-api.mjs",
     "test:subscribe": "node scripts/test-subscribe.mjs",
     "preview": "vite preview",
-    "server": "node server/index.js"
+    "server": "node backends/server/index.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

@@ -1,3 +1,4 @@
+import { apiUrl } from "../../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminPost.css";
@@ -67,7 +68,7 @@ const readJson = async (response) => response.json().catch(() => null);
  * @returns {Promise<{ ok: boolean, url?: string, error?: string }>}
  */
 async function uploadImage(file) {
-  const response = await fetch("/api/admin/upload", {
+  const response = await fetch(apiUrl("/api/admin/upload"), {
     method: "POST",
     headers: { "Content-Type": file.type || "application/octet-stream" },
     credentials: "include",
@@ -94,7 +95,7 @@ const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
  * @returns {Promise<{ ok: boolean, error?: string }>}
  */
 async function createPost(form) {
-  const response = await fetch("/api/posts", {
+  const response = await fetch(apiUrl("/api/posts"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -110,7 +111,7 @@ async function createPost(form) {
 
 /** PUT /api/posts/:id — saves an edit. */
 async function updatePost(id, form) {
-  const response = await fetch(`/api/posts/${encodeURIComponent(id)}`, {
+  const response = await fetch(apiUrl(`/api/posts/${encodeURIComponent(id)}`), {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -126,7 +127,7 @@ async function updatePost(id, form) {
 
 /** DELETE /api/posts/:id — removes a post. */
 async function deletePost(id) {
-  const response = await fetch(`/api/posts/${encodeURIComponent(id)}`, {
+  const response = await fetch(apiUrl(`/api/posts/${encodeURIComponent(id)}`), {
     method: "DELETE",
     credentials: "include",
   });
@@ -140,7 +141,7 @@ async function deletePost(id) {
 
 /** POST /api/admin/logout — ends the session and returns to the home page. */
 async function logout() {
-  await fetch("/api/admin/logout", { method: "POST", credentials: "include" }).catch(() => null);
+  await fetch(apiUrl("/api/admin/logout"), { method: "POST", credentials: "include" }).catch(() => null);
   /* A navigation happens either way: if the request failed the cookie may still
      be there, but leaving the admin on a page they asked to leave is the right
      call, and a reload will send them back to the login form if it is. */
@@ -183,7 +184,7 @@ const AdminPost = () => {
   const refreshPosts = useCallback(async () => {
     setPostsStatus("loading");
     try {
-      const response = await fetch("/api/posts", { credentials: "include" });
+      const response = await fetch(apiUrl("/api/posts"), { credentials: "include" });
       const result = await readJson(response);
 
       if (!response.ok || !result?.ok || !Array.isArray(result.posts)) {
@@ -206,7 +207,7 @@ const AdminPost = () => {
 
     const check = async () => {
       try {
-        const response = await fetch("/api/admin/me", { credentials: "include" });
+        const response = await fetch(apiUrl("/api/admin/me"), { credentials: "include" });
 
         if (cancelled) return;
 

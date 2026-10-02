@@ -1,8 +1,22 @@
 {
-  "rewrites": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
+  "builds": [
+    { "src": "backends/api/health.js", "use": "@vercel/node" },
+    { "src": "backends/api/subscribe.js", "use": "@vercel/node" },
+    { "src": "backends/api/admin/*.js", "use": "@vercel/node" },
+    { "src": "backends/api/posts/*.js", "use": "@vercel/node" },
+    { "src": "backends/api/news/*.js", "use": "@vercel/node" },
+    { "src": "vite.config.js", "use": "@vercel/static-build", "config": { "dist": "dist" } }
+  ],
+  "routes": [
+    { "src": "/api/posts/featured", "dest": "/backends/api/posts/featured.js" },
+    { "src": "/api/posts/([^/]+)", "dest": "/backends/api/posts/$1.js" },
+    { "src": "/api/posts", "dest": "/backends/api/posts/index.js" },
+    { "src": "/api/news/([^/]+)", "dest": "/backends/api/news/$1.js" },
+    { "src": "/api/news", "dest": "/backends/api/news/index.js" },
+    { "src": "/api/admin/([^/]+)", "dest": "/backends/api/admin/$1.js" },
+    { "src": "/api/health", "dest": "/backends/api/health.js" },
+    { "src": "/api/subscribe", "dest": "/backends/api/subscribe.js" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

@@ -22,7 +22,7 @@
  * which account was updated by email, and nothing else.
  */
 import bcrypt from "bcryptjs";
-import { connectOnce, ADMIN_COLLECTION } from "../lib/db.js";
+import { connectOnce, ADMIN_COLLECTION } from "../backends/lib/db.js";
 
 /** bcrypt work factor, matching create-admin.mjs. */
 const COST = 12;

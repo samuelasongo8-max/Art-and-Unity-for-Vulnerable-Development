@@ -13,7 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import handler from "../api/subscribe.js";
+import handler from "../backends/api/subscribe.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(here, "..");

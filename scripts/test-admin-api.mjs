@@ -48,21 +48,21 @@ const makeRes = () => ({
 await import("./admin-db-stub.mjs");
 const store = globalThis.__auvdTestStore;
 
-const { default: login } = await import("../api/admin/login.js");
-const { default: logout } = await import("../api/admin/logout.js");
-const { default: me } = await import("../api/admin/me.js");
+const { default: login } = await import("../backends/api/admin/login.js");
+const { default: logout } = await import("../backends/api/admin/logout.js");
+const { default: me } = await import("../backends/api/admin/me.js");
 /* `reg` not `register`: the module-loader `register` is already in scope, and
    two bindings with the same name in one module is a SyntaxError. */
-const { default: reg } = await import("../api/admin/register.js");
-const { default: setupStatus } = await import("../api/admin/setup-status.js");
-const postsIndex = (await import("../api/posts/index.js")).default;
-const postsById = (await import("../api/posts/[id].js")).default;
+const { default: reg } = await import("../backends/api/admin/register.js");
+const { default: setupStatus } = await import("../backends/api/admin/setup-status.js");
+const postsIndex = (await import("../backends/api/posts/index.js")).default;
+const postsById = (await import("../backends/api/posts/[id].js")).default;
 const bcrypt = (await import("bcryptjs")).default;
 
 /* Used by the local-server check at the end: the cookie name and the signing
    helper are read from the real module rather than hardcoded, so the test cannot
    quietly drift away from the implementation. */
-const { ADMIN_COOKIE, signAdminToken } = await import("../lib/requireAdmin.js");
+const { ADMIN_COOKIE, signAdminToken } = await import("../backends/lib/requireAdmin.js");
 
 const req = (method, { body, query, cookie } = {}) => ({
   method,

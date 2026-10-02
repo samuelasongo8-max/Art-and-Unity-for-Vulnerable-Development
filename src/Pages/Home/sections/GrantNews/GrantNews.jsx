@@ -1,3 +1,4 @@
+import { apiUrl } from "../../../../utils/api";
 import "./GrantNews.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -32,7 +33,7 @@ function LatestUpdates() {
     const load = async () => {
       try {
         /* Public, like the feed: no session and no credentials needed. */
-        const response = await fetch("/api/posts/featured", { signal: controller.signal });
+        const response = await fetch(apiUrl("/api/posts/featured"), { signal: controller.signal });
         const result = await response.json().catch(() => null);
 
         if (!response.ok || !result || result.ok !== true || !Array.isArray(result.posts)) {

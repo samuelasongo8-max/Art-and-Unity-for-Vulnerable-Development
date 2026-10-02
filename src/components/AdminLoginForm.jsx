@@ -1,3 +1,4 @@
+import { apiUrl } from "../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./AdminLoginForm.css";
@@ -108,7 +109,7 @@ const AdminLoginForm = ({ onSuccess, onModeChange }) => {
    */
   const checkSetup = useCallback(async () => {
     try {
-      const response = await fetch("/api/admin/setup-status", { credentials: "include" });
+      const response = await fetch(apiUrl("/api/admin/setup-status"), { credentials: "include" });
       const result = await response.json().catch(() => null);
 
       if (!response.ok || !result || result.ok !== true || typeof result.hasAdmin !== "boolean") {
@@ -262,7 +263,7 @@ const AdminLoginForm = ({ onSuccess, onModeChange }) => {
     const timer = setTimeout(() => controller.abort(), 20000);
 
     try {
-      const response = await fetch("/api/admin/login", {
+      const response = await fetch(apiUrl("/api/admin/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         /* The cookie is httpOnly, so the ONLY way it travels is with the
@@ -321,7 +322,7 @@ const AdminLoginForm = ({ onSuccess, onModeChange }) => {
     const timer = setTimeout(() => controller.abort(), 25000);
 
     try {
-      const response = await fetch("/api/admin/register", {
+      const response = await fetch(apiUrl("/api/admin/register"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

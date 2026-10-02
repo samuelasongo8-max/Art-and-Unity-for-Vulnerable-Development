@@ -1,3 +1,4 @@
+import { apiUrl } from "../utils/api";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -60,7 +61,7 @@ function News() {
     const load = async () => {
       try {
         /* Public read: no session and no credentials, like the page itself. */
-        const response = await fetch("/api/news", { signal: controller.signal });
+        const response = await fetch(apiUrl("/api/news"), { signal: controller.signal });
         const result = await response.json().catch(() => null);
 
         if (!response.ok || !result || result.ok !== true || !Array.isArray(result.news)) {

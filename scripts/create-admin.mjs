@@ -49,7 +49,7 @@
  * here is ever committed.
  */
 import bcrypt from "bcryptjs";
-import { connectOnce, ADMIN_COLLECTION } from "../lib/db.js";
+import { connectOnce, ADMIN_COLLECTION } from "../backends/lib/db.js";
 
 /** bcrypt work factor. See the note at the top. */
 const COST = 12;

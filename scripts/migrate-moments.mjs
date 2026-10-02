@@ -42,8 +42,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ObjectId } from "mongodb";
-import { connectOnce, POSTS_COLLECTION } from "../lib/db.js";
-import { validatePost } from "../lib/postValidation.js";
+import { connectOnce, POSTS_COLLECTION } from "../backends/lib/db.js";
+import { validatePost } from "../backends/lib/postValidation.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(here, "..");
