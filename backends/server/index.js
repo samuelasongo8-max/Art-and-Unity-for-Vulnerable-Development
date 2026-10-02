@@ -19,37 +19,66 @@ const app = express();
 const port = Number(process.env.PORT || 5000);
 
 /* ---------------------------------------------------------------------------
-   CORS — MODIFIED, not added. This replaces the single `app.use(cors())` that
-   was here before; there is only ever one CORS middleware in this file.
+   CORS — ONE middleware, MODIFIED in place (it replaced the old
+   `app.use(cors())`; there is only ever one here).
 
    The frontend is deployed separately on Vercel and calls this API on Render,
-   so every request is CROSS-ORIGIN. Two things had to change:
+   so every request is CROSS-ORIGIN and two things must both be true:
 
-   1. credentials: true — the admin session is an httpOnly cookie, so the browser
-      must be allowed to send and store it on a cross-origin request.
-   2. an explicit origin list — the cors library REFUSES to combine
-      `credentials: true` with the default `Access-Control-Allow-Origin: *`,
-      because that combination would let any site read authenticated responses.
-      The allowed origins are therefore listed explicitly.
+   1. credentials: true — the admin session is an httpOnly cookie, so the
+      browser has to be allowed to send and store it cross-origin.
+   2. an EXPLICIT origin — the cors library's default sends
+      `Access-Control-Allow-Origin: *`, and a browser REJECTS that outright when
+      the request's credentials mode is "include":
+      "The value of the 'Access-Control-Allow-Origin' header must not be the
+      wildcard '*' when the request's credentials mode is 'include'."
+      That mismatch is exactly the error this configuration exists to prevent.
+      It is not merely untidy: with "*" no admin request can ever carry the
+      session cookie, so login silently fails everywhere.
 
-   Origins are read from ALLOWED_ORIGINS (comma-separated) so a preview or
-   staging deployment can be added as a variable rather than a code change, and
-   so the local Vite dev server keeps working. Requests with NO Origin header
-   (curl, health checks, server-to-server) are allowed through untouched.
+   ALLOWED_ORIGINS is a comma-separated list, so new deployments can be added as
+   a variable instead of a code change. The wildcard is explicitly stripped even
+   if someone puts it in the list, because "*" with credentials is invalid.
+
+   LOCAL DEVELOPMENT FALLBACK
+   ---------------------------
+   When ALLOWED_ORIGINS is unset the list falls back to the Vite dev origins, so
+   `npm run dev:server` works out of the box. It falls back to NAMED localhost
+   origins, never to "*": a named list is the only thing compatible with
+   credentials.
 --------------------------------------------------------------------------- */
+
+/** The dev origins used when ALLOWED_ORIGINS is not set. Named, never "*". */
+const DEFAULT_DEV_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"];
+
 const allowedOrigins = new Set(
   String(process.env.ALLOWED_ORIGINS ?? "")
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean)
+    /* A wildcard cannot be combined with credentials, so it is dropped here
+       rather than echoed back to the browser. */
+    .filter((value) => value !== "*")
+    .map((value) => value.replace(/\/+$/, ""))
 );
+
+if (allowedOrigins.size === 0) {
+  for (const origin of DEFAULT_DEV_ORIGINS) allowedOrigins.add(origin);
+  console.log(
+    `[cors] ALLOWED_ORIGINS is not set — allowing the local dev origins only: ${[...allowedOrigins].join(", ")}`
+  );
+}
 
 app.use(
   cors({
     origin(origin, callback) {
-      /* No Origin header: not a browser request, so CORS does not apply. */
+      /* No Origin header: not a browser request (curl, health check,
+         server-to-server), so CORS does not apply at all. */
       if (!origin) return callback(null, true);
-      if (allowedOrigins.has(origin)) return callback(null, true);
+
+      /* Compared with any trailing slash removed, since a browser sends the
+         origin without one but a hand-written list might include it. */
+      if (allowedOrigins.has(origin.replace(/\/+$/, ""))) return callback(null, true);
 
       console.error(`[cors] refused origin: ${origin}`);
       return callback(new Error("Origin not allowed by CORS"));
