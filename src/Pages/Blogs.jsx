@@ -1,167 +1,133 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { apiUrl, imageUrl } from "../utils/api";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Blogs.css";
 
-/* Only image paths and the story key live here. The category line, title,
-   description and alt text are all translation keys resolved with t() while
-   rendering, so the carousel follows the language with no reload. */
-const musicStories = [
-  {
-    key: "one",
-    metaDateKey: "impact.items.two.metaDate",
-    metaRead: 4,
-    image: "/Youth peace week.jpg",
-    link: "/events#events-overview",
-  },
-  {
-    key: "two",
-    metaDateKey: "impact.items.three.metaDate",
-    metaRead: 3,
-    image: "/donation.jpg",
-    link: "/donation",
-  },
-  {
-    key: "three",
-    tagKey: "impact.items.four.tag",
-    image: "/violin.jpg",
-    link: "/music",
-  },
-  {
-    key: "four",
-    tagKey: "impact.items.five.tag",
-    image: "/donation-2.jpg",
-    link: "/music",
-  },
-];
+/* ==========================================================================
+   The public Blog page.
 
-function getVisibleStoryCount() {
-  if (typeof window === "undefined") {
-    return 3;
-  }
+   Reads GET /api/blogs — the SAME endpoint the Admin Dashboard's Blog
+   Management section writes to (POST / PUT / DELETE on /api/blogs/:id). There
+   is one blog store, in the separate "blogs" MongoDB collection, and nothing
+   is duplicated into the frontend: a blog saved at /admin/post shows up here
+   the next time this page loads.
 
-  if (window.innerWidth <= 640) {
-    return 1;
-  }
+   THE RESPONSE SHAPE
+   ------------------
+   GET /api/blogs returns { ok, blogs } where each blog is
+   { id, title, content, date, image, imageAlt } (see toPublicBlog in
+   lib/blogValidation.js).
 
-  if (window.innerWidth <= 900) {
-    return 2;
-  }
+   There is deliberately NO category field on a blog, so no category is shown
+   here — one is not invented, and the backend is not changed to add one.
 
-  return 3;
+   Read More is a link to /blog/:id, the details page for THAT specific blog
+   (src/Pages/BlogDetails.jsx). The id is carried in the URL, so every card
+   opens its own article.
+   ========================================================================== */
+
+/** How much of the article a card shows before the Read More affordance. */
+const PREVIEW_LENGTH = 280;
+
+/**
+ * Formats the stored "YYYY-MM-DD" date for display. The stored value is never
+ * changed — this only makes it readable.
+ *
+ * @param {string} isoDate
+ * @returns {string} e.g. "5 January 2026", or "" when there is no date.
+ */
+function formatDate(isoDate) {
+  if (typeof isoDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return "";
+
+  const parsed = new Date(`${isoDate}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return "";
+
+  return parsed.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 }
 
-function Blogs() {
-  const { t } = useTranslation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleStoryCount, setVisibleStoryCount] = useState(getVisibleStoryCount);
-  const lastIndex = musicStories.length - visibleStoryCount;
+/** True when the article is longer than the preview, i.e. Read More is needed. */
+const isTruncated = (content) => typeof content === "string" && content.length > PREVIEW_LENGTH;
 
-  useEffect(() => {
-    const handleResize = () => {
-      setVisibleStoryCount(getVisibleStoryCount());
-      setCurrentIndex((index) => Math.min(index, musicStories.length - getVisibleStoryCount()));
-    };
+export default function Blogs() {
+  const [blogs, setBlogs] = useState([]);
+  const [status, setStatus] = useState("loading");
+  const [error, setError] = useState("");
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  const loadBlogs = useCallback(async () => {
+    setStatus("loading");
+    try {
+      const response = await fetch(apiUrl("/api/blogs"));
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.ok || !Array.isArray(result.blogs)) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      setBlogs(result.blogs);
+      setError("");
+      setStatus("ready");
+    } catch (loadError) {
+      setError(`The blogs could not be loaded (${loadError.message}).`);
+      setStatus("error");
+    }
   }, []);
 
-  const showPrevious = () => {
-    setCurrentIndex((index) => Math.max(index - 1, 0));
-  };
-
-  const showNext = () => {
-    setCurrentIndex((index) => Math.min(index + 1, lastIndex));
-  };
-
-  /* The category line is rebuilt from parts so each can be localized: the
-     month with a plain key, the read time with a plural key ("4 min read"
-     becomes "4 min de lecture") and the tag as written. */
-  const categoryFor = (story) => {
-    const parts = [];
-    if (story.metaDateKey) {
-      parts.push(t(story.metaDateKey));
-    }
-    if (story.metaRead) {
-      parts.push(t("impact.grid.minRead", { count: story.metaRead }));
-    }
-    if (story.tagKey) {
-      parts.push(t(story.tagKey));
-    }
-    return parts.join(" · ");
-  };
+  useEffect(() => {
+    loadBlogs();
+  }, [loadBlogs]);
 
   return (
     <main className="blogs-page">
-      <section className="blogs-hero" aria-labelledby="blogs-heading">
-        <div className="blogs-hero-inner">
-          <div className="blogs-editorial-header">
-           <div className="blogs-editorial-copy">
-  {/* <p className="blogs-eyebrow">Music Instrument Donations:</p> */}
-  <h1 id="blogs-heading" className="blogs-heading">{t("blogs.hero.title")}</h1>
-  <p className="blogs-intro">
-    {t("blogs.hero.intro")}
-  </p>
-   <Link className="blogs-view-all" to="/news/daddario-community-music-grant">
-              {t("blogs.hero.viewAll")} <span aria-hidden="true">→</span>
-            </Link>
-</div>
+      <div className="news-container">
+        {status === "loading" ? (
+          <p className="auvd-admin-muted" role="status">
+            Loading...
+          </p>
+        ) : status === "error" ? (
+          <p className="news-load-error" role="alert">
+            {error}
+          </p>
+        ) : blogs.length === 0 ? (
+          <p className="news-load-error">No blogs have been published yet.</p>
+        ) : (
+          blogs.map((blog) => {
+            const preview = isTruncated(blog.content)
+              ? `${blog.content.slice(0, PREVIEW_LENGTH).trimEnd()}...`
+              : blog.content;
 
-  
-  </div>
-    </div>
-  </section>
-    
-      <section className="blogs-editorial" aria-labelledby="blogs-heading">
-        <div className="blogs-carousel-heading">
-          <div className="blogs-progress" aria-hidden="true">
-            <span style={{ width: `${((currentIndex + 1) / (lastIndex + 1)) * 100}%` }} />
-          </div>
-          <div className="blogs-carousel-controls" aria-label={t("blogs.carousel.label")}>
-            <button
-              type="button"  
-              className="blogs-carousel-button"
-              onClick={showPrevious}
-              disabled={currentIndex === 0}   
-              aria-label={t("blogs.carousel.previousAlt")}
-            >
-              <span aria-hidden="true">←</span> {t("blogs.carousel.previous")}
-            </button>
-            <button
-              type="button"
-              className="blogs-carousel-button"
-              onClick={showNext}
-              disabled={currentIndex === lastIndex}
-              aria-label={t("blogs.carousel.nextAlt")}
-            >
-              {t("blogs.carousel.next")} <span aria-hidden="true">→</span>
-            </button>
-          </div>
-        </div>
-        <div className="blogs-carousel" aria-live="polite">
-          <div className="blogs-carousel-track" style={{ "--blogs-index": currentIndex }}>
-            {musicStories.map((story) => (
-              <article className="blogs-story-card" key={story.key}>
-                <img
-                  className="blogs-story-image"
-                  src={story.image}
-                  alt={t(`blogs.stories.${story.key}.alt`)}
-                />
-                <div className="blogs-story-copy">
-                  <span className="blogs-story-category">{categoryFor(story)}</span>
-                  <h2>{t(`blogs.stories.${story.key}.title`)}</h2>
-                  <p>{t(`blogs.stories.${story.key}.description`)}</p>
+            return (
+              <article className="news-card" key={blog.id}>
+                {blog.image ? (
+                  <img className="news-card-image" src={imageUrl(blog.image)} alt={blog.imageAlt || ""} />
+                ) : null}
+
+                <div className="news-card-content">
+                  {formatDate(blog.date) ? (
+                    <div className="news-meta">
+                      <span className="news-date">{formatDate(blog.date)}</span>
+                    </div>
+                  ) : null}
+
+                  <h2 className="news-title">{blog.title}</h2>
+
+                  <p className="news-excerpt">{preview}</p>
+
+                  {isTruncated(blog.content) ? (
+                    <Link className="news-read-more" to={`/blog/${blog.id}`}>
+                      Read More <span aria-hidden="true">→</span>
+                    </Link>
+                  ) : null}
                 </div>
               </article>
-            ))}
-          </div>
-        </div>
-        
-
-      </section>
+            );
+          })
+        )}
+      </div>
     </main>
   );
 }
-
-export default Blogs;

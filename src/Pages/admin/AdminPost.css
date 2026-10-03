@@ -385,3 +385,40 @@
   font-size: 14px;
   color: var(--impact-muted, #52606d);
 }
+
+/* ==========================================================================
+   Blog Management section, mounted at the BOTTOM of the Post Dashboard.
+
+   Additive only: every rule here is scoped to .auvd-admin-blogs, so the Post
+   Dashboard above it cannot be affected. It reuses the existing panel, form,
+   list and thumbnail classes unchanged.
+
+   The section is separated from the Posts list above it by a top border and
+   spacing, on desktop and mobile alike. The 820px breakpoint already in this
+   file collapses .auvd-admin-grid to a single column; the rule below keeps the
+   blog list items stacking the same way the Posts list already does, because
+   they share .auvd-admin-list-item.
+   ========================================================================== */
+.auvd-admin-blogs {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 2px solid #eceff2;
+}
+
+.auvd-admin-blogs .auvd-admin-panel {
+  margin-bottom: 20px;
+}
+
+.auvd-admin-blogs textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+@media (max-width: 820px) {
+  .auvd-admin-blogs {
+    margin-top: 28px;
+    padding-top: 24px;
+  }
+}

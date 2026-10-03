@@ -1,0 +1,344 @@
+/* ==========================================================================
+   BlogDetails.css — the /blog/:id page.
+
+   The hero itself is NOT styled here: it is the shared ImpactHero component
+   (src/components/ImpactHero.css), the same design Home, Our Story, Work,
+   Pricing and Events use. Only the two page-specific pieces are added below:
+
+     - the "Back to Blogs" link
+     - the full-article content section
+
+   Scoping note: .news-* belongs to Blogs.css and is NOT used here, so the two
+   blog pages stay independent of each other.
+   ========================================================================== */
+
+.blog-details {
+  background: #ffffff;
+}
+
+/* ---------- HERO ---------- */
+
+/* NAVBAR PROTECTION.
+   The navbar is `position: fixed` with `.nav-container { height: 80px }` at
+   every breakpoint (Navbar.css), and `.main-content` has no top padding of its
+   own. Without this the hero would start at y=0 and sit behind the navbar. This
+   margin matches the measured 80px so the hero always begins BELOW the
+   navigation bar and the title can never be hidden under it. */
+.blog-details__hero {
+  margin-top: 80px;
+}
+
+/* A controlled height rather than the shared hero's full-viewport default, so
+   the article below is always reachable without an enormous scroll.
+   Only `min-height` is set (never `height`), so a long title grows the hero
+   instead of being clipped. Desktop 560px / tablet 460px / mobile 380px /
+   320px on very small screens are in the breakpoints at the end of this file. */
+.blog-details__hero .auvd-impact-hero {
+  min-height: 560px;
+  /* Only a fallback colour: it shows through if the upload has no image. */
+  background-color: #081625;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* THE IMAGE LAYER.
+   The shared hero already positions this <img> absolutely with object-fit:
+   cover, which is exactly what is needed for any upload. It is restated here,
+   scoped to this page, so the behaviour is explicit and independent of the
+   shared component.
+
+   Because the image is a layer that fills the hero, a SMALL upload is scaled
+   up to cover the whole area (aspect ratio preserved, overflow cropped) rather
+   than displayed at its natural size with empty space around it. The same
+   holds for portrait, landscape and square images. `object-position: center`
+   overrides the shared hero's 70% centre so a portrait face/subject is not
+   pushed off to one side. */
+.blog-details__hero .auvd-impact-hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* THE OVERLAY.
+   Two layers: a horizontal one that is strongest on the left, behind the
+   title, easing off to the right so the photograph is not needlessly darkened;
+   and a gentle vertical one so text near the bottom always has contrast. The
+   darkest point is about 72% rather than near-opaque, so the image stays
+   clearly visible. */
+.blog-details__hero .auvd-impact-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(8, 22, 37, 0.72) 0%, rgba(8, 22, 37, 0.34) 55%, rgba(8, 22, 37, 0.14) 100%),
+    linear-gradient(180deg, rgba(8, 22, 37, 0.4) 0%, rgba(8, 22, 37, 0.12) 34%, rgba(8, 22, 37, 0.7) 100%);
+}
+
+/* THE CONTENT.
+   A centred max-width column aligned toward the lower left, matching the
+   shared hero's left-aligned text position. No white box: the title sits
+   directly on the photograph. */
+.blog-details__hero .auvd-impact-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px) 60px;
+  color: #fff;
+}
+
+/* Caps the measure so even a very long title keeps a readable line length. */
+.blog-details__hero .auvd-impact-hero__title {
+  margin: 0;
+  max-width: 22ch;
+  overflow-wrap: break-word;
+  /* A soft shadow, so white text stays readable over a bright photograph. */
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+.blog-details__hero .auvd-impact-hero__label {
+  margin-bottom: 14px;
+}
+
+/* A blog may legally have no image. Rather than invent a placeholder picture,
+   the empty <img> is hidden and the hero's own dark overlay gradient becomes
+   the background, so a title-only blog still reads as part of the site. */
+.blog-details__hero .auvd-impact-hero__image:not([src]),
+.blog-details__hero .auvd-impact-hero__image[src=""] {
+  display: none;
+}
+
+/* ImpactHero renders its paragraph slot unconditionally. No paragraph is passed
+   here, so the empty <p> is collapsed rather than leaving a gap under the
+   title. */
+.blog-details__hero .auvd-impact-hero__text:empty {
+  display: none;
+}
+
+/* ---------- BACK LINK ---------- */
+
+.blog-details__back-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px 20px 0;
+}
+
+.blog-details__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.blog-details__back:hover {
+  gap: 12px;
+}
+
+/* ---------- ARTICLE CONTENT ---------- */
+
+.blog-details__content {
+  /* A comfortable measure: long lines are tiring to read, so the article is
+     capped well under the full page width. */
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333333;
+}
+
+/* Paragraph spacing plus pre-wrap, so the author's own single line breaks are
+   preserved exactly as they were typed. The content is never truncated. */
+.blog-details__content p {
+  margin: 0 0 24px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* ---------- LOADING / ERROR ---------- */
+
+.blog-details__message {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 120px 20px;
+  text-align: center;
+  color: #555555;
+}
+
+.blog-details__message h1 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  color: #111111;
+}
+
+.blog-details__message p {
+  margin: 0 0 24px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1024px) {
+  /* Tablet: a shorter hero so the article is close to hand, and the overlay
+     darkens a little more because the copy column is proportionally wider. */
+  .blog-details__hero .auvd-impact-hero {
+    min-height: 460px;
+  }
+
+  .blog-details__hero .auvd-impact-hero__content {
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile: the shared hero is a full viewport height on desktop, which would
+     push the article off-screen on a phone, so it is stepped down here. */
+  .blog-details__hero .auvd-impact-hero {
+    min-height: 380px;
+  }
+
+  /* The content runs edge to edge on mobile, so it uses the near-flat vertical
+     scrim (dark at the bottom where the copy sits) — the same treatment the
+     Home hero uses on mobile — to keep white text readable. */
+  .blog-details__hero .auvd-impact-hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 22, 37, 0.55) 0%,
+      rgba(8, 22, 37, 0.3) 40%,
+      rgba(8, 22, 37, 0.85) 100%
+    );
+  }
+
+  /* 15px side padding keeps the text off the screen edges, so there is no
+     horizontal scrolling at any width. */
+  .blog-details__hero .auvd-impact-hero__content {
+    max-width: 100%;
+    padding: 0 15px 34px;
+  }
+
+  /* The title may wrap naturally across lines here, so the 22ch measure is
+     released and the size is capped to keep long titles readable. */
+  .blog-details__hero .auvd-impact-hero__title {
+    max-width: none;
+    font-size: clamp(1.5rem, 6vw, 2.1rem);
+  }
+
+  .blog-details__back-wrap {
+    padding: 28px 15px 0;
+  }
+
+  /* Keeps the text off the screen edges on small screens. */
+  .blog-details__content {
+    padding: 24px 15px 56px;
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .blog-details__content p {
+    margin-bottom: 20px;
+  }
+
+  .blog-details__message {
+    padding: 80px 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Smallest phones: the minimum useful hero height. */
+  .blog-details__hero .auvd-impact-hero {
+    min-height: 320px;
+  }
+
+  .blog-details__hero .auvd-impact-hero__content {
+    padding-bottom: 28px;
+  }
+}
+
+/* ==========================================================================
+   TWO-COLUMN ARTICLE (only when the admin saved a content image).
+
+   The hero above is untouched. This sits below it and is used ONLY when
+   blog.contentImage is set; without a content image the page renders the
+   original single centred column, exactly as before.
+   ========================================================================== */
+
+/* The grid itself is centred on the page — the whole section is NOT pushed to
+   one side. The image column is a fixed-ish width and the text column takes
+   the rest, so the article keeps a comfortable measure. */
+.blog-details__body {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.blog-details__figure {
+  margin: 0;
+}
+
+/* A fixed height with object-fit: cover keeps a portrait, landscape, square or
+   tiny upload in the same tidy box on every blog. The aspect ratio is
+   preserved, so the image is cropped rather than stretched or distorted. */
+.blog-details__content-image {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Inside the grid the text column is already sized, so it drops its own
+   centring and padding to avoid a double margin. Type scale, line height and
+   paragraph spacing are inherited unchanged. */
+.blog-details__body .blog-details__content {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  /* Not enough room to sit side by side: the image moves ABOVE the text, and
+     the text returns to a single full-width column. */
+  .blog-details__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    max-width: 760px;
+  }
+
+  /* Capped rather than full-bleed so a small phone does not get an oversized
+     image dominating the article. */
+  .blog-details__content-image {
+    max-width: 320px;
+    height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-details__body {
+    padding: 24px 15px 56px;
+  }
+
+  .blog-details__content-image {
+    height: 220px;
+  }
+
+  /* The text column keeps the mobile type scale from the rules above. */
+  .blog-details__body .blog-details__content {
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .blog-details__body .blog-details__content p {
+    margin-bottom: 20px;
+  }
+}

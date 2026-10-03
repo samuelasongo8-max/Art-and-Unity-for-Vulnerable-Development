@@ -36,3 +36,10 @@ email-previews/
 # be impossible to share.
 !.env.example
 !.env.local.example
+
+# Local verification files
+.shots/
+.verify-about/
+
+# Backend dependencies
+backends/node_modules/

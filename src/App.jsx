@@ -11,6 +11,7 @@ import About from "./Pages/about";
 import Work from "./Pages/Work";
 import Events from "./Pages/Events";
 import Blogs from "./Pages/Blogs";
+import BlogDetails from "./Pages/BlogDetails";
 import Portfolio from "./Pages/portfolio";
 import Pricing from "./Pages/pricing";
 import Contact from "./Pages/contact";
@@ -72,6 +73,8 @@ const Chrome = () => {
             <Route path="/events" element={<Events />} />
             {/* Old blog path kept alive for existing links/bookmarks */}
             <Route path="/blogs" element={<Navigate to="/our-impact/blogs" replace />} />
+              {/* Blog Details: one page per blog, id carried in the URL. */}
+              <Route path="/blog/:id" element={<BlogDetails />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/donate" element={<Donate />} />

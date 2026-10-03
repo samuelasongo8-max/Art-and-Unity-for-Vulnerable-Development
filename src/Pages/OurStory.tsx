@@ -171,11 +171,11 @@ function OurStory() {
       </section>
 
       {/* Core Belief — was the closing banner inside "Looking Ahead"; now its
-          own section with the "Upcoming project (2).jpg" background image. */}
+          own section with the "Upcoming project  (2).jpg" background image. */}
       <section className="auvd-story-belief">
         <img
           className="auvd-story-belief-image"
-          src="/Upcoming%20project%20(2).jpg"
+          src="/Upcoming%20project%20%20(2).jpg"
           alt=""
           aria-hidden="true"
         />

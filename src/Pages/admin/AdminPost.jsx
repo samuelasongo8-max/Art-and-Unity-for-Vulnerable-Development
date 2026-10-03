@@ -2,6 +2,7 @@ import { apiUrl, imageUrl } from "../../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminPost.css";
+import BlogManagement from "./AdminBlog";
 
 /* ==========================================================================
    /admin/post — the dashboard: add, edit and delete feed posts.
@@ -656,6 +657,11 @@ const AdminPost = () => {
             </ul>
           )}
         </section>
+
+        {/* Blog Management - its own section at the BOTTOM of the dashboard,
+            below the Posts list above. This is the same component the standalone
+            page used, so there is one Blog Management system, not two. */}
+        <BlogManagement />
       </div>
     </main>
   );
