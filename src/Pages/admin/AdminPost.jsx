@@ -1,6 +1,8 @@
 import { apiUrl, imageUrl } from "../../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 import "./AdminPost.css";
 import BlogManagement from "./AdminBlog";
 
@@ -87,9 +89,54 @@ async function uploadImage(file) {
 /** The formats the picker offers, mirroring what the server accepts. */
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-/** The same 8 MB limit the server enforces. Checked here so the file is
+/** The same 100 MB limit the server enforces. Checked here so the file is
  *  refused before it is uploaded, not after. */
-const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 100 * 1024 * 1024;
+
+/* ==========================================================================
+   THE RICH-TEXT EDITOR
+
+   The Paragraph field used to be a plain <textarea>. It is now a Quill editor
+   so an admin can format the text before saving, exactly like the Blog Content
+   field in AdminBlog.jsx.
+
+   THE TOOLBAR
+   -----------
+   Only the eight formatting controls that were asked for are listed, nothing
+   else, so the bar stays as simple as a basic Word toolbar:
+
+     bullet list · numbered list · text colour · theme colour · font ·
+     increase size · decrease size · link · paragraph spacing
+
+   `header` is included only so the paragraph-spacing and heading controls have
+   something to act on; the inline formats (bold/italic/underline) are left in
+   the text itself rather than added to the bar.
+
+   THE VALUE IS HTML
+   -----------------
+   ReactQuill reports its contents as an HTML string, which is written straight
+   into the existing `paragraph` field. No new database field is created and no
+   API route changes: `paragraph` was already a string, and it is still a string.
+   ========================================================================== */
+const PARAGRAPH_MODULES = {
+  toolbar: [
+    [{ list: "bullet" }],
+    [{ list: "ordered" }],
+    [{ color: [] }, { background: [] }],
+    [{ font: [] }],
+    [{ size: ["small", false, "large", "huge"] }],
+    ["link"],
+    [{ header: [false, 2, 3] }],
+    [{ align: [] }],
+  ],
+  clipboard: { matchVisual: false },
+};
+
+/* "list" covers BOTH the bullet and the numbered button — there is no separate
+   "bullet" format, and listing one makes Quill log an error on every render. */
+const PARAGRAPH_FORMATS = [
+  "list", "color", "background", "font", "size", "link", "header", "align",
+];
 
 /**
  * POST /api/posts — adds a post.
@@ -250,6 +297,17 @@ const AdminPost = () => {
     const { value } = event.target;
     setForm((current) => ({ ...current, [field]: value }));
     /* Typing clears a stale error, so the message never contradicts the form. */
+    setFormError("");
+  };
+
+  /**
+   * The rich-text editors do not fire a DOM event: ReactQuill's onChange hands
+   * over the HTML string directly as its first argument. handleField() above is
+   * left exactly as it was for every other field, and this reads the new value
+   * the same way, so both paths behave identically.
+   */
+  const handleRichField = (field) => (html) => {
+    setForm((current) => ({ ...current, [field]: html }));
     setFormError("");
   };
 
@@ -571,12 +629,18 @@ const AdminPost = () => {
 
             <div className="auvd-admin-dash-field">
               <label htmlFor="ap-paragraph">Paragraph</label>
-              <textarea
+              {/* Rich text instead of the old <textarea>. `form.paragraph` is
+                  bound exactly as the textarea was, so handleField, the edit
+                  form, clearing the field and the existing validation all keep
+                  working unchanged. Plain-text posts load as-is: Quill renders
+                  text without markup unchanged. */}
+              <ReactQuill
                 id="ap-paragraph"
-                rows={5}
-                required
+                theme="snow"
+                modules={PARAGRAPH_MODULES}
+                formats={PARAGRAPH_FORMATS}
                 value={form.paragraph}
-                onChange={handleField("paragraph")}
+                onChange={handleRichField("paragraph")}
                 disabled={saving}
               />
             </div>

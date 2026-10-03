@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaHeart, FaPaperPlane } from "react-icons/fa6";
 import { formatDate } from "../../utils/i18nFormat";
+import { hasHtml, sanitizeRichHtml } from "../../utils/richText";
 import avatar from "../../assets/logo1.png";
 import "./Post.css";
 
@@ -92,7 +93,20 @@ const Post = ({ entry, language }) => (
         {entry.caption}
       </h3>
 
-      <p className="auvd-post-paragraph">{entry.paragraph}</p>
+      {/* The Paragraph field became a rich-text editor, so a saved post may
+          carry HTML. hasHtml() keeps every post written as plain text on the
+          original `{entry.paragraph}` line, rendered as text exactly as before;
+          only genuine HTML is passed through the allow-list sanitizer and
+          injected. The class is unchanged either way, so the card keeps its
+          existing design. */}
+      {hasHtml(entry.paragraph) ? (
+        <div
+          className="auvd-post-paragraph"
+          dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(entry.paragraph) }}
+        />
+      ) : (
+        <p className="auvd-post-paragraph">{entry.paragraph}</p>
+      )}
 
       <p className="auvd-post-topic">#{entry.topicLabel}</p>
     </div>

@@ -38,6 +38,129 @@ const MAX_CONTENT = 20000;
 
 const MAX_FIELD_LENGTH = 5000;
 
+/**
+ * The Blog Content field is now written by a rich-text editor, so its stored
+ * value carries markup as well as the words. This is the same allow list as in
+ * lib/postValidation.js and src/utils/richText.js, written out again because the
+ * backend and the browser cannot share a module.
+ *
+ * It runs on the way IN, so a <script>, an onclick or a javascript: URL never
+ * reaches the database; the frontend sanitizes again on the way OUT before
+ * rendering. Plain-text articles pass through completely unchanged.
+ *
+ * @param {string} html
+ * @returns {string} safe HTML, or "" when the input was not a string.
+ */
+export function sanitizeRichHtml(html) {
+  if (typeof html !== "string" || !html) return "";
+
+  const ALLOWED_TAGS = new Set([
+    "p", "br", "b", "strong", "i", "em", "u", "s",
+    "ul", "ol", "li",
+    "a", "span", "div",
+    "h1", "h2", "h3", "h4", "h5", "h6",
+    "blockquote", "pre", "code",
+  ]);
+
+  /* Removed together with their contents, so no code or style survives as text. */
+  const DROP_WITH_CONTENT = new Set([
+    "script", "style", "iframe", "object", "embed", "noscript",
+    "template", "form", "input", "button", "textarea", "select", "option",
+  ]);
+
+  const SAFE_URL = /^(https?:\/\/|mailto:)/i;
+
+  /* `&` is escaped only when it is not already the start of an entity, so
+     markup the editor already escaped (`&amp;`) is not double-escaped. */
+  const escapeText = (text) =>
+    text
+      .replace(/&(?![a-zA-Z#0-9]+;)/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  const sanitizeAttributes = (tagName, attributeText) => {
+    const pattern = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'>]+))/g;
+    let out = "";
+    let match;
+
+    while ((match = pattern.exec(attributeText)) !== null) {
+      const name = match[1].toLowerCase();
+      const value = match[3] ?? match[4] ?? match[5] ?? "";
+
+      if (name.startsWith("on")) continue;
+
+      if (name === "href" && tagName === "a") {
+        const trimmed = value.trim();
+        if (!SAFE_URL.test(trimmed)) continue;
+        out += ` href="${escapeText(trimmed)}" target="_blank" rel="noopener noreferrer nofollow"`;
+        continue;
+      }
+
+      if (name === "style") {
+        const safe = [];
+        for (const property of value.split(";")) {
+          const parts = property.split(":");
+          if (parts.length < 2) continue;
+          const cssName = parts[0].trim().toLowerCase();
+          const cssValue = parts.slice(1).join(":").trim();
+          if (cssName !== "color" && cssName !== "background-color") continue;
+          if (!/^[#a-z0-9(),.\s%-]+$/i.test(cssValue)) continue;
+          safe.push(`${cssName}:${cssValue}`);
+        }
+        if (safe.length) out += ` style="${escapeText(safe.join(";"))}"`;
+        continue;
+      }
+
+      if (name === "class" && /(^|\s)ql-[a-z0-9-]+(\s|$)/i.test(value)) {
+        out += ` class="${escapeText(value)}"`;
+      }
+    }
+
+    return out;
+  };
+
+  let output = html;
+  for (const tag of DROP_WITH_CONTENT) {
+    const paired = new RegExp(`<${tag}\\b[^>]*>[\\s\\S]*?<\\/${tag}\\s*>`, "gi");
+    const selfClosing = new RegExp(`<${tag}\\b[^>]*\\/?>`, "gi");
+    output = output.replace(paired, "").replace(selfClosing, "");
+  }
+
+  let result = "";
+  let cursor = 0;
+  const tagPattern = /<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g;
+  let match;
+
+  while ((match = tagPattern.exec(output)) !== null) {
+    result += escapeText(output.slice(cursor, match.index));
+
+    const closing = match[1] === "/";
+    const tagName = match[2].toLowerCase();
+
+    if (ALLOWED_TAGS.has(tagName)) {
+      result += closing
+        ? `</${tagName}>`
+        : `<${tagName}${sanitizeAttributes(tagName, match[3] ?? "")}>`;
+    }
+
+    cursor = tagPattern.lastIndex;
+  }
+
+  result += escapeText(output.slice(cursor));
+
+  return result.trim();
+}
+
+/**
+ * True when the value carries ANY markup, not just the editor's own tags.
+ *
+ * A payload such as a bare `<script>alert(1)</script>` contains none of the
+ * editor's tag names, and treating that as plain text would let it skip
+ * sanitization and be stored verbatim. Any `<` followed by a letter or a slash
+ * counts as markup, so the sanitizer always runs before anything is stored.
+ */
+const isRichText = (value) => typeof value === "string" && /<[a-zA-Z/!]/.test(value);
+
 const isValidDate = (value) => {
   if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
   const parsed = new Date(`${value}T00:00:00Z`);
@@ -81,8 +204,12 @@ export function validateBlog(body) {
   }
 
   /* The article itself. Checked separately from the loop above because it is
-     allowed to be far longer than every other field. */
-  const content = String(body.content ?? "").trim();
+     allowed to be far longer than every other field. A rich-text article is
+     sanitized here, on the way in, so dangerous markup is never stored; a
+     plain-text article is passed through untouched. */
+  const rawContent = String(body.content ?? "").trim();
+  const content = isRichText(rawContent) ? sanitizeRichHtml(rawContent) : rawContent;
+
   if (!content) {
     errors.push('"content" is required and must be a non-empty string.');
   } else if (content.length > MAX_CONTENT) {

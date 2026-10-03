@@ -1,6 +1,7 @@
 import { apiUrl, imageUrl } from "../utils/api";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toPlainText } from "../utils/richText";
 import "./Blogs.css";
 
 /* ==========================================================================
@@ -50,8 +51,26 @@ function formatDate(isoDate) {
   });
 }
 
-/** True when the article is longer than the preview, i.e. Read More is needed. */
-const isTruncated = (content) => typeof content === "string" && content.length > PREVIEW_LENGTH;
+/** True when the article is longer than the preview, i.e. Read More is needed.
+ *  Measured on the CLEANED text: markup is not content, so a short rich-text
+ *  article must not grow a Read More link just because its tags are long. */
+const isTruncated = (content) => toPlainText(content).length > PREVIEW_LENGTH;
+
+/**
+ * Builds the short text a blog card shows.
+ *
+ * The Blog Content field became a rich-text editor, so a saved article may hold
+ * HTML. Slicing that raw string would put `<p>Hello <strong>world</strong></p>`
+ * on the card as literal tags, and could cut a tag in half. toPlainText() strips
+ * the markup first — block tags become spaces so words do not run together —
+ * and only then is PREVIEW_LENGTH applied to the clean text. A plain-text
+ * article is unchanged: toPlainText() returns it exactly as it was.
+ */
+function buildPreview(content) {
+  const text = toPlainText(content);
+
+  return text.length > PREVIEW_LENGTH ? `${text.slice(0, PREVIEW_LENGTH).trimEnd()}...` : text;
+}
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
@@ -96,9 +115,7 @@ export default function Blogs() {
           <p className="news-load-error">No blogs have been published yet.</p>
         ) : (
           blogs.map((blog) => {
-            const preview = isTruncated(blog.content)
-              ? `${blog.content.slice(0, PREVIEW_LENGTH).trimEnd()}...`
-              : blog.content;
+            const preview = buildPreview(blog.content);
 
             return (
               <article className="news-card" key={blog.id}>

@@ -2,6 +2,7 @@ import { apiUrl, imageUrl } from "../utils/api";
 import ImpactHero from "../components/ImpactHero";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { hasHtml, sanitizeRichHtml } from "../utils/richText";
 import "./BlogDetails.css";
 
 /* ==========================================================================
@@ -128,14 +129,25 @@ export default function BlogDetails() {
 
   const paragraphs = toParagraphs(blog.content);
 
-  /* Built once here, rendered in either layout below. */
+  /* Built once here, rendered in either layout below.
+     The Blog Content field became a rich-text editor, so an article saved after
+     that change carries HTML. Splitting HTML on blank lines would break it — a
+     tag could be cut in half — so HTML is rendered whole, through the
+     allow-list sanitizer, inside the SAME .blog-details__content wrapper so the
+     article keeps its existing typography and spacing. Every article written
+     before the editor existed still goes down the toParagraphs() path, with
+     blank lines still split into separate paragraphs exactly as before. */
   const article = (
     <article className="blog-details__content">
-      {paragraphs.map((paragraph, index) => (
-        /* Index is the key because two paragraphs of one article can be
-           identical text, and the article itself is stable for this render. */
-        <p key={index}>{paragraph}</p>
-      ))}
+      {hasHtml(blog.content) ? (
+        <div dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(blog.content) }} />
+      ) : (
+        paragraphs.map((paragraph, index) => (
+          /* Index is the key because two paragraphs of one article can be
+             identical text, and the article itself is stable for this render. */
+          <p key={index}>{paragraph}</p>
+        ))
+      )}
     </article>
   );
 

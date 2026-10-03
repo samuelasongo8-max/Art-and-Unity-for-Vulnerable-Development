@@ -1,5 +1,7 @@
 import { apiUrl, imageUrl } from "../../utils/api";
 import { useCallback, useEffect, useRef, useState } from "react";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 import "./AdminPost.css";
 
 /* ==========================================================================
@@ -43,7 +45,43 @@ const EMPTY_FORM = {
 };
 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 100 * 1024 * 1024;
+
+/* ==========================================================================
+   THE RICH-TEXT EDITOR
+
+   The Blog Content field used to be a plain <textarea>. It is now a Quill
+   editor, matching the Paragraph field in AdminPost.jsx, so an admin can
+   format an article before saving it.
+
+   The toolbar holds only the controls that were asked for, so it stays as
+   simple as a basic Word toolbar: bullet list, numbered list, text colour,
+   theme colour, font, increase size, decrease size, link and paragraph
+   spacing. `header` gives the spacing and heading controls something to act on.
+
+   The editor reports HTML, which is written into the existing `content` field.
+   No new database field is created and no API route changes — `content` was
+   already a string and is still a string.
+   ========================================================================== */
+const CONTENT_MODULES = {
+  toolbar: [
+    [{ list: "bullet" }],
+    [{ list: "ordered" }],
+    [{ color: [] }, { background: [] }],
+    [{ font: [] }],
+    [{ size: ["small", false, "large", "huge"] }],
+    ["link"],
+    [{ header: [false, 2, 3] }],
+    [{ align: [] }],
+  ],
+  clipboard: { matchVisual: false },
+};
+
+/* "list" covers BOTH the bullet and the numbered button — there is no separate
+   "bullet" format, and listing one makes Quill log an error on every render. */
+const CONTENT_FORMATS = [
+  "list", "color", "background", "font", "size", "link", "header", "align",
+];
 
 /** How much of the article to show in the saved-blogs list. */
 const PREVIEW_LENGTH = 140;
@@ -132,6 +170,15 @@ export default function BlogManagement() {
     setForm((previous) => ({ ...previous, [field]: value }));
   };
 
+  /**
+   * ReactQuill does not fire a DOM event: its onChange passes the HTML string
+   * directly as the first argument. handleField() above is left exactly as it
+   * was for every other field in this form.
+   */
+  const handleRichField = (field) => (html) => {
+    setForm((previous) => ({ ...previous, [field]: html }));
+  };
+
   const releasePreview = () => {
     if (previewUrlRef.current) {
       URL.revokeObjectURL(previewUrlRef.current);
@@ -166,7 +213,9 @@ export default function BlogManagement() {
     }
 
     if (file.size > MAX_IMAGE_BYTES) {
-      setFormError("That image is larger than 8 MB. Please choose a smaller one.");
+      setFormError(
+        `That image is larger than ${MAX_IMAGE_BYTES / (1024 * 1024)} MB. Please choose a smaller one.`
+      );
       return;
     }
 
@@ -208,7 +257,9 @@ export default function BlogManagement() {
     }
 
     if (file.size > MAX_IMAGE_BYTES) {
-      setFormError("That image is larger than 8 MB. Please choose a smaller one.");
+      setFormError(
+        `That image is larger than ${MAX_IMAGE_BYTES / (1024 * 1024)} MB. Please choose a smaller one.`
+      );
       return;
     }
 
@@ -353,13 +404,18 @@ export default function BlogManagement() {
 
           <div className="auvd-admin-dash-field">
             <label htmlFor="ab-content">Blog Content</label>
-            <textarea
+            {/* Rich text instead of the old <textarea>. `form.content` is bound
+                exactly as the textarea was, so the edit form, clearing the field
+                and the existing API calls all keep working unchanged. Existing
+                plain-text articles load as-is. */}
+            <ReactQuill
               id="ab-content"
-              rows={14}
+              theme="snow"
+              modules={CONTENT_MODULES}
+              formats={CONTENT_FORMATS}
               value={form.content}
-              onChange={handleField("content")}
+              onChange={handleRichField("content")}
               disabled={saving}
-              required
             />
           </div>
 
