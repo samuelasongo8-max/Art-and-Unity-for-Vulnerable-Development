@@ -549,7 +549,8 @@
         "news": "News",
         "blogs": "Blogs",
         "report": "Report",
-        "post": "Post"
+        "post": "Post",
+        "home": "Home"
       }
     },
     "hero": {

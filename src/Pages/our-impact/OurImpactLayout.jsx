@@ -4,6 +4,7 @@ import {
   FaBookOpen,
   FaChartColumn,
   FaFileLines,
+  FaHouse,
   FaImages,
   FaNewspaper,
 } from "react-icons/fa6";
@@ -32,6 +33,11 @@ const impactNavItems = [
   { to: "/our-impact/blogs", labelKey: "impact.layout.nav.blogs", Icon: FaFileLines },
   { to: "/our-impact/report", labelKey: "impact.layout.nav.report", Icon: FaChartColumn },
   { to: "/our-impact/post", labelKey: "impact.layout.nav.post", Icon: FaImages },
+  /* Home is the only one of the requested extra items whose route already
+     exists (App.jsx renders Home at "/"). It is placed after the existing six
+     so their order is untouched, and `end` stops it staying highlighted on
+     every route, since a bare "/" NavLink matches all paths. */
+  { to: "/", labelKey: "impact.layout.nav.home", Icon: FaHouse, end: true },
 ];
 
 const navItemClass = ({ isActive }) =>
