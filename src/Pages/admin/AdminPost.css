@@ -125,6 +125,37 @@
   min-height: 96px;
 }
 
+/* ==========================================================================
+   RICH-TEXT EDITORS (Paragraph and Blog Content)
+
+   Both fields are Quill editors rather than textareas. Quill sets
+   `overflow-wrap: break-word` on .ql-editor, which breaks a long word only once
+   the line box has already been laid out — it does NOT reduce the element's
+   minimum content size. Inside .auvd-admin-dash-field, which is a flex row, a
+   flex item's `min-width: auto` is its content's min-content size, so an
+   unbroken string could push the editor box wider than the column instead of
+   wrapping.
+
+   `overflow-wrap: anywhere` DOES count towards the minimum content size, so it
+   is what actually keeps a long word inside the editor rather than beside it.
+   `min-width: 0` on the container lets the flex item shrink below its content
+   as a second line of defence.
+
+   Scoped to .auvd-admin-dash-field, which is the dashboard form only, so no
+   rule here can reach the public pages.
+   ========================================================================== */
+.auvd-admin-dash-field .ql-container {
+  min-width: 0;
+}
+
+.auvd-admin-dash-field .ql-editor {
+  /* Inherited by the headings, list items and links inside the editor too. */
+  overflow-wrap: anywhere;
+  /* Fallback for engines without `anywhere`; behaves the same here. */
+  word-break: break-word;
+  max-width: 100%;
+}
+
 .auvd-admin-dash-field input:focus,
 .auvd-admin-dash-field select:focus,
 .auvd-admin-dash-field textarea:focus {
