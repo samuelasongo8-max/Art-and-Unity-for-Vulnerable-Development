@@ -37,6 +37,7 @@ const ALLOW_IDENTICAL_EXACT = new Set([
   "common.arrow",
   "portfolio.hero.eyebrowBefore",
   "home.hero.slides.auvd",
+  "storiesNews.titleAmp",
   // Words that are already correct French
   "common.contact",
   "nav.contact",

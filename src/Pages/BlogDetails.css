@@ -172,7 +172,7 @@
 
 .blog-details__message h1 {
   margin: 0 0 12px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-heading-serif);
   font-size: 28px;
   color: #111111;
 }

@@ -32,7 +32,7 @@
 
 .auvd-adminlogin-title {
   margin: 0 0 6px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -44,7 +44,7 @@
    description of the form below rather than competing with the <h1>. */
 .auvd-adminlogin-subtitle {
   margin: 0 0 20px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
   font-size: 13px;
   line-height: 1.5;
   color: var(--impact-muted, #52606d);

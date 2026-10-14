@@ -1,125 +1,58 @@
-import { useEffect, useMemo, useState } from "react";
-import {
-  FaListCheck,
-  FaMapLocationDot,
-  FaPeopleGroup,
-  FaUserGraduate,
-} from "react-icons/fa6";
-import "./ImpactStatsSection.css";
 import { useTranslation } from "react-i18next";
-import useOnceInView from "../../hooks/useOnceInView";
-import useRevealClass from "../../hooks/useRevealClass";
+import "./ImpactStatsSection.css";
 
-/* "Our Impact" — restyled into the Our Impact two-column pattern, the same
-   one the Visual Arts and VET sections use: the existing background photo
-   now sits in the media column (right, alternating from the VET section
-   above, whose image is on the left), the heading is promoted to the
-   pattern's Bebas Neue title (this section has no separate label wording),
-   and the existing paragraph uses the shared Source Sans 3 body style
-   (src/components/ImpactSections.css, imported once via Home.css). The four
-   figures are unchanged and sit under the two-column body. Wording and the
-   photo are unchanged. */
-
-const iconMap = {
-  list: <FaListCheck />,
-  map: <FaMapLocationDot />,
-  people: <FaPeopleGroup />,
-  graduate: <FaUserGraduate />,
-};
-
+/* "Our Impact" — the source project's Our Impact banner design: the photo
+   with the hand-painted frame and brush strokes on the left, the title and
+   text in the middle, and the 2x2 statistics grid on the right. The
+   target's own content is kept: heading, paragraph, the four figures
+   (with the Core Programs list and the info lines). The source's "See our
+   impact" button is skipped — the target section has no button.
+   The previous count-up animation and icons are part of the old design
+   and were removed with it (the source banner is static). */
 function ImpactStatsSection({ impactStats }) {
   const { t } = useTranslation();
-  const [cardsRef, isVisible] = useOnceInView(0.25);
-  const textRef = useRevealClass("content-entered", 0.3);
-  const [counts, setCounts] = useState({ reached: 0, programs: 0, trained: 0, camps: 0 });
-
-  const stats = useMemo(
-    () => impactStats.map((item) => ({ ...item, icon: iconMap[item.icon] })),
-    [impactStats]
-  );
-
-  useEffect(() => {
-    if (!isVisible) {
-      return undefined;
-    }
-
-    const durationMs = 3200;
-    let animationFrameId;
-    const animationStart = performance.now();
-
-    const updateCounts = (now) => {
-      const elapsed = now - animationStart;
-      const progress = Math.min(elapsed / durationMs, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 4);
-
-      setCounts({
-        reached: Math.round(500 * easedProgress),
-        programs: Math.round(7 * easedProgress),
-        trained: Math.round(100 * easedProgress),
-        camps: Math.max(1, Math.round(1 * easedProgress)),
-      });
-
-      if (progress < 1) {
-        animationFrameId = window.requestAnimationFrame(updateCounts);
-      }
-    };
-
-    animationFrameId = window.requestAnimationFrame(updateCounts);
-
-    return () => window.cancelAnimationFrame(animationFrameId);
-  }, [isVisible]);
 
   return (
-    <section className="auvd-story-section auvd-story-section--tint impact-section">
-      <div className="auvd-story-container">
-        <div className="auvd-story-body auvd-story-body--flip">
-
-          {/* Existing photo, now the media column (right) */}
-          <div className="auvd-story-gallery auvd-story-gallery--single">
-            <img
-              className="auvd-story-gallery-item auvd-story-gallery-item--1"
-              src="/Upcoming%20project%20%20(2).jpg"
-              alt={t("home.impactStats.alt")}
-            />
-          </div>
-
-          <div ref={textRef} className="auvd-story-text impact-text-block content-animated">
-            <h2 className="auvd-story-title">{t("home.impactStats.title")}</h2>
-
-            <p>
-              {t("home.impactStats.paragraph")}
-            </p>
-          </div>
-
+    <section className="p1-impact">
+      <div className="p1-impact-inner">
+        <div className="p1-impact__photo" aria-hidden="true">
+          <span className="p1-impact__stroke p1-impact__stroke--1" />
+          <span className="p1-impact__stroke p1-impact__stroke--2" />
+          <span className="p1-impact__stroke p1-impact__stroke--3" />
+          <span className="p1-impact__stroke p1-impact__stroke--4" />
+          <img
+            className="p1-impact__img"
+            src="/Upcoming%20project%20%20(2).jpg"
+            alt={t("home.impactStats.alt")}
+            loading="lazy"
+          />
         </div>
 
-        <div ref={cardsRef} className="impactCards">
-          {stats.map((stat, index) => (
-            <div
-              key={stat.key}
-              className={`impactBox ${stat.wide ? "impactBox--wide" : ""} ${
-                isVisible ? "impactBox--visible" : ""
-              }`}
-              style={{ transitionDelay: `${index * 120}ms` }}
-            >
-              <div className="impactCardHeader">
-                <div className="impactIconBadge" aria-hidden="true">
-                  {stat.icon}
-                </div>
-                <h3 className="impactValue">
-                  {counts[stat.key]}
-                  {stat.suffix}
-                </h3>
-              </div>
-              <h4 className="impactTitle">{t(stat.titleKey)}</h4>
-              {stat.infoKeys.map((key) => (
-                <p key={key} className="impactInfo">
-                  {t(key)}
-                </p>
-              ))}
+        <div className="p1-impact__text">
+          <h2>{t("home.impactStats.title")}</h2>
+          <p>{t("home.impactStats.paragraph")}</p>
+        </div>
+
+        <dl className="p1-impact-stats">
+          {impactStats.map((stat) => (
+            <div key={stat.key} className="p1-impact-stat">
+              <dt>
+                {t(stat.titleKey)}
+                {stat.infoKeys && stat.infoKeys.length > 0
+                  ? stat.infoKeys.map((key) => (
+                      <span className="p1-impact-stat__info" key={key}>
+                        {t(key)}
+                      </span>
+                    ))
+                  : null}
+              </dt>
+              <dd>
+                {stat.value}
+                {stat.suffix}
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );

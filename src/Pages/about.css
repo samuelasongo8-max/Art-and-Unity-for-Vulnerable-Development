@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
-
-
 /* ===========================================================
    AUVD ABOUT PAGE
    PART 1 - RESET, VARIABLES & HERO SECTION
@@ -43,13 +40,7 @@ html{
 }
 
 body{
-    font-family:-apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
+    font-family: var(--font-body);
 
     background:#fff;
     color:var(--text);
@@ -234,7 +225,7 @@ FOUNDED CARD
 
     line-height:1.7;
     font-size: 1.08rem;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 
 
 /*==================================
@@ -292,7 +283,7 @@ SECTION LABELS
     margin-bottom:18px;
 
     font-size: 1.08rem;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 
 }
 
@@ -500,7 +491,7 @@ MISSION SECTION
 
     line-height:1.8;
 font-size: 1.08rem;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 }
 
 /*==============================
@@ -852,7 +843,7 @@ PHONE
 }
 
 .split-title{
-    font-family:"Poppins", sans-serif, -apple-system;
+    font-family: var(--font-heading);
     font-size:clamp(2rem,3vw,2.5rem);
     font-weight:800;
     color:var(--accent);
@@ -2121,7 +2112,7 @@ END OF ABOUT.CSS
 /* Labels: the pattern's small bold label, in Source Sans 3 so the site-wide
    Cormorant p rule (src/index.css) doesn't leak in. */
 .about-page .auvd-story-label {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Sections without a photo: the title takes the narrower left column and the
@@ -2168,7 +2159,7 @@ END OF ABOUT.CSS
 
 .about-mv-text {
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
   color: #333;
@@ -2260,7 +2251,7 @@ END OF ABOUT.CSS
   margin: 24px 0 0;
   padding: 0;
   list-style: none;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .about-beneficiary-item {
@@ -2345,7 +2336,7 @@ END OF ABOUT.CSS
 .about-leadership-card h3 {
   margin: 0 0 8px;
   color: var(--primary, #0b203f);
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 400;
   letter-spacing: 0.05em;

@@ -1,24 +1,20 @@
-/* =====================================================
-   "MUSIC INSTRUMENT DONATIONS" - a chronological timeline of donation moments,
-   not four interchangeable boxes. The milestones sit on one thin line with a
-   solid marker at each item, so the story reads left to right; below 769px
-   the same structure turns vertical with the line down the left side. The line
-   and the markers are the only structure - the items themselves are unboxed.
-
-   The line is drawn per card (not once across the track) with zero column gap,
-   so the segments meet edge to edge and cannot drift out of line with the
-   markers at any width: --line-y is measured from the card's top and derived
-   from --img-h, so the two always agree. --item-accent alternates blue and
-   orange-dark per item for rhythm.
-   ===================================================== */
+/* ============================================================
+   "Music That Reached Kakuma" — the Music Instrument Donations
+   section, restyled to match the clean "How we measure" block:
+   a centred serif title, a generous intro, then the milestones as
+   simple text entries divided by thin rules, and one clean text
+   CTA. No cards, icons or busy decoration — just clean typography
+   and whitespace. Re-skinned with the Project 1 2026 palette.
+   ============================================================ */
 
 .auvd-donations-section {
+  position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: 80px auto 0;
   box-sizing: border-box;
-  padding: 0 20px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  padding: 72px 24px;
+  overflow: hidden;
+  background: #EAF4FC;
+  font-family: var(--font-body);
 }
 
 .auvd-donations-section *,
@@ -27,6 +23,7 @@
   box-sizing: border-box;
 }
 
+/* Reveal-on-scroll (unchanged from the previous design). */
 .auvd-donations-section-animated {
   opacity: 0;
   transform: translateY(24px);
@@ -39,403 +36,166 @@
 }
 
 .auvd-donations-inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin-inline: auto;
+  text-align: center;
 }
 
-/* ===== HEADER =====
-   The h2 and the first h3 sit inline so "Music Instrument" + "Donations:"
-   read as the single small label; the subheading is the big Bebas title. */
+/* ---------- Heading ---------- */
 
-.auvd-donations-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.auvd-donations-heading {
-  /* Shared by the title and the View All offset so they stay in step. */
-  --label-size: 13px;
-  --label-gap: 14px;
-  --title-size: clamp(40px, 4.6vw, 48px);
-}
-
-.auvd-donations-heading h2,
-.auvd-donations-heading h3:not(.auvd-donations-subheading) {
-  display: inline;
-  margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: var(--label-size);
+/* Small uppercase eyebrow: "Music Instrument Donations:" */
+.auvd-donations-eyebrow {
+  margin: 0 0 14px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  line-height: 1.2;
-  color: var(--impact-orange-dark, #a4460a);
+  color: var(--impact-orange-dark, #b25a1e);
 }
 
-/* Title — "Music That Reached Kakuma", left-aligned Bebas Neue. */
-.auvd-donations-heading .auvd-donations-subheading {
-  display: block;
-  margin: var(--label-gap) 0 0;
-  font-family: "Bebas Neue", Impact, sans-serif;
-  font-weight: 400;
-  font-size: var(--title-size);
-  line-height: 1.05;
-  letter-spacing: 0.012em;
-  text-transform: uppercase;
+/* Big centred display title: "Music That Reached Kakuma" */
+.auvd-donations-title {
+  margin: 0 0 20px;
+  text-align: center;
+  font-family: var(--font-heading-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  line-height: 1.2;
   color: var(--impact-navy, #12395f);
 }
 
-/* Intro paragraph under the title - held to ~600px so it does not stretch. */
+/* Intro paragraph, centred and generous like "How we measure". */
 .auvd-donations-intro {
-  margin: 16px 0 0;
-  max-width: 600px;
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: 17.5px;
-  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 640px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  line-height: 1.85;
+  color: var(--impact-navy, #12395f);
+}
+
+/* ---------- Milestones (simple text entries, thin rules between) ---------- */
+
+.auvd-donations-grid {
+  display: flex;
+  flex-direction: column;
+  margin-top: 56px;
+}
+
+.auvd-donations-card {
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(8, 102, 181, 0.18);
+}
+
+/* Image at the top of each milestone entry. Centred, capped width,
+   consistent aspect ratio so the three milestones read as a set. */
+.auvd-donations-card-image {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: 300px;
+  margin: 0 auto 24px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.auvd-donations-card:last-child {
+  border-bottom: 0;
+}
+
+/* Small label above each milestone (was the coloured "tag"). */
+.auvd-donations-tag {
+  margin: 0 0 8px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--impact-blue, #1f76be);
+}
+
+.auvd-donations-card-title {
+  margin: 0 0 12px;
+  text-align: center;
+  font-family: var(--font-heading-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--impact-navy, #12395f);
+}
+
+.auvd-donations-card-text {
+  margin: 0 auto;
+  max-width: 60ch;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
   color: var(--impact-muted, #52606d);
 }
 
-/* "View All" - a small outlined link, not a big button. On desktop it sits to
-   the right of the header, lifted so its baseline lines up with the title's. */
+/* ---------- CTA (clean text link, like the reference's links) ---------- */
+
+.auvd-donations-cta {
+  margin-top: 40px;
+  text-align: center;
+}
+
 .auvd-donations-viewall {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: calc(
-    var(--label-size) * 1.2 + var(--label-gap) + var(--title-size) * 0.76 - 12px
-  );
-  padding: 9px 16px;
-  background-color: transparent;
+  padding: 0;
+  background: none;
   color: var(--impact-blue, #1f76be);
-  border: 1px solid var(--impact-blue, #1f76be);
-  border-radius: 0;
-
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.2;
-  text-decoration: none;
-  white-space: nowrap;
-
+  border: none;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
 
-  transition: background-color 0.2s ease, color 0.2s ease;
+.auvd-donations-viewall:hover,
+.auvd-donations-viewall:focus-visible {
+  color: var(--impact-orange-dark, #b25a1e);
+  outline: none;
 }
 
 .auvd-donations-viewall svg {
-  width: 13px;
-  height: 13px;
-  transition: transform 0.2s ease;
-}
-
-.auvd-donations-viewall:hover {
-  background-color: var(--impact-blue, #1f76be);
-  color: #ffffff;
-}
-
-.auvd-donations-viewall:hover svg {
-  transform: translateX(4px);
-}
-
-.auvd-donations-viewall:focus-visible {
-  outline: 2px solid var(--impact-blue, #1f76be);
-  outline-offset: 3px;
-}
-
-/* ===== CAROUSEL CONTROLS =====
-   Kept and still functional (5 items, 4 per page); restyled to the section's
-   palette and square-cornered language. */
-
-.auvd-donations-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 34px;
-}
-
-.auvd-donations-progress {
-  width: 190px;
-  height: 4px;
-  background: var(--impact-border, #dde5ee);
-  overflow: hidden;
-}
-
-.auvd-donations-progress-fill {
-  height: 100%;
-  background: var(--impact-orange-dark, #a4460a);
-  transition: width 0.4s ease;
-}
-
-.auvd-donations-arrows {
-  display: flex;
-  gap: 10px;
-}
-
-.auvd-donations-arrow {
-  width: 42px;
-  height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--impact-navy, #12395f);
-  border: 1px solid var(--impact-border, #dde5ee);
-  border-radius: 0;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.auvd-donations-arrow svg {
-  width: 17px;
-  height: 17px;
-}
-
-.auvd-donations-arrow:hover:not(:disabled) {
-  background: var(--impact-navy, #12395f);
-  border-color: var(--impact-navy, #12395f);
-  color: #ffffff;
-}
-
-.auvd-donations-arrow:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.auvd-donations-arrow:focus-visible {
-  outline: 2px solid var(--impact-blue, #1f76be);
-  outline-offset: 2px;
-}
-
-/* ===== TIMELINE =====
-   Zero column gap: each card's line segment spans its full column width, so
-   the four segments butt together into one unbroken rule. */
-
-.auvd-donations-track {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
-  margin-top: 30px;
-}
-
-.auvd-donations-card {
-  --item-accent: var(--impact-blue, #1f76be);
-  --pad-l: 22px;
-  --pad-r: 22px;
-  --img-h: 168px;
-  --line-y: calc(var(--img-h) + 30px);
-  --dot-y: calc(var(--img-h) + 58px);
-
-  counter-increment: none;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-left: var(--pad-l);
-  padding-right: var(--pad-r);
-}
-
-/* Alternate the accent for rhythm: blue, orange-dark, blue, orange-dark. */
-.auvd-donations-card:nth-child(even) {
-  --item-accent: var(--impact-orange-dark, #a4460a);
-}
-
-.auvd-donations-card:first-child {
-  --pad-l: 0;
-}
-
-.auvd-donations-card:last-child {
-  --pad-r: 0;
-}
-
-/* Page 2 shows a single item - let it use the full track width. */
-.auvd-donations-card:only-child {
-  --img-h: clamp(200px, 26vw, 320px);
-  grid-column: 1 / -1;
-}
-
-/* The line segment behind this item, and its solid marker. */
-.auvd-donations-card::before {
-  content: "";
-  position: absolute;
-  top: var(--line-y);
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--impact-border, #dde5ee);
-}
-
-.auvd-donations-card::after {
-  content: "";
-  position: absolute;
-  top: var(--line-y);
-  left: var(--pad-l);
-  width: 10px;
-  height: 10px;
-  margin-top: -5px;
-  background: var(--item-accent);
-  border-radius: 50%;
-}
-
-/* The image is full-bleed: it spans the entire card, ignoring the card's
-   text padding. The first/last cards zero one side of that padding so their
-   copy aligns to the track edges, which otherwise made those two images
-   narrower than the middle two.
-
-   align-self: stretch + width: auto makes this flex item fill its line; the
-   negative margins then push it back out by exactly the padding the card
-   applies to its copy, so it spans the full card width. Percentage widths
-   are deliberately avoided: they resolve against the content box and do not
-   account for the negative margins, which collapsed the edge cards to 0. */
-.auvd-donations-card-img {
-  position: relative;
-  align-self: stretch;
-  width: auto;
-  margin-left: calc(var(--pad-l) * -1);
-  margin-right: calc(var(--pad-r) * -1);
-  height: var(--img-h);
-  overflow: hidden;
-  border-radius: 0;
-}
-
-/* Absolutely positioned against the wrapper so the image exactly fills the
-   box at any size; width/height 100% + object-fit: cover means no
-   letterboxing and no whitespace, cropping the overflow instead. */
-.auvd-donations-card-img img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
   display: block;
 }
 
-/* Tag - small, uppercase, in the item's accent. Plain text, no badge. */
-.auvd-donations-tag {
-  display: block;
-  /* --dot-y is measured from the card's top, but this margin starts after the
-     image row, so only the delta below the image is added here. */
-  margin-top: calc(var(--dot-y) - var(--img-h));
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1.3;
-  color: var(--item-accent);
-}
+/* ---------- Responsive ---------- */
 
-/* Item title - clean bold sans, clearly larger than the paragraph, and the
-   same treatment on all four so they read as one set. */
-.auvd-donations-card h4 {
-  margin: 12px 0 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-weight: 700;
-  font-size: 19px;
-  line-height: 1.3;
-  color: var(--impact-navy, #12395f);
-}
-
-.auvd-donations-card p {
-  margin: 10px 0 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--impact-muted, #52606d);
-}
-
-/* ===== VERTICAL TIMELINE =====
-   Below 1025px four columns get too cramped, so the same line/marker
-   structure turns vertical: the rule runs down the left with a marker per
-   item and all the text to the right of it. */
-
-@media (max-width: 768px) {
-  .auvd-donations-track {
-    grid-template-columns: 1fr;
-  }
-
-  .auvd-donations-card {
-    --pad-l: 0;
-    --pad-r: 0;
-    --img-h: clamp(200px, 42vw, 300px);
-    --line-y: calc(var(--img-h) + 16px);
-    --dot-y: calc(var(--img-h) + 16px);
-
-    grid-column: auto;
-    padding: 0 0 44px 36px;
-  }
-
-  .auvd-donations-card:only-child {
-    grid-column: auto;
-  }
-
-  .auvd-donations-card:last-child {
-    padding-bottom: 0;
-  }
-
-  /* Rule runs down the left side, starting at the first marker. */
-  .auvd-donations-card::before {
-    top: var(--line-y);
-    bottom: 0;
-    left: 5px;
-    right: auto;
-    width: 1px;
-    height: auto;
-  }
-
-  .auvd-donations-card:last-child::before {
-    height: var(--line-y);
-  }
-
-  .auvd-donations-card::after {
-    top: var(--line-y);
-    left: 0;
-    margin-top: -5px;
-  }
-
-  .auvd-donations-tag {
-    /* Same delta as desktop: the marker sits on the line beside the tag. */
-    margin-top: calc(var(--dot-y) - var(--img-h));
-  }
-}
-
-/* ===== MOBILE =====
-   "View All" drops below the header. */
-
-@media (max-width: 767px) {
+@media (max-width: 640px) {
   .auvd-donations-section {
-    margin: 52px auto 0;
-    padding: 0 16px;
-  }
-
-  .auvd-donations-top {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .auvd-donations-viewall {
-    margin-top: 0;
-  }
-
-  .auvd-donations-heading {
-    --label-size: 12px;
-    --label-gap: 12px;
-    --title-size: clamp(30px, 8.4vw, 38px);
+    padding: 56px 20px;
   }
 
   .auvd-donations-intro {
-    font-size: 16px;
+    font-size: 1.15rem;
   }
 
-  .auvd-donations-controls {
-    margin-top: 24px;
+  .auvd-donations-card {
+    padding: 28px 0;
   }
 
-  .auvd-donations-card h4 {
-    font-size: 18px;
+  .auvd-donations-card-image {
+    height: 220px;
+    margin-bottom: 18px;
+  }
+
+  .auvd-donations-card-title {
+    font-size: 1.4rem;
   }
 }
 

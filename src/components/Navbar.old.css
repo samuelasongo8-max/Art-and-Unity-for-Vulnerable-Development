@@ -1,0 +1,991 @@
+@import url('https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&display=swap');
+
+/* ==========================================================================
+   1. System Design Tokens
+   ========================================================================== */
+:root {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+  --brand-primary: #ff6600;
+  --brand-primary-hover: #ff6600;
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #94a3b8;
+
+  --bg-main: #ffffff;
+  --bg-surface: #f8fafc;
+  --border-color: #e2e8f0;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-card-hover: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================================
+   2. Core Component Architecture & Reset
+   ========================================================================== */
+.navbar * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(47, 86, 179, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+/* ==========================================================================
+   3. Brand Elements (Logo Block)
+   ========================================================================== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 22px;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  transition: var(--transition-smooth);
+}
+
+.navbar.scrolled .logo {
+  color: var(--text-main);
+}
+
+.logo img {
+  height: 65px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: var(--transition-smooth);
+}
+
+.logo-text {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1em;
+  font-family: "Murecho", sans-serif;
+  line-height: 1;
+  margin-left: -1px;
+  color: #2e5cdac0;
+}
+
+/* The accented letters pick up the shared --impact-blue (defined globally in
+   index.css) so the wordmark matches the rest of the site's accent. */
+.logo-text span {
+  font-size: 1em;
+  color: var(--impact-blue, #1f76be);
+  font-family: "Murecho", sans-serif;
+  font-weight: 600;
+}
+
+/* The wordmark's only colour accent lives on the nested spans (U and D). The
+   trailing "." that used to be rendered after the wordmark has been removed,
+   along with its .logo-dot rule. */
+
+.nav-utility {
+  display: none;
+}
+
+.nav-brand-small {
+  text-decoration: none;
+  font-family: "Murecho", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   4. Primary Desktop Navigation Links
+   ========================================================================== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Primary link. The active/hover underline uses a border-bottom (always
+   present, only the color changes) rather than a pseudo-element: the About and
+   Our Impact triggers already use ::after for their ▾ chevron, so a second
+   pseudo-element would collide with it. A transparent border reserves the
+   space up front, so nothing shifts on hover. Square corners, no shadows. */
+/* The French labels ("Notre travail", "Notre impact") are longer than the
+   English ones, so without this the nav items wrap onto two lines and the
+   bar loses its alignment. They shrink the font slightly instead. */
+.nav-link {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  transition: var(--transition-smooth);
+  padding: 8px 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: #ffffff;
+  border-bottom-color: var(--impact-blue, #1f76be);
+}
+
+/* Current page: bold plus a persistent blue underline, so the active state
+   does not rely on color alone. */
+.nav-link.active {
+  color: #ffffff;
+  font-weight: 700;
+  border-bottom-color: var(--impact-blue, #1f76be);
+}
+
+.navbar.scrolled .nav-link {
+  color: var(--text-muted);
+}
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link:focus-visible,
+.navbar.scrolled .nav-link.active {
+  color: var(--impact-blue, #1f76be);
+}
+
+/* ==========================================================================
+   5. Action Block & Premium Global Button Controls
+   ========================================================================== */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #ff6600;
+  color: #ffffff;
+  padding: 10px 20px;
+}
+
+.btn-primary:hover,
+.btn-primary.active {
+  background-color: #ff6600;
+  transform: translateY(-1px);
+  
+}
+
+/* Donate button — the nav's own CTA.
+   White text on the brand #ff6600 measures 2.94:1, which fails WCAG AA, so the
+   hover deepens to #b8430a (5.18:1 with white, 8.72:1 on hover-deep).
+   These selectors are scoped with `.navbar` deliberately: ImpactAll.css defines
+   UNSCOPED global `.btn` / `.btn-primary` rules (dark #111 text, 7px radius,
+   48px min-height). Vite bundles all CSS into one stylesheet, so those leak
+   into the nav and win on source order. `.navbar .donate-btn` (0,2,0) beats
+   them (0,1,0), restoring the nav's square, white-on-orange treatment. */
+.navbar .donate-btn {
+  background-color: #ff6600;
+  color: #ffffff;
+  border: 1px solid #ff6600;
+  border-radius: 0;
+  min-height: 0;
+  padding: 10px 20px;
+}
+
+.navbar .donate-btn:hover,
+.navbar .donate-btn:focus-visible,
+.navbar .donate-btn.active {
+  background-color: #b8430a;
+  color: #ffffff;
+  border-color: #b8430a;
+  transform: translateY(-1px);
+}
+
+/* Visible keyboard focus for the primary nav controls. The Our Impact
+   dropdown's own controls have an equivalent rule further down. */
+.nav-link:focus-visible,
+.logo:focus-visible,
+.navbar .donate-btn:focus-visible,
+.nav-search-button:focus-visible,
+.menu-toggle:focus-visible,
+.dropdown-link:focus-visible,
+.nav-search-input:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   6. Pinned Dropdown Architecture
+   ========================================================================== */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-trigger::after {
+  content: "▾";
+  font-size: 11px;
+  transition: var(--transition-smooth);
+}
+
+.nav-dropdown.open .nav-trigger::after {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: -20px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card-hover);
+  min-width: 200px;
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-link {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+}
+
+/* About dropdown hover/active. --brand-primary-light was never defined
+   anywhere in the project, so this background silently fell back to
+   transparent; --impact-blue-tint is the real shared token and keeps the
+   dropdown consistent with the new blue accent. */
+.dropdown-link:hover,
+.dropdown-link.active {
+  background-color: var(--impact-blue-tint, #eaf3fb);
+  color: var(--impact-blue-dark, #1f76be);
+}
+
+.dropdown-link.active {
+  border-left: 3px solid var(--impact-blue, #1f76be);
+}
+
+/* ==========================================================================
+   7. Integrated Live Search Component Styling
+   ========================================================================== */
+.nav-search {
+  position: relative;
+}
+
+.nav-search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.nav-search-shell {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  width: 180px;
+  transition: var(--transition-smooth);
+}
+
+.navbar.scrolled .nav-search-shell {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+}
+
+.nav-search-shell:focus-within,
+.nav-search-shell.open {
+  width: 240px;
+  background-color: #ffffff;
+  border-color: #ff6600;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.nav-search-icon {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+.navbar.scrolled .nav-search-icon {
+  color: var(--text-light);
+}
+
+.nav-search-shell:focus-within .nav-search-icon {
+  color: #ff6600;
+}
+
+.nav-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+}
+
+.navbar.scrolled .nav-search-input,
+.nav-search-shell:focus-within .nav-search-input {
+  color: var(--text-main);
+}
+
+.nav-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.navbar.scrolled .nav-search-input::placeholder {
+  color: var(--text-light);
+}
+
+.nav-search-button {
+  background-color: #ff6600;
+  color: #ffffff;
+  border: none;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-search-shell:focus-within .nav-search-button {
+  display: block;
+}
+
+.nav-search-results {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 320px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card-hover);
+  max-height: 360px;
+  overflow-y: auto;
+  z-index: 150;
+  padding: 6px;
+}
+
+.nav-search-result {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.nav-search-result:hover {
+  background-color: var(--impact-blue-tint, #eaf3fb);
+}
+
+.nav-search-result-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.nav-search-result-description {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.nav-search-empty {
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* ==========================================================================
+   8. Responsive Viewport Rule Modifications
+   ========================================================================== */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.navbar.scrolled .menu-toggle {
+  color: var(--text-main);
+}
+
+@media (max-width: 1024px) {
+  .logo {
+    display: none;
+  }
+
+  .nav-utility {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    padding-left: 12px;
+  }
+
+  .nav-brand-small {
+    color: #117acf;
+  }
+
+  .menu-toggle {
+    display: block;
+    z-index: 120;
+  }
+
+  .menu-toggle.nav-open {
+    color: var(--text-main) !important;
+  }
+
+  .main-nav,
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 85%;
+    max-width: 360px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -10px 0 30px rgba(15, 23, 42, 0.1);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 32px 40px 32px;
+    gap: 16px;
+    transition: var(--transition-smooth);
+    overflow-y: auto;
+  }
+
+  .nav-links.open {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    color: var(--text-muted);
+    padding: 8px 0;
+    text-align: left;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--impact-blue, #1f76be);
+    border-bottom-color: transparent;
+  }
+
+  .nav-link.active {
+    color: var(--impact-blue, #1f76be);
+    border-bottom-color: transparent;
+    border-left: 3px solid var(--impact-blue, #1f76be);
+    padding-left: 12px;
+  }
+
+  .nav-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 24px;
+    margin-top: 12px;
+  }
+
+  .nav-search-shell {
+    width: 100%;
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+  }
+
+  .nav-search-shell:focus-within {
+    width: 100%;
+  }
+
+  .nav-search-input {
+    color: var(--text-main);
+  }
+
+  .nav-search-icon {
+    color: var(--text-light);
+  }
+
+  .nav-search-button {
+    display: block;
+  }
+
+  .nav-search-results {
+    width: 100%;
+    position: static;
+    margin-top: 8px;
+    box-shadow: none;
+    border-color: var(--border-color);
+  }
+
+  .navbar .donate-btn {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid var(--border-color);
+    border-radius: 0;
+    margin-left: 10px;
+    padding: 4px 0 4px 12px;
+    display: none;
+    width: 100%;
+    gap: 4px;
+  }
+
+  .nav-dropdown.open .dropdown-menu {
+    display: flex;
+  }
+}
+
+/* ==========================================================================
+   9. Our Impact Dropdown (children: News, Blogs, Report)
+   ========================================================================== */
+.auvd-nav-dropdown {
+  position: relative;
+  /* Impact palette (same values as .auvd-impact-page) so the dropdown can
+     use the variables even though the navbar is outside the page scope. */
+  --impact-blue: #1f76be;
+  --impact-blue-dark: #14507f;
+  --impact-navy: #12395f;
+  --impact-blue-tint: #eaf3fb;
+  --impact-orange:#ff6600;
+  --impact-orange-dark: #b25a1e;
+  --impact-orange-tint: #fcf1e8;
+  --impact-text: #1f2933;
+  --impact-muted: #52606d;
+  --impact-border: #dde5ee;
+  --impact-surface: #f6f9fc;
+}
+
+.auvd-nav-parent {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Parent label keeps the shared nav-link look; its ▾ never transitions. */
+.auvd-nav-trigger {
+  white-space: nowrap;
+}
+
+.auvd-nav-trigger::after {
+  transition: none;
+}
+
+/* Chevron button is mobile only — see section 10. */
+.auvd-nav-chevron {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.auvd-dropdown-menu {
+  top: calc(100% + 12px);
+  left: -12px;
+  min-width: 190px;
+  padding: 6px;
+  gap: 0;
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  /* Short fade only — no slide or scale. */
+  transform: none;
+  transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+/* Opens on hover and on keyboard focus (state adds the hover delay and lets
+   Escape / a click close the menu even while the cursor is still on it). */
+.auvd-nav-dropdown:hover:not(.auvd-nav-dropdown--dismissed) .auvd-dropdown-menu,
+.auvd-nav-dropdown:focus-within:not(.auvd-nav-dropdown--dismissed) .auvd-dropdown-menu,
+.auvd-nav-dropdown.open .auvd-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.auvd-dropdown-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+/* Our Impact dropdown — new hover and active colors. Scoped to .auvd- so the
+   rest of the nav is untouched. */
+.auvd-nav-dropdown .auvd-dropdown-link:hover {
+   
+  color: var(--impact-blue-dark, #ff6600);
+}
+
+.auvd-nav-dropdown .auvd-dropdown-link.active {
+ 
+  color: var(--impact-blue-dark, #ff6600);
+  box-shadow: inset 3px 0 0 var(--impact-orange, #ff6600);
+}
+
+/* Visible keyboard focus for every new control. */
+.auvd-nav-trigger:focus-visible,
+.auvd-nav-chevron:focus-visible,
+.auvd-dropdown-link:focus-visible {
+  outline: 2px solid var(--impact-blue, #ff6600);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   10. Our Impact Dropdown — mobile (indented list behind the chevron)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .auvd-nav-parent {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .auvd-nav-parent .nav-link {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .auvd-nav-trigger::after {
+    display: none;
+  }
+
+  .auvd-nav-chevron {
+    display: inline-flex;
+  }
+}
+
+/* ==========================================================================
+   11. Language switcher (EN | FR)
+   A compact two-option control that sits in the navigation bar immediately
+   after "Contact" (so "Donate" stays the last item). It reuses the .nav-link
+   typography, size, spacing and hover behaviour so it reads as part of the
+   bar rather than a separate widget. Square corners, no shadow, and it never
+   wraps onto a second line.
+
+   - Small FaGlobe icon before the two options. No flags: a language is not
+     a country.
+   - The ACTIVE language is bold on a filled var(--impact-blue) background with
+     white text.
+   - The INACTIVE one is a plain link-styled button that highlights on hover.
+   - Both are real <button> elements with a visible :focus-visible outline.
+   ========================================================================== */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  gap: 2px;
+  margin-left: -8px;
+}
+
+.lang-switch-icon {
+  flex: 0 0 auto;
+  margin-right: 4px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.lang-switch-btn {
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 0; /* square corners, matching the nav */
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-smooth);
+  box-shadow: none;
+}
+
+.lang-switch-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Visible keyboard focus on both options. */
+.lang-switch-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  color: #ffffff;
+}
+
+.lang-switch-btn.is-active {
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--impact-blue, #1f76be);
+  border-color: var(--impact-blue, #1f76be);
+}
+
+/* Scrolled state — the header turns light, so the control follows suit. */
+.navbar.scrolled .lang-switch-btn {
+  color: var(--text-muted);
+}
+
+.navbar.scrolled .lang-switch-icon {
+  color: var(--text-muted);
+}
+
+.navbar.scrolled .lang-switch-btn:hover,
+.navbar.scrolled .lang-switch-btn:focus-visible {
+  color: var(--impact-blue, #1f76be);
+  background: rgba(31, 118, 190, 0.1);
+}
+
+.navbar.scrolled .lang-switch-btn:focus-visible {
+  outline-color: var(--impact-blue, #1f76be);
+}
+
+.navbar.scrolled .lang-switch-btn.is-active {
+  color: #ffffff;
+  background: var(--impact-blue, #1f76be);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile: the header-bar copy (next to the hamburger) and the copy at the
+   top of the open menu. Both stay visible without any extra taps and are
+   never scrolled out of view, because they live inside the fixed header.
+   -------------------------------------------------------------------------- */
+.lang-switch--mobile-header {
+  display: none;
+}
+
+.lang-switch--mobile-menu {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  /* Shown in the header bar, immediately before the hamburger button. */
+  .lang-switch--mobile-header {
+    display: flex;
+    order: 1;
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+  /* The switcher inside the nav-links row is the desktop one — hide it in the
+     mobile menu so the control is not duplicated there. */
+  .nav-links > .lang-switch {
+    display: none;
+  }
+
+  /* …and show the dedicated top-of-menu copy instead. */
+  .nav-links > .lang-switch--mobile-menu {
+    display: block;
+    width: 100%;
+    padding: 10px 0 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-links > .lang-switch--mobile-menu .lang-switch {
+    margin-left: 0;
+  }
+}
+
+/* ==========================================================================
+   11. Desktop Nav Spacing (min-width: 1025px)
+
+   Everything above this block is written for the mobile/tablet layout, whose
+   rules are all "max-width: 1024px". Scoping the desktop fixes with
+   "min-width: 1025px" means these declarations can never leak down into the
+   mobile or tablet layouts, so those stay exactly as they are.
+
+   WHY THE LOGO SAT FLUSH AGAINST "Home"
+   -------------------------------------
+   .nav-container is a flex row with justify-content: space-between, but
+   space-between only hands out space that is already free. The nav row was
+   measured at exactly 0px of free space, so space-between gave nothing and
+   the logo ended up touching the first link. In French the labels are wider
+   than the container, so the row overflowed and the browser shrank the
+   flex item .logo, squashing it and letting the wordmark spill over the
+   first link.
+
+   THE FIXES
+   ---------
+   1. flex: 0 0 auto on .logo — the logo is a fixed-size brand mark, so it
+      must never be the thing that gives up width. This stops the browser
+      from squashing it and letting the wordmark overlap the first link.
+   2. margin-right on .logo — the requested breathing room between the logo
+      and the first link. It is a margin rather than a flex gap because
+      .nav-links is a nested flex container holding the links, the language
+      switcher and the actions; a gap on .nav-container would also spread the
+      unrelated utility/mobile-only children.
+   3. width/max-width: fit-content on .nav-container — this one is subtle but
+      important. With justify-content: space-between, the visible space
+      between the logo and the first link is the margin PLUS whatever free
+      width is left over. Any leftover width is handed straight to that gap,
+      so a fixed max-width made the gap balloon to 91px/131px/177px at wide
+      viewports. Sizing the container to its own content removes the
+      leftover, so the gap is always exactly the margin above — 52px on
+      desktop — at any window size. max-width: 100% keeps it from ever
+      exceeding the viewport, so the row can still shrink when the labels are
+      too wide to fit (French).
+   ========================================================================== */
+@media (min-width: 1025px) {
+  .nav-container {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  /* 1. Never let the brand mark be compressed. */
+  .logo {
+    flex: 0 0 auto;
+  }
+
+  /* 2. The gap the logo and the first link were missing. */
+  .logo {
+    margin-right: 52px;
+  }
+
+  /* Let the links row shrink below its content width when a long translation
+     leaves too little room, instead of forcing the container wider than the
+     screen. min-width: 0 is required for a flex item to shrink this far. */
+  .nav-links {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}
+
+/* The tightest desktop range: there is not enough width for the full 52px
+   plus the widest labels. Ease the logo gap and the link spacing off a
+   little so everything still sits on ONE line instead of wrapping.
+
+   NOTE ON WHAT THIS CAN AND CANNOT SOLVE
+   -------------------------------------
+   These are measured values, not guesses. At 1025px the desktop row still
+   runs past the right edge once the logo is no longer being crushed: the
+   original layout hid that overflow by shrinking .logo from 141px to 72px,
+   which made the wordmark overlap the first link. Giving the logo its real
+   width and asking for a gap spends that recovered width, so the tight end
+   needs the link spacing pulled in to pay for it.
+
+   The French labels cannot be made to fit at 1025px by spacing alone. Even
+   with the link gap closed to 0px the row still overruns by ~198px, because
+   the French text is ~1034px wide against ~977px of available space. Fixing
+   that last stretch needs a smaller font size or one fewer menu item, both of
+   which are outside "spacing only", so it is left as-is here rather than
+   changed silently. */
+@media (min-width: 1025px) and (max-width: 1319px) {
+  .logo {
+    margin-right: 32px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+}

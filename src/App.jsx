@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import DonateBanner from "./components/DonateBanner";
 import { useEffect } from "react";
 import './App.css';
  
@@ -22,6 +23,7 @@ import OurStory from "./Pages/OurStory";
 import SamuelAsongo from "./Pages/SamuelAsongo";
 import Music from "./Pages/programs/Music";
 import ImpactAll from "./Pages/ImpactAll";
+import GetInvolved from "./Pages/GetInvolved";
 import OurImpact from "./Pages/OurImpact";
 import OurImpactLayout from "./Pages/our-impact/OurImpactLayout";
 import ImpactNews from "./Pages/our-impact/News";
@@ -34,6 +36,10 @@ import AdminNews from "./Pages/admin/AdminNews";
 
 import Vocational from "./Pages/programs/Vocational";
 import NotFound from "./Pages/NotFound";
+import Updates from "./Pages/Updates";
+import UpdateDetail from "./Pages/UpdateDetail";
+import Need from "./Pages/Need";
+import VisualArts from "./Pages/VisualArts";
  
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -81,6 +87,9 @@ const Chrome = () => {
             <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/impact" element={<ImpactAll />} />
+            {/* Get Involved is a separate full page (not a child of
+                OurImpactLayout), reached from the Impact sidebar. */}
+            <Route path="/impact/get-involved" element={<GetInvolved />} />
 
             {/* Our Impact + its sub pages — all four share OurImpactLayout,
                 so the "Impacts" heading and the sidebar stay in place. */}
@@ -104,6 +113,17 @@ const Chrome = () => {
             <Route path="/dance" element={<Dance />} />
             <Route path="/Music" element={<Music />} />
             <Route path="/Vocational" element={<Vocational />} />
+
+            {/* "The Need" and "Visual Arts" — standalone pages reached from the
+                Home hero pills (moved off the home page to avoid crowding it). */}
+            <Route path="/need" element={<Need />} />
+            <Route path="/visual-arts" element={<VisualArts />} />
+
+            {/* Community Updates & Stories — copied from the source design.
+                /updates is the grid page; /updates/:slug is one detail page.
+                A wrong slug shows the in-page "Update not found" message. */}
+            <Route path="/updates" element={<Updates />} />
+            <Route path="/updates/:slug" element={<UpdateDetail />} />
 
             {/* ===== ADMIN (internal) =====
                 The single-admin backend. Reached through the small lock icon in
@@ -130,7 +150,14 @@ const Chrome = () => {
         </div>
       </div>
 
-      {isAdmin ? null : <Footer />}
+      {isAdmin ? (
+        null
+      ) : (
+        <>
+          <DonateBanner />
+          <Footer />
+        </>
+      )}
     </>
   );
 };

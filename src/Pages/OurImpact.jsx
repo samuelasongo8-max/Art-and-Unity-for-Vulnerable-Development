@@ -1,5 +1,8 @@
-import { useTranslation } from "react-i18next";
-import ImpactHero from "../components/ImpactHero";
+import { Trans, useTranslation } from "react-i18next";
+/* ImpactHero is no longer used on this page: the Our Impact hero now
+   follows the source's own /impact/ page-hero design (p1-impact-page-hero-*
+   rules in OurImpact.css). Every other page keeps using ImpactHero. */
+import { Link } from "react-router-dom";
 import ImpactGrid from "./our-impact/ImpactGrid";
 import "./OurImpact.css";
 
@@ -135,18 +138,90 @@ export const OurImpactHero = () => {
 
   return (
     <div className="our-impact-hero-bleed">
-      <ImpactHero
-        heading={t("impact.hero.heading")}
-        paragraph={t("impact.hero.paragraph")}
-        image="/refugees.jpg"
-        imageAlt={t("impact.hero.imageAlt")}
-        stats={heroStats.map((stat) => ({
-          value: stat.value,
-          label: t(stat.labelKey),
-          caption: stat.captionKey ? t(stat.captionKey) : null,
-          list: stat.listKeys ? stat.listKeys.map((key) => t(key)) : null,
-        }))}
-      />
+      <section className="p1-impact-page-hero">
+        <div className="p1-impact-page-hero__top">
+          <h1 className="p1-impact-page-hero__title">{t("impact.hero.heading")}</h1>
+          <p className="p1-impact-page-hero__subtitle">{t("impact.hero.paragraph")}</p>
+        </div>
+
+        {/* Stats band, pinned to the bottom of the hero — the source's
+            page-hero design; the target's four figures (with the Core
+            Programs list) fill its four slots. */}
+        <div className="p1-impact-page-hero__band">
+          <div className="p1-impact-page-hero__grid">
+            {heroStats.map((stat) => (
+              <div key={stat.labelKey} className="p1-impact-page-hero__stat">
+                <span className="p1-impact-page-hero__value">{stat.value}</span>
+                <span className="p1-impact-page-hero__label">{t(stat.labelKey)}</span>
+                {stat.listKeys ? (
+                  <ul className="p1-impact-page-hero__list">
+                    {stat.listKeys.map((key) => (
+                      <li key={key}>{t(key)}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+/* ==========================================================================
+   /our-impact — "How we measure" — the closing CTA band.
+
+   A full-bleed photo on the left with an overlapping blue card on the right
+   (the source project's /impact/ "How we measure" block, re-skinned with the
+   target palette). It is the last thing on the All view, mounted by
+   OurImpactLayout below the sidebar + card grid so the photo can reach the
+   screen edges; .our-impact-measure-bleed cancels the page's own horizontal
+   padding for this band only, the same way .our-impact-hero-bleed does for
+   the hero above.
+
+   All copy is translated with t() and the link labels are their own keys, so
+   the band follows the language like the rest of the page.
+   ========================================================================== */
+export const OurImpactMeasure = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="our-impact-measure-bleed">
+      <section className="p1-measure">
+        <img
+          className="p1-measure__image"
+          src="/muziki.webp"
+          alt={t("impact.measure.imageAlt")}
+        />
+
+        <div className="p1-measure__card">
+          <h2 className="p1-measure__title">{t("impact.measure.title")}</h2>
+          <p className="p1-measure__text">
+            {t("impact.measure.textBefore")}
+            <Link className="p1-measure__link" to="/our-impact/report">
+              {t("impact.measure.resources")}
+            </Link>
+            .
+          </p>
+
+          <h3 className="p1-measure__subtitle">{t("impact.measure.subtitle")}</h3>
+          <p className="p1-measure__text">
+            <Link className="p1-measure__donate" to="/donate">
+              {t("impact.measure.donate")}
+            </Link>
+            {", "}
+            <Link className="p1-measure__link" to="/contact">
+              {t("impact.measure.volunteer")}
+            </Link>{" "}
+            {t("impact.measure.or")}{" "}
+            <Link className="p1-measure__link" to="/contact">
+              {t("impact.measure.partner")}
+            </Link>{" "}
+            {t("impact.measure.withUs")}
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

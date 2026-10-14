@@ -24,6 +24,13 @@
     "arrow": "→",
     "donateToday": "DONATE TODAY"
   },
+  "donateBanner": {
+    "title": "Empower Refugees and Vulnerable Communities in Kakuma",
+    "text": "Stand with refugees, women, girls, youth, children, and vulnerable host communities in Kakuma, Kenya. Your support helps expand access to education, creative arts, mental health and psychosocial support, skills development, women's economic empowerment, protection, and sustainable livelihood opportunities.",
+    "text2": "Together, we can build resilience, promote inclusion, and create a future where everyone can live with dignity and opportunity.",
+    "donate": "Donate",
+    "partner": "Partner with Us"
+  },
   "nav": {
     "home": "Home",
     "about": "About Us",
@@ -213,8 +220,8 @@
   "home": {
     "hero": {
       "slides": {
-        "one": "Awesome Design",
-        "two": "Multi-purpose Theme",
+        "one": "Art & Unity",
+        "two": "Kakuma",
         "auvd": "AUVD"
       },
       "label": "Art & Unity for Vulnerable Development",
@@ -226,7 +233,9 @@
         "explore": "Explore more",
         "share": "Share your creativity",
         "music": "Music education",
-        "dance": "Community dance"
+        "dance": "Community dance",
+        "need": "The Need",
+        "visualArts": "Visual Art"
       }
     },
     "whoWeAre": {
@@ -292,6 +301,24 @@
       "iframeTitle": "Global Innovation Challenge video",
       "title": "Empowering young voices through music",
       "paragraph": "Every note is a step toward confidence, creativity, and a brighter future. We believe music gives young people the opportunity to discover their talents, express themselves, and dream bigger."
+    },
+    "videoGallery": {
+      "playLabel": "Play video",
+      "velLewis": {
+        "ribbon": "AUVD MUSIC",
+        "title": "Vel Lewis Debuts New Music And Shares His Global Journey",
+        "description": "Partnership with Art and Unity for Vulnerable Development (AUVD) and how we organized Youth Peace Week workshops."
+      },
+      "peaceWeek": {
+        "ribbon": "YOUTH PEACE WEEK",
+        "title": "Music Across Youth Peace Week",
+        "description": "Art and Unity for Vulnerable Development (AUVD), in partnership with F2F Music Foundation, UnityNet International, Andrew Network - AHIAGBA TV, and Transylvanian Symphony Foundation, successfully delivered three impactful workshops during Youth Peace Week in Kakuma Refugee Camp."
+      },
+      "innovation": {
+        "ribbon": "INSTRUMENT INSTRUCTION",
+        "title": "Our Music Education Program",
+        "description": "Highlights from our Music Education Program, where young people receive instrument instruction, build their musical skills, and grow in confidence and creativity."
+      }
     },
     "featuredVideo": {
       "velLewis": {
@@ -418,7 +445,9 @@
     },
     "partners": {
       "heading": "OUR PARTNERS:",
-      "subheading": "Trusted by Global Partners and Funders"
+      "subheading": "Trusted by Global Partners and Funders",
+      "prev": "Previous partners",
+      "next": "Next partners"
     }
   },
   "about": {
@@ -550,6 +579,7 @@
         "blogs": "Blogs",
         "report": "Report",
         "post": "Post",
+        "getInvolved": "Get Involved",
         "home": "Home"
       }
     },
@@ -592,6 +622,18 @@
       "weeksAgo_other": "{{count}} weeks ago",
       "minRead_one": "{{count}} min read",
       "minRead_other": "{{count}} min read"
+    },
+    "measure": {
+      "title": "How we measure",
+      "textBefore": "Every programme tracks participation, completion and outcome indicators, verified through follow-up surveys at 3, 6 and 12 months. Annual reports are published in ",
+      "resources": "Resources",
+      "subtitle": "Help us multiply this impact",
+      "donate": "Donate",
+      "volunteer": "volunteer",
+      "or": "or",
+      "partner": "partner",
+      "withUs": "with us.",
+      "imageAlt": "Women and girls taking part in a programme in Kakuma Refugee Camp"
     },
     "items": {
       "one": {
@@ -691,10 +733,12 @@
       "title": "Five program pillars guiding AUVD’s work in Kakuma",
       "programsHeading": "Programs under this pillar",
       "focusHeading": "Focus",
+      "outreachVisualAlt": "Shoe distribution for children through AUVD's outreach programme",
       "pillars": {
         "arts-healing": {
           "title": "Arts, Healing & Psychosocial Well-being",
           "intro": "This program focuses on emotional healing, creativity, and mental health support through arts-based approaches.",
+          "imageAlt": "Young people learning music and creative arts at AUVD in Kakuma",
           "additionalPhoto": "additional photo {{count}}",
           "actions_one": "Explore music",
           "actions_two": "Explore dance",
@@ -708,6 +752,7 @@
         "education-youth": {
           "title": "Education, Youth Development & Empowerment",
           "intro": "This program focuses on learning, skills development, and preparing young people for the future.",
+          "imageAlt": "Children learning together in an AUVD classroom",
           "action": "Explore more",
           "additionalPhoto": "additional photo {{count}}",
           "programs_one": "Youth Empowerment & Skills Development Program",
@@ -720,6 +765,7 @@
         "livelihoods-women": {
           "title": "Livelihoods & Women Economic Empowerment",
           "intro": "This program focuses on income generation, self-reliance, and women’s economic inclusion.",
+          "imageAlt": "Women learning tailoring and vocational skills at AUVD",
           "additionalPhoto": "additional photo {{count}}",
           "programs_one": "Women’s Empowerment Program",
           "programs_two": "Vocational Training & Livelihood Program",
@@ -731,6 +777,7 @@
         "peacebuilding": {
           "title": "Peacebuilding & Community Inclusion",
           "intro": "This program promotes unity, coexistence, and community participation.",
+          "imageAlt": "Refugee and host community members taking part in a peacebuilding activity",
           "additionalPhoto": "additional photo {{count}}",
           "programs_one": "Peacebuilding & Community Dialogue Program",
           "programs_two": "Community Engagement & Inclusion Program",
@@ -742,6 +789,7 @@
         "outreach-basic-needs": {
           "title": "Humanitarian Outreach & Basic Needs Support",
           "intro": "This program addresses urgent needs and supports dignity for vulnerable people.",
+          "imageAlt": "Shoe distribution for children through AUVD's outreach programme",
           "action": "Explore more",
           "additionalPhoto": "additional photo {{count}}",
           "programs_one": "Outreach Program (Shoes Distribution in partnership with Because International)",
@@ -1489,5 +1537,29 @@
     },
     "empty": "No news in this section yet.",
     "donateCta": "Donate today"
+  },
+  "storiesNews": {
+    "titleA": "Music Instrument",
+    "titleAmp": "Donations",
+    "titleB": "",
+    "intro": "Our music education journey grew through the generosity of partners who believed that every young person deserves an opportunity to learn, create, and express themselves through music.",
+    "soon": "Will be updated soon",
+    "cards": {
+      "story": {
+        "label": "2025 - Delivery",
+        "title": "Our First Major Instrument Donation",
+        "text": "In 2025, AUVD received its first major donation of musical instruments from the Transylvanian Symphony Foundation."
+      },
+      "news": {
+        "label": "Partnership",
+        "title": "Continuing the Support",
+        "text": "Later in 2025, through the support of the Transylvanian Symphony Foundation in partnership with Hungry for Music."
+      },
+      "report": {
+        "label": "Community",
+        "title": "Music Reaches Every Corner",
+        "text": "Dozens of children and youth gathered with their new instruments, from violins to keyboards, ready to start learning together."
+      }
+    }
   }
 }

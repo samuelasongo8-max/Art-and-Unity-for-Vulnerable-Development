@@ -4,8 +4,7 @@
    owns the subtitle and the three cards.
 
    The cards are deliberately NOT three interchangeable boxes. Each one reads
-   as a step: a large faint number (01/02/03, drawn with a CSS counter so the
-   markup keeps its exact words), a 4px top bar whose colour shifts with the
+   as a step: a 4px top bar whose colour shifts with the
    step's role - blue for Program, orange for Challenge, navy for Impact - and
    a 1px --impact-border frame. Square corners, no drop shadow at rest, flat
    white, everything left-aligned, and the "Read more ->" link pushed to the
@@ -36,7 +35,7 @@
 .impact-ngo-title {
   max-width: 600px;
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 400;
   line-height: 1.55;
@@ -45,7 +44,7 @@
 
 /* =====================================================
    GRID - three equal columns on desktop, one column once there is no room
-   for three. counter-reset drives the 01/02/03 step numbers.
+   for three.
    ===================================================== */
 
 .programs-grid {
@@ -53,19 +52,17 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   align-items: stretch;
-  counter-reset: ta-step;
 }
 
 /* =====================================================
    CARD - flat white panel, 1px border, 4px accent top bar, square corners,
    no shadow at rest. --card-accent is the single per-card colour, reused by
-   the top bar, the step number and the category label.
+   the top bar and the category label.
    ===================================================== */
 
 .program-card {
   --card-accent: var(--impact-blue, #1f76be);
 
-  counter-increment: ta-step;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -131,8 +128,7 @@
 }
 
 /* =====================================================
-   STEP NUMBER + CATEGORY + TAG - one left-aligned row. The number is a CSS
-   counter, so no text was added to the markup.
+   CATEGORY + TAG - one left-aligned row.
    ===================================================== */
 
 .card-top {
@@ -142,19 +138,9 @@
   margin-bottom: 18px;
 }
 
-.card-top::before {
-  content: counter(ta-step, decimal-leading-zero);
-  flex: 0 0 auto;
-  font-family: "Bebas Neue", Impact, sans-serif;
-  font-size: 38px;
-  line-height: 0.8;
-  color: var(--card-accent);
-  opacity: 0.34;
-}
-
 .program-badge,
 .program-date {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -181,7 +167,7 @@
 
 .program-title {
   margin: 0 0 12px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(24px, 2vw, 28px);
   font-weight: 400;
   line-height: 1.15;
@@ -192,7 +178,7 @@
 
 .card-description {
   margin: 0 0 22px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15.5px;
   font-weight: 400;
   line-height: 1.6;
@@ -216,7 +202,7 @@
   border: none;
   border-radius: 0;
   color: var(--impact-blue, #1f76be);
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
@@ -285,10 +271,6 @@
   .card-top {
     gap: 12px;
     margin-bottom: 16px;
-  }
-
-  .card-top::before {
-    font-size: 34px;
   }
 
   .program-title {

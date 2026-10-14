@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap");
-
 /* Organization palette — the --impact-* variables used by Our Impact, Our
    Story, Work and Pricing. Defined globally so pages outside the Our Impact
    section can use them too. */
@@ -15,17 +13,46 @@
   --impact-muted: #52606d;
   --impact-border: #dde5ee;
   --impact-surface: #f6f9fc;
+
+  /* ---- Typography (copied from the source project) ----
+     --font-body         Source Sans 3 — body, paragraphs, links, nav, buttons, cards.
+     --font-heading      Oswald — condensed display headings (section/page titles).
+     --font-heading-serif Playfair Display — serif display headings & quotes.
+     --font-hero         Poppins — hero title, paragraph and button only.
+     --font-script       Caveat — handwritten hero caption.
+     These are the single source of truth; every component rule points at them. */
+  --font-body: 'Source Sans 3', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --font-heading: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+  --font-heading-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-hero: 'Poppins', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --font-script: 'Caveat', 'Segoe Script', 'Brush Script MT', cursive;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
 }
 
 h1,
 h2,
 h3,
-h4 {
-	font-family: "Cormorant Garamond", Georgia, serif;
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
 }
 
 p {
-	font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
  

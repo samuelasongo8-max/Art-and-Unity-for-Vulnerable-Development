@@ -1,0 +1,156 @@
+/* ============================================================
+   Update detail — /updates/:slug (shared by all five updates).
+
+   Mirrors the source project's .update-detail-* design exactly:
+   960px page wrapper, 420px cover image (260px ≤700px), white
+   8px-radius card, Playfair Display title and body, 720px
+   centered text column, teal→blue links with underline-on-hover.
+
+   Colours: only the palette changes —
+     teal #1e8e96 / #2E8C8C → var(--blue)   #0866B5
+     coral #f26052          → var(--orange)  #ff6600
+     body #333 / red text   → var(--slate)   #34495E
+     pink error bg          → var(--pale-blue) #EAF4FC
+   Neutral greys (#555/#666/#999) and shadows match the source.
+   ============================================================ */
+
+.p1-update-detail-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: var(--slate, #34495e);
+  font-family: var(--font-body, "Source Sans 3", system-ui, sans-serif);
+}
+
+/* ---------- Breadcrumb ---------- */
+
+.p1-update-detail__breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.p1-update-detail__breadcrumb a {
+  color: var(--blue, #0866b5);
+  text-decoration: none;
+}
+
+.p1-update-detail__breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.p1-update-detail__breadcrumb span[aria-hidden="true"] {
+  color: #999;
+}
+
+.p1-update-detail__breadcrumb-title {
+  font-weight: 700;
+}
+
+/* ---------- Main image ---------- */
+
+.p1-update-detail__media {
+  margin: 0 0 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.p1-update-detail__media-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .p1-update-detail__media-image {
+    height: 260px;
+  }
+}
+
+/* ---------- White card ---------- */
+
+.p1-update-detail {
+  background: var(--white, #ffffff);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.p1-update-detail__title {
+  font-family: var(--font-heading-serif, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-size: 2rem;
+  line-height: 1.15;
+  color: var(--blue, #0866b5);
+  margin: 0 0 1rem;
+}
+
+.p1-update-detail__meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Body: 720px centered serif column ---------- */
+
+.p1-update-detail__body {
+  font-family: var(--font-heading-serif, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--slate, #34495e);
+}
+
+.p1-update-detail__body p {
+  margin: 0 0 1.25rem;
+}
+
+/* No custom ul/ol/li rules — lists keep the browser defaults,
+   exactly as the source's detail lists render. */
+
+.p1-update-detail__body a {
+  color: var(--blue, #0866b5);
+  text-decoration: none;
+  border-bottom: 1px solid var(--blue, #0866b5);
+}
+
+.p1-update-detail__body a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Back link ---------- */
+
+.p1-update-detail__back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--blue, #0866b5);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.p1-update-detail__back-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Not-found state ---------- */
+
+.p1-update-detail__error {
+  background: var(--pale-blue, #eaf4fc);
+  border: 1px solid var(--orange, #ff6600);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--slate, #34495e);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.p1-update-detail__error + .p1-update-detail__back-link {
+  display: block;
+}

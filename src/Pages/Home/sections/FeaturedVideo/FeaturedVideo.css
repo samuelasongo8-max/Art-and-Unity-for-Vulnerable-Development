@@ -20,7 +20,7 @@
 .peace-week-video-heading h2 {
   margin-bottom: 0.75rem;
   color: #ff6600;
-  font-family: "Poppins", sans-serif, -apple-system;
+  font-family: var(--font-heading);
   font-size: clamp(1.65rem, 3.4vw, 2.7rem);
   font-weight: 800;
   line-height: 1.15;
@@ -90,7 +90,7 @@
 }
 
 .video-copy h2 {
-  font-family: "Poppins", sans-serif, -apple-system;
+  font-family: var(--font-body);
   margin-bottom: 1rem;
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
@@ -129,7 +129,7 @@
   min-height: 48px;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
-  font-family: "Poppins", sans-serif, -apple-system;
+  font-family: var(--font-body);
   background: transparent;
   color: #ff6600;
   border: 2px solid #ff6600;
@@ -232,7 +232,7 @@
 }
 
 .video-copy h2 {
-  font-family: "Poppins", sans-serif, -apple-system;
+  font-family: var(--font-body);
   margin-bottom: 1rem;
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
@@ -271,7 +271,7 @@
   min-height: 48px;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
-  font-family: "Poppins", sans-serif, -apple-system;
+  font-family: var(--font-body);
   background: transparent;
   color:#ff6600;
   border: 2px solid #ff6600;
@@ -349,227 +349,151 @@
     padding: 0;
 }
 
-/* Container using relative positioning to allow the text box to overlap */
-.testimonial-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-   background-color: white;
-    min-height: 480px;
+/* ==========================================================================
+   "Our Upcoming Initiative" — restyled into the clean "How we measure"
+   split-image pattern: a full-bleed photo on the left and an overlapping
+   blue card on the right (serif heading + generous body text). The photo
+   touches the left edge; the card overlaps it. Below 900px it stacks.
+   ========================================================================== */
+
+.p1-upcoming {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 70px;
+  padding-bottom: 70px;
+  background: transparent;
 }
 
-/* Image Side */
-.testimonial-image-wrapper {
-    position: relative;
-    width: 55%;
-    height: 420px;
-    overflow: hidden;
-    z-index: 1;
+/* ---------- Left: full-bleed photo ---------- */
+
+.p1-upcoming__image-wrap {
+  position: relative;
+  width: 55%;
+  height: 460px;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.testimonial-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+.p1-upcoming__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* Content Side (Overlapping Text Box) */
-.testimonial-content-wrapper {
-    position: absolute;
-    right: 0;
-    width: 55%;
-     background-color: rgb(8, 79, 160);
-    padding: 50px 40px 40px 50px;
-    display: flex;
+/* ---------- Right: overlapping blue card ---------- */
+
+.p1-upcoming__card {
+  position: relative;
+  z-index: 2;
+  /* Width + negative margin so the card starts at 45% (a 10% overlap onto the
+     photo) and reaches exactly 100% — covering the full right space to the
+     screen edge with no white gap, matching the reference layout. */
+  width: 55%;
+  margin-left: -10%;
+  padding: 44px 44px 40px;
+  background: var(--impact-blue, #0866B5);
+  color: #FFFFFF;
+}
+
+/* Serif display heading, same treatment as "How we measure". */
+.p1-upcoming__title {
+  margin: 0 0 10px;
+  font-family: var(--font-heading-serif);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1.15;
+  color: #FFFFFF;
+}
+
+/* Status lines — small, calm, uppercase. */
+.p1-upcoming__subtitle {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.p1-upcoming__text {
+  margin: 22px 0 0;
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.p1-upcoming__author {
+  margin: 18px 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* ---------- Carousel controls + link ---------- */
+
+.p1-upcoming__nav {
+  display: flex;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+.p1-upcoming__btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--impact-orange, #ff6600);
+  color: #FFFFFF;
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.p1-upcoming__btn:hover,
+.p1-upcoming__btn:focus-visible {
+  background: var(--impact-orange-dark, #b25a1e);
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.p1-upcoming__learn {
+  display: inline-block;
+  margin-top: 22px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.p1-upcoming__learn:hover,
+.p1-upcoming__learn:focus-visible {
+  color: var(--impact-orange, #ff6600);
+}
+
+/* ---------- Responsive: stack the image above the card ---------- */
+
+@media (max-width: 900px) {
+  .p1-upcoming {
     flex-direction: column;
-    justify-content: space-between;
-    z-index: 2;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
+    margin-top: 50px;
+    padding-bottom: 50px;
+  }
 
-.testimonial-quote-container {
-    position: relative;
-}
+  .p1-upcoming__image-wrap {
+    width: 100%;
+    height: 300px;
+  }
 
-/* Large Background Quote Mark */
-.quote-icon {
-    font-size: 80px;
-    line-height: 1;
-    color: rgba(255, 255, 255, 0.08);
-    font-family: Georgia, serif;
-    margin-bottom: -20px;
-    display: block;
-}
-
-.testimonial-text {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #e0e0e0;
-    margin-bottom: 25px;
-}
-
-.testimonial-author {
-    font-size: 0.9rem;
-    color: white;
-    font-weight: 500;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-/* Navigation Buttons Bottom Right */
-.testimonial-nav {
-    display: flex;
-    gap: 2px;
-    margin-top: 30px;
-    align-self: flex-end;
-}
-
-.nav-btn {
-    width: 45px;
-    height: 45px;
-    background-color: #ff6600;
-    border: none;
-    color: #1a1a1a;
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.nav-btn:hover {
-    background-color: white;
-}
-
-/* Responsive Breakpoints for Tablet & Mobile */
-@media (max-width: 768px) {
-    .testimonial-container {
-        flex-direction: column;
-        position: static;
-    }
-    .testimonial-image-wrapper {
-        width: 100%;
-        height: 320px;
-    }
-    .testimonial-content-wrapper {
-        position: static;
-        width: 100%;
-        padding: 40px 25px;
-        box-shadow: none;
-    }
-    .testimonial-nav {
-        align-self: flex-start;
-    }
-}
-
- /* --- Upcoming Section Styling --- */
-.upcoming-section {
-    text-align: center;
-    padding: 60px 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    color: #ffffff;
-}
-
-.upcoming-section .section-main-title {
-    font-size: 2rem;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    color: rgb(10, 84, 221);
-}
-
-/* Makes h5 appear small and centered */
-.upcoming-section .section-subtitle {
-    font-size: 0.95rem;
-    font-weight: 400;
-    color: #106db9;
-    margin: 10px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.upcoming-section .vs-badge {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #ff6600;
-    margin: 8px 0;
-}
-
- /* --- Dynamic Action Button Styling --- */
-.testimonial-btn-container {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 2rem;
-}
-
-.testimonial-action-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff6600;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 0.85rem;
-    text-decoration: none;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    margin-top: 15px;
-    cursor: pointer;
-}
-
-.testimonial-action-btn:focus {
-    outline: none;
-    border: none;
-}
-
-.testimonial-action-btn:hover {
-    background-color: #0e62e0;
-}
-
-/* Large Background Quote Mark */
-.quote-icon {
-    font-size: 80px;
-    line-height: 1;
-    color: #ffffff;
-    font-family: Georgia, serif;
-    margin-bottom: -20px;
-    display: block;
-}
-
-/* --- 3-Second Delayed Entrance Animation for Testimonial Container --- */
-.testimonial-container {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: testimonialEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 3s forwards;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-@keyframes testimonialEntrance {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* --- Blue Box Hover Zoom Effect --- */
-.testimonial-content-wrapper {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.testimonial-content-wrapper:hover {
-    transform: scale(1.03);
-}
-/* --- Fade Transition Effect for Slides --- */
-.fade-image, .testimonial-text {
-    animation: fadeInOut 4s infinite;
+  .p1-upcoming__card {
+    width: 100%;
+    margin-left: 0;
+    margin-top: -40px;
+    padding: 32px 26px 34px;
+  }
 }
 
 
@@ -609,7 +533,7 @@
   flex-wrap: wrap;
   gap: 8px;
   margin: 4px 0 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.5;
   letter-spacing: 0.04em;
@@ -649,7 +573,7 @@
   border: none;
   border-radius: 0;
   box-shadow: none;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -689,7 +613,7 @@
 
 .peace-week-events .event-card h3 {
   margin: 0 0 8px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 400;
   line-height: 1.15;
@@ -700,7 +624,7 @@
 
 .peace-week-events .event-card p {
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
   color: var(--impact-muted, #52606d);

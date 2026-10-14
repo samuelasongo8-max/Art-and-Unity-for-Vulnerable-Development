@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
-
 /* Contact page in the site design language: Bebas Neue titles (44px
    desktop / 34px mobile), Source Sans 3 body (16px/26px), --impact-*
    palette, square corners, no shadows, no gradients (except the shared
@@ -11,7 +9,7 @@
   margin: 0 auto;
   background: #ffffff;
   color: var(--impact-text, #1f2933);
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
   overflow-x: hidden;
 }
 
@@ -74,7 +72,7 @@
 
 .contact-primary-note {
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
   color: #333;
@@ -92,7 +90,7 @@
 
 .contact-primary-story {
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
   color: #333;
@@ -147,7 +145,7 @@ a.contact-method-card:hover {
   display: grid;
   gap: 4px;
   min-width: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
   color: #333;

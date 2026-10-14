@@ -1,156 +1,191 @@
 /* =====================================================
-   "OUR IMPACT" — restyled into the two-column pattern shared by the
-   Visual Arts and VET sections.
-   The tinted band, the two columns, the Bebas Neue title and the Source
-   Sans 3 body all come from the shared .auvd-story-* classes
-   (src/components/ImpactSections.css, imported once via Home.css). Only the
-   figures block under the two-column body is specific to this section.
-   Whitespace only — no rules or divider lines.
+   "OUR IMPACT" — the source project's Our Impact banner
+   (photo | text | 2x2 stats), re-skinned with the target
+   palette. Class names are p1-impact-* only.
+
+   Colour mapping from the source:
+     coral #f26b4f  -> var(--orange) #ff6600  (strokes 1 & 4)
+     yellow #f6b95a -> var(--blue)   #0866B5  (strokes 2 & 3)
+     teal #1e8e96   -> var(--blue)   (title, numbers)
+     #e8e6e0 photo bg / #d9d6cc dividers -> var(--pale-blue) #EAF4FC
+     #2b3a3d text -> var(--slate) #34495E
    ===================================================== */
 
-/* Gentle scroll-in for the text column, the same treatment the Visual Arts
-   section uses. Kept inside no-preference so reduced-motion visitors always
-   see the copy, even before the observer fires. */
-@media (prefers-reduced-motion: no-preference) {
-  .impact-text-block.content-animated {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .impact-text-block.content-entered {
-    opacity: 1;
-    transform: none;
-  }
+.p1-impact {
+  background: var(--white, #ffffff);
+  color: var(--slate, #34495e);
 }
 
-/* =====================================================
-   FIGURES — the four existing stat items, under the body
-   ===================================================== */
-
-.impactCards {
+.p1-impact-inner {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: 28px 32px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px;
-  margin-top: 56px; /* separation from the body: whitespace, not a rule */
-}
-
-/* The "7 Core Programs" item carries the long list, so it takes two of the
-   three columns (the same intent as the previous auto-fit grid). */
-.impactBox {
-  min-width: 0;
-}
-
-.impactBox--wide {
-  grid-column: span 2;
-}
-
-/* Staggered entrance for the cards; only hidden while motion is allowed. */
-@media (prefers-reduced-motion: no-preference) {
-  .impactBox {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .impactBox--visible {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.impactCardHeader {
-  display: flex;
+  grid-template-columns: 520px 300px 1fr;
+  gap: 20px;
   align-items: center;
-  gap: 18px;
-  margin-bottom: 18px;
 }
 
-.impactIconBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  font-size: 1.25rem;
-  background: var(--impact-blue-tint, #eaf3fb);
-  color: var(--impact-blue, #1f76be);
-  border: 1px solid rgba(31, 118, 190, 0.18);
-  flex-shrink: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* ---------- Photo: hand-painted frame + brush strokes ---------- */
+
+.p1-impact__photo {
+  position: relative;
+  width: 520px;
+  height: 320px;
+  max-width: 100%;
 }
 
-.impactBox:hover .impactIconBadge {
-  background: var(--impact-blue, #1f76be);
-  color: #ffffff;
+.p1-impact__img {
+  position: absolute;
+  inset: 8px 14px 4px 30px;
+  width: calc(100% - 44px);
+  height: calc(100% - 12px);
+  object-fit: cover;
+  background: var(--pale-blue, #eaf4fc);
+  clip-path: polygon(3% 12%, 9% 6%, 18% 9%, 28% 4%, 40% 7%, 52% 3%, 64% 6%, 76% 2%, 88% 5%, 95% 10%, 98% 22%, 96% 34%, 99% 46%, 95% 58%, 98% 70%, 94% 82%, 96% 93%, 86% 97%, 74% 94%, 62% 98%, 50% 95%, 38% 99%, 26% 95%, 14% 98%, 6% 90%, 2% 78%, 5% 66%, 1% 54%, 4% 42%, 0% 30%, 4% 20%);
 }
 
-/* The number uses the same display face as the pattern's titles. */
-.impactValue {
-  margin: 0;
-  font-family: "Bebas Neue", Impact, sans-serif;
-  font-weight: 400;
-  font-size: 44px;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  color: var(--impact-navy, #12395f);
+.p1-impact__stroke {
+  position: absolute;
+  border-radius: 40px;
 }
 
-/* Card copy: explicitness matters here, the site-wide h3/h4/p rules set
-   Cormorant Garamond on these elements. */
-.impactTitle {
-  margin: 0 0 8px;
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: 16px;
+.p1-impact__stroke--1 {
+  left: 0;
+  top: 90px;
+  width: 210px;
+  height: 36px;
+  background: var(--orange, #ff6600);
+  transform: rotate(-24deg);
+}
+
+.p1-impact__stroke--2 {
+  left: 6px;
+  bottom: 14px;
+  width: 180px;
+  height: 30px;
+  background: var(--blue, #0866b5);
+  transform: rotate(-30deg);
+}
+
+.p1-impact__stroke--3 {
+  right: 0;
+  top: 4px;
+  width: 120px;
+  height: 22px;
+  background: var(--blue, #0866b5);
+  transform: rotate(-70deg);
+}
+
+.p1-impact__stroke--4 {
+  right: 10px;
+  bottom: 6px;
+  width: 100px;
+  height: 20px;
+  background: var(--orange, #ff6600);
+  transform: rotate(-20deg);
+}
+
+/* ---------- Middle text column ---------- */
+
+.p1-impact__text h2 {
+  color: var(--blue, #0866b5);
+  font-size: 32px;
   font-weight: 700;
-  line-height: 1.4;
-  color: var(--impact-navy, #12395f);
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
 }
 
-.impactInfo {
-  margin: 0 0 4px;
-  font-family: "Source Sans 3", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 26px;
-  color: #333;
+.p1-impact__text p {
+  margin: 0 0 1.25rem;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--slate, #34495e);
 }
 
-.impactInfo:last-child {
-  margin-bottom: 0;
+/* ---------- Stats: 2x2 grid with thin dividers ---------- */
+
+.p1-impact-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--pale-blue, #eaf4fc);
 }
 
-/* =====================================================
-   TABLET
-   ===================================================== */
+.p1-impact-stat {
+  text-align: center;
+  padding: 26px 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-@media (max-width: 992px) {
-  .impactCards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 36px;
+.p1-impact-stat:nth-child(odd) {
+  border-right: 1px solid var(--pale-blue, #eaf4fc);
+}
+
+.p1-impact-stat:nth-child(-n + 2) {
+  border-bottom: 1px solid var(--pale-blue, #eaf4fc);
+}
+
+.p1-impact-stat dd {
+  order: -1;
+  margin: 0 0 0.35rem;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue, #0866b5);
+}
+
+.p1-impact-stat dt {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--slate, #34495e);
+}
+
+/* The target's per-stat info lines (incl. the Core Programs list) —
+   the source has none, so they sit under the label, small. */
+.p1-impact-stat__info {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--slate, #34495e);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1200px) {
+  .p1-impact-inner {
+    grid-template-columns: 420px 280px 1fr;
   }
 
-  .impactBox--wide {
-    grid-column: span 2;
+  .p1-impact__photo {
+    width: 420px;
+    height: 260px;
   }
 }
 
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 640px) {
-  .impactCards {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
-    margin-top: 40px;
+@media (max-width: 1000px) {
+  .p1-impact-inner {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
   }
 
-  .impactBox--wide {
-    grid-column: span 1;
+  .p1-impact__photo {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    aspect-ratio: 13 / 8;
+    margin-inline: auto;
   }
+}
 
-  .impactValue {
+@media (max-width: 600px) {
+  .p1-impact-stat dd {
     font-size: 34px;
   }
 }

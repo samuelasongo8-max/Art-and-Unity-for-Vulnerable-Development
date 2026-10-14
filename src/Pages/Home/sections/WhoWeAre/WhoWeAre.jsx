@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import "./WhoWeAre.css";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import './WhoWeAre.css';
 
-/* "Who We Are" — restyled into the Our Impact two-column pattern:
-   existing rotating image in the media column (left; the section after
-   the Donations grid puts its image on the right, so the sides
-   alternate), title + 3 paragraphs + "Read more" link on the right.
-   Layout and typography come from the shared .auvd-story-* classes
-   (src/components/ImpactSections.css, imported once via Home.css). */
+/* "Who We Are" — first content section, directly below the hero.
+   Design copied from the source's Who We Are: image column on the left inside
+   an irregular brush-stroke frame with four painted strokes, copy column on
+   the right with an underlined heading, paragraphs and a button. Recolored to
+   the Project 1 palette (p1-who-*). The three existing images keep their
+   4-second one-after-another rotation inside the frame. */
 function WhoWeAre() {
   const { t } = useTranslation();
-  const images = ["/donation.jpg", "/drawing.jpg", "/emotional1.jpg"];
+  const images = ['/donation.jpg', '/drawing.jpg', '/emotional1.jpg'];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
@@ -23,29 +23,33 @@ function WhoWeAre() {
   }, [images.length]);
 
   return (
-    <section className="auvd-story-section auvd-story-section--tint">
-      <div className="auvd-story-container">
-        <div className="auvd-story-body">
-
-          <div className="auvd-story-gallery auvd-story-gallery--single">
+    <section className='p1-who'>
+      <div className='p1-who-container p1-who-grid'>
+        {/* Left column: rotating photo inside the brush-stroke frame */}
+        <div className='p1-who-art'>
+          <div className='p1-who-photo-wrap'>
+            <span className='p1-who-stroke p1-who-stroke--1' />
+            <span className='p1-who-stroke p1-who-stroke--2' />
+            <span className='p1-who-stroke p1-who-stroke--3' />
+            <span className='p1-who-stroke p1-who-stroke--4' />
             <img
-              className="auvd-story-gallery-item auvd-story-gallery-item--1"
+              className='p1-who-photo'
               src={images[activeImageIndex]}
-              alt={t("home.whoWeAre.imageAlt")}
+              alt={t('home.whoWeAre.imageAlt')}
+              loading='lazy'
             />
           </div>
+        </div>
 
-          <div className="auvd-story-text">
-            <h2 className="auvd-story-title">{t("home.whoWeAre.title")}</h2>
-            <p>{t("home.whoWeAre.p1")}</p>
-            <p>{t("home.whoWeAre.p2")}</p>
-            <p>{t("home.whoWeAre.p3")}</p>
-
-            <Link to="/about" className="auvd-cta-link">
-              {t("home.whoWeAre.readMore")}
-            </Link>
-          </div>
-
+        {/* Right column: heading + paragraphs + Read more */}
+        <div className='p1-who-copy'>
+          <h2>{t('home.whoWeAre.title')}</h2>
+          <p>{t('home.whoWeAre.p1')}</p>
+          <p>{t('home.whoWeAre.p2')}</p>
+          <p>{t('home.whoWeAre.p3')}</p>
+          <Link to='/about' className='p1-who-btn'>
+            {t('home.whoWeAre.readMore')}
+          </Link>
         </div>
       </div>
     </section>

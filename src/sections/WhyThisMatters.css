@@ -1,0 +1,170 @@
+/* ============================================================
+   "Why This Matters" — orange band with a white heading + intro,
+   then three white rounded cards. Each card has a circular blue
+   icon, a bold dark title, a short accent bar, and dark body text.
+   A dotted pattern + a soft arc echo the reference's decorations.
+   ============================================================ */
+
+.p1-why {
+  position: relative;
+  background: #ff6600;
+  color: #FFFFFF;
+  padding-block: 88px;
+  overflow: hidden;
+}
+
+/* Decorative dotted grid, top-right (like the reference). */
+.p1-why::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 120px;
+  height: 90px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.5) 2px, transparent 2px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+
+/* Soft decorative arc, top-right corner. */
+.p1-why::after {
+  content: "";
+  position: absolute;
+  top: -140px;
+  right: -120px;
+  width: 340px;
+  height: 340px;
+  border: 28px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.p1-why__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+.p1-why__title {
+  color: #FFFFFF;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  margin: 0 0 1rem;
+}
+
+.p1-why__intro {
+  max-width: 56rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #FFFFFF;
+  margin: 0 0 3rem;
+}
+
+/* Three white cards. */
+.p1-why__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.p1-why__card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  padding: 1.9rem 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Circular blue icon badge. */
+.p1-why__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #0866B5;
+  color: #FFFFFF;
+  margin-bottom: 1.1rem;
+}
+
+.p1-why__card-title {
+  color: #12395f;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 0.6rem;
+}
+
+/* Short accent bar under each title. */
+.p1-why__bar {
+  display: block;
+  width: 46px;
+  height: 5px;
+  border-radius: 3px;
+  background: #ffb703;
+  margin-bottom: 1rem;
+}
+
+.p1-why__text {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #44515f;
+}
+
+/* CTA — outlined pill so the white text stays readable on the orange band
+   (link already exists in the target: /our-impact). */
+.p1-why__cta {
+  margin-top: 2.5rem;
+}
+
+.p1-why__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.6rem;
+  background: transparent;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.p1-why__button:hover,
+.p1-why__button:focus-visible {
+  background: #FFFFFF;
+  color: #ff6600;
+}
+
+.p1-why__button:focus-visible {
+  outline: 3px solid #0866B5;
+  outline-offset: 3px;
+}
+
+/* Tablet + desktop: three cards side by side. */
+@media (min-width: 820px) {
+  .p1-why__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .p1-why {
+    padding-block: 60px;
+  }
+  .p1-why::before {
+    top: 24px;
+    right: 20px;
+    width: 90px;
+    height: 70px;
+  }
+}

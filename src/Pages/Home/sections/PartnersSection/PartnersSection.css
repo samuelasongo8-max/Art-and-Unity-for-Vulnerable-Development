@@ -1,16 +1,15 @@
 /* =====================================================
    PARTNERS SECTION
-===================================================== */
+   Compact band: heading, subtitle, then one row of small
+   logo slots. White background; logos are <img> using
+   object-fit: contain so any aspect ratio fits the slot.
+   ===================================================== */
 
 .partners-section {
   width: 100%;
-  padding: 70px 20px 90px;
-  /* The section band is the brand orange, so the headings below switch to
-     white (they were orange, which would have been invisible on orange).
-     Partner logos are left exactly as they are — the per-logo white chips at
-     the end of this file keep any that need them legible. */
-  background: #ff6600;
-  color: #ffffff;
+  padding: 40px 24px;
+  background: #ffffff;
+  color: #1a1a1a;
   overflow: hidden;
 }
 
@@ -21,64 +20,40 @@
   text-align: center;
 }
 
-
-/* =====================================================
-   TITLE
-===================================================== */
-
+/* Heading + subtitle block. heading -> subtitle 6px, subtitle -> logos 24px. */
 .partners-copy {
   width: 100%;
-  margin: 0 auto 45px;
+  margin: 0 auto 24px;
 }
 
 .partners-heading {
   margin: 0;
   padding: 0;
-
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-family: var(--font-body);
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 1.2;
-
-  color: #ffffff;
+  color: #0866b5;
   text-align: center;
-
   letter-spacing: 0;
 }
 
-
-/* =====================================================
-   SMALL LABEL ABOVE TITLE
-   Optional if you add one later
-===================================================== */
-
-.partners-label {
-  display: block;
-
-  margin-bottom: 10px;
-
-  font-family: "Poppins", Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 3px;
-  text-transform: uppercase;
-
-  color: #ffffff;
+.partners-subheading {
+  margin: 6px 0 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #34495e;
+  text-align: center;
 }
 
-
-/* =====================================================
-   REVEAL ANIMATION
-===================================================== */
-
+/* Reveal animation (unchanged behaviour, driven by useRevealClass). */
 .partners-copy-animated {
   opacity: 0;
   transform: translateY(25px);
-
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .partners-copy-entered {
@@ -86,291 +61,140 @@
   transform: translateY(0);
 }
 
-
-/* =====================================================
-   PARTNERS GRID
-===================================================== */
-
+/* ---------- Carousel: 3 cards per view ---------- */
 .partners-grid {
   width: 100%;
-
   display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  column-gap: 20px;
-  row-gap: 28px;
-
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
   justify-items: center;
 }
 
-
-/* =====================================================
-   PARTNER CARD
-===================================================== */
-
+/* White card: logo on top, partner name below. Thin border, square-ish
+   corners, subtle shadow — matching the reference layout. */
 .partner-card {
   width: 100%;
-  max-width: 236px;
-  height: 150px;
-
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: transparent;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e3e9f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(18, 57, 95, 0.06);
   text-decoration: none;
-
-  border-radius: 4px;
-
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease,
-    box-shadow 0.3s ease;
-
-  opacity: 1;
-
-  position: relative;
+  padding: 18px 18px 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-
-
-/* =====================================================
-   HOVER
-===================================================== */
 
 .partner-card:hover {
   transform: translateY(-4px);
+  border-color: #cfe0f2;
+  box-shadow: 0 10px 24px rgba(18, 57, 95, 0.12);
 }
 
-
-/* =====================================================
-   HIDE TEXT
-===================================================== */
-
-.partner-card span {
-  display: none;
+/* Logo frame: fixed aspect so every logo occupies the same space. The image
+   zooms when the cursor touches the card (hover). */
+.partner-card__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #ffffff;
 }
 
-
-/* =====================================================
-   PARTNER LOGOS
-===================================================== */
-
-.partner-card.tsf {
-  background-image: url("/tsf.png");
+.partner-card__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
+  display: block;
+  transition: transform 0.35s ease;
 }
 
-.partner-card.f2f {
-  background-image: url("/f2f.png");
+.partner-card:hover .partner-card__logo,
+.partner-card:focus-visible .partner-card__logo {
+  transform: scale(1.12);
 }
 
-.partner-card.cammo {
-  background-image: url("/cammo.png");
+/* Partner name under the logo, left-aligned like the reference. */
+.partner-card__name {
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1a1a1a;
+  text-align: left;
 }
 
-.partner-card.enrichment {
-  background-image: url("/enrichment.png");
+/* Text placeholder — only shown when a card has no logo file. */
+.partner-card span:not(.partner-card__frame):not(.partner-card__name) {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #34495e;
 }
 
-.partner-card.hungry {
-  background-image: url("/hungry for music.png");
+/* ---------- Arrows + page counter ---------- */
+.partners-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 28px;
 }
 
-.partner-card.because {
-  background-image: url("/because.png");
+.partners-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: #ff6600;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.partner-card.kakuma {
-  background-image: url("/Foundation_Logo_New_2017.png");
-  /* This logo is the only mostly-transparent one (measured 35.7% opaque;
-     the other eight are 100% opaque and carry their own background, so they
-     are left exactly as they were). On the orange band its orange-toned
-     artwork disappeared into the background, so it alone gets a small white
-     chip — padding with square corners. The logo image is unchanged. */
-  background-color: #ffffff;
-  border-radius: 0;
-  padding: 12px;
+.partners-arrow:hover {
+  color: #e65c00;
+  transform: scale(1.1);
 }
 
-.partner-card.bright {
-  background-image: url("/Bright.png");
+.partners-arrow:focus-visible {
+  outline: 2px solid #ff6600;
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
- 
-
-
-/* =====================================================
-   OPTIONAL EXTRA LOGOS
-   Add these if you have more partner images
-===================================================== */
-
-.partner-card.source {
-  background-image: url("/source.png");
+.partners-counter {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff6600;
+  min-width: 48px;
+  text-align: center;
 }
 
-.partner-card.coere {
-  background-image: url("/coere.png");
-}
-
-.partner-card.drc {
-  background-image: url("/drc.png");
-}
-
-.partner-card.give {
-  background-image: url("/give.png");
-}
-
-.partner-card.wusc {
-  background-image: url("/wusc.png");
-}
-
-.partner-card.hot {
-  background-image: url("/hot.png");
-}
-
-.partner-card.unhcr {
-  background-image: url("/unhcr.png");
-}
-
-.partner-card.cybersalt {
-  background-image: url("/cybersalt.png");
-}
-
-.partner-card.donbosco {
-  background-image: url("/donbosco.png");
-}
-
-.partner-card.global {
-  background-image: url("/global.png");
-}
-
-.partner-card.itc {
-  background-image: url("/itc.png");
-}
-
-.partner-card.burnmedia {
-  background-image: url("/burnmedia.png");
-}
-
-
-/* =====================================================
-   TABLET
-===================================================== */
-
+/* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
-
-  .partners-section {
-    padding: 65px 20px 75px;
-  }
-
   .partners-grid {
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 18px;
-    row-gap: 25px;
+    gap: 18px;
   }
-
-  .partner-card {
-    max-width: 220px;
-    height: 140px;
-  }
-
 }
 
-
-/* =====================================================
-   SMALL TABLET
-===================================================== */
-
-@media (max-width: 750px) {
-
+@media (max-width: 600px) {
   .partners-section {
-    padding: 55px 18px 65px;
+    padding: 28px 16px;
   }
-
-  .partners-copy {
-    margin-bottom: 35px;
-  }
-
-  .partners-heading {
-    font-size: 2rem;
-  }
-
   .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 18px;
-    row-gap: 20px;
+    gap: 14px;
   }
-
   .partner-card {
-    max-width: 220px;
-    height: 125px;
+    padding: 14px 14px 16px;
   }
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 480px) {
-
-  .partners-section {
-    padding: 50px 15px 60px;
-  }
-
-  .partners-copy {
-    margin-bottom: 30px;
-  }
-
-  .partners-heading {
-    font-size: 1.75rem;
-    line-height: 1.25;
-  }
-
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-
-    column-gap: 12px;
-    row-gap: 16px;
-  }
-
-  .partner-card {
-    width: 100%;
-    height: 105px;
-  }
-
-}
-
-
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
-
-@media (max-width: 360px) {
-
-  .partners-section {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .partners-heading {
-    font-size: 1.5rem;
-  }
-
-  .partners-grid {
-    column-gap: 8px;
-    row-gap: 12px;
-  }
-
-  .partner-card {
-    height: 90px;
-  }
-
 }

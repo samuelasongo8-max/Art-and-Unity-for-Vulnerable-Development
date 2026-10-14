@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
-
 /* ==========================================================================
    Dance - program page restyled into the shared AUVD design system.
 
@@ -28,7 +26,7 @@
   overflow-x: hidden;
   background: #ffffff;
   color: var(--impact-text, #1f2933);
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-heading);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -40,7 +38,7 @@
 .dance-page span,
 .dance-page button,
 .dance-page a {
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .dance-page *,
@@ -82,7 +80,7 @@
   padding: 0 28px;
   border: 1px solid transparent;
   border-radius: 4px;
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
   line-height: 1.4;
@@ -177,7 +175,7 @@
 
 .dance-eyebrow {
   margin: 0 0 16px;
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-heading);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -188,7 +186,7 @@
 
 .dance-hero__title {
   margin: 0 0 20px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(52px, 8vw, 88px);
   line-height: 1.02;
@@ -200,7 +198,7 @@
 .dance-hero__text {
   margin: 0 0 30px;
   max-width: 520px;
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.75;
   color: #ffffff;
@@ -225,7 +223,7 @@
 
 .dance-activities__title {
   margin: 0 0 14px;
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-heading);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -239,7 +237,7 @@
   gap: 8px;
   margin: 0;
   padding-left: 18px;
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
   color: #ffffff;
@@ -310,13 +308,13 @@
 }
 
 .dance-program {
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   text-align: left;
 }
 
 .dance-title {
   margin: 0 0 26px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(38px, 5vw, 54px);
   line-height: 1.08;
@@ -351,7 +349,7 @@
 
 .dance-subtitle {
   margin: 0 0 22px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(28px, 3.4vw, 38px);
   line-height: 1.15;
@@ -483,7 +481,7 @@
 .dance-feature__overlay p {
   margin: 0;
   max-width: 700px;
-  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(17px, 2.1vw, 22px);
   font-weight: 600;
   line-height: 1.6;

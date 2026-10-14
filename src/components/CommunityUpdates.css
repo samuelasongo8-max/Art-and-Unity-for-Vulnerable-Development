@@ -1,0 +1,352 @@
+/* ============================================================
+   Section: Community Updates & Stories (horizontal carousel)
+   Copied from the source project's design and re-skinned with the
+   target's blue/orange palette. Every class is prefixed `p1-updates-`
+   so nothing collides with the rest of the target.
+   ============================================================ */
+
+.p1-updates {
+  /* Section-scoped fallbacks; the shared --blue/--orange/... tokens are
+     already defined globally in Navbar.css :root, so these only matter if
+     this file is ever viewed in isolation. */
+  --upd-blue: var(--blue, #0866b5);
+  --upd-orange: var(--orange, #f79435);
+  --upd-white: #ffffff;
+  --upd-pale: var(--pale-blue, #eaf4fc);
+  --upd-slate: var(--slate, #34495e);
+  --upd-on-orange: #1f2d3a;
+  --upd-orange-hover: #e08323;
+  --upd-pad: clamp(1rem, 4.5vw, 3.5rem);
+  /* The navbar is position:fixed with .nav-container{height:80px} on desktop
+     AND mobile (Navbar.css; the mobile menu is a slide-in drawer, not a
+     taller bar). This top padding starts the title below the bar. */
+  --nav-height: 80px;
+
+  background: white;
+  color: var(--upd-slate);
+  /* Same wrapper serves Home (section) and /updates (page): the page variant
+     adds the navbar clearance below; the Home section keeps its own spacing. */
+  padding: 3rem 0 4.5rem;
+  overflow: hidden;
+  font-family: var(--font-body, "Source Sans 3", "Segoe UI", system-ui, sans-serif);
+  scroll-margin-top: var(--nav-height);
+}
+
+/* /updates list page: title/breadcrumb/image start below the fixed navbar. */
+.p1-updates--page {
+  padding-top: calc(var(--nav-height) + 24px);
+}
+
+/* ---------- Head ---------- */
+
+.p1-updates-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0 var(--upd-pad);
+}
+
+.p1-updates h2 {
+  font-family: var(--font-heading-serif, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  margin: 0;
+  color: var(--upd-blue);
+}
+
+.p1-updates h2 em {
+  display: block;
+  font-style: italic;
+}
+
+.p1-updates-viewall {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  background: none;
+  color: var(--upd-blue);
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.p1-updates-viewall:visited {
+  color: var(--upd-blue);
+}
+
+.p1-updates-viewall:hover,
+.p1-updates-viewall:focus-visible {
+  color: var(--upd-orange-hover);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.p1-updates-viewall:focus-visible {
+  outline: 3px solid var(--upd-blue);
+  outline-offset: 2px;
+}
+
+/* ---------- Controls ---------- */
+
+.p1-updates-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem var(--upd-pad) 0;
+  margin-bottom: 4rem;
+}
+
+.p1-updates-progress {
+  position: relative;
+  width: 150px;
+  height: 8px;
+  border: 1.5px solid var(--upd-blue);
+  border-radius: 999px;
+}
+
+.p1-updates-progress-thumb {
+  position: absolute;
+  top: -1.5px;
+  width: 14px;
+  height: 8px;
+  background: var(--upd-blue);
+  border-radius: 2px;
+  transition: left 0.15s ease-out;
+}
+
+.p1-updates-arrows {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.p1-updates-arrow {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  background: var(--upd-blue);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.p1-updates-arrow:hover {
+  background: var(--blue-hover, #07579a);
+}
+
+.p1-updates-arrow:focus-visible {
+  outline: 3px solid var(--upd-orange);
+  outline-offset: 2px;
+}
+
+/* ---------- Track ---------- */
+
+.p1-updates-track {
+  display: flex;
+  column-gap: clamp(1.5rem, 4.5vw, 4.25rem);
+  padding-left: var(--upd-pad);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--upd-pad);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.p1-updates-track::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ---------- Card ---------- */
+
+.p1-updates-card {
+  flex: 0 0 clamp(15rem, 21vw, 16rem);
+  scroll-snap-align: start;
+}
+
+.p1-updates-card:last-child {
+  margin-right: var(--upd-pad);
+}
+
+.p1-updates-img-link {
+  display: block;
+  background: var(--upd-blue);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.p1-updates-card img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--upd-pale);
+  border-radius: 8px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.p1-updates-card img:hover {
+  transform: scale(1.08);
+  opacity: 0.85;
+}
+
+/* Intentional "photo coming soon" placeholder: same 16/9 box as real card
+   images (any update with no image shows this automatically). */
+.p1-updates-placeholder,
+.p1-updates-placeholder--big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--upd-pale);
+  border: 2px dashed var(--upd-blue);
+  border-radius: 8px;
+  color: var(--upd-blue);
+}
+
+.p1-updates-placeholder--big {
+  height: 420px;
+  aspect-ratio: auto;
+}
+
+@media (max-width: 700px) {
+  .p1-updates-placeholder--big {
+    height: 260px;
+  }
+}
+
+.p1-updates-placeholder-text {
+  margin: 0;
+  font-family: var(--font-heading-serif, "Playfair Display", Georgia, "Times New Roman", serif);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--upd-blue);
+}
+
+.p1-updates-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.p1-updates-card h3 a {
+  color: var(--upd-blue);
+  text-decoration: none;
+}
+
+.p1-updates-card h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Small "date · location" line on the card. */
+.p1-updates-card-meta {
+  margin: 0 0 0.5rem;
+  font-size: 0.82rem;
+  color: var(--upd-slate);
+}
+
+/* Preview is clamped to 3 lines, matching the source's intent. */
+.p1-updates-card-preview {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--upd-slate);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Read more / LEARN MORE — a plain text link, exactly like the source.
+   No background, border or box-shadow: blue label that darkens and gains an
+   underline on hover, plus a visible keyboard focus outline. The arrow and
+   the gap before it are kept. (View All is untouched.) */
+.p1-updates-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #0866b5;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.p1-updates-readmore:hover {
+  color: #07579a;
+  text-decoration: underline;
+}
+
+.p1-updates-readmore:focus-visible {
+  color: #07579a;
+  text-decoration: underline;
+  outline: 2px solid #0866b5;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 700px) {
+  .p1-updates {
+    padding: 2.25rem 0 3rem;
+  }
+
+  .p1-updates-controls {
+    padding-top: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .p1-updates-progress {
+    width: 100px;
+  }
+
+  .p1-updates-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .p1-updates-card {
+    flex-basis: 78vw;
+  }
+}
+/* ============================================================
+   Full-page grid variant — used by /updates (variant="page").
+   Reuses every .p1-updates-card rule above unchanged, so the title,
+   image, meta, preview, button, colours, spacing and the image hover
+   zoom are identical to the Home carousel. The only change is layout
+   (carousel track -> grid); no new colours are introduced.
+   ============================================================ */
+
+.p1-updates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 4.5vw, 4.25rem);
+  padding: 2.5rem var(--upd-pad) 0;
+}
+
+.p1-updates-grid .p1-updates-card {
+  flex: none;
+  min-width: 0;
+}
+
+.p1-updates-grid .p1-updates-card:last-child {
+  margin-right: 0;
+}
+

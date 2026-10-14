@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ImpactHero from "../components/ImpactHero";
 import "./Work.css";
+import OurPrograms from '../components/OurPrograms';
+
 
 const womenLivelihoodImages = ["/women.png", "/tailoring.jpg", "/Cooking.webp"];
 const outreachImages = ["/Shoes.png", "/shoes2.webp"];
@@ -104,8 +106,6 @@ const programPillars = [
 function Work() {
 	const { t } = useTranslation();
 	const location = useLocation();
-	const programsHeadingRef = useRef(null);
-	const programCardRefs = useRef([]);
 	/* Existing in-hero anchor pills: same three destinations the old Work hero
 	   showed, mapped onto ImpactHero's links slot. */
 	const impactHighlights = [
@@ -113,34 +113,6 @@ function Work() {
 		{ labelKey: "work.hero.links.two", targetId: "education-youth" },
 		{ labelKey: "work.hero.links.three", targetId: "peacebuilding" },
 	];
-
-	useEffect(() => {
-		const animatedElements = [
-			programsHeadingRef.current,
-			...programCardRefs.current.filter(Boolean),
-		];
-
-		const observers = animatedElements.map((element) => {
-			const observer = new IntersectionObserver(
-				([entry]) => {
-					if (!entry.isIntersecting) {
-						return;
-					}
-
-					element.classList.add("work-scroll-entered");
-					observer.unobserve(element);
-				},
-				{
-					threshold: 0.35,
-				}
-			);
-
-			observer.observe(element);
-			return observer;
-		});
-
-		return () => observers.forEach((observer) => observer.disconnect());
-	}, []);
 
 	useEffect(() => {
 		if (!location.hash) {
@@ -198,86 +170,7 @@ function Work() {
 				/>
 			</div>
 
-			<section className="work-programs-section">
-				{/* Section band: this page's existing kicker is the label, its
-				    existing heading is promoted to the section title. */}
-				<section ref={programsHeadingRef} className="work-section-heading work-scroll-panel">
-					<p className="work-programs-kicker"> {t("work.programs.kicker")}</p>
-					<h2 className="work-section-title">{t("work.programs.title")}</h2>
-				</section>
-
-				<div className="work-programs-grid">
-					{programPillars.map((pillar, index) => {
-						const images = resolveImages(pillar);
-						const isReversed = index % 2 === 1;
-
-						return (
-							<section
-								ref={(element) => {
-									programCardRefs.current[index] = element;
-								}}
-								className={`work-pillar work-scroll-panel${isReversed ? " work-pillar--flip" : ""}`}
-								id={pillar.id}
-								key={pillar.id}
-							>
-								{/* Same text the pillar heading already carried; it
-								    now sits above the body as the section label. */}
-								<p className="work-pillar-label">{t(pillar.titleKey)}</p>
-
-								<div className="work-pillar-body">
-									<div className={`work-collage work-collage--${images.length}`}>
-										{images.map((source, imageIndex) => (
-											<img
-												alt={
-									imageIndex === 0
-										? t(pillar.titleKey)
-										: t("work.programs.pillars." + pillar.id + ".additionalPhoto", { count: imageIndex + 1 })
-									}
-												className={`work-collage-item work-collage-item--${imageIndex + 1}`}
-												key={source}
-												src={source}
-											/>
-										))}
-									</div>
-
-									<div className="work-pillar-text">
-										<h2 className="work-pillar-title">{t(pillar.titleKey)}</h2>
-										<p className="work-pillar-intro">{t(pillar.introKey)}</p>
-
-										<div className="work-program-block">
-											<h4>{t("work.programs.programsHeading")}</h4>
-											<ul>
-												{pillar.programs.map((item) => (
-													<li key={item}>{t(item)}</li>
-												))}
-											</ul>
-										</div>
-
-										<div className="work-program-block">
-											<h4>{t("work.programs.focusHeading")}</h4>
-											<ul className="work-focus-list">
-												{pillar.focus.map((item) => (
-													<li key={item}>{item}</li>
-												))}
-											</ul>
-										</div>
-
-										{(pillar.actions || (pillar.action ? [pillar.action] : [])).length > 0 ? (
-											<div className="work-program-actions">
-												{(pillar.actions || [pillar.action]).map((action) => (
-													<Link className="work-program-button" key={`${pillar.id}-${action.to}`} to={action.to}>
-														{t(action.labelKey)}
-													</Link>
-												))}
-											</div>
-										) : null}
-									</div>
-								</div>
-							</section>
-						);
-					})}
-				</div>
-			</section>
+			<OurPrograms />
 		</main>
 	);
 }

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
-
 /* ==========================================================================
    Post — /our-impact/post, the Instagram-style social feed. Rendered by
    Post.jsx inside the shared OurImpactLayout.
@@ -14,7 +12,7 @@
    in the project, so nothing here can restyle the News cards, the sidebar or
    any other page.
 
-   NOTE ON FONT-FAMILY: src/index.css sets `p { font-family: "Cormorant
+   NOTE ON FONT-FAMILY: src/index.css sets `p { font-family: var(--font-body)
    Garamond" }` and the same for h1-h4 as bare element selectors, which
    override the family they would otherwise inherit from .auvd-post-feed. So
    Source Sans 3 is set directly on every text rule below rather than left to
@@ -29,7 +27,7 @@
   /* One centred column, the width a real Instagram post renders at. */
   max-width: 470px;
   margin: 28px auto 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
   color: var(--impact-text, #1f2933);
 }
 
@@ -42,7 +40,7 @@
 .auvd-post-intro {
   max-width: 62ch;
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
   color: var(--impact-muted, #52606d);
@@ -73,7 +71,7 @@
   border-radius: 0;
   background-color: #ff6600;
   background-color: var(--impact-orange, #ff6600);
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
@@ -106,7 +104,7 @@
 .auvd-post-empty {
   margin: 0;
   padding: 48px 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
   text-align: center;
@@ -145,7 +143,7 @@
 }
 
 .auvd-post-account {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
@@ -154,7 +152,7 @@
 
 .auvd-post-date {
   margin-left: auto;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 400;
   line-height: 1.4;
@@ -196,7 +194,7 @@
    the account name bold inline — the way Instagram runs the two together. */
 .auvd-post-caption {
   margin: 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
@@ -209,7 +207,7 @@
 
 .auvd-post-paragraph {
   margin: 8px 0 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   color: var(--impact-text, #1f2933);
@@ -218,7 +216,7 @@
 /* Understated topic tag: small and muted, not a coloured badge. */
 .auvd-post-topic {
   margin: 10px 0 0;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
   line-height: 1.4;

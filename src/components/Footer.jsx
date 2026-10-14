@@ -337,7 +337,14 @@ const Footer = () => {
         <ul className="footer-social-row">
           {socialLinks.map((s) => (
             <li key={s.label}>
-              <a href={s.href} target="_blank" rel="noopener noreferrer" title={s.label} aria-label={s.label}>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={s.label}
+                aria-label={s.label}
+                className={`footer-social-${s.label.toLowerCase()}`}
+              >
                 <i className={s.icon}></i>
               </a>
             </li>

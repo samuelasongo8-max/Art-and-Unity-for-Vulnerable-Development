@@ -1,5 +1,184 @@
-/* "Empowering young voices through music" — restyled into the Our Impact
-   two-column pattern (src/components/ImpactSections.css, imported once via
-   Home.css). Layout and typography come from the shared .auvd-story-*
-   classes (band background via --tint, video frame via
-   .auvd-story-media-frame), so no section-specific rules are needed here. */
+/* "Empowering Young Voices Through Music" — CMA-Foundation-style video
+   gallery. Three compact cards in a row; each a 16:9 YouTube thumbnail with
+   a category ribbon and a circular play button. Clicking swaps the thumbnail
+   for the embedded player. Uses the shared AUVD palette (--impact-*) and
+   typography (--font-heading / --font-body). */
+
+.p1-gallery {
+  background: var(--impact-surface);
+  padding: 72px 20px;
+}
+
+.p1-gallery__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.p1-gallery__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 44px;
+}
+
+.p1-gallery__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--impact-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px;
+}
+
+.p1-gallery__intro {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--impact-muted);
+  margin: 0;
+}
+
+.p1-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+/* --- card --- */
+.p1-card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--impact-border);
+  box-shadow: 0 10px 30px rgba(18, 57, 95, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.p1-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(18, 57, 95, 0.14);
+}
+
+.p1-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.p1-card__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: block;
+}
+
+.p1-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.p1-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--impact-orange);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.p1-card__thumb:hover .p1-card__play,
+.p1-card__thumb:focus-visible .p1-card__play {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--impact-orange);
+  color: #ffffff;
+}
+
+.p1-card__thumb:focus-visible {
+  outline: 3px solid var(--impact-blue);
+  outline-offset: 2px;
+}
+
+.p1-card__ribbon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 5px 11px;
+  border-radius: 4px;
+  background: var(--impact-orange);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.p1-card__ribbon--orange { background: var(--impact-orange); }
+.p1-card__ribbon--blue { background: var(--impact-blue); }
+.p1-card__ribbon--navy { background: var(--impact-navy); }
+
+.p1-card__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.p1-card__body {
+  padding: 18px 20px 22px;
+}
+
+.p1-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.12rem;
+  line-height: 1.3;
+  color: var(--impact-navy);
+  margin: 0 0 8px;
+}
+
+.p1-card__desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--impact-muted);
+  margin: 0;
+}
+
+/* --- responsive: 3 -> 2 -> 1 --- */
+@media (max-width: 900px) {
+  .p1-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .p1-gallery {
+    padding: 56px 16px;
+  }
+  .p1-gallery__grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .p1-card__play {
+    width: 56px;
+    height: 56px;
+  }
+}

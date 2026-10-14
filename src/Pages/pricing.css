@@ -7,7 +7,7 @@
 
 /* MAIN CONTAINER */
 .pricing-container {
-  font-family: "Poppins", "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   /* White so the ImpactHero sits full-bleed at the very top (it clears the
      fixed nav itself); the impact bands below carry the alternating tint. */
   background: #ffffff;
@@ -54,12 +54,12 @@
 
 .auvd-pricing-card-content {
   padding: 20px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .auvd-pricing-card-content h3 {
   margin: 0 0 10px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: 24px;
   line-height: 1.15;
@@ -79,7 +79,7 @@
 .auvd-pricing-list {
   margin: 0;
   padding-left: 22px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 26px;
   color: #333;

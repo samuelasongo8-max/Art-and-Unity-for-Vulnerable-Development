@@ -1,0 +1,331 @@
+/* ============================================================
+   Page: Get Involved (/impact/get-involved) — split rows.
+   The source project's Get Involved design, re-skinned. Layout,
+   proportions, spacing, fonts and responsive behaviour are copied
+   exactly; only the colours change to the target palette:
+     teal #2E8C8C      -> blue   #0866B5 (heading, rule, outline button)
+     bg   #F2F2F0      -> pale blue #EAF4FC (page background)
+     body #555555      -> slate  #34495E (subtitle, paragraph)
+   Fonts load once from index.html (Oswald + Source Sans 3).
+   ============================================================ */
+
+/* The five palette tokens are defined globally in WhoWeAre.css, but that
+   stylesheet only loads with the Home page. Declaring them here too means
+   this page renders correctly even when opened directly by URL. */
+:root {
+  --blue: #0866b5;
+  --orange: #ff6600;
+  --white: #ffffff;
+  --pale-blue: #eaf4fc;
+  --slate: #34495e;
+}
+
+/* ---------- Page shell ---------- */
+
+.p1-getinvolved-page {
+  /* The navbar is position:fixed with .nav-container{height:80px}. The page
+     starts below it, matching the other page wrappers. */
+  --nav-height: 80px;
+  padding-top: calc(var(--nav-height) + 24px);
+  background: var(--pale-blue, #eaf4fc);
+  color: var(--slate, #34495e);
+}
+
+.p1-getinvolved-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Header: white band under the navbar ---------- */
+
+.p1-getinvolved-header {
+  background: var(--white, #ffffff);
+  color: #1f2430;
+  padding: 32px 0 2.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.p1-getinvolved-crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #5b6472;
+  margin-bottom: 0.75rem;
+}
+
+.p1-getinvolved-crumbs a {
+  color: #5b6472;
+  text-decoration: none;
+}
+
+.p1-getinvolved-crumbs a:hover {
+  color: var(--blue, #0866b5);
+}
+
+.p1-getinvolved-crumbs [aria-current="page"] {
+  color: var(--blue, #0866b5);
+  font-weight: 600;
+}
+
+.p1-getinvolved-crumbs span[aria-hidden="true"] {
+  color: #5b6472;
+}
+
+.p1-getinvolved-title {
+  font-family: var(--font-heading, "Oswald", "Arial Narrow", Arial, sans-serif);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--blue, #0866b5);
+  margin: 1rem 0 0.5rem;
+}
+
+/* The short rule under the heading (the source's accent line). */
+.p1-getinvolved-rule {
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: var(--blue, #0866b5);
+  margin: 12px 0 20px;
+}
+
+.p1-getinvolved-sub {
+  font-family: var(--font-heading, "Oswald", "Arial Narrow", Arial, sans-serif);
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--slate, #34495e);
+  margin: 0 0 0.75rem;
+}
+
+.p1-getinvolved-intro {
+  font-family: var(--font-body, "Source Sans 3", "Segoe UI", system-ui, sans-serif);
+  max-width: 48rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--slate, #34495e);
+  margin: 0;
+}
+
+/* ---------- Split list ---------- */
+
+.p1-getinvolved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.p1-getinvolved-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 360px;
+  overflow: hidden;
+  background: var(--white, #ffffff);
+}
+
+/* Text-only cards grid: 3 per row on desktop. */
+.p1-getinvolved-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.p1-getinvolved-row--card {
+  grid-template-columns: 1fr;
+  min-height: 0;
+  height: 100%;
+}
+
+.p1-getinvolved-row--card .p1-getinvolved-panel {
+  padding: 40px 36px;
+}
+
+.p1-getinvolved-row--card .p1-getinvolved-heading {
+  font-size: 2rem;
+}
+
+.p1-getinvolved-row--card .p1-getinvolved-divider {
+  width: 100px;
+  margin: 20px 0;
+}
+
+.p1-getinvolved-row--card .p1-getinvolved-btn {
+  margin-top: 24px;
+  padding: 10px 22px;
+  font-size: 0.9rem;
+}
+
+
+/* ---------- Image: left half, edge to edge ---------- */
+
+.p1-getinvolved-media {
+  position: relative;
+  min-height: 360px;
+}
+
+.p1-getinvolved-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  background: var(--pale-blue, #eaf4fc);
+}
+
+/* Soft fade of the image right edge into the white panel. */
+.p1-getinvolved-fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 120px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
+  pointer-events: none;
+}
+
+/* ---------- Text: right half, white, vertically centered ---------- */
+
+.p1-getinvolved-panel {
+  display: flex;
+  align-items: center;
+  background: var(--white, #ffffff);
+  padding: 48px 56px;
+}
+
+.p1-getinvolved-content {
+  max-width: 560px;
+}
+
+.p1-getinvolved-heading {
+  font-family: var(--font-heading, "Oswald", "Arial Narrow", Arial, sans-serif);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--blue, #0866b5);
+  margin: 0;
+}
+
+.p1-getinvolved-divider {
+  display: block;
+  width: 150px;
+  height: 3px;
+  background: var(--blue, #0866b5);
+  margin: 28px 0;
+}
+
+.p1-getinvolved-body {
+  font-family: var(--font-body, "Source Sans 3", "Segoe UI", system-ui, sans-serif);
+  font-size: 1.05rem;
+  line-height: 2;
+  color: var(--slate, #34495e);
+  margin: 0;
+}
+
+/* Outline button: transparent, blue border and label, fills blue on hover. */
+.p1-getinvolved-btn {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 12px 28px;
+  border: 2px solid var(--blue, #0866b5);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-heading, "Oswald", "Arial Narrow", Arial, sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--blue, #0866b5);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.p1-getinvolved-btn:hover,
+.p1-getinvolved-btn:focus-visible {
+  background: var(--blue, #0866b5);
+  color: var(--white, #ffffff);
+  text-decoration: none;
+}
+
+.p1-getinvolved-btn:focus-visible {
+  outline: 2px solid var(--blue, #0866b5);
+  outline-offset: 2px;
+}
+
+/* ---------- Tablet: 2 cards per row ---------- */
+
+@media (max-width: 1100px) and (min-width: 861px) {
+  .p1-getinvolved-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Mobile: stack, image on top ---------- */
+
+@media (max-width: 860px) {
+  .p1-getinvolved-header {
+    padding: 24px 0 2rem;
+  }
+
+  .p1-getinvolved-list {
+    padding: 32px 16px 48px;
+  }
+
+  .p1-getinvolved-grid {
+    grid-template-columns: 1fr;
+    margin-top: 24px;
+    gap: 24px;
+  }
+
+  .p1-getinvolved-row {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .p1-getinvolved-media {
+    min-height: 0;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .p1-getinvolved-img {
+    position: static;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: center 25%;
+  }
+
+  .p1-getinvolved-fade {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+  }
+
+  .p1-getinvolved-panel {
+    padding: 32px 24px;
+  }
+
+  .p1-getinvolved-heading {
+    font-size: 2.2rem;
+  }
+}

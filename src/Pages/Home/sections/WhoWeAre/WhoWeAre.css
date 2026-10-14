@@ -1,6 +1,200 @@
-/* "Who We Are" — restyled into the Our Impact two-column pattern
-   (src/components/ImpactSections.css, imported once via Home.css).
-   Layout, typography and the no-rules label/title/body treatment all come
-   from the shared .auvd-story-* classes, so no section-specific rules
-   are needed here. The old testimonial-slider styles that lived in this
-   file were scoped to this section only and are not used anywhere else. */
+/* ============================================================
+   Project 1 — "Who We Are" (p1-who-*)
+   Design copied from the source's Who We Are section: image column
+   left inside an irregular brush-stroke frame with four painted
+   strokes, copy column right with an underlined heading, paragraphs
+   and a button. Recolored to the Project 1 palette. Sits first,
+   directly below the hero. overflow:hidden clips the brush blobs so
+   no horizontal scrollbar can appear.
+   ============================================================ */
+:root {
+  --blue: #0866b5;
+  --orange: #ff6600;
+  --orange-dark: #e65c00;
+  --white: #ffffff;
+  --pale-blue: #eaf4fc;
+  --slate: #34495e;
+  --on-orange: #1f2d3a;
+}
+
+.p1-who {
+  background: var(--pale-blue);      /* source beige -> pale blue */
+  color: var(--slate);               /* source ink -> slate */
+  padding: 2.75rem 0;
+  overflow: hidden;
+  /* Match the source's body font (Segoe UI sans) for this section. */
+  font-family: var(--font-body);
+}
+
+/* Override the target's global Cormorant Garamond rules for heading/paragraph
+   so the section matches the source's sans font. */
+.p1-who h2,
+.p1-who p {
+  font-family: var(--font-heading);
+}
+
+.p1-who-container {                  /* source .container */
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.p1-who-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* ---------- Left column: photo + paint strokes ---------- */
+.p1-who-art {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.p1-who-photo-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 6 / 5;
+}
+
+.p1-who-photo {
+  position: absolute;
+  inset: 3% 3% 2% 3%;
+  width: 94%;
+  height: 95%;
+  object-fit: cover;
+  background: var(--pale-blue);      /* source #e8e6e0 -> pale blue */
+  /* Irregular brush-stroke edge — copied exactly from the source. */
+  clip-path: polygon(3% 12%, 9% 6%, 18% 9%, 28% 4%, 40% 7%, 52% 3%, 64% 6%, 76% 2%, 88% 5%, 95% 10%, 98% 22%, 96% 34%, 99% 46%, 95% 58%, 98% 70%, 94% 82%, 96% 93%, 86% 97%, 74% 94%, 62% 98%, 50% 95%, 38% 99%, 26% 95%, 14% 98%, 6% 90%, 2% 78%, 5% 66%, 1% 54%, 4% 42%, 0% 30%, 4% 20%);
+}
+
+.p1-who-stroke {
+  position: absolute;
+  border-radius: 40px;
+}
+
+/* All four strokes use the accent orange (source coral + yellow -> orange). */
+.p1-who-stroke--1 {
+  left: 0;
+  top: 18%;
+  width: 38%;
+  height: 12%;
+  background: var(--orange);
+  transform: rotate(-24deg);
+}
+
+.p1-who-stroke--2 {
+  left: 2%;
+  bottom: 6%;
+  width: 34%;
+  height: 10%;
+  background: var(--orange);
+  transform: rotate(-30deg);
+}
+
+.p1-who-stroke--3 {
+  right: 0;
+  top: 2%;
+  width: 24%;
+  height: 8%;
+  background: var(--blue);
+  transform: rotate(-70deg);
+}
+
+.p1-who-stroke--4 {
+  right: 3%;
+  bottom: 3%;
+  width: 20%;
+  height: 7%;
+  background: var(--blue);
+  transform: rotate(-20deg);
+}
+
+/* ---------- Right column: copy ---------- */
+.p1-who-copy h2 {
+  color: var(--blue);                /* source teal -> blue */
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 0.85rem;
+}
+
+.p1-who-copy h2::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 5px;
+  background: var(--orange);         /* source coral->yellow gradient -> orange */
+  margin-top: 0.6rem;
+}
+
+.p1-who-copy p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 36rem;
+  margin: 0 0 0.8rem;
+  color: var(--slate);
+}
+
+/* Read more button: orange background kept exactly as-is (size, padding,
+   square shape). Only the LABEL changes — white + bold so it reads clearly
+   on orange. Hover keeps the orange, slightly darker (#E65C00), white text. */
+.p1-who-btn {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  padding: 0.55rem 1.3rem;
+  background: var(--orange);
+  color: #ffffff;                    /* was dark #1f2d3a — now white bold */
+  border-radius: 0;
+  font-size: 0.9rem;
+  font-weight: 700;                  /* bold so white stays readable on orange */
+  line-height: 1.2;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(247, 148, 53, 0.2);
+  transition: background-color 0.15s ease;
+}
+
+.p1-who-btn:hover,
+.p1-who-btn:focus-visible {
+  background: var(--orange-dark);    /* #e65c00 */
+  color: #ffffff;
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .p1-who-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .p1-who-art {
+    margin: 0 auto;
+  }
+}
+
+/* Stacked tablet widths keep the 4:3 crop so the taller (6:5) photo never
+   adds height to the single-column layout. */
+@media (min-width: 561px) and (max-width: 900px) {
+  .p1-who-photo-wrap {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 560px) {
+  .p1-who-art,
+  .p1-who-photo-wrap {
+    max-width: 100%;
+  }
+  .p1-who-photo {
+    max-width: 100%;
+  }
+  .p1-who-btn {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+  }
+}
+

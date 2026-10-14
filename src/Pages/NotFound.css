@@ -13,7 +13,7 @@
 
 .notfound-title {
   margin: 0;
-  font-family: "Bebas Neue", "Archivo Black", sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 7vw, 4.5rem);
   line-height: 1.05;
   color: var(--impact-navy, #12395f);
@@ -22,7 +22,7 @@
 .notfound-text {
   margin: 0;
   max-width: 46ch;
-  font-family: "Source Sans 3", Roboto, sans-serif;
+  font-family: var(--font-body);
   font-size: 1.05rem;
   color: var(--impact-muted, #52606d);
 }
@@ -34,7 +34,7 @@
   border-radius: 4px;
   background: var(--impact-blue, #1f76be);
   color: #ffffff;
-  font-family: "Source Sans 3", Roboto, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   text-decoration: none;
 }

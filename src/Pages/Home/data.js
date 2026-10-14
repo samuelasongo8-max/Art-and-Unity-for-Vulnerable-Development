@@ -92,7 +92,4 @@ export const partnerCards = [
   { href: "https://cammomusic.org/", className: "cammo", label: "Cammo Music" },
   { href: "https://hungryformusic.org/", className: "hungry", label: "Hungry for Music" },
   { href: "https://becauseinternational.org/", className: "because", label: "Because International" },
-  { href: "https://kakumasound.wordpress.com/", className: "kakuma", label: "Kakuma Sound" },
-  { href: "https://www.thebridgelife.com/?utm_source=chatgpt.com", className: "bright", label: "The Bridge Life" },
-  { href: "https://www.yetcafrica.org/home", className: "center", label: "YETC Africa" },
 ];

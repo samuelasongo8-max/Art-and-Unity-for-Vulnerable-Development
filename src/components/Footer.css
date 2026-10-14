@@ -265,16 +265,25 @@
   justify-content: center;
   width: 32px;
   height: 32px;
+  border-radius: 50%;
   color: var(--impact-navy, #12395f);
   font-size: 16px;
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
 }
 
 .footer-social-row a:hover {
-  color: var(--impact-orange-dark, #b25a1e);
+  filter: brightness(0.9);
   transform: translateY(-2px);
 }
+
+/* Brand colours on each footer social icon (same palette as the hero), so
+   Facebook is Facebook-blue, YouTube red, etc., each with a white glyph. */
+.footer-social-facebook { background: #1877f2; color: #ffffff; }
+.footer-social-linkedin { background: #0a66c2; color: #ffffff; }
+.footer-social-instagram { background: #e1306c; color: #ffffff; }
+.footer-social-youtube { background: #ff0000; color: #ffffff; }
+.footer-social-tiktok { background: #010101; color: #ffffff; }
 
 .footer-legal-row {
   display: flex;

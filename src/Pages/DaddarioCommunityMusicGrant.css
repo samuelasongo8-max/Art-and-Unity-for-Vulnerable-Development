@@ -18,7 +18,7 @@
 .daddario-grant-article__date,
 .daddario-grant-article__location {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -37,7 +37,7 @@
 .daddario-grant-article__title {
   margin: 0 auto;
   max-width: 980px;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(2.2rem, 4vw, 4.5rem);
   line-height: 1.08;
   font-weight: 800;
@@ -72,7 +72,7 @@
   font-size: 1.08rem;
   line-height: 1.9;
   color: #1e2d37;     
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 }
 
 @media (max-width: 768px) {

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap');
-
 .samuel-page {
   box-sizing: border-box;
   width: 100%;
@@ -8,7 +6,7 @@
   padding: 140px 24px 96px;
   background: #ffffff;
   color: var(--impact-text, #1f2933);
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
 }
 
 .samuel-page *,
@@ -35,7 +33,7 @@
   max-width: 880px;
   margin: 0 0 20px;
   color: var(--impact-navy, #12395f);
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(42px, 6vw, 72px);
   font-weight: 400;
   line-height: 1.05;
@@ -71,7 +69,7 @@
 .samuel-profile-content h2 {
   margin: 0 0 20px;
   color: var(--impact-navy, #12395f);
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(30px, 4vw, 44px);
   font-weight: 400;
   line-height: 1.1;

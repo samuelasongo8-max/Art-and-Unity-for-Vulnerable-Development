@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./VocationalSection.css";
 
-/* "Vocational Education Training (VET)" — restyled into the Our Impact
-   two-column pattern: the existing fading image carousel sits in the media
-   column (left, as before), and the Bebas Neue title + Source Sans 3
-   paragraph + the unchanged "Explore more" action (same destination,
-   styled like the site's other links) sit in the right column. Layout
-   comes from the shared .auvd-story-* classes (imported via Home.css). */
+/* "Vocational Education Training (VET)" — the source project's Get Involved
+   split banner: the clear photo on the left half (here: the existing
+   fading image carousel, same order and 4.2s timing), the same photo as
+   the section background washed to white on the right half, and the text
+   panel with Bebas Neue heading, short blue line, body copy and a square
+   button. Target content kept unchanged (title, paragraph, "Explore
+   more" → /Work#livelihoods-women). Classes are p1-vet-* only. */
 function VocationalSection({ navigate, vocationalImages }) {
   const { t } = useTranslation();
   const [currentImage, setCurrentImage] = useState(0);
@@ -23,38 +24,37 @@ function VocationalSection({ navigate, vocationalImages }) {
   }, [vocationalImages.length]);
 
   return (
-    <section className="auvd-story-section vocational-section">
-      <div className="auvd-story-container">
-        <div className="auvd-story-body">
+    <section
+      className="p1-vet"
+      style={{
+        backgroundImage: `url("${vocationalImages[currentImage].src}")`,
+      }}
+    >
+      <div className="p1-vet__photo">
+        <img
+          key={vocationalImages[currentImage].src}
+          src={vocationalImages[currentImage].src}
+          alt={t(vocationalImages[currentImage].altKey)}
+          className="p1-vet__img vocational-image-fade"
+        />
+      </div>
 
-          {/* Existing image carousel in the media column (left) */}
-          <div className="auvd-story-gallery auvd-story-gallery--single">
-            <img
-              key={vocationalImages[currentImage].src}
-              src={vocationalImages[currentImage].src}
-              alt={t(vocationalImages[currentImage].altKey)}
-              className="auvd-story-gallery-item auvd-story-gallery-item--1 vocational-image-fade"
-            />
-          </div>
+      <div className="p1-vet__wash" aria-hidden="true" />
 
-          <div className="auvd-story-text">
-            <h2 className="auvd-story-title">
-              {t("home.vocational.title")}
-            </h2>
+      <div className="p1-vet__panel">
+        <div className="p1-vet__text">
+          <h2 className="p1-vet__heading">{t("home.vocational.title")}</h2>
+          <span className="p1-vet__divider" aria-hidden="true" />
 
-            <p>
-              {t("home.vocational.paragraph")}
-            </p>
+          <p className="p1-vet__body">{t("home.vocational.paragraph")}</p>
 
-            <button
-              className="auvd-cta-link vocational-explore-btn"
-              onClick={() => navigate("/Work#livelihoods-women")}
-              type="button"
-            >
-              {t("home.vocational.explore")}
-            </button>
-          </div>
-
+          <button
+            className="p1-vet__btn"
+            onClick={() => navigate("/Work#livelihoods-women")}
+            type="button"
+          >
+            {t("home.vocational.explore")}
+          </button>
         </div>
       </div>
     </section>

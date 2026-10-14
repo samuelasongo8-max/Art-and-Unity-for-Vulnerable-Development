@@ -1,10 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap");
-/* Our Impact pattern for the Home sections below the hero: the shared
-   label/title/body two-column band styles (src/components/ImpactSections.css)
-   plus the Bebas Neue / Source Sans 3 pair those sections use. Imported
-   here so every restyled Home section picks them up; Home.css is loaded
-   only by the Home page, so no other page is affected. */
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap");
+/* Shared Our Impact band styles (src/components/ImpactSections.css) for the
+   Home sections below the hero. Imported here so every restyled Home section
+   picks them up; Home.css is loaded only by the Home page, so no other page
+   is affected. Fonts now load once from index.html (Source Sans 3 / Oswald /
+   Playfair / Poppins / Caveat). */
 @import url("../../components/ImpactSections.css");
 
 .btn-go-about,
@@ -18,7 +16,7 @@
   border-radius: 999px;
   background: lch(59.01% 72.48 55.58);
   color: #ffffff;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.98rem;
   font-weight: 700;
   line-height: 1.2;
@@ -47,7 +45,7 @@
 .walking-text span {
   display: inline-block;
   font-size: clamp(1.5rem, 8vw, 6rem);
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: var(--font-heading);
   animation: wave 1.5s ease-in-out infinite;
 }
 
@@ -118,7 +116,7 @@
    font, so Source Sans 3 is set directly on these elements. */
 .auvd-story-text p,
 .auvd-story-text a {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Primary link/CTA (Learn more, Read more, Join us) — matches the site's
@@ -134,7 +132,7 @@
   border-radius: 4px;
   background-color: var(--impact-blue, #1f76be);
   color: #ffffff;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;

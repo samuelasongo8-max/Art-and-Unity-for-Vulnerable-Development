@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap");
-
 /* ==========================================================================
    /news — the newsletter page.
 
@@ -11,19 +9,19 @@
    ========================================================================== */
 
 .auvd-news {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
   color: var(--impact-text, #1f2933);
   background: #ffffff;
 }
 
-/* src/index.css sets a bare element rule — `p { font-family: "Cormorant
+/* src/index.css sets a bare element rule — `p { font-family: var(--font-body)
    Garamond" }` — which targets the paragraphs directly and therefore beats
    plain inheritance from .auvd-news. Every paragraph on this page is body
    copy in Source Sans 3, so it is restated here with enough specificity to
    win. Headings are deliberately NOT included: their Bebas Neue comes from
    the class rules further down, which this rule would otherwise override. */
 .auvd-news p {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 /* ---------- Hero ---------- */
@@ -52,7 +50,7 @@
 
 .auvd-news-hero__title {
   margin: 0 0 18px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(44px, 7vw, 80px);
   line-height: 1.05;
@@ -200,7 +198,7 @@
 
 .auvd-news-section__title {
   margin: 0;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(32px, 4.4vw, 46px);
   line-height: 1.1;
@@ -255,7 +253,7 @@
 
 .auvd-news-featured__title {
   margin: 0 0 16px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: 40px;
   line-height: 1.12;
@@ -316,7 +314,7 @@
 
 .auvd-news-card__title {
   margin: 0 0 12px;
-  font-family: "Bebas Neue", Impact, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-size: 28px;
   line-height: 1.15;
@@ -333,7 +331,7 @@
   line-height: 40px;
   background: var(--impact-orange, #ff6600);
   color: #fff;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;

@@ -4,12 +4,13 @@ import {
   FaBookOpen,
   FaChartColumn,
   FaFileLines,
+  FaHandHoldingHeart,
   FaHouse,
   FaImages,
   FaNewspaper,
 } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
-import { OurImpactHero } from "../OurImpact";
+import { OurImpactHero, OurImpactMeasure } from "../OurImpact";
 import "../OurImpact.css";
 
 /* ==========================================================================
@@ -33,6 +34,10 @@ const impactNavItems = [
   { to: "/our-impact/blogs", labelKey: "impact.layout.nav.blogs", Icon: FaFileLines },
   { to: "/our-impact/report", labelKey: "impact.layout.nav.report", Icon: FaChartColumn },
   { to: "/our-impact/post", labelKey: "impact.layout.nav.post", Icon: FaImages },
+  /* Get Involved opens a separate page (/impact/get-involved), so it is a
+     link rather than a filter. The heart-in-hands icon matches the other
+     items' line style. Placed after Post, before Home. */
+  { to: "/impact/get-involved", labelKey: "impact.layout.nav.getInvolved", Icon: FaHandHoldingHeart },
   /* Home is the only one of the requested extra items whose route already
      exists (App.jsx renders Home at "/"). It is placed after the existing six
      so their order is untouched, and `end` stops it staying highlighted on
@@ -51,6 +56,16 @@ const OurImpactHeroSlot = () => {
   const { pathname } = useLocation();
 
   return pathname.replace(/\/+$/, "") === "/our-impact" ? <OurImpactHero /> : null;
+};
+
+/* The All view also closes with the "How we measure" band — full-bleed below
+   the sidebar and the card grid, so it is the last thing on the page. Like the
+   hero it is only mounted on the index route; the sub pages keep their plain
+   padded layout and do not get this band. */
+const OurImpactMeasureSlot = () => {
+  const { pathname } = useLocation();
+
+  return pathname.replace(/\/+$/, "") === "/our-impact" ? <OurImpactMeasure /> : null;
 };
 
 const OurImpactLayout = () => {
@@ -87,6 +102,10 @@ const OurImpactLayout = () => {
           <Outlet />
         </section>
       </div>
+
+      {/* Closing "How we measure" band — full-bleed, below the layout, so the
+          photo reaches the screen edges. Index route only (see the slot). */}
+      <OurImpactMeasureSlot />
     </main>
   );
 };

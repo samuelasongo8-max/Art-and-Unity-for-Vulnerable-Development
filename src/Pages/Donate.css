@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap');
-
-
 /* =========================================================
    DONATE PAGE
 ========================================================= */
@@ -26,7 +23,7 @@
 
   color: var(--donate-body);
 
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: var(--font-heading);
 
   overflow-x: hidden;
 }
@@ -169,7 +166,7 @@
 
   color: #ffffff;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading-serif);
 
   font-size: clamp(48px, 5.5vw, 72px);
 
@@ -321,7 +318,7 @@
 
   color: var(--donate-heading);
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading-serif);
 
   font-size: clamp(42px, 5vw, 64px);
 
@@ -496,7 +493,7 @@
 
   color: var(--donate-heading);
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading-serif);
 
   font-size: clamp(28px, 3vw, 36px);
 
@@ -633,7 +630,7 @@
 
   border-radius: 4px;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-body);
 
   font-size: 14px;
 
@@ -784,7 +781,7 @@
 
   color: var(--donate-heading);
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-heading-serif);
 
   font-size: clamp(30px, 3vw, 38px);
 
@@ -889,7 +886,7 @@
 
   color: #183746;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-body);
 
   font-size: 14px;
 
@@ -955,7 +952,7 @@
 
   color: #ffffff;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-body);
 
   font-size: 14px;
 

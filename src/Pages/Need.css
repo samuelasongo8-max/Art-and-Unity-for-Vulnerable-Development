@@ -1,0 +1,73 @@
+/* =====================================================
+   "The Need" — standalone page (reached from the Hero
+   "The Need" pill). Uses the shared --impact-* palette
+   and typography. Top padding clears the fixed navbar
+   (same rhythm as the other full pages).
+   ===================================================== */
+
+.need-page {
+  min-height: 100vh;
+  padding: clamp(120px, 14vw, 160px) clamp(20px, 5vw, 48px) clamp(40px, 6vw, 88px);
+  background: var(--impact-surface, #f6f9fc);
+}
+
+.need-page__inner {
+  width: min(880px, 100%);
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 16px;
+  box-shadow: 0 14px 40px rgba(18, 57, 95, 0.08);
+  padding: clamp(32px, 5vw, 60px);
+}
+
+.need-page__header {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--impact-orange, #ff6600);
+}
+
+.need-page__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--impact-navy, #12395f);
+  margin: 0;
+}
+
+.need-page__body p {
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.85;
+  color: var(--impact-text, #1f2933);
+  margin: 0 0 20px;
+}
+
+.need-page__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 14px 28px;
+  background: var(--impact-orange, #ff6600);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.need-page__cta:hover,
+.need-page__cta:focus-visible {
+  background: var(--impact-orange-dark, #b25a1e);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .need-page__cta {
+    transition: none;
+  }
+}

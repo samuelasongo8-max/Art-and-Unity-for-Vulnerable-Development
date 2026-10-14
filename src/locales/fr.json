@@ -24,6 +24,13 @@
     "arrow": "→",
     "donateToday": "FAITES UN DON AUJOURD’HUI"
   },
+  "donateBanner": {
+    "title": "Autonomiser les réfugiés et les communautés vulnérables de Kakuma",
+    "text": "Soutenez les réfugiés, les femmes, les filles, les jeunes, les enfants et les communautés d’accueil vulnérables de Kakuma, au Kenya. Votre soutien aide à élargir l’accès à l’éducation, aux arts créatifs, à la santé mentale et au soutien psychosocial, au développement des compétences, à l’autonomisation économique des femmes, à la protection et aux opportunités de moyens de subsistance durables.",
+    "text2": "Ensemble, nous pouvons renforcer la résilience, promouvoir l’inclusion et créer un avenir où chacun peut vivre dans la dignité et avec des opportunités.",
+    "donate": "Faire un don",
+    "partner": "Devenir partenaire"
+  },
   "nav": {
     "home": "Accueil",
     "about": "À propos",
@@ -213,8 +220,8 @@
   "home": {
     "hero": {
       "slides": {
-        "one": "Design remarquable",
-        "two": "Thème multi-usage",
+        "one": "Art et Union",
+        "two": "Kakuma",
         "auvd": "AUVD"
       },
       "label": "Art & Unité pour le Développement des Personnes Vulnérables",
@@ -226,7 +233,9 @@
         "explore": "Découvrir davantage",
         "share": "Partagez votre créativité",
         "music": "Éducation musicale",
-        "dance": "Danse communautaire"
+        "dance": "Danse communautaire",
+        "need": "Le besoin",
+        "visualArts": "Arts visuels"
       }
     },
     "whoWeAre": {
@@ -292,6 +301,24 @@
       "iframeTitle": "Vidéo du Global Innovation Challenge",
       "title": "Donner de la voix aux jeunes par la musique",
       "paragraph": "Chaque note est un pas vers la confiance, la créativité et un avenir plus lumineux. Nous croyons que la musique offre aux jeunes la possibilité de découvrir leurs talents, de s’exprimer et de réver plus grand."
+    },
+    "videoGallery": {
+      "playLabel": "Lire la vidéo",
+      "velLewis": {
+        "ribbon": "MUSIQUE AUVD",
+        "title": "Vel Lewis présente sa nouvelle musique et partage son parcours mondial",
+        "description": "Partenariat avec Art and Unity for Vulnerable Development (AUVD) et la façon dont nous avons organisé les ateliers de la Semaine de la Paix des Jeunes."
+      },
+      "peaceWeek": {
+        "ribbon": "SEMAINE DE LA PAIX DES JEUNES",
+        "title": "La musique à travers la Semaine de la Paix des Jeunes",
+        "description": "Art and Unity for Vulnerable Development (AUVD), en partenariat avec la F2F Music Foundation, UnityNet International, Andrew Network - AHIAGBA TV et la Transylvanian Symphony Foundation, a organisé avec succès trois ateliers marquants durant la Semaine de la Paix des Jeunes au camp de réfugiés de Kakuma."
+      },
+      "innovation": {
+        "ribbon": "INSTRUMENT INSTRUCTION",
+        "title": "Notre programme d'éducation musicale",
+        "description": "Temps forts de notre programme d'éducation musicale, où les jeunes reçoivent un enseignement instrumental, développent leurs compétences musicales et gagnent en confiance et en créativité."
+      }
     },
     "featuredVideo": {
       "velLewis": {
@@ -418,7 +445,9 @@
     },
     "partners": {
       "heading": "NOS PARTENAIRES :",
-      "subheading": "Soutenus par des partenaires et financeurs mondiaux"
+      "subheading": "Soutenus par des partenaires et financeurs mondiaux",
+      "prev": "Partenaires précédents",
+      "next": "Partenaires suivants"
     }
   },
   "about": {
@@ -550,6 +579,7 @@
         "blogs": "Blogs",
         "report": "Rapport",
         "post": "Publications",
+        "getInvolved": "Participer",
         "home": "Accueil"
       }
     },
@@ -592,6 +622,18 @@
       "weeksAgo_other": "il y a {{count}} semaines",
       "minRead_one": "{{count}} min de lecture",
       "minRead_other": "{{count}} min de lecture"
+    },
+    "measure": {
+      "title": "Comment nous mesurons",
+      "textBefore": "Chaque programme suit les indicateurs de participation, d’achèvement et de résultats, vérifiés par des enquêtes de suivi à 3, 6 et 12 mois. Les rapports annuels sont publiés dans les ",
+      "resources": "Ressources",
+      "subtitle": "Aidez-nous à multiplier cet impact",
+      "donate": "Faire un don",
+      "volunteer": "devenir bénévole",
+      "or": "ou",
+      "partner": "partenaire",
+      "withUs": "avec nous.",
+      "imageAlt": "Des femmes et des filles participant à un programme au camp de réfugiés de Kakuma"
     },
     "items": {
       "one": {
@@ -691,10 +733,12 @@
       "title": "Cinq piliers de programme qui guident le travail d’AUVD à Kakuma",
       "programsHeading": "Programmes rattachés à ce pilier",
       "focusHeading": "Axes",
+      "outreachVisualAlt": "Distribution de chaussures pour les enfants dans le cadre du programme de sensibilisation de l'AUVD",
       "pillars": {
         "arts-healing": {
           "title": "Arts, guérison et bien-être psychosocial",
           "intro": "Ce programme se concentre sur la guérison émotionnelle, la créativité et le soutien à la santé mentale par des approches fondées sur les arts.",
+          "imageAlt": "Jeunes apprenant la musique et les arts créatifs à l’AUVD à Kakuma",
           "additionalPhoto": "photo supplémentaire {{count}}",
           "actions_one": "Découvrir la musique",
           "actions_two": "Découvrir la danse",
@@ -708,6 +752,7 @@
         "education-youth": {
           "title": "Éducation, développement des jeunes et autonomisation",
           "intro": "Ce programme se concentre sur l’apprentissage, le développement des compétences et la préparation des jeunes à l’avenir.",
+          "imageAlt": "Enfants apprenant ensemble dans une salle de classe de l’AUVD",
           "action": "En savoir plus",
           "additionalPhoto": "photo supplémentaire {{count}}",
           "programs_one": "Programme d’autonomisation et de développement des compétences des jeunes",
@@ -720,6 +765,7 @@
         "livelihoods-women": {
           "title": "Revenus et autonomisation économique des femmes",
           "intro": "Ce programme se concentre sur la génération de revenus, l’autonomie et l’inclusion économique des femmes.",
+          "imageAlt": "Femmes apprenant la couture et les compétences professionnelles à l’AUVD",
           "additionalPhoto": "photo supplémentaire {{count}}",
           "programs_one": "Programme d’autonomisation des femmes",
           "programs_two": "Programme de formation professionnelle et de subsistance",
@@ -731,6 +777,7 @@
         "peacebuilding": {
           "title": "Construction de la paix et inclusion communautaire",
           "intro": "Ce programme promeut l’unité, la coexistence et la participation communautaire.",
+          "imageAlt": "Membres des communautés réfugiée et d’accueil participant à une activité de consolidation de la paix",
           "additionalPhoto": "photo supplémentaire {{count}}",
           "programs_one": "Programme de construction de la paix et de dialogue communautaire",
           "programs_two": "Programme d’engagement et d’inclusion communautaires",
@@ -742,6 +789,7 @@
         "outreach-basic-needs": {
           "title": "Assistance humanitaire et soutien aux besoins essentiels",
           "intro": "Ce programme répond aux besoins urgents et soutient la dignité des personnes vulnérables.",
+          "imageAlt": "Distribution de chaussures pour les enfants dans le cadre du programme de sensibilisation de l’AUVD",
           "action": "En savoir plus",
           "additionalPhoto": "photo supplémentaire {{count}}",
           "programs_one": "Programme de sensibilisation (distribution de chaussures en partenariat avec Because International)",
@@ -1489,5 +1537,29 @@
     },
     "empty": "Aucune nouvelle dans cette rubrique pour le moment.",
     "donateCta": "Faire un don"
+  },
+  "storiesNews": {
+    "titleA": "Récits",
+    "titleAmp": "&",
+    "titleB": "Actualités",
+    "intro": "Notre parcours d'éducation musicale s'est développé grâce à la générosité de partenaires qui croyaient que chaque jeune mérite une occasion d'apprendre, de créer et de s'exprimer par la musique.",
+    "soon": "Sera mis à jour prochainement",
+    "cards": {
+      "story": {
+        "label": "Récit",
+        "title": "De décrocheuse à développeuse",
+        "text": "Comment Amara a terminé notre bootcamp de compétences numériques et en a embauché quatre."
+      },
+      "news": {
+        "label": "Actualités",
+        "title": "Une nouvelle cohorte de mentorat ouvre",
+        "text": "Les candidatures sont ouvertes pour 200 places dans cinq régions."
+      },
+      "report": {
+        "label": "Rapport",
+        "title": "La dignité menstruelle à l'école",
+        "text": "Les derniers résultats de notre programme WASH sont désormais téléchargeables."
+      }
+    }
   }
 }

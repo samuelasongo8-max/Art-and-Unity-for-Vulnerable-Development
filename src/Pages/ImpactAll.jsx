@@ -164,11 +164,46 @@ const ImpactAll = () => {
         src="/donation-4.jpg"
         alt={t("impact.all.sectionTwo.alt")}
       />
-    </div>
+      </div>
+      </div>
+    </section>
 
-  </div>
-</section>
-<br></br>
+    {/* "How we measure" — photo (left, full-bleed) + overlapping blue card.
+        Added after the existing impact sections, before the footer. */}
+    <section className="p1-measure">
+      <img
+        className="p1-measure__image"
+        src="/muziki.webp"
+        alt="Women and girls taking part in a programme in Kakuma Refugee Camp"
+      />
+
+      <div className="p1-measure__card">
+        <h2 className="p1-measure__title">How we measure</h2>
+        <p className="p1-measure__text">
+          Every programme tracks participation, completion and outcome indicators,
+          verified through follow-up surveys at 3, 6 and 12 months. Annual reports
+          are published in <strong>Resources</strong>.
+        </p>
+
+        <h3 className="p1-measure__subtitle">Help us multiply this impact</h3>
+        <p className="p1-measure__text">
+          <Link className="p1-measure__donate" to="/donate">
+            Donate
+          </Link>
+          {', '}
+          <Link className="p1-measure__link" to="/contact">
+            volunteer
+          </Link>{' '}
+          or{' '}
+          <Link className="p1-measure__link" to="/contact">
+            partner
+          </Link>{' '}
+          with us.
+        </p>
+      </div>
+    </section>
+
+    <br></br>
     </>
   );
 };

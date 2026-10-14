@@ -44,7 +44,7 @@
   z-index: 2;
   max-width: 940px;
   margin: 0 auto;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .dance-text-wrapper {
@@ -57,7 +57,7 @@
    Bebas Neue titles (44px/34px). */
 .dance-section .auvd-story-label {
   color: var(--impact-orange, #ff6600);
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-heading);
 }
 
 .dance-section .dance-heading {
@@ -72,7 +72,7 @@
    full width within its column, with comfortable line-height (~1.625). */
 .dance-description {
   margin: 0 0 24px;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.625;
   color: rgba(255, 255, 255, 0.92);
@@ -100,7 +100,7 @@
   border-radius: 999px;
   background: transparent;
   color: #ffffff;
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;

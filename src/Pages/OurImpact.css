@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap');
-
 /* ==========================================================================
    Our Impact page
    ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 .auvd-impact-page {
   box-sizing: border-box;
   width: 100%;
   padding: 140px 24px 90px;
   background-color: #ffffff;
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-heading-serif);
   color: var(--impact-text);
 }
 
@@ -34,38 +34,162 @@
   margin: -140px -24px 56px;
 }
 
-/* Four stat cards fill much of the hero, so the copy is given the fixed nav's
-   height (81px) plus breathing room at the top at every width — the same fix
-   the Work and Events bleed wrappers apply — so the heading is never
-   overlapped. The photo still starts at y=0 behind the nav. */
-.our-impact-hero-bleed .auvd-impact-hero__content {
-  margin-top: 0;
-  padding-top: calc(81px + 48px);
+/* ==========================================================================
+   Page hero — the source's /impact/ hero design: full-bleed photo with a
+   blue scrim, Anton title, serif subtitle, and the stats band pinned to
+   the bottom. Colours: teal scrim -> rgba(8,102,181,…), teal placeholder
+   -> --blue, yellow accent -> --orange. Anton is loaded via the @import
+   at the top of this file (the same font the shared ImpactHero uses).
+   ========================================================================== */
+
+.p1-impact-page-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 560px;
+  color: #fff;
+
+  /* Focus point of the photo — desktop default. */
+  --hero-pos: center 30%;
+
+  background-image: linear-gradient(
+      to bottom,
+      rgba(3, 15, 26, 0.418),
+      rgba(2, 21, 36, 0.78)
+    ),
+    url("/refugees.jpg");
+  background-repeat: no-repeat;
+  background-position: var(--hero-pos);
+  background-size: cover;
+  background-attachment: scroll;
+  background-color: var(--blue, #0867b54893);
 }
 
-/* The four stat cards along the bottom of this page's hero take a flat
-   #ff6600 panel in place of the shared rgba(8, 20, 36, 0.72), so the left
-   accent moves to navy — an orange rule could no longer read as an accent
-   against an orange card. The value, label, caption and program list are all
-   white: the label was orange (invisible on orange) and the body text was
-   90% white, so both are taken to full white for contrast. Scoped to this
-   page's bleed wrapper, so the hero on every other page is untouched, and the
-   hero photo, overlay, heading and paragraph are not affected. */
-.our-impact-hero-bleed .auvd-impact-hero__stat-card {
-  background: #ff6600;
-  border-left-color: var(--impact-navy, #12395f);
+.p1-impact-page-hero__top {
+  padding: 96px 100px 48px;
 }
 
-.our-impact-hero-bleed .auvd-impact-hero__stat-value,
-.our-impact-hero-bleed .auvd-impact-hero__stat-label,
-.our-impact-hero-bleed .auvd-impact-hero__stat-caption,
-.our-impact-hero-bleed .auvd-impact-hero__stat-list {
-  color: #ffffff;
+.p1-impact-page-hero__title {
+  margin: 0;
+  font-family: 'Anton', 'Arial Narrow', Impact, sans-serif;
+  font-weight: 400;
+  font-size: 6rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #fff;
 }
 
-@media (max-width: 768px) {
-  .our-impact-hero-bleed .auvd-impact-hero__content {
-    padding-top: calc(81px + 32px);
+.p1-impact-page-hero__subtitle {
+  margin: 26px 0 0;
+  max-width: 440px;
+  font-family: var(--font-heading-serif, 'Playfair Display', Georgia, serif);
+  font-weight: 500;
+  font-size: 1.45rem;
+  line-height: 1.75;
+  color: #fff;
+}
+
+.p1-impact-page-hero__band {
+  background: rgba(8, 102, 181, 0.62);
+  padding: 24px 100px 34px;
+}
+
+.p1-impact-page-hero__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.p1-impact-page-hero__stat {
+  padding: 18px 20px;
+  border-left: 5px solid var(--orange, #ff6600);
+  border-radius: 0;
+  background: var(--blue, #0866b5);
+}
+
+.p1-impact-page-hero__value {
+  display: block;
+  margin: 0;
+  font-family: 'Anton', 'Arial Narrow', Impact, sans-serif;
+  font-weight: 400;
+  font-size: 3.6rem;
+  line-height: 1.05;
+  color: #fff;
+}
+
+.p1-impact-page-hero__label {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body, 'Source Sans 3', sans-serif);
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* The Core Programs card's five-item list. */
+.p1-impact-page-hero__list {
+  display: grid;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding-inline-start: 16px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .p1-impact-page-hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    --hero-pos: 40% center;
+  }
+
+  .p1-impact-page-hero__top {
+    padding: 72px 28px 40px;
+  }
+
+  .p1-impact-page-hero__band {
+    padding: 22px 28px 30px;
+  }
+
+  .p1-impact-page-hero__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .p1-impact-page-hero__title {
+    font-size: 4.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .p1-impact-page-hero {
+    min-height: 0;
+    --hero-pos: 35% center;
+  }
+
+  .p1-impact-page-hero__top {
+    padding: 56px 20px 34px;
+  }
+
+  .p1-impact-page-hero__band {
+    padding: 20px 20px 26px;
+  }
+
+  .p1-impact-page-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .p1-impact-page-hero__title {
+    font-size: 3.2rem;
+  }
+
+  .p1-impact-page-hero__value {
+    font-size: 3rem;
   }
 }
 
@@ -75,10 +199,17 @@
   }
 }
 
+/* ==========================================================================
+   Layout + sidebar — the source's ImpactsLayout sidebar: bordered box with
+   a blue title bar and a link list with hairline separators. The target
+   keeps its seven items (and their icons); only the design changes.
+   ========================================================================== */
+
 .auvd-impact-layout {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
+  align-items: start;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
@@ -87,18 +218,23 @@
 /* Sidebar ================================================== */
 
 .auvd-impact-sidebar {
-  flex: 0 0 190px;
   min-width: 0;
+  background: var(--pale-blue, #eaf4fc);
+  border: 1px solid var(--blue, #0866b5);
+  border-radius: 0;
 }
 
 .auvd-impact-heading {
-  margin: 0 0 20px;
-  font-family: "Lora", Georgia, serif;
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--impact-navy);
+  margin: 0;
+  padding: 14px 18px;
+  background: var(--blue, #0866b5);
+  color: #ffffff;
+  font-family: var(--font-body, 'Source Sans 3', sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
 }
 
 .auvd-impact-nav {
@@ -107,48 +243,49 @@
   gap: 2px;
 }
 
-/* NavLink items — same look as the previous filter buttons. */
 .auvd-impact-nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
   width: 100%;
-  min-height: 48px;
   margin: 0;
-  padding: 10px 12px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 8px;
+  border-top: 1px solid rgba(8, 102, 181, 0.25);
+  border-left: 3px solid transparent;
+  border-radius: 0;
   background-color: transparent;
-  font-family: "Lora", Georgia, serif;
-  font-size: 16px;
-  font-weight: 400;
+  font-family: var(--font-body, 'Source Sans 3', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
   line-height: 1.4;
-  color: var(--impact-blue-dark);
+  color: var(--blue, #0866b5);
   text-align: left;
   text-decoration: none;
   cursor: pointer;
 }
 
+.auvd-impact-nav .auvd-impact-nav-item:first-child {
+  border-top: 0;
+}
+
 .auvd-impact-nav-item:hover {
-  background-color: var(--impact-surface);
+  background-color: #ffffff;
+  border-left-color: var(--orange, #ff6600);
 }
 
 .auvd-impact-nav-item--active,
 .auvd-impact-nav-item--active:hover {
-  background-color: var(--impact-blue-tint);
-  color: var(--impact-navy);
+  background-color: var(--blue, #0866b5);
+  color: #ffffff;
+  border-left-color: var(--orange, #ff6600);
   font-weight: 700;
-  box-shadow: inset 3px 0 0 var(--impact-orange);
 }
 
 .auvd-impact-nav-icon {
   flex: 0 0 auto;
   font-size: 15px;
-  color: var(--impact-blue-dark);
-}
-
-.auvd-impact-nav-item--active .auvd-impact-nav-icon {
-  color: var(--impact-blue);
+  color: currentColor;
 }
 
 .auvd-impact-nav-label {
@@ -157,66 +294,56 @@
 
 .auvd-impact-nav-item:focus-visible,
 .auvd-impact-content a:focus-visible {
-  outline: 2px solid var(--impact-blue);
+  outline: 2px solid var(--blue, #0866b5);
   outline-offset: 2px;
 }
 
-/* Content ================================================== */
+/* Content — the source's ImpactsLayout card grid (2 columns, 12px gap,
+   white cards with hairline borders, 180px images) re-skinned with the
+   target palette; the target's card structure (meta row, tag, title or
+   Learn more button, excerpt) is kept. */
 
 .auvd-impact-content {
-  flex: 1 1 auto;
   min-width: 0;
 }
 
 .auvd-impact-category {
-  margin: 0 0 16px;
-  font-family: "Lora", Georgia, serif;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.3;
-  color: var(--impact-navy);
-}
-
-.auvd-impact-category::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 3px;
-  margin-top: 8px;
-  background-color: var(--impact-orange);
+  margin: 0 0 1.25rem;
+  font-family: var(--font-body, 'Source Sans 3', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--blue, #0866b5);
 }
 
 .auvd-impact-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .auvd-impact-card {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  border: 1px solid var(--impact-border);
+  background: #ffffff;
+  border: 1px solid var(--pale-blue, #eaf4fc);
   border-radius: 4px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px rgba(18, 57, 95, 0.06);
-  transition: box-shadow 0.2s ease;
-}
-
-.auvd-impact-card:hover {
-  border-color: var(--impact-blue);
-  box-shadow: 0 4px 12px rgba(31, 118, 190, 0.15);
+  overflow: hidden;
+  color: inherit;
 }
 
 .auvd-impact-card-image {
   display: block;
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
+  background: var(--pale-blue, #eaf4fc);
 }
 
 .auvd-impact-card-image--empty {
-  background-color: var(--impact-blue-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--pale-blue, #eaf4fc);
 }
 
 /* Logos and other artwork must not be cropped. */
@@ -224,11 +351,14 @@
   object-fit: contain;
   padding: 24px;
   background-color: #ffffff;
-  box-shadow: inset 0 0 0 1px var(--impact-border);
+  box-shadow: inset 0 0 0 1px var(--pale-blue, #eaf4fc);
 }
 
 .auvd-impact-card-body {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 16px;
 }
 
 .auvd-impact-card-meta {
@@ -236,11 +366,10 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 14px;
-  margin: 0 0 8px;
-  font-family: "Lora", Georgia, serif;
-  font-size: 13px;
+  margin: 0;
+  font-size: 0.82rem;
   line-height: 1.4;
-  color: var(--impact-muted);
+  color: var(--slate, #34495e);
 }
 
 .auvd-impact-card-meta-item {
@@ -251,81 +380,82 @@
 
 .auvd-impact-card-meta-icon {
   font-size: 13px;
-  color: var(--impact-blue);
+  color: var(--blue, #0866b5);
 }
 
 .auvd-impact-card-tag {
-  display: inline-block;
-  margin: 0 0 6px;
-  font-family: "Lora", Georgia, serif;
-  font-size: 12px;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background: var(--pale-blue, #eaf4fc);
+  font-size: 0.68rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
-  line-height: 1.4;
   text-transform: uppercase;
-  color: var(--impact-orange-dark);
+  color: var(--blue, #0866b5);
+}
+
+.auvd-impact-card-tag::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange, #ff6600);
 }
 
 .auvd-impact-card-title {
   margin: 0;
-  font-family: "Lora", Georgia, serif;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--impact-navy);
+  font-family: var(--font-body, 'Source Sans 3', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--blue, #0866b5);
 }
 
-.auvd-impact-card:hover .auvd-impact-card-title {
-  color: var(--impact-blue);
-}
-
-/* "Learn more" button shown in place of the title on entries with buttonLink. */
-.auvd-impact-content .auvd-impact-card-button {
+.auvd-impact-card-button {
   display: inline-block;
   align-self: flex-start;
-  margin: 4px 0;
-  padding: 10px 22px;
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--orange, #ff6600);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
   border-radius: 4px;
-  background-color: var(--impact-blue);
-  color: #ffffff;
-  font-family: "Lora", Georgia, serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  text-align: center;
+  transition: background-color 0.15s ease;
 }
 
-.auvd-impact-content .auvd-impact-card-button:hover {
-  background-color: var(--impact-blue-dark);
-  color: #ffffff;
-}
+ 
 
-.auvd-impact-content .auvd-impact-card-button:focus-visible {
-  outline: 2px solid var(--impact-blue);
+.auvd-impact-card-button:focus-visible {
+  outline: 2px solid var(--blue, #0866b5);
   outline-offset: 2px;
 }
-
 /* Optional summary under the title — always clamped to 3 lines. */
 .auvd-impact-card-excerpt {
   display: -webkit-box;
   overflow: hidden;
-  margin: 8px 0 0;
-  font-family: "Lora", Georgia, serif;
-  font-size: 15px;
-  font-weight: 400;
+  margin: 0;
+  font-size: 0.9rem;
   line-height: 1.6;
-  color: var(--impact-muted);
+  color: var(--slate, #34495e);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
 
 .auvd-impact-empty {
   margin: 0;
-  font-family: "Lora", Georgia, serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--impact-muted);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--slate, #34495e);
 }
 
 /* Responsive =============================================== */
@@ -334,53 +464,20 @@
   .auvd-impact-page {
     padding: 120px 20px 70px;
   }
-
-  .auvd-impact-layout {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .auvd-impact-sidebar {
-    flex: none;
-    width: 100%;
-  }
-
-  .auvd-impact-heading {
-    margin-bottom: 14px;
-    font-size: 40px;
-  }
-
-  .auvd-impact-nav {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .auvd-impact-nav-item {
-    flex: 0 0 auto;
-    width: auto;
-    white-space: nowrap;
-  }
-
-  .auvd-impact-content {
-    width: 100%;
-  }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+  .auvd-impact-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
   .auvd-impact-grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
   }
 
-  .auvd-impact-category {
-    font-size: 22px;
-  }
-
-  .auvd-impact-card-title {
-    font-size: 20px;
+  .auvd-impact-card-image {
+    height: 200px;
   }
 }
 
@@ -494,13 +591,13 @@
   border-left: 4px solid var(--impact-orange);
   border-radius: 4px;
   background-color: var(--impact-blue-tint);
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-heading-serif);
   color: var(--impact-text);
 }
 
 .auvd-impact-notice-title {
   margin: 0 0 12px;
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-heading-serif);
   font-size: 24px;
   font-weight: 500;
   line-height: 1.3;
@@ -509,7 +606,7 @@
 
 .auvd-impact-notice-text {
   margin: 0;
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--font-heading-serif);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
@@ -540,6 +637,155 @@
     width: 100%;
     max-width: none;
     padding: 20px;
+  }
+}
+
+/* ==========================================================================
+   /our-impact — "How we measure" closing band (index route only).
+
+   A full-bleed photo on the left with an overlapping blue card on the right —
+   the same design the /impact page uses (p1-measure-* rules). The
+   .our-impact-measure-bleed wrapper cancels the page's own 24px horizontal
+   padding (20px at 900px and below) so the photo reaches the left screen edge,
+   and pulls the bottom margin in by the page's 90px bottom padding (70px at
+   900px and below) so the band sits flush above the footer, the way the hero
+   does at the top. The 56px top margin separates it from the card grid.
+   ========================================================================== */
+
+.our-impact-measure-bleed {
+  margin: 56px -24px -90px;
+}
+
+@media (max-width: 900px) {
+  .our-impact-measure-bleed {
+    margin: 40px -20px -70px;
+  }
+}
+
+/* ============================================================
+   "How we measure" — photo (left, full-bleed) + overlapping card.
+   Only these colours are used:
+     #0866B5 primary blue · #EAF4FC pale blue · #1F2D3A dark slate
+     #ff6600 orange · #FFFFFF white
+   ============================================================ */
+
+.p1-measure {
+  display: flex;
+  align-items: center;
+  /* No horizontal padding: the photo must touch the left screen edge. */
+  padding: 56px 0;
+  background: #EAF4FC;
+}
+
+.p1-measure__image {
+  flex: 0 0 55%;
+  width: 55%;
+  height: 420px;
+  display: block;
+  object-fit: cover;
+}
+
+.p1-measure__card {
+  position: relative; /* stacks the card above the photo */
+  z-index: 1;
+  flex: 0 0 54%;
+  width: 54%;
+  /* Pulled left so the card overlaps the photo by ~10% of the width. */
+  margin-left: -10%;
+  padding: 48px;
+  min-height: 385px;
+  background: #0866B5;
+  color: #FFFFFF;
+  border-radius: 0;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.p1-measure__title {
+  margin: 0 0 18px;
+  font-family: var(--font-heading-serif);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #FFFFFF;
+}
+
+.p1-measure__subtitle {
+  margin: 28px 0 14px;
+  font-family: var(--font-heading-serif);
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  color: #FFFFFF;
+}
+
+.p1-measure__text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  line-height: 1.85;
+  color: #FFFFFF;
+}
+
+/* "Donate" reads as a button rather than an inline text link. */
+.p1-measure__donate {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ff6600;
+  color: #FFFFFF;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0;
+}
+
+.p1-measure__donate:hover,
+.p1-measure__donate:focus {
+  background: #E65C00;
+  color: #FFFFFF;
+}
+
+/* Resources, volunteer and partner are plain links: white and underlined. */
+.p1-measure__link {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.p1-measure__link:hover,
+.p1-measure__link:focus {
+  color: #EAF4FC;
+}
+
+/* ---------- Responsive: stack below 860px, card overlaps the photo slightly ---------- */
+
+@media (max-width: 860px) {
+  .p1-measure {
+    display: block;
+    padding: 40px 0;
+  }
+
+  .p1-measure__image {
+    width: 100%;
+    height: 300px;
+  }
+
+  /* Negative top margin keeps the card overlapping the photo; the 16px
+     side margins give the shadow room so nothing causes h-scroll. */
+  .p1-measure__card {
+    width: auto;
+    margin: -50px 16px 0;
+    padding: 32px 24px;
+    min-height: 0;
+  }
+
+  .p1-measure__title {
+    font-size: 1.7rem;
+  }
+
+  .p1-measure__subtitle {
+    font-size: 1.25rem;
+  }
+
+  .p1-measure__text {
+    font-size: 1.15rem;
   }
 }
 
