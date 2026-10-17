@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import '../components/P1Bubble.css';
 import './WhyThisMatters.css';
 
 /* ==========================================================================
@@ -49,14 +50,26 @@ export default function WhyThisMatters() {
   return (
     <section className="p1-why">
       <div className="p1-why__inner">
-        <h2 className="p1-why__title">Why This Matters</h2>
-        <p className="p1-why__intro">
-          AUVD is a refugee-led, community-based nonprofit organization in Kakuma
-          Refugee Camp, Turkana County, Kenya. We empower refugees and vulnerable
-          host communities through creative arts, inclusive education,
-          psychosocial support, skills development, and community-led initiatives
-          that build resilience, dignity, and opportunity.
-        </p>
+        <div className="p1-why__split">
+          {/* Left: empty image slot — add your <img> here. Right: text bubble. */}
+          <div className="p1-why__media">
+            <img src="/Why%20this%20matter%20at%20AUVD.jpg" alt="Why this matter at AUVD" loading="lazy" />
+          </div>
+          <div className="p1-bubble-section">
+            <div className="p1-bubble">
+              <div className="p1-bubble-body">
+                <h2 className="p1-why__title p1-bubble-title">Why This Matters</h2>
+                <p className="p1-why__intro p1-bubble-text">
+                  AUVD is a refugee-led, community-based nonprofit organization in Kakuma
+                  Refugee Camp, Turkana County, Kenya. We empower refugees and vulnerable
+                  host communities through creative arts, inclusive education,
+                  psychosocial support, skills development, and community-led initiatives
+                  that build resilience, dignity, and opportunity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="p1-why__grid">
           {reasons.map((r) => (
@@ -72,7 +85,13 @@ export default function WhyThisMatters() {
         {/* CTA — links only to a route that already exists in the target. */}
         <p className="p1-why__cta">
           <Link to="/our-impact" className="p1-why__button">
-            Learn more about our work <span aria-hidden="true">→</span>
+            Learn more about our work{' '}
+            <span className="p1-why__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                <path d="M3 12h16" />
+                <path d="M13 5l7 7-7 7" />
+              </svg>
+            </span>
           </Link>
         </p>
       </div>

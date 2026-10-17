@@ -1,42 +1,11 @@
-/* ============================================================
-   "Why This Matters" — orange band with a white heading + intro,
-   then three white rounded cards. Each card has a circular blue
-   icon, a bold dark title, a short accent bar, and dark body text.
-   A dotted pattern + a soft arc echo the reference's decorations.
-   ============================================================ */
+ 
 
 .p1-why {
   position: relative;
-  background: #ff6600;
-  color: #FFFFFF;
+  background: #FFFFFF;
+  color: #1F2D3A;
   padding-block: 88px;
   overflow: hidden;
-}
-
-/* Decorative dotted grid, top-right (like the reference). */
-.p1-why::before {
-  content: "";
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  width: 120px;
-  height: 90px;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.5) 2px, transparent 2px);
-  background-size: 16px 16px;
-  pointer-events: none;
-}
-
-/* Soft decorative arc, top-right corner. */
-.p1-why::after {
-  content: "";
-  position: absolute;
-  top: -140px;
-  right: -120px;
-  width: 340px;
-  height: 340px;
-  border: 28px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-  pointer-events: none;
 }
 
 .p1-why__inner {
@@ -48,7 +17,7 @@
 }
 
 .p1-why__title {
-  color: #FFFFFF;
+  color: #0866B5;
   font-size: clamp(2rem, 4vw, 2.9rem);
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -59,11 +28,50 @@
   max-width: 56rem;
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #FFFFFF;
+  color: #1F2D3A;
   margin: 0 0 3rem;
 }
 
-/* Three white cards. */
+/* Speech bubble on the white section: blue block behind it removed —
+   the bubble itself now carries a blue frame so it reads on white.
+   Two clipped layers: outer .p1-bubble = blue border shape,
+   inner .p1-bubble-body = white paper with the text. */
+.p1-why__inner .p1-bubble-section {
+  background: transparent;
+}
+
+.p1-why__inner .p1-bubble {
+  background: #0866B5;
+  padding: 3px;
+}
+
+.p1-why__inner .p1-bubble-body {
+  background: #FFFFFF;
+  clip-path: polygon(
+    4% 4%, 99.5% 0%, 100% 100%, 3.5% 100%,
+    4% 30%, 0% 22%, 4.2% 14%
+  );
+  padding: 38px 34px 34px 58px;
+}
+
+/* Left image slot — shown alone, no dots, borders or overlay behind it. */
+.p1-why__media {
+  min-width: 0;
+  min-height: 320px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.p1-why__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Three white cards. Background forced to white so the orange + black
+   card text always stays readable (never on dark/orange). Card font matches
+   the nav bar: strong Dosis bold (400/700/800 loaded via Navbar.css). */
 .p1-why__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -71,7 +79,12 @@
 }
 
 .p1-why__card {
+  /* Same font as the "Why This Matters" bubble text above:
+     var(--font-heading) = 'Oswald', 'Arial Narrow', Arial, sans-serif.
+     Titles 800 / body 400 below. Loaded once in index.html Google Fonts. */
+  --p1-why-font: var(--font-heading, 'Oswald', 'Arial Narrow', Arial, sans-serif);
   background: #FFFFFF;
+  font-family: var(--p1-why-font);
   border-radius: 14px;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
   padding: 1.9rem 1.75rem 2rem;
@@ -92,12 +105,30 @@
   margin-bottom: 1.1rem;
 }
 
+/* Card title: orange in EVERY state (normal, hover, focus, visited).
+   High-specificity + inherit so no global h3 / .card rule can override. */
+.p1-why__card .p1-why__card-title,
 .p1-why__card-title {
-  color: #12395f;
+  color: #ff6600;
+  font-family: var(--p1-why-font);
   font-size: 1.3rem;
   font-weight: 800;
   line-height: 1.25;
   margin: 0 0 0.6rem;
+}
+
+.p1-why__card .p1-why__card-title:hover,
+.p1-why__card-title:hover,
+.p1-why__card .p1-why__card-title:focus-visible,
+.p1-why__card-title:focus-visible,
+.p1-why__card .p1-why__card-title:visited,
+.p1-why__card-title:visited {
+  color: #ff6600;
+}
+
+.p1-why__card-title:focus-visible {
+  outline: 3px solid #0866B5;
+  outline-offset: 2px;
 }
 
 /* Short accent bar under each title. */
@@ -105,32 +136,44 @@
   display: block;
   width: 46px;
   height: 5px;
-  border-radius: 3px;
-  background: #ffb703;
   margin-bottom: 1rem;
 }
 
 .p1-why__text {
   margin: 0;
+  font-family: var(--p1-why-font);
   font-size: 0.98rem;
+  font-weight: 400;
   line-height: 1.7;
-  color: #44515f;
+  color: #000000;
+  overflow-wrap: break-word;
 }
 
-/* CTA — outlined pill so the white text stays readable on the orange band
-   (link already exists in the target: /our-impact). */
-.p1-why__cta {
-  margin-top: 2.5rem;
+/* Any other text/labels inside cards (including future spans, lis, smalls):
+   same bubble font, black. Titles keep orange via the rule above. */
+.p1-why__card p,
+.p1-why__card li,
+.p1-why__card span:not(.p1-why__icon):not(.p1-why__bar):not(.p1-why__arrow),
+.p1-why__card small,
+.p1-why__card label {
+  font-family: var(--p1-why-font);
+  color: #000000;
 }
 
+.p1-why__card .p1-why__card-title,
+.p1-why__card h3 {
+  color: #ff6600;
+}
+
+/* CTA — orange pill so it pops on the white background. */
 .p1-why__button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.7rem 1.6rem;
-  background: transparent;
+  background: #ff6600;
   color: #FFFFFF;
-  border: 2px solid #FFFFFF;
+  border: none;
   border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 700;
@@ -140,8 +183,8 @@
 
 .p1-why__button:hover,
 .p1-why__button:focus-visible {
-  background: #FFFFFF;
-  color: #ff6600;
+  background: #e65c00;
+  color: #FFFFFF;
 }
 
 .p1-why__button:focus-visible {
@@ -157,14 +200,16 @@
   }
 }
 
+/* Small screens: text padding lives on the inner white layer now;
+   the outer blue frame keeps its 3px border at every width. */
+@media (max-width: 480px) {
+  .p1-why__inner .p1-bubble-body {
+    padding: 28px 22px 26px 42px;
+  }
+}
+
 @media (max-width: 640px) {
   .p1-why {
     padding-block: 60px;
-  }
-  .p1-why::before {
-    top: 24px;
-    right: 20px;
-    width: 90px;
-    height: 70px;
   }
 }

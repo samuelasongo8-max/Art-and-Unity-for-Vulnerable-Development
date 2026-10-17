@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Shared white paper-cut speech bubble (Project 1 2026).
+   Single source of truth — imported by WhyThisMatters and WhoWeAre.
+   White bubble + left tail on solid blue #0866B5. Only project colors:
+   blue #0866B5, orange #ff6600, white, slate #34495E / #1F2D3A.
+
+   Bubble text font (also used by WhyThisMatters cards via --p1-why-font):
+   var(--font-heading) = 'Oswald', 'Arial Narrow', Arial, sans-serif,
+   weight 700 (loaded once in index.html Google Fonts link).
+   ========================================================================== */
+
+.p1-bubble-section {
+  background: #0866B5;
+  padding: 24px 16px 56px 12px;
+}
+
+.p1-bubble {
+  position: relative;
+  background: #FFFFFF;
+  max-width: 760px;
+  padding: 38px 34px 34px 58px;
+  /* Reference look: near-rectangle with slightly slanted top/bottom edges,
+     plus a small sharp triangle notched into the left edge at ~22% height.
+     Tail juts left of the body (0%) so it floats in the column gap. */
+  clip-path: polygon(
+    4% 4%, 99.5% 0%, 100% 100%, 3.5% 100%,
+    4% 30%, 0% 22%, 4.2% 14%
+  );
+}
+
+/* Breathing room for the tail: bubble pulls left over the blue section pad,
+   gap widens so the triangle floats free like the reference. */
+.p1-why__inner .p1-bubble-section {
+  border-radius: 6px;
+  margin-bottom: 0;
+  min-width: 0;
+  padding-left: 0;
+  overflow: visible;
+}
+
+.p1-why__inner .p1-bubble {
+  margin-left: -8px;
+}
+
+/* Higher specificity (.p1-bubble parent) so this wins over
+   .p1-why__title / .p1-who-copy h2 without touching those files. */
+.p1-bubble .p1-bubble-title,
+.p1-bubble-title {
+  margin: 0 0 12px;
+  color: #ff6600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-family: var(--font-heading, 'Oswald', 'Arial Narrow', Arial, sans-serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+.p1-bubble .p1-bubble-text,
+.p1-bubble-text {
+  margin: 0 0 0.8rem;
+  color: #1F2D3A;
+  font-weight: 700;
+  font-size: clamp(22px, 4.6vw, 32px);
+  line-height: 1.28;
+  font-family: var(--font-heading, 'Oswald', 'Arial Narrow', Arial, sans-serif);
+}
+
+.p1-bubble .p1-bubble-text:last-child,
+.p1-bubble-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Extra bottom room when several paragraphs share one bubble. */
+.p1-bubble--stack {
+  padding-bottom: 44px;
+}
+
+/* Bubble on the text side only — image column and orange button untouched.
+   Button stays OUTSIDE the clip-path so it is never cut off. */
+.p1-who-copy .p1-bubble-section {
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* Keep the original underline off inside the bubble — bubble has its own cut edge. */
+.p1-who-copy .p1-bubble-title::after {
+  content: none;
+}
+
+.p1-who-copy .p1-bubble-text {
+  max-width: none;
+}
+
+/* WhyThisMatters: bubble holds only title+intro; cards/CTA keep old styles. */
+.p1-why__inner .p1-bubble-text {
+  max-width: none;
+}
+
+/* Split: bubble text on the right, empty image space on the left.
+   Wider gap so the sharp tail floats free like the reference. */
+.p1-why__split {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.p1-why__media {
+  min-width: 0;
+  min-height: 320px;
+  border-radius: 6px;
+  /* Placeholder frame only — replace with your <img>. */
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.p1-why__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+@media (max-width: 820px) {
+  .p1-why__split {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .p1-why__media {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .p1-bubble { padding: 28px 22px 26px 42px; }
+  .p1-bubble--stack { padding-bottom: 34px; }
+  .p1-why__inner .p1-bubble {
+    margin-left: -4px;
+  }
+}

@@ -226,13 +226,11 @@ function Navbar() {
 
             aria-label pins the link's accessible name to "AUVD" so screen
             readers announce the name alone. Without it the name was computed
-            from the subtree and came out as "AUVD logo A U V D .".
-
-            The nested <span>s stay: .logo-text span colours U and D with the
-            shared --impact-blue, which is the wordmark's only colour accent. */}
-        <NavLink to="/" className="logo" onClick={closeMenus} aria-label="AUVD">
-          <img src={logo} alt="" />
-          <span className="logo-text">A<span className="text-U">U</span>V<span className="text-D">D</span></span>
+            from the subtree and came out as "AUVD logo A U V D .". */
+        }<NavLink to="/" className="logo" onClick={closeMenus} aria-label="Art and Unity for Vulnerable Development">
+          <span className="logo-plate">
+            <img src={logo} alt="Art and Unity for Vulnerable Development" />
+          </span>
         </NavLink>
 
         {/* Mobile Hamburger Toggle */}

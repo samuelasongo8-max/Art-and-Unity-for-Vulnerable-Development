@@ -1,4 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Dosis:wght@400;700;800&display=swap');
+
+/* Nav-bar text font: strong speech-bubble font (Dosis Bold).
+   Scoped to .navbar only — never body/:root — so the rest of the site keeps
+   its own fonts. Loaded once via the @import above. */
+.navbar,
+.navbar a,
+.navbar button,
+.navbar input,
+.navbar .nav-link,
+.navbar .dropdown-link,
+.navbar .auvd-dropdown-link,
+.navbar .lang-switch-btn,
+.navbar .donate-btn,
+.navbar .nav-search-input,
+.navbar .nav-search-result,
+.navbar .menu-toggle {
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
 
 /* ==========================================================================
    1. System Design Tokens
@@ -32,7 +52,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font-sans);
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
+  font-weight: 700;
 }
 
 .navbar {
@@ -41,7 +62,8 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: var(--impact-blue, #1f76be);
+  /* Task 1: bar stays #0866B5 in EVERY state (top + scrolled). */
+  background-color: #0866B5;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -49,10 +71,12 @@
 }
 
 .navbar.scrolled {
-  background-color: var(--impact-blue, #1f76be);
+  /* Task 1: keep the same blue after scrolling. Only non-colour scroll
+     effects stay (shadow / stronger blur). No text-colour changes here. */
+  background-color: #0866B5;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: var(--shadow-sm);
 }
 
@@ -69,6 +93,10 @@
 
 /* ==========================================================================
    3. Brand Elements (Logo Block)
+   Task 2: logo must render exactly as the image file. No filter,
+   blend, opacity, overlay or blue tint on the image or its wrapper.
+   The PNG (logo1.png, RGBA 334x314) has transparency at the corners,
+   so it sits on a small white plate for readability on the blue bar.
    ========================================================================== */
 .logo {
   display: flex;
@@ -80,52 +108,64 @@
   color: #ffffff;
   letter-spacing: -0.5px;
   transition: var(--transition-smooth);
+  background: transparent;
 }
 
 .navbar.scrolled .logo {
-  color: var(--text-main);
+  /* Task 1: brand text never turns dark after scrolling. */
+  color: #ffffff;
+}
+
+/* White plate so the transparent-corner logo keeps its real colours.
+   Circle: plate + image are both round so the logo shows in a circle
+   on the blue bar (matches favicon / search logo shape). */
+.logo-plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 50%;
+  line-height: 0;
+  width: 73px;
+  height: 73px;
+  overflow: hidden;
 }
 
 .logo img {
   height: 65px;
-  width: auto;
+  width: 65px;
+  max-height: 65px;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
+  /* Task 2: neutral image rendering — never tinted by the blue bar. */
+  filter: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+  background: transparent;
+  border-radius: 50%;
   transition: var(--transition-smooth);
 }
 
-.logo-text {
-  display: inline-flex;
-  align-items: center;
-  font-size: 1em;
-  font-family: "Murecho", sans-serif;
-  line-height: 1;
-  margin-left: -1px;
-  color: #2e5cdac0;
-}
-
-/* The accented letters pick up the shared --impact-blue (defined globally in
-   index.css) so the wordmark matches the rest of the site's accent. */
+/* Legacy wordmark spans removed from the JSX; keep the selectors harmless
+   so no stray rule can recolour the brand area. */
+.logo-text,
 .logo-text span {
-  font-size: 1em;
-  color: var(--impact-blue, #1f76be);
-  font-family: "Murecho", sans-serif;
-  font-weight: 600;
+  color: #ffffff;
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
+  font-weight: 700;
 }
-
-/* The wordmark's only colour accent lives on the nested spans (U and D). The
-   trailing "." that used to be rendered after the wordmark has been removed,
-   along with its .logo-dot rule. */
 
 .nav-utility {
   display: none;
 }
 
 .nav-brand-small {
+  color: #ffffff;
   text-decoration: none;
-  font-family: "Murecho", sans-serif;
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
@@ -149,8 +189,10 @@
 .nav-link {
   text-decoration: none;
   font-size: 15px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  /* Task 1: every nav text state stays white. */
+  color: #ffffff;
   transition: var(--transition-smooth);
   padding: 8px 0;
   border: none;
@@ -160,28 +202,44 @@
   white-space: nowrap;
 }
 
+.nav-link:visited {
+  color: #ffffff;
+}
+
 .nav-link:hover,
 .nav-link:focus-visible {
   color: #ffffff;
-  border-bottom-color: var(--impact-blue, #1f76be);
+  border-bottom-color: #ff6600;
 }
 
-/* Current page: bold plus a persistent blue underline, so the active state
-   does not rely on color alone. */
+.nav-link:focus-visible {
+  outline: 3px solid #ff6600;
+  outline-offset: 2px;
+}
+
+/* Current page: bold plus a persistent orange underline, so the active state
+   does not rely on color alone. Text stays white. */
 .nav-link.active {
   color: #ffffff;
   font-weight: 700;
-  border-bottom-color: var(--impact-blue, #1f76be);
+  border-bottom-color: #ff6600;
 }
 
 .navbar.scrolled .nav-link {
-  color: var(--text-muted);
+  /* Task 1: scrolling must NOT turn links dark. Keep white. */
+  color: #ffffff;
 }
 
 .navbar.scrolled .nav-link:hover,
 .navbar.scrolled .nav-link:focus-visible,
 .navbar.scrolled .nav-link.active {
-  color: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  border-bottom-color: #ff6600;
+}
+
+.navbar.scrolled .nav-link:focus-visible {
+  outline: 3px solid #ff6600;
+  outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -248,8 +306,8 @@
   transform: translateY(-1px);
 }
 
-/* Visible keyboard focus for the primary nav controls. The Our Impact
-   dropdown's own controls have an equivalent rule further down. */
+/* Visible keyboard focus for the primary nav controls. Task 1: keep a
+   visible orange outline in every state. */
 .nav-link:focus-visible,
 .logo:focus-visible,
 .navbar .donate-btn:focus-visible,
@@ -257,7 +315,7 @@
 .menu-toggle:focus-visible,
 .dropdown-link:focus-visible,
 .nav-search-input:focus-visible {
-  outline: 2px solid var(--impact-blue, #1f76be);
+  outline: 3px solid #ff6600;
   outline-offset: 2px;
 }
 
@@ -288,8 +346,8 @@
   position: absolute;
   top: calc(100% + 15px);
   left: -20px;
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
+  background-color: #0866B5;
+  border: 1px solid rgba(255,255,255,0.25);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card-hover);
   min-width: 200px;
@@ -311,26 +369,31 @@
 
 .dropdown-link {
   text-decoration: none;
-  color: var(--text-muted);
+  /* Task 1: Impact dropdown text stays white on the blue panel. */
+  color: #ffffff;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   padding: 10px 16px;
   border-radius: var(--radius-sm);
   transition: var(--transition-smooth);
 }
 
-/* About dropdown hover/active. --brand-primary-light was never defined
-   anywhere in the project, so this background silently fell back to
-   transparent; --impact-blue-tint is the real shared token and keeps the
-   dropdown consistent with the new blue accent. */
+.dropdown-link:visited {
+  color: #ffffff;
+}
+
+/* About/Impact dropdown hover/active: text stays white, orange underline. */
 .dropdown-link:hover,
 .dropdown-link.active {
-  background-color: var(--impact-blue-tint, #eaf3fb);
-  color: var(--impact-blue-dark, #1f76be);
+  background-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: #ff6600;
+  text-underline-offset: 3px;
 }
 
 .dropdown-link.active {
-  border-left: 3px solid var(--impact-blue, #1f76be);
+  border-left: 3px solid #ff6600;
 }
 
 /* ==========================================================================
@@ -363,8 +426,9 @@
 }
 
 .navbar.scrolled .nav-search-shell {
-  background-color: var(--bg-surface);
-  border-color: var(--border-color);
+  /* Task 1: search shell keeps white-on-blue treatment after scrolling. */
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-search-shell:focus-within,
@@ -383,7 +447,8 @@
 }
 
 .navbar.scrolled .nav-search-icon {
-  color: var(--text-light);
+  /* Task 1: search icon stays white after scrolling. */
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .nav-search-shell:focus-within .nav-search-icon {
@@ -401,6 +466,13 @@
 
 .navbar.scrolled .nav-search-input,
 .nav-search-shell:focus-within .nav-search-input {
+  /* Task 1: typed text stays white on the blue bar. The expanded white
+     search field keeps dark text via the :focus-within rule below. */
+  color: #ffffff;
+}
+
+.nav-search-shell:focus-within .nav-search-input,
+.nav-search-shell.open .nav-search-input {
   color: var(--text-main);
 }
 
@@ -409,8 +481,11 @@
 }
 
 .navbar.scrolled .nav-search-input::placeholder {
-  color: var(--text-light);
+  /* Task 1: placeholder stays white after scrolling. */
+  color: rgba(255, 255, 255, 0.7);
 }
+
+.nav-search-shell:focus-within .nav-search-input::placeholder { color: var(--text-light); }
 
 .nav-search-button {
   background-color: #ff6600;
@@ -462,7 +537,7 @@
 }
 
 .nav-search-result-title {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   color: var(--text-main);
 }
@@ -497,7 +572,8 @@
 }
 
 .navbar.scrolled .menu-toggle {
-  color: var(--text-main);
+  /* Task 1: hamburger stays white after scrolling. */
+  color: #ffffff;
 }
 
 @media (max-width: 1024px) {
@@ -513,7 +589,8 @@
   }
 
   .nav-brand-small {
-    color: #117acf;
+    /* Task 1: mobile header copy stays white on the blue bar. */
+    color: #ffffff;
   }
 
   .menu-toggle {
@@ -522,7 +599,7 @@
   }
 
   .menu-toggle.nav-open {
-    color: var(--text-main) !important;
+    color: #ffffff !important;
   }
 
   .main-nav,
@@ -533,7 +610,8 @@
     width: 85%;
     max-width: 360px;
     height: 100vh;
-    background-color: #ffffff;
+    /* Task 1: mobile menu keeps the same blue so white text stays readable. */
+    background-color: #0866B5;
     box-shadow: -10px 0 30px rgba(15, 23, 42, 0.1);
     flex-direction: column;
     align-items: flex-start;
@@ -551,21 +629,31 @@
     font-size: 16px;
     display: block;
     width: 100%;
-    color: var(--text-muted);
+    /* Task 1: mobile links stay white on the blue drawer. */
+    color: #ffffff;
     padding: 8px 0;
     text-align: left;
   }
 
+  .nav-link:visited {
+    color: #ffffff;
+  }
+
   .nav-link:hover,
   .nav-link:focus-visible {
-    color: var(--impact-blue, #1f76be);
-    border-bottom-color: transparent;
+    color: #ffffff;
+    border-bottom-color: #ff6600;
+  }
+
+  .nav-link:focus-visible {
+    outline: 3px solid #ff6600;
+    outline-offset: 2px;
   }
 
   .nav-link.active {
-    color: var(--impact-blue, #1f76be);
-    border-bottom-color: transparent;
-    border-left: 3px solid var(--impact-blue, #1f76be);
+    color: #ffffff;
+    border-bottom-color: #ff6600;
+    border-left: 3px solid #ff6600;
     padding-left: 12px;
   }
 
@@ -581,8 +669,8 @@
 
   .nav-search-shell {
     width: 100%;
-    background-color: var(--bg-surface);
-    border-color: var(--border-color);
+    background-color: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.25);
   }
 
   .nav-search-shell:focus-within {
@@ -590,11 +678,11 @@
   }
 
   .nav-search-input {
-    color: var(--text-main);
+    color: #ffffff;
   }
 
   .nav-search-icon {
-    color: var(--text-light);
+    color: rgba(255,255,255,0.85);
   }
 
   .nav-search-button {
@@ -606,7 +694,8 @@
     position: static;
     margin-top: 8px;
     box-shadow: none;
-    border-color: var(--border-color);
+    background-color: #0866B5;
+    border-color: rgba(255,255,255,0.25);
   }
 
   .navbar .donate-btn {
@@ -622,7 +711,8 @@
     transform: none;
     box-shadow: none;
     border: none;
-    border-left: 2px solid var(--border-color);
+    background-color: #0866B5;
+    border-left: 2px solid #ff6600;
     border-radius: 0;
     margin-left: 10px;
     padding: 4px 0 4px 12px;
@@ -682,7 +772,8 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   background-color: transparent;
-  color: var(--text-muted);
+  border-color: rgba(255,255,255,0.4);
+  color: #ffffff;
   font-size: 13px;
   line-height: 1;
   cursor: pointer;
@@ -696,6 +787,9 @@
   gap: 0;
   border-radius: 4px;
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  /* Task 1: dropdown panel keeps the same blue so white text stays readable. */
+  background-color: #0866B5;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   /* Short fade only — no slide or scale. */
   transform: none;
   transition: opacity 160ms ease, visibility 160ms ease;
@@ -718,31 +812,38 @@
   padding: 10px 14px;
   border-radius: 4px;
   font-size: 15px;
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  color: #ffffff;
 }
 
-/* Our Impact dropdown — new hover and active colors. Scoped to .auvd- so the
-   rest of the nav is untouched. */
+.auvd-dropdown-link:visited {
+  color: #ffffff;
+}
+
 .auvd-nav-dropdown .auvd-dropdown-link:hover {
-   
-  color: var(--impact-blue-dark, #ff6600);
+  color: #ffffff;
+  background-color: rgba(255,255,255,0.16);
+  text-decoration: underline;
+  text-decoration-color: #ff6600;
+  text-underline-offset: 3px;
 }
 
 .auvd-nav-dropdown .auvd-dropdown-link.active {
- 
-  color: var(--impact-blue-dark, #ff6600);
-  box-shadow: inset 3px 0 0 var(--impact-orange, #ff6600);
+  color: #ffffff;
+  background-color: rgba(255,255,255,0.16);
+  box-shadow: inset 3px 0 0 #ff6600;
 }
 
-/* Visible keyboard focus for every new control. */
 .auvd-nav-trigger:focus-visible,
 .auvd-nav-chevron:focus-visible,
 .auvd-dropdown-link:focus-visible {
-  outline: 2px solid var(--impact-blue, #ff6600);
+  outline: 3px solid #ff6600;
   outline-offset: 2px;
+  color: #ffffff;
 }
 
-/* ==========================================================================
-   10. Our Impact Dropdown — mobile (indented list behind the chevron)
+/* ===================10. Our Impact Dropdown — mobile (indented list behind the chevron)
    ========================================================================== */
 @media (max-width: 1024px) {
   .auvd-nav-parent {
@@ -796,16 +897,16 @@
 }
 
 .lang-switch-btn {
-  font-family: inherit;
   font-size: 15px;
+  font-family: "Dosis", "Trebuchet MS", sans-serif;
+  font-weight: 700;
   line-height: 1.2;
-  font-weight: 500;
   letter-spacing: 0.04em;
   padding: 7px 9px;
   border: 1px solid transparent;
-  border-radius: 0; /* square corners, matching the nav */
+  border-radius: 0;
   background: transparent;
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   cursor: pointer;
   white-space: nowrap;
   transition: var(--transition-smooth);
@@ -814,12 +915,14 @@
 
 .lang-switch-btn:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,0.12);
+  text-decoration: underline;
+  text-decoration-color: #ff6600;
+  text-underline-offset: 3px;
 }
 
-/* Visible keyboard focus on both options. */
 .lang-switch-btn:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 3px solid #ff6600;
   outline-offset: 2px;
   color: #ffffff;
 }
@@ -827,39 +930,35 @@
 .lang-switch-btn.is-active {
   font-weight: 700;
   color: #ffffff;
-  background: var(--impact-blue, #1f76be);
-  border-color: var(--impact-blue, #1f76be);
+  background: rgba(255,255,255,0.16);
+  border-color: #ff6600;
 }
 
-/* Scrolled state — the header turns light, so the control follows suit. */
 .navbar.scrolled .lang-switch-btn {
-  color: var(--text-muted);
+  color: #ffffff;
 }
 
 .navbar.scrolled .lang-switch-icon {
-  color: var(--text-muted);
+  color: #ffffff;
 }
 
 .navbar.scrolled .lang-switch-btn:hover,
 .navbar.scrolled .lang-switch-btn:focus-visible {
-  color: var(--impact-blue, #1f76be);
-  background: rgba(31, 118, 190, 0.1);
+  color: #ffffff;
+  background: rgba(255,255,255,0.16);
 }
 
 .navbar.scrolled .lang-switch-btn:focus-visible {
-  outline-color: var(--impact-blue, #1f76be);
+  outline: 3px solid #ff6600;
+  outline-offset: 2px;
 }
 
 .navbar.scrolled .lang-switch-btn.is-active {
   color: #ffffff;
-  background: var(--impact-blue, #1f76be);
+  background: rgba(255,255,255,0.16);
 }
 
-/* --------------------------------------------------------------------------
-   Mobile: the header-bar copy (next to the hamburger) and the copy at the
-   top of the open menu. Both stay visible without any extra taps and are
-   never scrolled out of view, because they live inside the fixed header.
-   -------------------------------------------------------------------------- */
+/* --- Mobile header/menu copies --- */
 .lang-switch--mobile-header {
   display: none;
 }
