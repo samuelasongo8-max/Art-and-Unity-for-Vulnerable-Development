@@ -26,7 +26,7 @@
 .auvd-post-feed {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  align-items: stretch;
+  align-items: start;
   gap: 24px;
   width: 100%;
   max-width: 1200px;
@@ -39,8 +39,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 470px;
-  height: 100%;
   justify-self: center;
   margin: 0;
 }
@@ -58,7 +56,7 @@
 
 @media (min-width: 1024px) {
   .auvd-post-feed {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -285,11 +283,11 @@
   white-space: nowrap;
 }
 
-/* Square 1:1 image, flush under the header with no gap, cropped to cover. */
+/* Wide image keeps desktop cards from becoming excessively tall. */
 .auvd-post-image {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   border: 0;
   border-radius: 0;
@@ -350,6 +348,34 @@
 
 .auvd-post-paragraph > * {
   overflow-wrap: anywhere;
+}
+
+.auvd-post-card--expanded .auvd-post-caption,
+.auvd-post-card--expanded .auvd-post-paragraph {
+  display: block;
+  overflow: visible;
+}
+
+.auvd-post-expand {
+  align-self: flex-start;
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--impact-muted, #52606d);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auvd-post-expand:hover {
+  color: var(--impact-text, #1f2933);
+}
+
+.auvd-post-expand:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 3px;
 }
 
 /* Understated topic tag: small and muted, not a coloured badge. */

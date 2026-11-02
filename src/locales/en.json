@@ -709,6 +709,8 @@
       "noResults": "No posts match your search.",
       "loading": "Loading posts...",
       "error": "Couldn't load posts right now.",
+      "showMore": "more",
+      "showLess": "less",
       "filters": {
         "all": "All",
         "education": "Education",

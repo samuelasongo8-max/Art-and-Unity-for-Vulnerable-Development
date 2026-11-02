@@ -215,6 +215,10 @@
   margin: 0 auto;
 }
 
+.auvd-impact-layout--posts {
+  max-width: 1280px;
+}
+
 /* Sidebar ================================================== */
 
 .auvd-impact-sidebar {

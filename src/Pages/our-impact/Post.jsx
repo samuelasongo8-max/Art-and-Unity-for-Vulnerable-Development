@@ -48,69 +48,86 @@ const FILTERS = [
    no alternating sides: every post is the same size and style, which is how a
    real social feed reads. The topic tag resolves its own short label because
    "Vocational Training" is too long to sit behind a "#". */
-const Post = ({ entry, language }) => (
-  <article className="auvd-post-card">
-    <header className="auvd-post-head">
-      {/* The logo is decorative next to the visible "AUVD" name, so it carries
-          an empty alt rather than repeating the account name to a screen
-          reader. */}
-      <img className="auvd-post-avatar" src={avatar} alt="" />
-      <span className="auvd-post-account" lang="en">
-        AUVD
-      </span>
-      {/* <time> keeps the machine-readable ISO value while the visible text is
-          formatted in the active language, like everywhere else on the site. */}
-      <time className="auvd-post-date" dateTime={entry.date}>
-        {formatDate(entry.date, language, { timeZone: "UTC" })}
-      </time>
-    </header>
+const Post = ({ entry, language, showMoreLabel, showLessLabel }) => {
+  const [expanded, setExpanded] = useState(false);
+  const canExpand =
+    toPlainText(`${entry.caption || ""} ${entry.paragraph || ""}`).length > 120;
 
-    <SafeImage
-      className="auvd-post-image"
-      src={imageUrl(entry.image)}
-      alt={entry.imageAlt}
-      fallbackLabel={entry.imageUnavailable}
-    />
-
-    {/* Decorative only. There is no backend, no like counter and no share
-        target, so these are <span>s and NOT buttons: rendering them as
-        <button> would advertise an interaction that does nothing. Wire them up
-        only when a real endpoint exists. */}
-    <p className="auvd-post-actions" aria-hidden="true">
-      <FaHeart className="auvd-post-action-icon" />
-      <FaPaperPlane className="auvd-post-action-icon" />
-    </p>
-
-    <div className="auvd-post-body">
-      {/* An h3 so every post is reachable by heading, but styled as ordinary
-          body text because Instagram sets it that way: the account name runs
-          bold inline, then the caption in normal weight. */}
-      <h3 className="auvd-post-caption">
-        <span className="auvd-post-caption-account" lang="en">
+  return (
+    <article className={`auvd-post-card${expanded ? " auvd-post-card--expanded" : ""}`}>
+      <header className="auvd-post-head">
+        {/* The logo is decorative next to the visible "AUVD" name, so it carries
+            an empty alt rather than repeating the account name to a screen
+            reader. */}
+        <img className="auvd-post-avatar" src={avatar} alt="" />
+        <span className="auvd-post-account" lang="en">
           AUVD
-        </span>{" "}
-        {entry.caption}
-      </h3>
+        </span>
+        {/* <time> keeps the machine-readable ISO value while the visible text is
+            formatted in the active language, like everywhere else on the site. */}
+        <time className="auvd-post-date" dateTime={entry.date}>
+          {formatDate(entry.date, language, { timeZone: "UTC" })}
+        </time>
+      </header>
 
-      {/* The Paragraph field became a rich-text editor, so a saved post may
-          carry HTML. hasHtml() keeps every post written as plain text on the
-          original `{entry.paragraph}` line, rendered as text exactly as before;
-          only genuine HTML is passed through the allow-list sanitizer and
-          injected. The class is unchanged either way, so the card keeps its
-          existing design. */}
-      {hasHtml(entry.paragraph) ? (
-        <div
-          className="auvd-post-paragraph"
-          dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(entry.paragraph) }}
-        />
-      ) : (
-        <p className="auvd-post-paragraph">{entry.paragraph}</p>
-      )}
+      <SafeImage
+        className="auvd-post-image"
+        src={imageUrl(entry.image)}
+        alt={entry.imageAlt}
+        fallbackLabel={entry.imageUnavailable}
+      />
 
-      <p className="auvd-post-topic">#{entry.topicLabel}</p>
-    </div>
-  </article>
-);
+      {/* Decorative only. There is no backend, no like counter and no share
+          target, so these are <span>s and NOT buttons: rendering them as
+          <button> would advertise an interaction that does nothing. Wire them up
+          only when a real endpoint exists. */}
+      <p className="auvd-post-actions" aria-hidden="true">
+        <FaHeart className="auvd-post-action-icon" />
+        <FaPaperPlane className="auvd-post-action-icon" />
+      </p>
+
+      <div className="auvd-post-body">
+        {/* An h3 so every post is reachable by heading, but styled as ordinary
+            body text because Instagram sets it that way: the account name runs
+            bold inline, then the caption in normal weight. */}
+        <h3 className="auvd-post-caption">
+          <span className="auvd-post-caption-account" lang="en">
+            AUVD
+          </span>{" "}
+          {entry.caption}
+        </h3>
+
+        {/* The Paragraph field became a rich-text editor, so a saved post may
+            carry HTML. hasHtml() keeps every post written as plain text on the
+            original `{entry.paragraph}` line, rendered as text exactly as before;
+            only genuine HTML is passed through the allow-list sanitizer and
+            injected. The class is unchanged either way, so the card keeps its
+            existing design. */}
+        {hasHtml(entry.paragraph) ? (
+          <div
+            className="auvd-post-paragraph"
+            dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(entry.paragraph) }}
+          />
+        ) : (
+          <p className="auvd-post-paragraph">{entry.paragraph}</p>
+        )}
+
+        {canExpand ? (
+          <button
+            type="button"
+            className="auvd-post-expand"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((current) => !current)}
+          >
+            {expanded ? showLessLabel : showMoreLabel}
+          </button>
+        ) : null}
+
+        <p className="auvd-post-topic">#{entry.topicLabel}</p>
+      </div>
+    </article>
+  );
+};
 
 const PostFeed = () => {
   const { t, i18n } = useTranslation();
@@ -271,7 +288,13 @@ const PostFeed = () => {
         ) : (
           <>
             {visiblePosts.map((entry) => (
-              <Post key={entry.id} entry={entry} language={i18n.language} />
+              <Post
+                key={entry.id}
+                entry={entry}
+                language={i18n.language}
+                showMoreLabel={t("impact.post.showMore")}
+                showLessLabel={t("impact.post.showLess")}
+              />
             ))}
             {filteredPosts.length > visiblePosts.length ? (
               <button

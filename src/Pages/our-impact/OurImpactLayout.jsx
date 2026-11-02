@@ -70,12 +70,14 @@ const OurImpactMeasureSlot = () => {
 
 const OurImpactLayout = () => {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
+  const isPostPage = pathname.replace(/\/+$/, "") === "/our-impact/post";
 
   return (
     <main className="auvd-impact-page">
       <OurImpactHeroSlot />
 
-      <div className="auvd-impact-layout">
+      <div className={`auvd-impact-layout${isPostPage ? " auvd-impact-layout--posts" : ""}`}>
         <aside className="auvd-impact-sidebar">
           <h1 className="auvd-impact-heading">{t("impact.layout.heading")}</h1>
 
