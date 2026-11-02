@@ -175,8 +175,6 @@
       "news": "Actualités"
     },
     "legal": {
-      "terms": "Conditions d'utilisation",
-      "privacy": "Politique de confidentialité",
       "sitemap": "Plan du site"
     },
     "admin": {
@@ -220,8 +218,7 @@
       "success": "Vous êtes abonné(e) ! Vous recevrez les actualités des sujets choisis.",
       "error": "Une erreur s'est produite. Veuillez réessayer plus tard.",
       "unsubscribeNote": "Vous pouvez vous désabonner à tout moment via le lien présent dans chaque e-mail.",
-      "notice": "En vous abonnant, vous acceptez de recevoir les actualités d'AUVD par e-mail. Vous pouvez vous désabonner à tout moment.",
-      "privacyLink": "Politique de confidentialité"
+      "notice": "En vous abonnant, vous acceptez de recevoir les actualités d'AUVD par e-mail. Vous pouvez vous désabonner à tout moment."
     }
   },
   "home": {
@@ -322,7 +319,7 @@
         "description": "Art and Unity for Vulnerable Development (AUVD), en partenariat avec la F2F Music Foundation, UnityNet International, Andrew Network - AHIAGBA TV et la Transylvanian Symphony Foundation, a organisé avec succès trois ateliers marquants durant la Semaine de la Paix des Jeunes au camp de réfugiés de Kakuma."
       },
       "innovation": {
-        "ribbon": "INSTRUMENT INSTRUCTION",
+        "ribbon": "FORMATION INSTRUMENTALE",
         "title": "Notre programme d'éducation musicale",
         "description": "Temps forts de notre programme d'éducation musicale, où les jeunes reçoivent un enseignement instrumental, développent leurs compétences musicales et gagnent en confiance et en créativité."
       }

@@ -1,12 +1,3 @@
-import React from 'react';
-
-const FeaturedVideo = () => {
-    return (
-        <div>FeaturedVideo</div>
-    )
-}
-
-export default FeaturedVideo;
 import React, { useState } from "react";
 import "./FeaturedVideo.css";
 import useRevealClass from "../../hooks/useRevealClass";

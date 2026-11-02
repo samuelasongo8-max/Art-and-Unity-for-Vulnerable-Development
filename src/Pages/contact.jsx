@@ -1,4 +1,6 @@
 import { Trans, useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ImpactHero from "../components/ImpactHero";
 import "./contact.css";
 import ContactForm from "../components/ContactForm";
@@ -9,6 +11,20 @@ import ContactForm from "../components/ContactForm";
    intro paragraph. */
 const Contact = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash !== "#creative-arts-application") return undefined;
+
+    const frameId = window.requestAnimationFrame(() => {
+      document.getElementById("creative-arts-application")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [location.hash]);
 
   return (
     <section className="contact-page">
@@ -91,7 +107,7 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="contact-form-shell">
+        <div id="creative-arts-application" className="contact-form-shell">
           <ContactForm />
         </div>
       </div>

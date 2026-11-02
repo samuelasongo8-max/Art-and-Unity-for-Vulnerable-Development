@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./Music.css";
 
-const musicTitle = "Music Education & Instrument Training";
-
 const musicActivityKeys = [
   "music.activities.one",
   "music.activities.two",
@@ -18,19 +16,20 @@ const EducationAccess = () => {
   // The typing animation is driven by the TRANSLATED title, so it types out
   // the French title when the language changes.
   const musicTitle = t("music.title");
-  const [typedChars, setTypedChars] = useState(0);
+  const [titleTyping, setTitleTyping] = useState(() => ({
+    title: musicTitle,
+    characters: 0,
+  }));
+  if (titleTyping.title !== musicTitle) {
+    setTitleTyping({ title: musicTitle, characters: 0 });
+  }
+  const typedChars = titleTyping.characters;
 
   useEffect(() => {
     let animationFrameId;
     let timeoutId;
     const startDelayMs = 250;
     const typingSpeedMs = 38;
-
-    /* `musicTitle` is a dependency, not an empty array: the loop below closes
-       over the title and stops at its length, so on a language change the
-       effect has to re-run with the new string. Otherwise the loop keeps the
-       FRENCH title's length and truncates the English title mid-word. */
-    setTypedChars(0);
 
     const startTyping = () => {
       let lastTimestamp = 0;
@@ -42,12 +41,12 @@ const EducationAccess = () => {
 
         if (timestamp - lastTimestamp >= typingSpeedMs) {
           lastTimestamp = timestamp;
-          setTypedChars((previous) => {
-            if (previous >= musicTitle.length) {
+          setTitleTyping((previous) => {
+            if (previous.title !== musicTitle || previous.characters >= musicTitle.length) {
               return previous;
             }
 
-            return previous + 1;
+            return { ...previous, characters: previous.characters + 1 };
           });
         }
 

@@ -31,7 +31,7 @@ const interestOptions = [
 // as written; only the aria-label/title need no translation.
 const socialLinks = [
   { href: "https://www.facebook.com/profile.php?id=61569926836907", icon: "bx bxl-facebook", label: "Facebook" },
-  { href: "https://ke.linkedin.com--", icon: "bx bxl-linkedin", label: "LinkedIn" },
+  { href: "https://www.linkedin.com/", icon: "bx bxl-linkedin", label: "LinkedIn" },
   { href: "https://www.instagram.com/art.unityvulnerabledev2024/", icon: "bx bxl-instagram", label: "Instagram" },
   { href: "https://www.youtube.com/@Artandunity-q2q", icon: "bx bxl-youtube", label: "YouTube" },
   { href: "https://www.tiktok.com/@artunity_vulnerabledev", icon: "bx bxl-tiktok", label: "TikTok" },
@@ -309,10 +309,7 @@ const Footer = () => {
             {message}
           </p>
 
-          <p className="footer-subscribe-notice">
-            {t("footer.subscribe.notice")}{" "}
-            <NavLink to="/privacy">{t("footer.subscribe.privacyLink")}</NavLink>
-          </p>
+          <p className="footer-subscribe-notice">{t("footer.subscribe.notice")}</p>
         </form>
       </div>
 
@@ -352,19 +349,8 @@ const Footer = () => {
         </ul>
 
         <div className="footer-legal-row">
-          <NavLink to="/terms">{t("footer.legal.terms")}</NavLink>
-          <span className="footer-legal-divider">|</span>
-          <NavLink to="/privacy">{t("footer.legal.privacy")}</NavLink>
-          <span className="footer-legal-divider">|</span>
-          <NavLink to="/sitemap">{t("footer.legal.sitemap")}</NavLink>
+          <a href="/sitemap.xml">{t("footer.legal.sitemap")}</a>
 
-          {/* The admin entry point. Deliberately the quietest thing in the
-              footer: a bare lock icon, the same size as the legal links
-              beside it, with no visible label. It is a way in for the person
-              who maintains the site, not a feature offered to visitors, so it
-              is not styled like a call to action. The accessible name still
-              says what it is, because an unlabelled icon is unusable with a
-              screen reader. */}
           <span className="footer-legal-divider">|</span>
           <button
             type="button"

@@ -27,14 +27,14 @@ const Dance = () => {
   const danceHeroContentRef = useRef(null);
   const academyContentRef = useRef(null);
   const [isDanceDescriptionVisible, setIsDanceDescriptionVisible] = useState(false);
-  const [danceDescriptionTypedChars, setDanceDescriptionTypedChars] = useState(0);
-
-  // Start the typewriter over whenever the description changes language, so a
-  // French sentence is typed from the first letter instead of resuming at
-  // whatever character the English one happened to stop on.
-  useEffect(() => {
-    setDanceDescriptionTypedChars(0);
-  }, [danceDescriptionText]);
+  const [descriptionTyping, setDescriptionTyping] = useState(() => ({
+    text: danceDescriptionText,
+    characters: 0,
+  }));
+  if (descriptionTyping.text !== danceDescriptionText) {
+    setDescriptionTyping({ text: danceDescriptionText, characters: 0 });
+  }
+  const danceDescriptionTypedChars = descriptionTyping.characters;
 
   useEffect(() => {
     const sectionElement = danceHeroContentRef.current;
@@ -67,7 +67,11 @@ const Dance = () => {
     }
 
     const timeoutId = window.setTimeout(() => {
-      setDanceDescriptionTypedChars((previous) => previous + 1);
+      setDescriptionTyping((previous) => (
+        previous.text === danceDescriptionText
+          ? { ...previous, characters: previous.characters + 1 }
+          : previous
+      ));
     }, 18);
 
     return () => window.clearTimeout(timeoutId);

@@ -56,7 +56,7 @@ const isValidHttpUrl = (value) => {
   }
 };
 
-const validateTalentForm = (form, t) => {
+const validateTalentForm = (form) => {
   const errors = {};
 
   if (!form.artistName.trim()) {
@@ -275,7 +275,7 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const validationErrors = validateTalentForm(talentForm, t);
+    const validationErrors = validateTalentForm(talentForm);
 
     if (Object.keys(validationErrors).length > 0) {
       setTalentErrors(validationErrors);

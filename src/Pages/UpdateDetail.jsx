@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
-import { updates as allUpdates, renderBody } from "../components/CommunityUpdates";
+import { useTranslation } from "react-i18next";
+import { updates as allUpdates, renderBody } from "../components/communityUpdatesContent";
 import "./UpdateDetail.css";
 
 /* Per-update object-position so each photo's subject stays visible inside
@@ -31,37 +32,24 @@ function Placeholder({ label }) {
 export default function UpdateDetail() {
   const { slug } = useParams();
   const location = useLocation();
-  const [update, setUpdate] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const found = allUpdates.find((u) => u.slug === slug);
-    if (found) {
-      setUpdate(found);
-      setError(null);
-    } else {
-      setUpdate(null);
-      setError("Update not found");
-    }
-  }, [slug]);
+  const { t } = useTranslation();
+  const update = allUpdates.find((item) => item.slug === slug);
 
   // Scroll to top when a new detail page opens (matches the source).
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
 
-  if (error) {
+  if (!update) {
     return (
       <div className="p1-update-detail-page">
-        <div className="p1-update-detail__error">{error}</div>
+        <div className="p1-update-detail__error">{t("notFound.heading")}</div>
         <Link to="/updates" className="p1-update-detail__back-link">
           ← Back to all updates
         </Link>
       </div>
     );
   }
-
-  if (!update) return null;
 
   const meta = [update.date, update.place].filter(Boolean).join(" · ");
 

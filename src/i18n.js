@@ -101,7 +101,6 @@ if (import.meta.env?.DEV) {
   // forgotten French string shows up in the console instead of silently
   // falling back to English.
   i18n.on("missingKey", (lngs, fallbackLng, key) => {
-    // eslint-disable-next-line no-console
     console.warn(`[i18n] missing "${key}" for language(s): ${lngs.join(", ")}`);
   });
 }

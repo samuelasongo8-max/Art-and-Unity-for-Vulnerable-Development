@@ -60,7 +60,7 @@ function Portfolio() {
 	);
 
 	return (
-		<main className="portfolio-page">
+		<main id="top" className="portfolio-page">
 			<section className="portfolio-section">
 				<p className="portfolio-label">{t("portfolio.hero.label")}</p>
 				<div className="portfolio-body">

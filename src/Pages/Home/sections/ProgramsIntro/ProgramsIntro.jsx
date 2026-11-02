@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import "./ProgramsIntro.css";
 
-function ProgramsIntro({ navigate }) {
+function ProgramsIntro() {
   const { t } = useTranslation();
 
   return (

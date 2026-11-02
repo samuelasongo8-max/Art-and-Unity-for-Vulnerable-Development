@@ -76,6 +76,15 @@ body {
 .main-content {
   flex: 1; /* pushes footer down */
 }
+
+.route-loading {
+  display: grid;
+  min-height: 40vh;
+  place-items: center;
+  padding: 2rem;
+  color: var(--impact-muted, #52606d);
+  text-align: center;
+}
 .sub-footer ul.social-network {
   list-style: none;
   display: flex;

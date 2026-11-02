@@ -5,104 +5,6 @@ import ImpactHero from "../components/ImpactHero";
 import "./Work.css";
 import OurPrograms from '../components/OurPrograms';
 
-
-const womenLivelihoodImages = ["/women.png", "/tailoring.jpg", "/Cooking.webp"];
-const outreachImages = ["/Shoes.png", "/shoes2.webp"];
-
-/* ==========================================================================
-   The five program pillars.
-
-   Only routes, images and TRANSLATION KEYS live here. Every visible string is
-   resolved with t() while rendering, so switching language updates the whole
-   page immediately with no reload. The ids double as the anchor targets the
-   hero pills and #livelihoods-women deep link rely on, so they are unchanged.
-   ========================================================================== */
-const programPillars = [
-	{
-		id: "arts-healing",
-		titleKey: "work.programs.pillars.arts-healing.title",
-		introKey: "work.programs.pillars.arts-healing.intro",
-		image: "/drawing2.jpg",
-		actions: [
-			{ to: "/Music", labelKey: "work.programs.pillars.arts-healing.actions_one" },
-			{ to: "/dance", labelKey: "work.programs.pillars.arts-healing.actions_two" },
-		],
-		programs: [
-			"work.programs.pillars.arts-healing.programs_one",
-			"work.programs.pillars.arts-healing.programs_two",
-		],
-		focus: [
-			"work.programs.pillars.arts-healing.focus_one",
-			"work.programs.pillars.arts-healing.focus_two",
-			"work.programs.pillars.arts-healing.focus_three",
-			"work.programs.pillars.arts-healing.focus_four",
-		],
-	},
-	{
-		id: "education-youth",
-		titleKey: "work.programs.pillars.education-youth.title",
-		introKey: "work.programs.pillars.education-youth.intro",
-		image: "/Education2.jpg",
-		action: { to: "/pricing", labelKey: "work.programs.pillars.education-youth.action" },
-		programs: [
-			"work.programs.pillars.education-youth.programs_one",
-			"work.programs.pillars.education-youth.programs_two",
-		],
-		focus: [
-			"work.programs.pillars.education-youth.focus_one",
-			"work.programs.pillars.education-youth.focus_two",
-			"work.programs.pillars.education-youth.focus_three",
-			"work.programs.pillars.education-youth.focus_four",
-		],
-	},
-	{
-		id: "livelihoods-women",
-		titleKey: "work.programs.pillars.livelihoods-women.title",
-		introKey: "work.programs.pillars.livelihoods-women.intro",
-		rotatingImages: womenLivelihoodImages,
-		programs: [
-			"work.programs.pillars.livelihoods-women.programs_one",
-			"work.programs.pillars.livelihoods-women.programs_two",
-		],
-		focus: [
-			"work.programs.pillars.livelihoods-women.focus_one",
-			"work.programs.pillars.livelihoods-women.focus_two",
-			"work.programs.pillars.livelihoods-women.focus_three",
-			"work.programs.pillars.livelihoods-women.focus_four",
-		],
-	},
-	{
-		id: "peacebuilding",
-		titleKey: "work.programs.pillars.peacebuilding.title",
-		introKey: "work.programs.pillars.peacebuilding.intro",
-		image: "/Unity.webp",
-		programs: [
-			"work.programs.pillars.peacebuilding.programs_one",
-			"work.programs.pillars.peacebuilding.programs_two",
-		],
-		focus: [
-			"work.programs.pillars.peacebuilding.focus_one",
-			"work.programs.pillars.peacebuilding.focus_two",
-			"work.programs.pillars.peacebuilding.focus_three",
-			"work.programs.pillars.peacebuilding.focus_four",
-		],
-	},
-	{
-		id: "outreach-basic-needs",
-		titleKey: "work.programs.pillars.outreach-basic-needs.title",
-		introKey: "work.programs.pillars.outreach-basic-needs.intro",
-		rotatingImages: outreachImages,
-		action: { to: "/portfolio", labelKey: "work.programs.pillars.outreach-basic-needs.action" },
-		programs: ["work.programs.pillars.outreach-basic-needs.programs_one"],
-		focus: [
-			"work.programs.pillars.outreach-basic-needs.focus_one",
-			"work.programs.pillars.outreach-basic-needs.focus_two",
-			"work.programs.pillars.outreach-basic-needs.focus_three",
-			"work.programs.pillars.outreach-basic-needs.focus_four",
-		],
-	},
-];
-
 function Work() {
 	const { t } = useTranslation();
 	const location = useLocation();
@@ -139,17 +41,6 @@ function Work() {
 		return () => window.clearTimeout(timeoutId);
 	}, [location.hash]);
 
-	/* Every image a pillar carries still renders — as the collage column.
-	   Pillars with a single image get one large frame; the pillars that used
-	   to swap between several images now show all of them side by side. */
-	const resolveImages = (pillar) => {
-		if (pillar.rotatingImages) {
-			return pillar.rotatingImages;
-		}
-
-		return pillar.image ? [pillar.image] : [];
-	};
-
 	return (
 		<main className="work-page">
 			{/* Full-bleed hero — the shared ImpactHero component (same design as
@@ -178,4 +69,3 @@ function Work() {
 export default Work;
  
  
-

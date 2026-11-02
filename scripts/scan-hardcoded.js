@@ -35,7 +35,7 @@ const ALLOW = [
   /^AUVD$/i,
   /^(Facebook|LinkedIn|Instagram|YouTube|TikTok|X|Twitter|WhatsApp|Google|Map)$/i,
   /^\|$/,
-  /^[→›‹←»«»|,\/….\-–—:;!?()[\]&+#*%\d\s]+$/,
+  /^[→›‹←»«»|,/….\-–—:;!?()[\]&+#*%\d\s]+$/,
   /\{/,
   /^(True|False)$/,
 ];
@@ -71,7 +71,7 @@ for (const file of walk(srcDir)) {
     }
 
     // 3. Bare English string literals inside module-level data structures.
-    if (/^\s*(const|let|var)\s+\w+\s*=\s*[\[{]/.test(line) || /^\s*["'][A-Z]/.test(line)) {
+    if (/^\s*(const|let|var)\s+\w+\s*=\s*(?:\[|\{)/.test(line) || /^\s*["'][A-Z]/.test(line)) {
       const literal = line.match(/:\s*"([^"]{12,})"/) ?? line.match(/^\s*"([^"]{12,})"/);
       if (literal) record(file, i + 1, "data-literal", literal[1]);
     }

@@ -77,6 +77,7 @@ const ALLOW_IDENTICAL_EXACT = new Set([
   "home.grantNews.date",
   "impact.items.one.date",
   // Place names
+  "home.hero.slides.two",
   // Meta page paths are routing data, never displayed.
 ]);
 
@@ -121,6 +122,9 @@ const missingInEn = Object.keys(frFlat).filter((k) => !(k in enFlat));
 const untranslated = Object.keys(enFlat).filter(
   (k) => k in frFlat && enFlat[k] === frFlat[k] && !isAllowedIdentical(k, enFlat[k])
 );
+const emptyInFr = Object.keys(frFlat).filter(
+  (key) => typeof frFlat[key] === "string" && !frFlat[key].trim()
+);
 
 let failed = false;
 
@@ -132,6 +136,15 @@ if (missingInFr.length || missingInEn.length) {
   }
   for (const key of missingInEn) {
     console.error(`  missing in en.json : ${key} = ${JSON.stringify(frFlat[key])}`);
+  }
+  console.error("");
+}
+
+if (emptyInFr.length) {
+  failed = true;
+  console.error("✖ i18n:check — French values must not be empty\n");
+  for (const key of emptyInFr) {
+    console.error(`  empty in fr.json : ${key}`);
   }
   console.error("");
 }
@@ -149,7 +162,10 @@ if (untranslated.length) {
 }
 
 if (failed) {
-  console.error(`\n${missingInFr.length + missingInEn.length} key mismatch(es), ${untranslated.length} untranslated value(s).`);
+  console.error(
+    `\n${missingInFr.length + missingInEn.length} key mismatch(es), ` +
+      `${untranslated.length} untranslated value(s), ${emptyInFr.length} empty French value(s).`
+  );
   process.exit(1);
 }
 

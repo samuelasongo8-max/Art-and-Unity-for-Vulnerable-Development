@@ -1,46 +1,46 @@
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DonateBanner from "./components/DonateBanner";
 import BackToTop from "./components/BackToTop";
-import { useEffect } from "react";
 import './App.css';
  
 // Pages
-import Home from "./Pages/Home/Home";
-import Dance from "./Pages/programs/Dance";
-import About from "./Pages/about";
-import Work from "./Pages/Work";
-import Events from "./Pages/Events";
-import Blogs from "./Pages/Blogs";
-import BlogDetails from "./Pages/BlogDetails";
-import Portfolio from "./Pages/portfolio";
-import Pricing from "./Pages/pricing";
-import Contact from "./Pages/contact";
-import Donate from "./Pages/donate";
-import News from "./Pages/News";
-import Team from "./Pages/Team";
-import OurStory from "./Pages/OurStory";
-import SamuelAsongo from "./Pages/SamuelAsongo";
-import Music from "./Pages/programs/Music";
-import ImpactAll from "./Pages/ImpactAll";
-import GetInvolved from "./Pages/GetInvolved";
-import OurImpact from "./Pages/OurImpact";
-import OurImpactLayout from "./Pages/our-impact/OurImpactLayout";
-import ImpactNews from "./Pages/our-impact/News";
-import ImpactReport from "./Pages/our-impact/Report";
-import ImpactPost from "./Pages/our-impact/Post";
-import DaddarioCommunityMusicGrant from "./Pages/DaddarioCommunityMusicGrant";
-import AdminLogin from "./Pages/admin/AdminLogin";
-import AdminPost from "./Pages/admin/AdminPost";
-import AdminNews from "./Pages/admin/AdminNews";
-
-import Vocational from "./Pages/programs/Vocational";
-import NotFound from "./Pages/NotFound";
-import Updates from "./Pages/Updates";
-import UpdateDetail from "./Pages/UpdateDetail";
-import Need from "./Pages/Need";
-import VisualArts from "./Pages/VisualArts";
+const Home = lazy(() => import("./Pages/Home/Home"));
+const Dance = lazy(() => import("./Pages/programs/Dance"));
+const About = lazy(() => import("./Pages/about"));
+const Work = lazy(() => import("./Pages/Work"));
+const Events = lazy(() => import("./Pages/Events"));
+const Blogs = lazy(() => import("./Pages/Blogs"));
+const BlogDetails = lazy(() => import("./Pages/BlogDetails"));
+const Portfolio = lazy(() => import("./Pages/portfolio"));
+const Pricing = lazy(() => import("./Pages/pricing"));
+const Contact = lazy(() => import("./Pages/contact"));
+const Donate = lazy(() => import("./Pages/donate"));
+const News = lazy(() => import("./Pages/News"));
+const Team = lazy(() => import("./Pages/Team"));
+const OurStory = lazy(() => import("./Pages/OurStory"));
+const SamuelAsongo = lazy(() => import("./Pages/SamuelAsongo"));
+const Music = lazy(() => import("./Pages/programs/Music"));
+const ImpactAll = lazy(() => import("./Pages/ImpactAll"));
+const GetInvolved = lazy(() => import("./Pages/GetInvolved"));
+const OurImpact = lazy(() => import("./Pages/OurImpact"));
+const OurImpactLayout = lazy(() => import("./Pages/our-impact/OurImpactLayout"));
+const ImpactNews = lazy(() => import("./Pages/our-impact/News"));
+const ImpactReport = lazy(() => import("./Pages/our-impact/Report"));
+const ImpactPost = lazy(() => import("./Pages/our-impact/Post"));
+const DaddarioCommunityMusicGrant = lazy(() => import("./Pages/DaddarioCommunityMusicGrant"));
+const AdminLogin = lazy(() => import("./Pages/admin/AdminLogin"));
+const AdminPost = lazy(() => import("./Pages/admin/AdminPost"));
+const AdminNews = lazy(() => import("./Pages/admin/AdminNews"));
+const Vocational = lazy(() => import("./Pages/programs/Vocational"));
+const NotFound = lazy(() => import("./Pages/NotFound"));
+const Updates = lazy(() => import("./Pages/Updates"));
+const UpdateDetail = lazy(() => import("./Pages/UpdateDetail"));
+const Need = lazy(() => import("./Pages/Need"));
+const VisualArts = lazy(() => import("./Pages/VisualArts"));
  
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -60,6 +60,7 @@ function ScrollToTop() {
 const ADMIN_PATHS = ["/admin/login", "/admin/post", "/admin/news"];
 
 const Chrome = () => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const isAdmin = ADMIN_PATHS.includes(pathname);
 
@@ -69,6 +70,13 @@ const Chrome = () => {
 
       <div className={isAdmin ? undefined : "App"}>
         <div className={isAdmin ? undefined : "main-content"}>
+          <Suspense
+            fallback={
+              <div className="route-loading" role="status" aria-live="polite">
+                {t("common.loading")}
+              </div>
+            }
+          >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -148,6 +156,7 @@ const Chrome = () => {
                 instead of a blank screen. */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </Suspense>
         </div>
       </div>
 

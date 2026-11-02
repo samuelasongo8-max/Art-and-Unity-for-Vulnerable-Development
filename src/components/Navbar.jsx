@@ -33,7 +33,7 @@ const searchEntries = [
 const normalizeSearchText = (value) => value.trim().toLowerCase();
 
 function Navbar() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutMenuPinned, setAboutMenuPinned] = useState(false);
   const [aboutMenuHovered, setAboutMenuHovered] = useState(false);

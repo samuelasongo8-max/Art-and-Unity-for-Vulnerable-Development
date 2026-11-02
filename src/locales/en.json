@@ -175,8 +175,6 @@
       "news": "News"
     },
     "legal": {
-      "terms": "Terms of Use",
-      "privacy": "Privacy Policy",
       "sitemap": "Sitemap"
     },
     "admin": {
@@ -220,8 +218,7 @@
       "success": "You're subscribed! You'll receive news about your chosen topics.",
       "error": "Something went wrong. Please try again later.",
       "unsubscribeNote": "You can unsubscribe at any time using the link in any email.",
-      "notice": "By subscribing you agree to receive news emails from AUVD. You can unsubscribe at any time.",
-      "privacyLink": "Privacy Policy"
+      "notice": "By subscribing you agree to receive news emails from AUVD. You can unsubscribe at any time."
     }
   },
   "home": {
