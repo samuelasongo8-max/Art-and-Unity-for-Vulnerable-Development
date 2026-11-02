@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { config as loadEnv } from "dotenv";
 import express from "express";
@@ -52,6 +53,7 @@ const port = Number(process.env.PORT || 5000);
 const REQUIRED_ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://localhost:5176",
+  "http://localhost:5178",
   "http://localhost:3000",
   "http://127.0.0.1:5173",
   "https://art-and-unity-for-vulnerable-develo.vercel.app",
@@ -84,7 +86,12 @@ app.use(
 
       /* Compared with any trailing slash removed, since a browser sends the
          origin without one but a hand-written list might include it. */
-      if (allowedOrigins.has(origin.replace(/\/+$/, ""))) return callback(null, true);
+      if (
+        allowedOrigins.has(origin.replace(/\/+$/, "")) ||
+        /^https?:\/\/localhost(?::\d+)?$/i.test(origin)
+      ) {
+        return callback(null, true);
+      }
 
       console.error(`[cors] refused origin: ${origin}`);
       return callback(new Error("Origin not allowed by CORS"));
