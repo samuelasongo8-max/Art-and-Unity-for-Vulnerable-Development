@@ -45,7 +45,7 @@ const EMPTY_FORM = {
 };
 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_IMAGE_BYTES = 100 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 
 /* ==========================================================================
    THE RICH-TEXT EDITOR
@@ -93,11 +93,13 @@ const readJson = async (response) => response.json().catch(() => null);
 
 /** Sends the chosen image to the existing upload endpoint and returns its URL. */
 async function uploadImage(file) {
+  const formData = new FormData();
+  formData.append("image", file, file.name);
+
   const response = await fetch(apiUrl("/api/admin/upload"), {
     method: "POST",
-    headers: { "Content-Type": file.type || "application/octet-stream" },
     credentials: "include",
-    body: file,
+    body: formData,
   });
 
   const result = await readJson(response);

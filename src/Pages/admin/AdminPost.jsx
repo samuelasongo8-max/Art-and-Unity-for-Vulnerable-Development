@@ -62,20 +62,20 @@ const readJson = async (response) => response.json().catch(() => null);
 /**
  * POST /api/admin/upload — sends the chosen image to the server.
  *
- * The File is passed straight through as the request body with its own
- * Content-Type, which is why there is no FormData here: the server stores one
- * image and hands back its URL. The response URL is what goes into the post, so
- * the image is on disk and referenced by the database the moment this resolves —
- * which is why it survives a refresh, a logout and a server restart.
+ * The server expects one multipart field named "image". Let the browser set the
+ * multipart Content-Type and boundary; the returned Cloudinary URL is saved
+ * with the post.
  *
  * @returns {Promise<{ ok: boolean, url?: string, error?: string }>}
  */
 async function uploadImage(file) {
+  const formData = new FormData();
+  formData.append("image", file, file.name);
+
   const response = await fetch(apiUrl("/api/admin/upload"), {
     method: "POST",
-    headers: { "Content-Type": file.type || "application/octet-stream" },
     credentials: "include",
-    body: file,
+    body: formData,
   });
 
   const result = await readJson(response);
@@ -89,9 +89,9 @@ async function uploadImage(file) {
 /** The formats the picker offers, mirroring what the server accepts. */
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-/** The same 100 MB limit the server enforces. Checked here so the file is
+/** The same 10 MB limit the server enforces. Checked here so the file is
  *  refused before it is uploaded, not after. */
-const MAX_IMAGE_BYTES = 100 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 
 /* ==========================================================================
    THE RICH-TEXT EDITOR
