@@ -1,7 +1,9 @@
 import { apiUrl, imageUrl } from "../utils/api";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { toPlainText } from "../utils/richText";
+import SafeImage from "../components/SafeImage";
 import "./Blogs.css";
 
 /* ==========================================================================
@@ -37,13 +39,13 @@ const PREVIEW_LENGTH = 280;
  * @param {string} isoDate
  * @returns {string} e.g. "5 January 2026", or "" when there is no date.
  */
-function formatDate(isoDate) {
+function formatDate(isoDate, language) {
   if (typeof isoDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return "";
 
   const parsed = new Date(`${isoDate}T00:00:00Z`);
   if (Number.isNaN(parsed.getTime())) return "";
 
-  return parsed.toLocaleDateString("en-GB", {
+  return parsed.toLocaleDateString(language === "fr" ? "fr-FR" : "en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -68,9 +70,12 @@ function buildPreview(content) {
 }
 
 export default function Blogs() {
+  const { t, i18n } = useTranslation();
   const [blogs, setBlogs] = useState([]);
   const [status, setStatus] = useState("loading");
-  const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [requestNumber, setRequestNumber] = useState(0);
 
   const loadBlogs = useCallback(async () => {
     setStatus("loading");
@@ -83,45 +88,83 @@ export default function Blogs() {
       }
 
       setBlogs(result.blogs);
-      setError("");
       setStatus("ready");
-    } catch (loadError) {
-      setError(`The blogs could not be loaded (${loadError.message}).`);
+    } catch {
       setStatus("error");
     }
   }, []);
 
   useEffect(() => {
     loadBlogs();
-  }, [loadBlogs]);
+  }, [loadBlogs, requestNumber]);
+
+  const normalizedQuery = query.trim().toLocaleLowerCase(i18n.resolvedLanguage);
+  const filteredBlogs = blogs.filter((blog) => {
+    const text = `${blog.title} ${toPlainText(blog.content)}`.toLocaleLowerCase(i18n.resolvedLanguage);
+    return !normalizedQuery || text.includes(normalizedQuery);
+  });
+  const visibleBlogs = filteredBlogs.slice(0, visibleCount);
+
+  const handleSearch = (event) => {
+    setQuery(event.target.value);
+    setVisibleCount(6);
+  };
+
+  const retryLoad = () => {
+    setStatus("loading");
+    setRequestNumber((current) => current + 1);
+  };
 
   return (
     <main className="blogs-page">
+      <div className="blogs-toolbar">
+        <label className="blogs-search">
+          <span>{t("blogs.feed.searchLabel")}</span>
+          <input
+            type="search"
+            value={query}
+            onChange={handleSearch}
+            placeholder={t("blogs.feed.searchPlaceholder")}
+          />
+        </label>
+      </div>
+
       <div className="news-container">
         {status === "loading" ? (
-          <p className="auvd-admin-muted" role="status">
-            Loading...
-          </p>
+          <div className="blogs-state" role="status" aria-label={t("common.loading")}>
+            <span className="blogs-spinner" aria-hidden="true" />
+            <span>{t("common.loading")}</span>
+          </div>
         ) : status === "error" ? (
-          <p className="news-load-error" role="alert">
-            {error}
+          <div className="blogs-state" role="alert">
+            <p>{t("blogs.feed.error")}</p>
+            <button type="button" className="blogs-retry" onClick={retryLoad}>
+              {t("common.retry")}
+            </button>
+          </div>
+        ) : filteredBlogs.length === 0 ? (
+          <p className="news-load-error">
+            {normalizedQuery ? t("blogs.feed.noResults") : t("blogs.feed.empty")}
           </p>
-        ) : blogs.length === 0 ? (
-          <p className="news-load-error">No blogs have been published yet.</p>
         ) : (
-          blogs.map((blog) => {
+          visibleBlogs.map((blog) => {
             const preview = buildPreview(blog.content);
 
             return (
               <article className="news-card" key={blog.id}>
                 {blog.image ? (
-                  <img className="news-card-image" src={imageUrl(blog.image)} alt={blog.imageAlt || ""} />
+                  <SafeImage
+                    className="news-card-image"
+                    src={imageUrl(blog.image)}
+                    alt={blog.imageAlt || blog.title || ""}
+                    fallbackLabel={t("common.imageUnavailable")}
+                  />
                 ) : null}
 
                 <div className="news-card-content">
-                  {formatDate(blog.date) ? (
+                  {formatDate(blog.date, i18n.resolvedLanguage) ? (
                     <div className="news-meta">
-                      <span className="news-date">{formatDate(blog.date)}</span>
+                      <span className="news-date">{formatDate(blog.date, i18n.resolvedLanguage)}</span>
                     </div>
                   ) : null}
 
@@ -139,6 +182,15 @@ export default function Blogs() {
             );
           })
         )}
+        {status === "ready" && filteredBlogs.length > visibleBlogs.length ? (
+          <button
+            type="button"
+            className="blogs-retry blogs-load-more"
+            onClick={() => setVisibleCount((count) => count + 6)}
+          >
+            {t("common.loadMore")}
+          </button>
+        ) : null}
       </div>
     </main>
   );

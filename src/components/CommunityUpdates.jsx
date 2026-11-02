@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import SafeImage from "./SafeImage";
 import "./CommunityUpdates.css";
 import { updates } from "../data/updates";
 
@@ -104,6 +106,7 @@ function Placeholder({ label, big }) {
    /updates passes variant="page" for the full grid. Classes are
    prefixed p1-updates-* so nothing collides elsewhere. */
 export default function CommunityUpdates({ variant }) {
+  const { t } = useTranslation();
   const isPage = variant === "page";
   const trackRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -132,7 +135,12 @@ export default function CommunityUpdates({ variant }) {
       <article className="p1-updates-card" key={update.slug || update.title}>
         <Link to={update.to} className="p1-updates-img-link">
           {update.image ? (
-            <img src={update.image} alt={update.alt} loading="lazy" />
+            <SafeImage
+              className="p1-updates-card-image"
+              src={update.image}
+              alt={update.alt}
+              fallbackLabel={t("common.imageUnavailable")}
+            />
           ) : (
             <Placeholder label={update.alt} />
           )}

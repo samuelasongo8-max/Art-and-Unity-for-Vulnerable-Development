@@ -8,6 +8,13 @@
     "submit": "Submit",
     "loading": "Loading...",
     "backToTop": "Back to top",
+    "retry": "Retry",
+    "loadMore": "Load more",
+    "imageUnavailable": "Image unavailable",
+    "share": "Share",
+    "copyLink": "Copy link",
+    "copied": "Link copied",
+    "shareError": "Could not share this link.",
     "joinUs": "Join us",
     "readMoreArrow": "Read more →",
     "onThisPage": "On this page",
@@ -699,7 +706,10 @@
       "heading": "Our Posts",
       "intro": "These are some of the posts we share on our social media. If you don't follow us there, you can still catch our updates right here — we refresh this page roughly every two weeks.",
       "filtersLabel": "Filter posts by topic",
+      "searchLabel": "Search posts",
+      "searchPlaceholder": "Search by caption or topic",
       "empty": "No posts in this category yet.",
+      "noResults": "No posts match your search.",
       "loading": "Loading posts...",
       "error": "Couldn't load posts right now.",
       "filters": {
@@ -918,6 +928,13 @@
     }
   },
   "blogs": {
+    "feed": {
+      "searchLabel": "Search blogs",
+      "searchPlaceholder": "Search titles and article text",
+      "empty": "No blogs have been published yet.",
+      "noResults": "No blogs match your search.",
+      "error": "The blogs could not be loaded. Please try again."
+    },
     "hero": {
       "title": "Stories of Creativity, Hope & Impact",
       "intro": "Discover stories from AUVD’s work in Kakuma and beyond. Explore moments of creativity, music, peacebuilding, education, and community empowerment—and see how art and opportunity are helping children and young people build confidence, connection, and a brighter future.",

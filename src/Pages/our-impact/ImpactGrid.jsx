@@ -7,6 +7,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { formatDate, useWeeksAgo } from "../../utils/i18nFormat";
+import SafeImage from "../../components/SafeImage";
 import "../OurImpact.css";
 
 /* ==========================================================================
@@ -104,7 +105,12 @@ const ImpactGrid = ({ category, items }) => {
             return (
               <article key={id} className="auvd-impact-card">
                 {image ? (
-                  <img className={imageClass} src={image} alt={imageAlt} />
+                  <SafeImage
+                    className={imageClass}
+                    src={image}
+                    alt={imageAlt}
+                    fallbackLabel={t("common.imageUnavailable")}
+                  />
                 ) : (
                   <div
                     className={`${imageClass} auvd-impact-card-image--empty`}

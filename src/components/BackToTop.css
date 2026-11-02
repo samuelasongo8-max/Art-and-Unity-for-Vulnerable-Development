@@ -1,0 +1,33 @@
+.back-to-top {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 99;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  box-shadow: 0 3px 12px rgba(18, 57, 95, 0.28);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
+  background: var(--impact-blue-dark, #14507f);
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid var(--impact-orange, #ff6600);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+}

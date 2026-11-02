@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import SafeImage from "./SafeImage";
 import "./ImpactHero.css";
 
 /* Props — label, heading, paragraph, buttonText, buttonHref, image,
@@ -29,7 +30,15 @@ function ImpactHero({
 
   return (
     <section className="auvd-impact-hero">
-      <img className="auvd-impact-hero__image" src={image} alt={imageAlt} />
+      {image ? (
+        <SafeImage
+          className="auvd-impact-hero__image"
+          src={image}
+          alt={imageAlt}
+          loading="eager"
+          fallbackLabel={t("common.imageUnavailable")}
+        />
+      ) : null}
       <div className="auvd-impact-hero__overlay" aria-hidden="true"></div>
 
       <div className="auvd-impact-hero__content">

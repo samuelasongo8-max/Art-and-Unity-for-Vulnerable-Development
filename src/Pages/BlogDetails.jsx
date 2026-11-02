@@ -2,7 +2,9 @@ import { apiUrl, imageUrl } from "../utils/api";
 import ImpactHero from "../components/ImpactHero";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { hasHtml, sanitizeRichHtml } from "../utils/richText";
+import SafeImage from "../components/SafeImage";
 import "./BlogDetails.css";
 
 /* ==========================================================================
@@ -49,9 +51,11 @@ function toParagraphs(content) {
 
 export default function BlogDetails() {
   const { id } = useParams();
+  const { t } = useTranslation();
 
   const [blog, setBlog] = useState(null);
   const [status, setStatus] = useState("loading");
+  const [shareStatus, setShareStatus] = useState("");
 
   const loadBlog = useCallback(async () => {
     setStatus("loading");
@@ -87,6 +91,21 @@ export default function BlogDetails() {
     loadBlog();
   }, [loadBlog]);
 
+  const handleShare = async () => {
+    setShareStatus("");
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: blog.title, url: window.location.href });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareStatus(t("common.copied"));
+      }
+    } catch (error) {
+      if (error?.name === "AbortError") return;
+      setShareStatus(t("common.shareError"));
+    }
+  };
+
   const backLink = (
     <Link className="blog-details__back" to="/our-impact/blogs">
       <span aria-hidden="true">←</span> Back to Blogs
@@ -96,8 +115,9 @@ export default function BlogDetails() {
   if (status === "loading") {
     return (
       <main className="blog-details">
-        <div className="blog-details__message" role="status">
-          Loading...
+        <div className="blog-details__message" role="status" aria-label={t("common.loading")}>
+          <span className="blog-details__spinner" aria-hidden="true" />
+          <span>{t("common.loading")}</span>
         </div>
       </main>
     );
@@ -121,6 +141,9 @@ export default function BlogDetails() {
         <div className="blog-details__message">
           <h1>Something went wrong</h1>
           <p>We could not load this blog. Please try again shortly.</p>
+          <button type="button" className="blog-details__retry" onClick={loadBlog}>
+            {t("common.retry")}
+          </button>
           {backLink}
         </div>
       </main>
@@ -162,7 +185,19 @@ export default function BlogDetails() {
         />
       </div>
 
-      <div className="blog-details__back-wrap">{backLink}</div>
+      <div className="blog-details__back-wrap">
+        <div className="blog-details__actions">
+          {backLink}
+          <button type="button" className="blog-details__share" onClick={handleShare}>
+            {t("common.share")}
+          </button>
+        </div>
+        {shareStatus ? (
+          <p className="blog-details__share-status" role="status">
+            {shareStatus}
+          </p>
+        ) : null}
+      </div>
 
       {/* The article is built once and rendered in one of two layouts, so
           there is no duplicated markup between them.
@@ -173,10 +208,11 @@ export default function BlogDetails() {
       {blog.contentImage ? (
         <div className="blog-details__body">
           <figure className="blog-details__figure">
-            <img
+            <SafeImage
               className="blog-details__content-image"
               src={imageUrl(blog.contentImage)}
               alt={blog.imageAlt || blog.title || ""}
+              fallbackLabel={t("common.imageUnavailable")}
             />
           </figure>
 

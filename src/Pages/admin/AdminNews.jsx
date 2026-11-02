@@ -1,4 +1,5 @@
 import { apiUrl, imageUrl } from "../../utils/api";
+import SafeImage from "../../components/SafeImage";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminPost.css";
@@ -414,7 +415,12 @@ function AdminNews() {
               </p>
 
               {imagePreview || form.image ? (
-                <img className="auvd-admin-preview" src={imagePreview || imageUrl(form.image)} alt="" />
+                <SafeImage
+                  className="auvd-admin-preview"
+                  src={imagePreview || imageUrl(form.image)}
+                  alt=""
+                  fallbackLabel="Image preview unavailable"
+                />
               ) : null}
             </div>
 
@@ -474,7 +480,14 @@ function AdminNews() {
             <ul className="auvd-admin-list">
               {items.map((item) => (
                 <li className="auvd-admin-list-item" key={item.id}>
-                  {item.image ? <img className="auvd-admin-thumb" src={imageUrl(item.image)} alt="" /> : null}
+                  {item.image ? (
+                    <SafeImage
+                      className="auvd-admin-thumb"
+                      src={imageUrl(item.image)}
+                      alt=""
+                      fallbackLabel="Image unavailable"
+                    />
+                  ) : null}
 
                   <div className="auvd-admin-list-body">
                     <p className="auvd-admin-list-caption">{item.title?.en}</p>

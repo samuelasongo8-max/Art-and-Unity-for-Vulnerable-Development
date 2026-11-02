@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "../utils/i18nFormat";
+import SafeImage from "../components/SafeImage";
 import news from "../data/news.json";
 import "./News.css";
 
@@ -121,7 +122,12 @@ function News() {
   const renderCard = (item) => (
     <article className="auvd-news-card" key={item.id} id={item.id}>
       {item.image ? (
-        <img className="auvd-news-card__image" src={imageUrl(item.image)} alt={localized(item.imageAlt, lang)} />
+        <SafeImage
+          className="auvd-news-card__image"
+          src={imageUrl(item.image)}
+          alt={localized(item.imageAlt, lang)}
+          fallbackLabel={t("common.imageUnavailable")}
+        />
       ) : null}
       <div className="auvd-news-card__body">
         <time className="auvd-news-card__date" dateTime={item.date}>
@@ -138,7 +144,12 @@ function News() {
     <article className="auvd-news-featured" key={item.id} id={item.id}>
       {item.image ? (
         <div className="auvd-news-featured__media">
-          <img className="auvd-news-featured__image" src={imageUrl(item.image)} alt={localized(item.imageAlt, lang)} />
+          <SafeImage
+            className="auvd-news-featured__image"
+            src={imageUrl(item.image)}
+            alt={localized(item.imageAlt, lang)}
+            fallbackLabel={t("common.imageUnavailable")}
+          />
         </div>
       ) : null}
       <div className="auvd-news-featured__body">

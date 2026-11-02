@@ -24,11 +24,42 @@
 /* Feed ===================================================== */
 
 .auvd-post-feed {
-  /* One centred column, the width a real Instagram post renders at. */
-  max-width: 470px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
   margin: 28px auto 0;
   font-family: var(--font-heading);
   color: var(--impact-text, #1f2933);
+}
+
+.auvd-post-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 470px;
+  height: 100%;
+  justify-self: center;
+  margin: 0;
+}
+
+.auvd-post-feed > .auvd-post-empty,
+.auvd-post-feed > .auvd-post-state {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 640px) {
+  .auvd-post-feed {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .auvd-post-feed {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .auvd-post-feed *,
@@ -54,6 +85,32 @@
   justify-content: flex-start;
   gap: 8px;
   margin: 24px 0 0;
+}
+
+.auvd-post-search {
+  display: grid;
+  gap: 6px;
+  max-width: 470px;
+  margin: 20px auto 0;
+  color: var(--impact-muted, #52606d);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auvd-post-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 4px;
+  color: var(--impact-text, #1f2933);
+  font: inherit;
+}
+
+.auvd-post-search input:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
 }
 
 /* Every chip is the same fill: the navigation bar's own token,
@@ -111,11 +168,74 @@
   color: var(--impact-muted, #52606d);
 }
 
+.auvd-post-state {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 48px 16px;
+  color: var(--impact-muted, #52606d);
+  font-family: var(--font-body);
+  text-align: center;
+}
 
-/* A single post. Every card is identical — no featured size, no alternating
-   sides — exactly as a real feed reads. */
-.auvd-post-card {
+.auvd-post-state p {
+  margin: 0;
+}
+
+.auvd-post-spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #e6edf4;
+  border-bottom-color: var(--impact-blue, #1f76be);
+  border-radius: 50%;
+  animation: auvd-post-spin 0.8s linear infinite;
+}
+
+.auvd-post-retry {
+  justify-self: center;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auvd-post-retry:hover {
+  background: var(--impact-blue-dark, #14507f);
+}
+
+.auvd-post-retry:focus-visible {
+  outline: 3px solid var(--impact-orange, #ff6600);
+  outline-offset: 2px;
+}
+
+.auvd-post-load-more {
+  display: block;
+  grid-column: 1 / -1;
+  justify-self: center;
   margin: 0 0 36px;
+}
+
+@keyframes auvd-post-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auvd-post-spinner {
+    animation: none;
+  }
+}
+
+
+/* Every card is identical, and the grid stretches each row to equal height. */
+.auvd-post-card {
   min-width: 0;
   border: 1px solid #dbdbdb;
   border-radius: 0;
@@ -240,14 +360,4 @@
   font-weight: 600;
   line-height: 1.4;
   color: var(--impact-muted, #52606d);
-}
-
-/* Mobile (under 500px) ==================================== */
-
-@media (max-width: 500px) {
-  /* The column is already narrow, so it simply fills the width it has and the
-     header, image and caption stack exactly as they do on desktop. */
-  .auvd-post-feed {
-    max-width: 100%;
-  }
 }

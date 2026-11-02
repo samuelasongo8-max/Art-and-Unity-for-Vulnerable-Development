@@ -1,4 +1,5 @@
 import { apiUrl, imageUrl } from "../../utils/api";
+import SafeImage from "../../components/SafeImage";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill-new";
@@ -603,10 +604,11 @@ const AdminPost = () => {
                   because this is a preview, and the real alt text is the field
                   below. */}
               {imagePreview || form.image ? (
-                <img
+                <SafeImage
                   className="auvd-admin-preview"
                   src={imagePreview || imageUrl(form.image)}
                   alt=""
+                  fallbackLabel="Image preview unavailable"
                 />
               ) : null}
             </div>
@@ -699,7 +701,12 @@ const AdminPost = () => {
             <ul className="auvd-admin-list">
               {posts.map((post) => (
                 <li className="auvd-admin-list-item" key={post.id}>
-                  <img className="auvd-admin-thumb" src={imageUrl(post.image)} alt="" />
+                  <SafeImage
+                    className="auvd-admin-thumb"
+                    src={imageUrl(post.image)}
+                    alt=""
+                    fallbackLabel="Image unavailable"
+                  />
 
                   <div className="auvd-admin-list-body">
                     <p className="auvd-admin-list-caption">{post.caption}</p>

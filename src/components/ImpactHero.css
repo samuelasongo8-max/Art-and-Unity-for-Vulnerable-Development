@@ -28,6 +28,16 @@
   filter: brightness(0.72); /* keeps the photo from reading washed out */
 }
 
+.auvd-impact-hero__image.safe-image-fallback {
+  z-index: 0;
+  background: #0a1424;
+  color: #ffffff;
+}
+
+.auvd-impact-hero__image.safe-image-fallback span {
+  display: none;
+}
+
 .auvd-impact-hero__overlay {
   position: absolute;
   inset: 0;

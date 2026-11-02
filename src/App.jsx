@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DonateBanner from "./components/DonateBanner";
+import BackToTop from "./components/BackToTop";
 import { useEffect } from "react";
 import './App.css';
  
@@ -156,6 +157,7 @@ const Chrome = () => {
         <>
           <DonateBanner />
           <Footer />
+          <BackToTop />
         </>
       )}
     </>

@@ -576,7 +576,7 @@
   color: #ffffff;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1120px) {
   .logo {
     display: none;
   }
@@ -845,7 +845,7 @@
 
 /* ===================10. Our Impact Dropdown — mobile (indented list behind the chevron)
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 1120px) {
   .auvd-nav-parent {
     width: 100%;
     justify-content: space-between;
@@ -967,7 +967,7 @@
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1120px) {
   /* Shown in the header bar, immediately before the hamburger button. */
   .lang-switch--mobile-header {
     display: flex;
@@ -997,11 +997,11 @@
 }
 
 /* ==========================================================================
-   11. Desktop Nav Spacing (min-width: 1025px)
+   11. Desktop Nav Spacing (min-width: 1121px)
 
    Everything above this block is written for the mobile/tablet layout, whose
-   rules are all "max-width: 1024px". Scoping the desktop fixes with
-   "min-width: 1025px" means these declarations can never leak down into the
+   rules are all "max-width: 1120px". Scoping the desktop fixes with
+   "min-width: 1121px" means these declarations can never leak down into the
    mobile or tablet layouts, so those stay exactly as they are.
 
    WHY THE LOGO SAT FLUSH AGAINST "Home"
@@ -1035,7 +1035,7 @@
       exceeding the viewport, so the row can still shrink when the labels are
       too wide to fit (French).
    ========================================================================== */
-@media (min-width: 1025px) {
+@media (min-width: 1121px) {
   .nav-container {
     width: fit-content;
     max-width: 100%;
@@ -1060,26 +1060,11 @@
   }
 }
 
-/* The tightest desktop range: there is not enough width for the full 52px
-   plus the widest labels. Ease the logo gap and the link spacing off a
-   little so everything still sits on ONE line instead of wrapping.
-
-   NOTE ON WHAT THIS CAN AND CANNOT SOLVE
-   -------------------------------------
-   These are measured values, not guesses. At 1025px the desktop row still
-   runs past the right edge once the logo is no longer being crushed: the
-   original layout hid that overflow by shrinking .logo from 141px to 72px,
-   which made the wordmark overlap the first link. Giving the logo its real
-   width and asking for a gap spends that recovered width, so the tight end
-   needs the link spacing pulled in to pay for it.
-
-   The French labels cannot be made to fit at 1025px by spacing alone. Even
-   with the link gap closed to 0px the row still overruns by ~198px, because
-   the French text is ~1034px wide against ~977px of available space. Fixing
-   that last stretch needs a smaller font size or one fewer menu item, both of
-   which are outside "spacing only", so it is left as-is here rather than
-   changed silently. */
-@media (min-width: 1025px) and (max-width: 1319px) {
+/* The tightest desktop range has less room for the full logo margin and widest
+   labels, so the gaps contract slightly. Below this range the responsive menu
+   breakpoint keeps long translated labels from forcing the header wider than
+   the viewport. */
+@media (min-width: 1121px) and (max-width: 1319px) {
   .logo {
     margin-right: 32px;
   }

@@ -1,5 +1,6 @@
 import { apiUrl, imageUrl } from "../../utils/api";
 import { toPlainText } from "../../utils/richText";
+import SafeImage from "../../components/SafeImage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
@@ -472,7 +473,12 @@ export default function BlogManagement() {
             </p>
 
             {imagePreview || form.image ? (
-              <img className="auvd-admin-preview" src={imagePreview || imageUrl(form.image)} alt="" />
+              <SafeImage
+                className="auvd-admin-preview"
+                src={imagePreview || imageUrl(form.image)}
+                alt=""
+                fallbackLabel="Image preview unavailable"
+              />
             ) : null}
           </div>
 
@@ -506,10 +512,11 @@ export default function BlogManagement() {
             </p>
 
             {contentImagePreview || form.contentImage ? (
-              <img
+              <SafeImage
                 className="auvd-admin-preview"
                 src={contentImagePreview || imageUrl(form.contentImage)}
                 alt=""
+                fallbackLabel="Image preview unavailable"
               />
             ) : null}
           </div>
@@ -571,7 +578,14 @@ export default function BlogManagement() {
 
               return (
                 <li className="auvd-admin-list-item" key={blog.id}>
-                  {blog.image ? <img className="auvd-admin-thumb" src={imageUrl(blog.image)} alt="" /> : null}
+                  {blog.image ? (
+                    <SafeImage
+                      className="auvd-admin-thumb"
+                      src={imageUrl(blog.image)}
+                      alt=""
+                      fallbackLabel="Image unavailable"
+                    />
+                  ) : null}
 
                   <div className="auvd-admin-list-body">
                     <p className="auvd-admin-list-caption">{blog.title}</p>

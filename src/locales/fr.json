@@ -8,6 +8,13 @@
     "submit": "Envoyer",
     "loading": "Chargement...",
     "backToTop": "Retour en haut",
+    "retry": "Réessayer",
+    "loadMore": "Afficher plus",
+    "imageUnavailable": "Image indisponible",
+    "share": "Partager",
+    "copyLink": "Copier le lien",
+    "copied": "Lien copié",
+    "shareError": "Impossible de partager ce lien.",
     "joinUs": "Rejoignez-nous",
     "readMoreArrow": "Lire la suite →",
     "onThisPage": "Sur cette page",
@@ -699,7 +706,10 @@
       "heading": "Nos publications",
       "intro": "Voici quelques-unes des publications que nous partageons sur nos réseaux sociaux. Si vous ne nous suivez pas là-bas, vous pouvez tout de même voir nos actualités ici — nous mettons cette page à jour environ toutes les deux semaines.",
       "filtersLabel": "Filtrer les publications par thème",
+      "searchLabel": "Rechercher des publications",
+      "searchPlaceholder": "Rechercher par légende ou thème",
       "empty": "Aucune publication dans cette catégorie pour le moment.",
+      "noResults": "Aucune publication ne correspond à votre recherche.",
       "loading": "Chargement des publications...",
       "error": "Impossible de charger les publications pour le moment.",
       "filters": {
@@ -918,6 +928,13 @@
     }
   },
   "blogs": {
+    "feed": {
+      "searchLabel": "Rechercher des blogs",
+      "searchPlaceholder": "Rechercher dans les titres et les articles",
+      "empty": "Aucun blog n’a encore été publié.",
+      "noResults": "Aucun blog ne correspond à votre recherche.",
+      "error": "Impossible de charger les blogs. Veuillez réessayer."
+    },
     "hero": {
       "title": "Des récits de créativité, d’espoir et d’impact",
       "intro": "Découvrez des récits du travail d’AUVD à Kakuma et au-delà. Explorez des moments de créativité, de musique, de construction de la paix, d’éducation et d’autonomisation communautaire — et voyez comment l’art et les opportunités aident les enfants et les jeunes à construire confiance, lien social et un avenir plus lumineux.",

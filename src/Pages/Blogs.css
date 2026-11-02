@@ -1,30 +1,17 @@
 /* ==========================================================================
    Blogs.css — the public Blog page (/our-impact/blogs).
 
-   SCOPING NOTE — PLEASE READ BEFORE EDITING
-   ----------------------------------------
-   These .news-* class names are ALSO used by the News page (src/Pages/News.css
-   and src/Pages/News.jsx). That is deliberate and safe, because each stylesheet
-   is imported by exactly one page:
-
-     Blogs.css  -> only src/Pages/Blogs.jsx   (this file)
-     News.css   -> only src/Pages/News.jsx    (untouched)
-
-   Vite injects a stylesheet only when the page that imports it mounts, and
-   /our-impact/blogs and /news are different routes, so the two are never on
-   screen at the same time. Keep it that way: do not import News.css here, and
-   do not import Blogs.css in News.jsx, or these rules would collide.
-
-   The class names are kept as specified rather than namespaced so the markup
-   matches the agreed design. The grid moves from one column on mobile to two
-   on tablets and three on desktop.
+   The .news-* classes are local to the Blog feed. The separate News page uses
+   .auvd-news-* classes, so both global stylesheets can safely be loaded by
+   Vite without selector collisions. The grid moves from one column on mobile
+   to two on tablets and three on desktop.
    ========================================================================== */
 
 /* Main container */
 .news-container {
   /* The banner height is held in one place so the image and the orange hover
      tint (which is sized to sit over the image only) can never drift apart. */
-  --news-image-h: 300px;
+  --news-image-h: 220px;
 
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -34,6 +21,36 @@
   padding: 40px 20px;
 }
 
+.blogs-toolbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 0;
+}
+
+.blogs-search {
+  display: grid;
+  gap: 6px;
+  max-width: 420px;
+  color: var(--impact-muted, #52606d);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.blogs-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--impact-border, #dde5ee);
+  border-radius: 6px;
+  color: var(--impact-text, #1f2933);
+  font: inherit;
+}
+
+.blogs-search input:focus-visible {
+  outline: 2px solid var(--impact-blue, #1f76be);
+  outline-offset: 2px;
+}
+
 /* Individual news item */
 .news-card {
   position: relative;
@@ -41,6 +58,9 @@
   flex-direction: column;
   min-width: 0;
   height: 100%;
+  width: 100%;
+  max-width: 380px;
+  justify-self: center;
 
   /* Clips the zoomed image. The radius mirrors the image's own
      0 0 8px 8px, so the square top corners stay square and the bottom corners
@@ -142,7 +162,9 @@
 /* Category + date */
 .news-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  min-width: 0;
   gap: 14px;
   margin-bottom: 20px;
 }
@@ -166,6 +188,7 @@
 .news-date {
   font-size: 14px;
   color: #777777;
+  overflow-wrap: anywhere;
 }
 
 /* Title */
@@ -221,6 +244,68 @@
   color: #555555;
 }
 
+.blogs-state {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 48px 16px;
+  color: var(--impact-muted, #52606d);
+  text-align: center;
+}
+
+.blogs-state p {
+  margin: 0;
+}
+
+.blogs-spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #e6edf4;
+  border-bottom-color: var(--impact-blue, #1f76be);
+  border-radius: 50%;
+  animation: blogs-spin 0.8s linear infinite;
+}
+
+.blogs-retry {
+  justify-self: center;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--impact-blue, #1f76be);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.blogs-retry:hover {
+  background: var(--impact-blue-dark, #14507f);
+}
+
+.blogs-retry:focus-visible {
+  outline: 3px solid var(--impact-orange, #ff6600);
+  outline-offset: 2px;
+}
+
+.blogs-load-more {
+  grid-column: 1 / -1;
+  margin: 0 auto;
+}
+
+@keyframes blogs-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blogs-spinner {
+    animation: none;
+  }
+}
+
 /* A card with no image has no 300px banner for the white box to overlap, so
    without this the -60px margin would pull the content over the card above. */
 .news-card:not(:has(.news-card-image)) .news-card-content {
@@ -249,10 +334,8 @@
 /* Mobile */
 @media (max-width: 768px) {
   .news-container {
-    /* Same 240px banner as before — the value simply moves into the shared
-       variable so the orange tint resizes with the image. */
-    --news-image-h: 240px;
-
+    /* The banner height is shared with the tint so they stay aligned. */
+    --news-image-h: 200px;
     gap: 35px;
     padding: 30px 15px;
   }

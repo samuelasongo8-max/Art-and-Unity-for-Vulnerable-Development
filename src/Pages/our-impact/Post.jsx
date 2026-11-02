@@ -3,8 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaHeart, FaPaperPlane } from "react-icons/fa6";
 import { formatDate } from "../../utils/i18nFormat";
-import { hasHtml, sanitizeRichHtml } from "../../utils/richText";
+import { hasHtml, sanitizeRichHtml, toPlainText } from "../../utils/richText";
 import avatar from "../../assets/logo1.png";
+import SafeImage from "../../components/SafeImage";
 import "./Post.css";
 
 /* ==========================================================================
@@ -29,9 +30,8 @@ import "./Post.css";
    dashboard appears here straight away. src/data/moments.json was migrated
    into the database by scripts/migrate-moments.mjs and is now only a backup.
 
-   The design below — the card, the filter chips, the topic filtering, the
-   empty state — is exactly as it was when the data came from the file. Only
-   where the data comes from has changed.
+   The feed uses an equal-height responsive grid, topic filters and searchable
+   previews while retaining the existing Instagram-inspired card design.
    ========================================================================== */
 
 /* The five chips, in the order they are shown. "all" is a local sentinel, not
@@ -65,12 +65,11 @@ const Post = ({ entry, language }) => (
       </time>
     </header>
 
-    <img
+    <SafeImage
       className="auvd-post-image"
       src={imageUrl(entry.image)}
       alt={entry.imageAlt}
-      loading="lazy"
-      decoding="async"
+      fallbackLabel={entry.imageUnavailable}
     />
 
     {/* Decorative only. There is no backend, no like counter and no share
@@ -116,15 +115,13 @@ const Post = ({ entry, language }) => (
 const PostFeed = () => {
   const { t, i18n } = useTranslation();
   const [activeFilter, setActiveFilter] = useState("all");
+  const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(6);
 
-  /* The three states the feed can be in. "loading" is a real state rather than
-     an empty list, so the page can say "Loading posts…" instead of briefly
-     showing "No posts in this category yet." and then correcting itself. */
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState("loading"); // loading | ready | error
+  const [requestNumber, setRequestNumber] = useState(0);
 
-  /* The feed is public, so this needs no credentials and no session: the same
-     posts any visitor can see, fetched the same way. */
   useEffect(() => {
     const controller = new AbortController();
 
@@ -159,10 +156,8 @@ const PostFeed = () => {
 
     load();
 
-    /* Aborting on cleanup means a slow request cannot resolve after the
-       component is gone. */
     return () => controller.abort();
-  }, []);
+  }, [requestNumber]);
 
   const allPosts = useMemo(
     () =>
@@ -176,16 +171,45 @@ const PostFeed = () => {
         .map((entry) => ({
           ...entry,
           topicLabel: t(`impact.post.topics.${entry.topic}`),
+          imageUnavailable: t("common.imageUnavailable"),
         })),
     [posts, t]
   );
 
-  const visiblePosts = useMemo(
-    () =>
-      activeFilter === "all"
-        ? allPosts
-        : allPosts.filter((entry) => entry.topic === activeFilter),
-    [allPosts, activeFilter]
+  const filteredPosts = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase(i18n.resolvedLanguage);
+
+    return allPosts.filter((entry) => {
+      const matchesTopic = activeFilter === "all" || entry.topic === activeFilter;
+      const searchableText = `${entry.caption} ${toPlainText(entry.paragraph)} ${entry.topicLabel}`
+        .toLocaleLowerCase(i18n.resolvedLanguage);
+
+      return matchesTopic && (!normalizedQuery || searchableText.includes(normalizedQuery));
+    });
+  }, [allPosts, activeFilter, i18n.resolvedLanguage, query]);
+
+  const visiblePosts = filteredPosts.slice(0, visibleCount);
+
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+    setVisibleCount(6);
+  };
+
+  const handleSearchChange = (event) => {
+    setQuery(event.target.value);
+    setVisibleCount(6);
+  };
+
+  const retryFetch = () => {
+    setStatus("loading");
+    setRequestNumber((current) => current + 1);
+  };
+
+  const loadingContent = (
+    <div className="auvd-post-state" role="status" aria-label={t("impact.post.loading")}>
+      <span className="auvd-post-spinner" aria-hidden="true" />
+      <span>{t("impact.post.loading")}</span>
+    </div>
   );
 
   return (
@@ -212,7 +236,7 @@ const PostFeed = () => {
               type="button"
               className={`auvd-post-filter${isActive ? " auvd-post-filter--active" : ""}`}
               aria-pressed={isActive}
-              onClick={() => setActiveFilter(filter.value)}
+              onClick={() => handleFilterChange(filter.value)}
             >
               {t(filter.labelKey)}
             </button>
@@ -220,24 +244,45 @@ const PostFeed = () => {
         })}
       </div>
 
+      <label className="auvd-post-search">
+        <span>{t("impact.post.searchLabel")}</span>
+        <input
+          type="search"
+          value={query}
+          onChange={handleSearchChange}
+          placeholder={t("impact.post.searchPlaceholder")}
+        />
+      </label>
+
       <div className="auvd-post-feed">
-        {/* Three states, and only the third is a real "nothing here". While
-            loading, the chips stay usable and the visitor sees a short line
-            rather than an empty page. */}
         {status === "loading" ? (
-          <p className="auvd-post-empty" role="status">
-            {t("impact.post.loading")}
-          </p>
+          loadingContent
         ) : status === "error" ? (
-          <p className="auvd-post-empty" role="status">
-            {t("impact.post.error")}
-          </p>
+          <div className="auvd-post-state" role="alert">
+            <p>{t("impact.post.error")}</p>
+            <button type="button" className="auvd-post-retry" onClick={retryFetch}>
+              {t("common.retry")}
+            </button>
+          </div>
         ) : visiblePosts.length === 0 ? (
-          <p className="auvd-post-empty">{t("impact.post.empty")}</p>
+          <p className="auvd-post-empty">
+            {query.trim() ? t("impact.post.noResults") : t("impact.post.empty")}
+          </p>
         ) : (
-          visiblePosts.map((entry) => (
-            <Post key={entry.id} entry={entry} language={i18n.language} />
-          ))
+          <>
+            {visiblePosts.map((entry) => (
+              <Post key={entry.id} entry={entry} language={i18n.language} />
+            ))}
+            {filteredPosts.length > visiblePosts.length ? (
+              <button
+                type="button"
+                className="auvd-post-retry auvd-post-load-more"
+                onClick={() => setVisibleCount((count) => count + 6)}
+              >
+                {t("common.loadMore")}
+              </button>
+            ) : null}
+          </>
         )}
       </div>
     </>
