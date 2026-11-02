@@ -72,11 +72,19 @@ async function uploadImage(file) {
   const formData = new FormData();
   formData.append("image", file, file.name);
 
-  const response = await fetch(apiUrl("/api/admin/upload"), {
-    method: "POST",
-    credentials: "include",
-    body: formData,
-  });
+  let response;
+  try {
+    response = await fetch(apiUrl("/api/admin/upload"), {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+  } catch (error) {
+    return {
+      ok: false,
+      error: `Could not reach the image upload service: ${error?.message ?? "Network error."}`,
+    };
+  }
 
   const result = await readJson(response);
   if (!response.ok || !result?.ok) {

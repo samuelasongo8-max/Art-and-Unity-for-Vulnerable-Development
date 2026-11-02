@@ -96,11 +96,19 @@ async function uploadImage(file) {
   const formData = new FormData();
   formData.append("image", file, file.name);
 
-  const response = await fetch(apiUrl("/api/admin/upload"), {
-    method: "POST",
-    credentials: "include",
-    body: formData,
-  });
+  let response;
+  try {
+    response = await fetch(apiUrl("/api/admin/upload"), {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+  } catch (error) {
+    return {
+      ok: false,
+      error: `Could not reach the image upload service: ${error?.message ?? "Network error."}`,
+    };
+  }
 
   const result = await readJson(response);
   if (!response.ok || !result?.ok) {
@@ -207,6 +215,7 @@ export default function BlogManagement() {
 
   const handleImage = async (event) => {
     const file = event.target.files?.[0];
+    event.target.value = "";
     if (!file) return;
 
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
@@ -235,6 +244,9 @@ export default function BlogManagement() {
     if (!result.ok) {
       setFormError(result.error);
       setUploading(false);
+      releasePreview();
+      setImagePreview("");
+      setImageName("");
       return;
     }
 
@@ -251,6 +263,7 @@ export default function BlogManagement() {
   /* Uploads through the SAME /api/admin/upload endpoint as the hero image. */
   const handleContentImage = async (event) => {
     const file = event.target.files?.[0];
+    event.target.value = "";
     if (!file) return;
 
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
@@ -278,6 +291,10 @@ export default function BlogManagement() {
     if (!result.ok) {
       setFormError(result.error);
       setUploadingContent(false);
+      if (contentPreviewUrlRef.current) URL.revokeObjectURL(contentPreviewUrlRef.current);
+      contentPreviewUrlRef.current = "";
+      setContentImagePreview("");
+      setContentImageName("");
       return;
     }
 
