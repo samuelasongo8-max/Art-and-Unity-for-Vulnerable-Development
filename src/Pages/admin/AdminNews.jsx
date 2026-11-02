@@ -301,7 +301,7 @@ function AdminNews() {
 
   if (auth === "checking") {
     return (
-      <main className="auvd-admin-dash">
+      <main className="auvd-admin">
         <p className="auvd-admin-muted" role="status">
           Checking...
         </p>
@@ -310,20 +310,22 @@ function AdminNews() {
   }
 
   return (
-    <main className="auvd-admin-dash">
-      <header className="auvd-admin-dash-head">
-        <h1 className="auvd-admin-dash-title">News Management</h1>
-        <p className="auvd-admin-muted">
-          Publish a news item and it appears on the public News page immediately, ordered by date.
-          The news already on the site is managed separately and is not listed or altered here.
-        </p>
+    <main className="auvd-admin">
+      <header className="auvd-admin-header">
+        <div>
+          <h1 className="auvd-admin-title">News Management</h1>
+          <p className="auvd-admin-subtitle">
+            Publish a news item and it appears on the public News page immediately, ordered by date.
+            The news already on the site is managed separately and is not listed or altered here.
+          </p>
+        </div>
       </header>
 
-      <div className="auvd-admin-dash-grid">
+      <div className="auvd-admin-grid">
         <section className="auvd-admin-panel">
           <h2 className="auvd-admin-panel-title">{editingId ? "Edit News" : "Add News"}</h2>
 
-          <form className="auvd-admin-form" onSubmit={handleSubmit} noValidate>
+          <form className="auvd-admin-dash-form" onSubmit={handleSubmit} noValidate>
             <div className="auvd-admin-dash-field">
               <label htmlFor="an-title">Title</label>
               <input

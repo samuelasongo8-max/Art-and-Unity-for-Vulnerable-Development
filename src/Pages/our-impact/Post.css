@@ -116,8 +116,10 @@
    sides — exactly as a real feed reads. */
 .auvd-post-card {
   margin: 0 0 36px;
+  min-width: 0;
   border: 1px solid #dbdbdb;
   border-radius: 0;
+  overflow: hidden;
   background-color: #ffffff;
 }
 
@@ -126,6 +128,7 @@
 .auvd-post-head {
   display: flex;
   align-items: center;
+  min-width: 0;
   gap: 10px;
   padding: 12px 14px;
   border-bottom: 1px solid #dbdbdb;
@@ -143,6 +146,8 @@
 }
 
 .auvd-post-account {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
@@ -193,12 +198,17 @@
 /* The caption is an h3 for document structure but is set as body text, with
    the account name bold inline — the way Instagram runs the two together. */
 .auvd-post-caption {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
   margin: 0;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
   color: var(--impact-text, #1f2933);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .auvd-post-caption-account {
@@ -206,11 +216,20 @@
 }
 
 .auvd-post-paragraph {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
   margin: 8px 0 0;
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   color: var(--impact-text, #1f2933);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.auvd-post-paragraph > * {
+  overflow-wrap: anywhere;
 }
 
 /* Understated topic tag: small and muted, not a coloured badge. */

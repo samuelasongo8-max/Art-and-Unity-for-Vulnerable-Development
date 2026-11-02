@@ -16,8 +16,8 @@
    do not import Blogs.css in News.jsx, or these rules would collide.
 
    The class names are kept as specified rather than namespaced so the markup
-   matches the agreed design. The layout below is the desktop two-column grid,
-   with a single-column fallback on small screens.
+   matches the agreed design. The grid moves from one column on mobile to two
+   on tablets and three on desktop.
    ========================================================================== */
 
 /* Main container */
@@ -27,7 +27,7 @@
   --news-image-h: 300px;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 55px;
   max-width: 1200px;
   margin: 0 auto;
@@ -37,6 +37,10 @@
 /* Individual news item */
 .news-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
 
   /* Clips the zoomed image. The radius mirrors the image's own
      0 0 8px 8px, so the square top corners stay square and the bottom corners
@@ -121,7 +125,12 @@
 /* White content box */
 .news-card-content {
   position: relative;
-  width: calc(100% - 10px);
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  width: calc(100% - 20px);
   margin: -60px auto 0;
   background: #ffffff;
   border-radius: 8px;
@@ -162,19 +171,29 @@
 /* Title */
 .news-title {
   margin: 0 0 28px;
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
   font-family: var(--font-heading-serif);
   font-size: 21px;
   line-height: 1.35;
   font-weight: 700;
   color: var(--impact-navy, #12395f);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 /* The article preview. Not part of the agreed stylesheet, so it is kept
    deliberately plain and inherits the page's text colour. */
 .news-excerpt {
   margin: 0 0 24px;
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
   line-height: 1.6;
   color: #333333;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 /* Read more */
@@ -187,6 +206,7 @@
   font-weight: 600;
   text-decoration: none;
   transition: gap 0.2s ease;
+  margin-top: auto;
 }
 
 .news-read-more:hover {
@@ -207,6 +227,18 @@
   margin-top: 0;
 }
 
+@media (min-width: 640px) {
+  .news-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Tablet */
 @media (max-width: 1024px) {
   .news-container {
@@ -221,7 +253,6 @@
        variable so the orange tint resizes with the image. */
     --news-image-h: 240px;
 
-    grid-template-columns: 1fr;
     gap: 35px;
     padding: 30px 15px;
   }
@@ -232,5 +263,12 @@
 
   .news-card-content {
     padding: 28px 24px 32px;
+  }
+}
+
+@media (max-width: 639px) {
+  .news-container {
+    gap: 28px;
+    padding: 24px 15px;
   }
 }

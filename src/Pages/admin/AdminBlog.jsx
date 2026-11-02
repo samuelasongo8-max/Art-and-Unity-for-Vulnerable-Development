@@ -1,4 +1,5 @@
 import { apiUrl, imageUrl } from "../../utils/api";
+import { toPlainText } from "../../utils/richText";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
@@ -565,32 +566,34 @@ export default function BlogManagement() {
           <p className="auvd-admin-muted">No blogs saved yet. Use the form above to add your first one.</p>
         ) : (
           <ul className="auvd-admin-list">
-            {blogs.map((blog) => (
-              <li className="auvd-admin-list-item" key={blog.id}>
-                {blog.image ? <img className="auvd-admin-thumb" src={imageUrl(blog.image)} alt="" /> : null}
+            {blogs.map((blog) => {
+              const preview = toPlainText(blog.content);
 
-                <div className="auvd-admin-list-body">
-                  <p className="auvd-admin-list-caption">{blog.title}</p>
-                  <p className="auvd-admin-list-meta">
-                    {blog.date}
-                    {blog.content && blog.content.length > PREVIEW_LENGTH
-                      ? ` · ${blog.content.slice(0, PREVIEW_LENGTH).trimEnd()}...`
-                      : blog.content
-                        ? ` · ${blog.content}`
+              return (
+                <li className="auvd-admin-list-item" key={blog.id}>
+                  {blog.image ? <img className="auvd-admin-thumb" src={imageUrl(blog.image)} alt="" /> : null}
+
+                  <div className="auvd-admin-list-body">
+                    <p className="auvd-admin-list-caption">{blog.title}</p>
+                    <p className="auvd-admin-list-meta">
+                      {blog.date}
+                      {preview
+                        ? ` · ${preview.slice(0, PREVIEW_LENGTH).trimEnd()}${preview.length > PREVIEW_LENGTH ? "..." : ""}`
                         : ""}
-                  </p>
-                </div>
+                    </p>
+                  </div>
 
-                <div className="auvd-admin-list-buttons">
-                  <button type="button" className="auvd-admin-secondary" onClick={() => handleEdit(blog)}>
-                    Edit
-                  </button>
-                  <button type="button" className="auvd-admin-danger" onClick={() => handleDelete(blog)}>
-                    Delete
-                  </button>
-                </div>
-              </li>
-            ))}
+                  <div className="auvd-admin-list-buttons">
+                    <button type="button" className="auvd-admin-secondary" onClick={() => handleEdit(blog)}>
+                      Edit
+                    </button>
+                    <button type="button" className="auvd-admin-danger" onClick={() => handleDelete(blog)}>
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>

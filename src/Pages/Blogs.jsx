@@ -27,7 +27,7 @@ import "./Blogs.css";
    opens its own article.
    ========================================================================== */
 
-/** How much of the article a card shows before the Read More affordance. */
+/** Maximum preview length; the card CSS also clamps it to three lines. */
 const PREVIEW_LENGTH = 280;
 
 /**
@@ -50,11 +50,6 @@ function formatDate(isoDate) {
     timeZone: "UTC",
   });
 }
-
-/** True when the article is longer than the preview, i.e. Read More is needed.
- *  Measured on the CLEANED text: markup is not content, so a short rich-text
- *  article must not grow a Read More link just because its tags are long. */
-const isTruncated = (content) => toPlainText(content).length > PREVIEW_LENGTH;
 
 /**
  * Builds the short text a blog card shows.
@@ -134,7 +129,7 @@ export default function Blogs() {
 
                   <p className="news-excerpt">{preview}</p>
 
-                  {isTruncated(blog.content) ? (
+                  {preview ? (
                     <Link className="news-read-more" to={`/blog/${blog.id}`}>
                       Read More <span aria-hidden="true">→</span>
                     </Link>
