@@ -48,24 +48,30 @@ const port = Number(process.env.PORT || 5000);
    credentials.
 --------------------------------------------------------------------------- */
 
-/** The dev origins used when ALLOWED_ORIGINS is not set. Named, never "*". */
-const DEFAULT_DEV_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"];
+/** Required app origins plus local dev servers. Named, never "*". */
+const REQUIRED_ALLOWED_ORIGINS = [
+  "http://localhost:5173",
+  "http://localhost:5176",
+  "http://localhost:3000",
+  "http://127.0.0.1:5173",
+  "https://art-and-unity-for-vulnerable-develo.vercel.app",
+];
 
-const allowedOrigins = new Set(
-  String(process.env.ALLOWED_ORIGINS ?? "")
-    .split(",")
-    .map((value) => value.trim())
-    .filter(Boolean)
-    /* A wildcard cannot be combined with credentials, so it is dropped here
-       rather than echoed back to the browser. */
-    .filter((value) => value !== "*")
-    .map((value) => value.replace(/\/+$/, ""))
-);
+const allowedOrigins = new Set(REQUIRED_ALLOWED_ORIGINS);
+for (const origin of String(process.env.ALLOWED_ORIGINS ?? "")
+  .split(",")
+  .map((value) => value.trim())
+  .filter(Boolean)
+  /* A wildcard cannot be combined with credentials, so it is dropped here
+     rather than echoed back to the browser. */
+  .filter((value) => value !== "*")
+  .map((value) => value.replace(/\/+$/, ""))) {
+  allowedOrigins.add(origin);
+}
 
-if (allowedOrigins.size === 0) {
-  for (const origin of DEFAULT_DEV_ORIGINS) allowedOrigins.add(origin);
+if (!process.env.ALLOWED_ORIGINS?.trim()) {
   console.log(
-    `[cors] ALLOWED_ORIGINS is not set — allowing the local dev origins only: ${[...allowedOrigins].join(", ")}`
+    `[cors] ALLOWED_ORIGINS is not set — using required app and local development origins: ${[...allowedOrigins].join(", ")}`
   );
 }
 

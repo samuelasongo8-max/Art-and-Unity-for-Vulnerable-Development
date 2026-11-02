@@ -78,15 +78,11 @@ function VideoSection() {
                     >
                       <img
                         className="p1-card__img"
-                        src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
                         alt={t(video.titleKey)}
                         loading="lazy"
                         onError={(event) => {
-                          const img = event.currentTarget;
-                          if (img.dataset.fallback !== "1") {
-                            img.dataset.fallback = "1";
-                            img.src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
-                          }
+                          event.currentTarget.style.visibility = "hidden";
                         }}
                       />
                       <span className="p1-card__play" aria-hidden="true">
