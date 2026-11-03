@@ -1,7 +1,41 @@
 import { Link } from "react-router-dom";
 import { updates } from "../data/updates";
+import { getDriveImageUrl } from "../utils/reportLinks";
 
 export { updates };
+
+export function toCommunityUpdate(update) {
+  if (!update || typeof update !== "object") return null;
+
+  const title = typeof update.title === "string" ? update.title : "";
+  const slug = typeof update.slug === "string" ? update.slug : "";
+  if (!title || !slug) return null;
+
+  const rawBody = update.body;
+  const body = Array.isArray(rawBody)
+    ? rawBody
+    : typeof rawBody === "string"
+      ? rawBody.split(/\n\s*\n/).map((text) => text.trim()).filter(Boolean).map((text) => ({ type: "p", text }))
+      : [];
+  const excerpt = typeof update.excerpt === "string" ? update.excerpt : "";
+  const createdAt = typeof update.createdAt === "string" ? update.createdAt : "";
+  const category = typeof update.category === "string" ? update.category : "";
+  const author = typeof update.author === "string" ? update.author : "";
+
+  return {
+    ...update,
+    slug,
+    title,
+    image: getDriveImageUrl(update.imageUrl || update.image || ""),
+    alt: update.alt || update.imageAlt || title,
+    to: update.to || `/updates/${encodeURIComponent(slug)}`,
+    date: update.date || (createdAt ? createdAt.slice(0, 10) : ""),
+    place: update.place || [category, author].filter(Boolean).join(" · "),
+    preview: update.preview || excerpt || body.find((block) => block.type === "p")?.text || "",
+    body,
+    readMore: update.readMore || "Read more",
+  };
+}
 
 const MONTH_ABBR = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",

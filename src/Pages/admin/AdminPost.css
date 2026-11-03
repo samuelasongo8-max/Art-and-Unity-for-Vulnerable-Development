@@ -860,12 +860,8 @@
   resize: vertical;
 }
 
-.admin-cu-file {
-  max-width: 100%;
-  padding: 4px 0;
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--impact-text, #1f2933);
+.admin-cu-excerpt {
+  min-height: 76px;
 }
 
 .admin-cu-hint {
@@ -909,22 +905,17 @@
   background-color: #f5f6f8;
 }
 
-.admin-cu-remove-img {
-  border: 1px solid #d0a3a0;
-  border-radius: 0;
-  background-color: #ffffff;
-  color: #b42318;
-  padding: 7px 12px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+.admin-cu-list-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e4e8;
 }
 
-.admin-cu-remove-img:hover {
-  border-color: #b42318;
-  background-color: #b42318;
-  color: #ffffff;
+.admin-cu-list-title {
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--impact-text, #1f2933);
 }
 
 .admin-cu-submit {

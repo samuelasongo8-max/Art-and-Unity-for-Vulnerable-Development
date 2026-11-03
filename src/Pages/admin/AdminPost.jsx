@@ -247,16 +247,24 @@ const AdminPost = () => {
   const [reportFormOpen, setReportFormOpen] = useState(false);
   const reportSuccessTimer = useRef(null);
 
-  const [cuTitle, setCuTitle] = useState("");
-  const [cuDate, setCuDate] = useState("");
-  const [cuImage, setCuImage] = useState(null);
-  const [cuImagePreview, setCuImagePreview] = useState(null);
-  const [cuText, setCuText] = useState("");
-  const [cuErrors, setCuErrors] = useState({});
-  const [cuSuccess, setCuSuccess] = useState(false);
-  const [cuSubmitting, setCuSubmitting] = useState(false);
-  const cuImageRef = useRef(null);
-  const cuSuccessTimer = useRef(null);
+  const [updateTitle, setUpdateTitle] = useState("");
+  const [updateBody, setUpdateBody] = useState("");
+  const [updateExcerpt, setUpdateExcerpt] = useState("");
+  const [updateCategory, setUpdateCategory] = useState("Community");
+  const [updateImageUrl, setUpdateImageUrl] = useState("");
+  const [updateAuthor, setUpdateAuthor] = useState("");
+  const [updateImageErr, setUpdateImageErr] = useState(false);
+  const [updateErrors, setUpdateErrors] = useState({});
+  const [updateSubmitting, setUpdateSubmitting] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [updates, setUpdates] = useState([]);
+  const [updatesStatus, setUpdatesStatus] = useState("loading");
+  const [updatesListError, setUpdatesListError] = useState("");
+  const [editingUpdateId, setEditingUpdateId] = useState(null);
+  const [updateDeleteConfirm, setUpdateDeleteConfirm] = useState(null);
+  const [updateDeleteLoading, setUpdateDeleteLoading] = useState(false);
+  const [updateDeleteError, setUpdateDeleteError] = useState("");
+  const updateSuccessTimer = useRef(null);
 
   /* ---- THE FEATURED IMAGE ----
      `image` in the form is always the stored URL that goes into MongoDB, never a
@@ -311,6 +319,28 @@ const AdminPost = () => {
     }
   }, []);
 
+  const refreshCommunityUpdates = useCallback(async () => {
+    setUpdatesStatus("loading");
+    try {
+      const response = await fetch(apiUrl("/api/updates"), {
+        credentials: "include",
+        cache: "no-store",
+      });
+      const result = await readJson(response);
+      if (!response.ok || !result?.ok || !Array.isArray(result.updates)) {
+        throw new Error(result?.error || `Could not load updates (HTTP ${response.status}).`);
+      }
+
+      setUpdates(result.updates);
+      setUpdatesStatus("ready");
+      setUpdatesListError("");
+    } catch (error) {
+      console.error(`[admin] could not load community updates: ${error?.message ?? error}`);
+      setUpdatesStatus("error");
+      setUpdatesListError("Could not load community updates. Check your connection and reload.");
+    }
+  }, []);
+
   /* The auth gate. Runs once, before anything else is requested. */
   useEffect(() => {
     let cancelled = false;
@@ -326,6 +356,7 @@ const AdminPost = () => {
           /* Only now, with the session confirmed, is the list fetched. */
           refreshPosts();
           refreshReports();
+          refreshCommunityUpdates();
         } else {
           /* 401 is the normal answer for someone who simply is not signed in,
              not an error worth logging. */
@@ -346,7 +377,7 @@ const AdminPost = () => {
     return () => {
       cancelled = true;
     };
-  }, [refreshPosts, refreshReports]);
+  }, [refreshPosts, refreshReports, refreshCommunityUpdates]);
 
   /* Redirect to the login form once we know there is no session. replace:true
      so the dashboard is not left in history for the back button to return to. */
@@ -536,7 +567,7 @@ const AdminPost = () => {
 
   useEffect(() => () => {
     if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
-    if (cuSuccessTimer.current) clearTimeout(cuSuccessTimer.current);
+    if (updateSuccessTimer.current) clearTimeout(updateSuccessTimer.current);
   }, []);
 
   const validateReport = () => {
@@ -683,69 +714,114 @@ const AdminPost = () => {
     }
   };
 
-  const handleCuImageChange = (event) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setCuImage(file);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") {
-        setCuImagePreview(reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+  const resetCommunityUpdateForm = () => {
+    setUpdateTitle("");
+    setUpdateBody("");
+    setUpdateExcerpt("");
+    setUpdateCategory("Community");
+    setUpdateImageUrl("");
+    setUpdateAuthor("");
+    setUpdateImageErr(false);
+    setUpdateErrors({});
+    setEditingUpdateId(null);
   };
 
-  const validateCommunityUpdate = () => {
-    const errors = {};
-    if (!cuTitle.trim()) errors.cuTitle = "Title is required";
-    if (!cuDate) errors.cuDate = "Date is required";
-    if (!cuText.trim()) errors.cuText = "Text is required";
-    return errors;
-  };
-
-  const handleCuSubmit = async (event) => {
+  const handleUpdateSubmit = async (event) => {
     event.preventDefault();
-    const errors = validateCommunityUpdate();
+    if (updateSubmitting) return;
+
+    const errors = {};
+    if (!updateTitle.trim()) errors.title = "Title is required";
+    if (!updateBody.trim()) errors.body = "Body content is required";
+    if (updateImageUrl.trim() && !isValidHttpUrl(updateImageUrl)) {
+      errors.imageUrl = "Enter a valid image link";
+    }
+
     if (Object.keys(errors).length > 0) {
-      setCuErrors(errors);
-      setCuSuccess(false);
+      setUpdateErrors(errors);
+      setUpdateSuccess(false);
       return;
     }
 
-    setCuSubmitting(true);
-    setCuErrors({});
+    setUpdateSubmitting(true);
+    setUpdateErrors({});
+    setUpdateSuccess(false);
 
-    const formData = new FormData();
-    formData.append("title", cuTitle);
-    formData.append("date", cuDate);
-    formData.append("text", cuText);
-    if (cuImage) formData.append("image", cuImage);
+    try {
+      const response = await fetch(
+        apiUrl(editingUpdateId ? `/api/updates/${editingUpdateId}` : "/api/updates"),
+        {
+          method: editingUpdateId ? "PUT" : "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: updateTitle,
+            body: updateBody,
+            excerpt: updateExcerpt,
+            category: updateCategory,
+            imageUrl: getDriveImageUrl(updateImageUrl),
+            author: updateAuthor,
+          }),
+        }
+      );
+      const result = await readJson(response);
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || `Could not save update (HTTP ${response.status}).`);
+      }
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+      setUpdateSuccess(true);
+      resetCommunityUpdateForm();
+      await refreshCommunityUpdates();
+      if (updateSuccessTimer.current) clearTimeout(updateSuccessTimer.current);
+      updateSuccessTimer.current = setTimeout(() => {
+        setUpdateSuccess(false);
+        updateSuccessTimer.current = null;
+      }, 4000);
+    } catch (error) {
+      console.error("Community update submit error:", error);
+      setUpdateErrors({ submit: error?.message || "Failed to post update. Try again." });
+    } finally {
+      setUpdateSubmitting(false);
     }
+  };
 
-    // TODO: Replace with real API call when ready
-    // POST /api/community-updates
-    // await axios.post('/api/community-updates', formData, { withCredentials: true })
+  const handleUpdateEdit = (update) => {
+    setUpdateTitle(update.title || "");
+    setUpdateBody(update.body || "");
+    setUpdateExcerpt(update.excerpt || "");
+    setUpdateCategory(update.category || "Community");
+    setUpdateImageUrl(update.imageUrl || "");
+    setUpdateAuthor(update.author === "Admin" ? "" : update.author || "");
+    setUpdateImageErr(false);
+    setUpdateErrors({});
+    setUpdateSuccess(false);
+    setEditingUpdateId(update.id);
+    document.getElementById("admin-community-updates")?.scrollIntoView({ behavior: "smooth" });
+  };
 
-    setCuSuccess(true);
-    setCuSubmitting(false);
-    setCuTitle("");
-    setCuDate("");
-    setCuText("");
-    setCuImage(null);
-    setCuImagePreview(null);
-    setCuErrors({});
-    if (cuImageRef.current) cuImageRef.current.value = "";
+  const handleUpdateDelete = async (id) => {
+    setUpdateDeleteLoading(true);
+    setUpdateDeleteError("");
 
-    if (cuSuccessTimer.current) clearTimeout(cuSuccessTimer.current);
-    cuSuccessTimer.current = setTimeout(() => {
-      setCuSuccess(false);
-      cuSuccessTimer.current = null;
-    }, 4000);
+    try {
+      const response = await fetch(apiUrl(`/api/updates/${encodeURIComponent(id)}`), {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const result = await readJson(response);
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || `Could not delete update (HTTP ${response.status}).`);
+      }
+
+      if (editingUpdateId === id) resetCommunityUpdateForm();
+      setUpdateDeleteConfirm(null);
+      await refreshCommunityUpdates();
+    } catch (error) {
+      console.error("Community update delete error:", error);
+      setUpdateDeleteError(error?.message || "Could not delete update. Try again.");
+    } finally {
+      setUpdateDeleteLoading(false);
+    }
   };
 
   /* ---- The gate. Nothing below this line renders until the session is
@@ -1321,136 +1397,268 @@ const AdminPost = () => {
               )}
             </section>
             <hr className="admin-section-divider" />
-            <section className="admin-cu-section">
-            <h2 className="admin-cu-title">Community Update</h2>
+            <section id="admin-community-updates" className="admin-cu-section">
+              <h2 className="admin-cu-title">Community Updates</h2>
 
-            {cuSuccess ? (
-              <div className="admin-cu-success" role="status" aria-live="polite">
-                Community Update posted successfully!
-              </div>
-            ) : null}
+              {updateSuccess ? (
+                <div className="admin-cu-success" role="status" aria-live="polite">
+                  Community update saved successfully!
+                </div>
+              ) : null}
+              {updateErrors.submit ? (
+                <p className="admin-cu-error" role="alert">{updateErrors.submit}</p>
+              ) : null}
 
-            <form
-              onSubmit={handleCuSubmit}
-              className="admin-cu-form"
-              encType="multipart/form-data"
-              noValidate
-            >
-              <div className="admin-cu-field">
-                <label className="admin-cu-label" htmlFor="cu-title">
-                  Title <span className="required">*</span>
-                </label>
-                <input
-                  id="cu-title"
-                  type="text"
-                  className="admin-cu-input"
-                  placeholder="Enter community update title"
-                  value={cuTitle}
-                  onChange={(event) => {
-                    setCuTitle(event.target.value);
-                    setCuErrors((current) => ({ ...current, cuTitle: "" }));
-                  }}
-                  aria-invalid={Boolean(cuErrors.cuTitle)}
-                  aria-describedby={cuErrors.cuTitle ? "cu-title-error" : undefined}
-                />
-                {cuErrors.cuTitle ? (
-                  <span id="cu-title-error" className="admin-cu-error" role="alert">
-                    {cuErrors.cuTitle}
-                  </span>
-                ) : null}
-              </div>
+              <form onSubmit={handleUpdateSubmit} className="admin-cu-form" noValidate>
+                <div className="admin-cu-field">
+                  <label className="admin-cu-label" htmlFor="update-title">
+                    Title <span className="required">*</span>
+                  </label>
+                  <input
+                    id="update-title"
+                    type="text"
+                    className="admin-cu-input"
+                    value={updateTitle}
+                    maxLength={200}
+                    onChange={(event) => {
+                      setUpdateTitle(event.target.value);
+                      setUpdateErrors((current) => ({ ...current, title: "", submit: "" }));
+                    }}
+                    aria-invalid={Boolean(updateErrors.title)}
+                    required
+                    disabled={updateSubmitting}
+                  />
+                  {updateErrors.title ? (
+                    <span className="admin-cu-error" role="alert">{updateErrors.title}</span>
+                  ) : null}
+                </div>
 
-              <div className="admin-cu-field">
-                <label className="admin-cu-label" htmlFor="cu-date">
-                  Date <span className="required">*</span>
-                </label>
-                <input
-                  id="cu-date"
-                  type="date"
-                  className="admin-cu-input"
-                  value={cuDate}
-                  onChange={(event) => {
-                    setCuDate(event.target.value);
-                    setCuErrors((current) => ({ ...current, cuDate: "" }));
-                  }}
-                  aria-invalid={Boolean(cuErrors.cuDate)}
-                  aria-describedby={cuErrors.cuDate ? "cu-date-error" : undefined}
-                />
-                {cuErrors.cuDate ? (
-                  <span id="cu-date-error" className="admin-cu-error" role="alert">
-                    {cuErrors.cuDate}
-                  </span>
-                ) : null}
-              </div>
+                <div className="admin-cu-field">
+                  <label className="admin-cu-label" htmlFor="update-body">
+                    Update <span className="required">*</span>
+                  </label>
+                  <textarea
+                    id="update-body"
+                    className="admin-cu-textarea"
+                    placeholder="Write your community update here..."
+                    rows={8}
+                    value={updateBody}
+                    onChange={(event) => {
+                      setUpdateBody(event.target.value);
+                      setUpdateErrors((current) => ({ ...current, body: "", submit: "" }));
+                    }}
+                    aria-invalid={Boolean(updateErrors.body)}
+                    required
+                    disabled={updateSubmitting}
+                  />
+                  {updateErrors.body ? (
+                    <span className="admin-cu-error" role="alert">{updateErrors.body}</span>
+                  ) : null}
+                </div>
 
-              <div className="admin-cu-field">
-                <label className="admin-cu-label" htmlFor="cu-image">
-                  Image <span className="admin-cu-optional">(optional)</span>
-                </label>
-                <input
-                  id="cu-image"
-                  type="file"
-                  accept="image/*"
-                  className="admin-cu-file"
-                  ref={cuImageRef}
-                  onChange={handleCuImageChange}
-                />
-                <p className="admin-cu-hint">Accepted: JPG, PNG, WEBP, GIF</p>
+                <div className="admin-cu-field">
+                  <label className="admin-cu-label" htmlFor="update-excerpt">
+                    Short Excerpt <span className="admin-cu-optional">(optional)</span>
+                  </label>
+                  <textarea
+                    id="update-excerpt"
+                    className="admin-cu-textarea admin-cu-excerpt"
+                    rows={3}
+                    value={updateExcerpt}
+                    maxLength={500}
+                    onChange={(event) => {
+                      setUpdateExcerpt(event.target.value);
+                      setUpdateErrors((current) => ({ ...current, excerpt: "", submit: "" }));
+                    }}
+                    disabled={updateSubmitting}
+                  />
+                  <p className="admin-cu-hint">If left blank, the beginning of the update is used.</p>
+                  {updateErrors.excerpt ? (
+                    <span className="admin-cu-error" role="alert">{updateErrors.excerpt}</span>
+                  ) : null}
+                </div>
 
-                {cuImagePreview ? (
-                  <div className="admin-cu-preview-wrap">
-                    <img
-                      src={cuImagePreview}
-                      alt="Community update preview"
-                      className="admin-cu-preview-img"
-                    />
+                <div className="admin-cu-field">
+                  <label className="admin-cu-label" htmlFor="update-category">Category</label>
+                  <select
+                    id="update-category"
+                    className="admin-cu-input"
+                    value={updateCategory}
+                    onChange={(event) => {
+                      setUpdateCategory(event.target.value);
+                      setUpdateErrors((current) => ({ ...current, submit: "" }));
+                    }}
+                    disabled={updateSubmitting}
+                  >
+                    <option value="Community">Community</option>
+                    <option value="Stories">Stories</option>
+                    <option value="News">News</option>
+                    <option value="Events">Events</option>
+                    <option value="Programs">Programs</option>
+                  </select>
+                </div>
+
+                <div className="admin-cu-field">
+                  <label className="admin-cu-label" htmlFor="update-image-url">
+                    Cover Image Link <span className="admin-cu-optional">(optional, Google Drive)</span>
+                  </label>
+                  <input
+                    id="update-image-url"
+                    type="url"
+                    className="admin-cu-input"
+                    placeholder="https://drive.google.com/file/d/.../view"
+                    value={updateImageUrl}
+                    onChange={(event) => {
+                      setUpdateImageUrl(event.target.value);
+                      setUpdateImageErr(false);
+                      setUpdateErrors((current) => ({ ...current, imageUrl: "", submit: "" }));
+                    }}
+                    aria-invalid={Boolean(updateErrors.imageUrl)}
+                    disabled={updateSubmitting}
+                  />
+                  <p className="admin-cu-hint">
+                    Share the image with “Anyone with the link” before pasting its Google Drive URL.
+                  </p>
+                  {updateErrors.imageUrl ? (
+                    <span className="admin-cu-error" role="alert">{updateErrors.imageUrl}</span>
+                  ) : null}
+                  {updateImageUrl.trim() ? (
+                    <div className="admin-cu-preview-wrap">
+                      <img
+                        key={getDriveImageUrl(updateImageUrl)}
+                        src={getDriveImageUrl(updateImageUrl)}
+                        alt="Community update cover preview"
+                        className="admin-cu-preview-img"
+                        onLoad={() => setUpdateImageErr(false)}
+                        onError={() => setUpdateImageErr(true)}
+                      />
+                      {updateImageErr ? (
+                        <p className="admin-cu-error" role="status">
+                          Image preview could not load. Check the Drive sharing settings.
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className="admin-cu-field">
+                  <label className="admin-cu-label" htmlFor="update-author">
+                    Author <span className="admin-cu-optional">(optional)</span>
+                  </label>
+                  <input
+                    id="update-author"
+                    type="text"
+                    className="admin-cu-input"
+                    value={updateAuthor}
+                    maxLength={120}
+                    onChange={(event) => {
+                      setUpdateAuthor(event.target.value);
+                      setUpdateErrors((current) => ({ ...current, submit: "" }));
+                    }}
+                    disabled={updateSubmitting}
+                  />
+                </div>
+
+                <div className="auvd-admin-actions">
+                  <button type="submit" className="admin-cu-submit" disabled={updateSubmitting}>
+                    {updateSubmitting
+                      ? "Saving..."
+                      : editingUpdateId
+                        ? "Save Changes"
+                        : "Post Community Update"}
+                  </button>
+                  {editingUpdateId ? (
                     <button
                       type="button"
-                      className="admin-cu-remove-img"
-                      onClick={() => {
-                        setCuImage(null);
-                        setCuImagePreview(null);
-                        if (cuImageRef.current) cuImageRef.current.value = "";
-                      }}
+                      className="auvd-admin-secondary"
+                      onClick={resetCommunityUpdateForm}
+                      disabled={updateSubmitting}
                     >
-                      Remove image
+                      Cancel Editing
                     </button>
-                  </div>
-                ) : null}
-              </div>
+                  ) : null}
+                </div>
+              </form>
 
-              <div className="admin-cu-field">
-                <label className="admin-cu-label" htmlFor="cu-text">
-                  Text <span className="required">*</span>
-                </label>
-                <textarea
-                  id="cu-text"
-                  className="admin-cu-textarea"
-                  placeholder="Write your community update here..."
-                  rows={4}
-                  value={cuText}
-                  onChange={(event) => {
-                    setCuText(event.target.value);
-                    setCuErrors((current) => ({ ...current, cuText: "" }));
-                  }}
-                  aria-invalid={Boolean(cuErrors.cuText)}
-                  aria-describedby={cuErrors.cuText ? "cu-text-error" : undefined}
-                />
-                {cuErrors.cuText ? (
-                  <span id="cu-text-error" className="admin-cu-error" role="alert">
-                    {cuErrors.cuText}
-                  </span>
+              <section className="admin-cu-list-section" aria-labelledby="admin-cu-list-title">
+                <h3 id="admin-cu-list-title" className="admin-cu-list-title">
+                  Published Updates ({updates.length})
+                </h3>
+                {updateDeleteError ? (
+                  <p className="admin-cu-error" role="alert">{updateDeleteError}</p>
                 ) : null}
-              </div>
-
-              <button
-                type="submit"
-                className="admin-cu-submit"
-                disabled={cuSubmitting}
-              >
-                {cuSubmitting ? "Posting..." : "Submit Community Update"}
-              </button>
-            </form>
+                {updatesStatus === "loading" ? (
+                  <p className="auvd-admin-muted" role="status">Loading updates...</p>
+                ) : updatesStatus === "error" ? (
+                  <p className="admin-cu-error" role="alert">{updatesListError}</p>
+                ) : updates.length === 0 ? (
+                  <p className="auvd-admin-muted">No community updates have been published yet.</p>
+                ) : (
+                  <ul className="auvd-admin-list">
+                    {updates.map((update) => (
+                      <li className="auvd-admin-list-item" key={update.id}>
+                        {update.imageUrl ? (
+                          <SafeImage
+                            className="auvd-admin-thumb"
+                            src={getDriveImageUrl(update.imageUrl)}
+                            alt=""
+                            fallbackLabel="Image unavailable"
+                          />
+                        ) : null}
+                        <div className="auvd-admin-list-body">
+                          <p className="auvd-admin-list-caption">{update.title}</p>
+                          <p className="auvd-admin-list-meta">
+                            {update.date} &middot; {update.category}
+                          </p>
+                        </div>
+                        <div className="auvd-admin-list-buttons">
+                          <button
+                            type="button"
+                            className="auvd-admin-secondary"
+                            onClick={() => handleUpdateEdit(update)}
+                            disabled={updateSubmitting || updateDeleteLoading}
+                          >
+                            Edit
+                          </button>
+                          {updateDeleteConfirm === update.id ? (
+                            <>
+                              <span className="auvd-admin-list-meta">Delete this update?</span>
+                              <button
+                                type="button"
+                                className="auvd-admin-danger"
+                                onClick={() => handleUpdateDelete(update.id)}
+                                disabled={updateDeleteLoading}
+                              >
+                                {updateDeleteLoading ? "Deleting..." : "Confirm"}
+                              </button>
+                              <button
+                                type="button"
+                                className="auvd-admin-secondary"
+                                onClick={() => setUpdateDeleteConfirm(null)}
+                                disabled={updateDeleteLoading}
+                              >
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              type="button"
+                              className="auvd-admin-danger"
+                              onClick={() => {
+                                setUpdateDeleteConfirm(update.id);
+                                setUpdateDeleteError("");
+                              }}
+                              disabled={updateSubmitting || updateDeleteLoading}
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
             </section>
           </>
         ) : null}

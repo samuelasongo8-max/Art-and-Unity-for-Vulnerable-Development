@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SafeImage from "./SafeImage";
 import "./CommunityUpdates.css";
-import { formatPostDate, updates } from "./communityUpdatesContent";
+import { apiUrl } from "../utils/api";
+import { formatPostDate, toCommunityUpdate, updates as staticUpdates } from "./communityUpdatesContent";
 
 /* "Photo coming soon" placeholder for any update with image: null — the
    same 16/9 box as real card images; `big` fills the detail media slot. */
@@ -38,6 +39,37 @@ export default function CommunityUpdates({ variant }) {
   const isPage = variant === "page";
   const trackRef = useRef(null);
   const [progress, setProgress] = useState(0);
+  const [databaseUpdates, setDatabaseUpdates] = useState([]);
+  const [loadError, setLoadError] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadUpdates = async () => {
+      try {
+        const response = await fetch(apiUrl("/api/updates"), { cache: "no-store" });
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result?.ok || !Array.isArray(result.updates)) {
+          throw new Error(result?.error || `Could not load community updates (HTTP ${response.status}).`);
+        }
+
+        if (!cancelled) {
+          setDatabaseUpdates(result.updates.map(toCommunityUpdate).filter(Boolean));
+          setLoadError("");
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error(`[updates] could not load community updates: ${error?.message ?? error}`);
+          setLoadError("The latest community updates could not be loaded.");
+        }
+      }
+    };
+
+    loadUpdates();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const scrollByCard = (dir) => {
     const el = trackRef.current;
@@ -55,7 +87,7 @@ export default function CommunityUpdates({ variant }) {
     setProgress(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
   };
 
-  const cards = updates.map((update) => {
+  const cards = [...databaseUpdates, ...staticUpdates].map((update) => {
     const meta = [update.date ? formatPostDate(update.date) : null, update.place]
       .filter(Boolean)
       .join(" · ");
@@ -113,6 +145,10 @@ export default function CommunityUpdates({ variant }) {
           </Link>
         )}
       </div>
+
+      {loadError ? (
+        <p className="p1-updates-load-error" role="status">{loadError}</p>
+      ) : null}
 
       {!isPage && (
         <div className="p1-updates-controls">
