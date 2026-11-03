@@ -672,7 +672,16 @@
       "noticeTitle": "Notre rapport est en préparation",
       "noticeTextBefore": "Nous avons le rapport, mais il n’a pas encore été publié sur notre site web, car nous sommes en train de mettre le site à jour. Notre équipe travaille pour l’ajouter à cette page. Si vous souhaitez le consulter en attendant, veuillez nous contacter par e-mail à",
       "noticeTextAfter": "et notre équipe vous l’enverra pour que vous puissiez le consulter.",
-      "mailSubject": "Demande de rapport"
+      "mailSubject": "Demande de rapport",
+      "loading": "Chargement des rapports...",
+      "loadError": "Les rapports n’ont pas pu être chargés. Veuillez réessayer plus tard.",
+      "download": "Télécharger le rapport",
+      "categories": {
+        "annual": "Rapport annuel",
+        "financial": "Rapport financier",
+        "activity": "Rapport d’activité",
+        "other": "Autre"
+      }
     },
     "all": {
       "heroAlt": "Réfugié soutenu par RefugePoint",

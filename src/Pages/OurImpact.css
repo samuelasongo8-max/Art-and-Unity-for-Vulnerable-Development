@@ -541,6 +541,11 @@
   color: var(--impact-orange-dark, #143a78);
 }
 
+.auvd-impact-content .auvd-impact-card-download,
+.auvd-impact-content .auvd-impact-card-download:hover {
+  color: #ffffff;
+}
+
 .auvd-impact-content .blogs-editorial {
   background-color: #ffffff;
 }

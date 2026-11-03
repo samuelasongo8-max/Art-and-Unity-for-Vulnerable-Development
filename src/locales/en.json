@@ -672,7 +672,16 @@
       "noticeTitle": "Our report is under preparation",
       "noticeTextBefore": "We have the report, but it has not yet been published on our website because we are updating the site. Our team is working to add it to this page. If you would like it in the meantime, please contact us by email at",
       "noticeTextAfter": "and our team will send it to you for your review.",
-      "mailSubject": "Report request"
+      "mailSubject": "Report request",
+      "loading": "Loading reports...",
+      "loadError": "Reports could not be loaded. Please try again later.",
+      "download": "Download report",
+      "categories": {
+        "annual": "Annual report",
+        "financial": "Financial report",
+        "activity": "Activity report",
+        "other": "Other"
+      }
     },
     "all": {
       "heroAlt": "Refugee supported by RefugePoint",

@@ -1,28 +1,83 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { impacts } from "../OurImpact";
 import ImpactGrid from "./ImpactGrid";
-
-/* /our-impact/report — Report entries only.
-
-   While the impacts array holds no entry with category "Report", this page shows
-   a notice with a contact address instead of the card grid. As soon as Report
-   entries are added to the array in OurImpact.jsx, the normal grid renders here
-   again with no code changes needed. */
+import { apiUrl, imageUrl } from "../../utils/api";
 
 const REPORT_EMAIL = "artandunityforvulnerable.org@gmail.com";
 
 const Report = () => {
   const { t } = useTranslation();
-  const hasReportEntries = impacts.some((impact) => impact.category === "Report");
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
-  /* The mailto subject is translated too, and URL-encoded so the accented
-     French subject reaches the mail client intact. */
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadReports = async () => {
+      try {
+        const response = await fetch(apiUrl("/api/reports"), {
+          signal: controller.signal,
+        });
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result?.ok || !Array.isArray(result.reports)) {
+          throw new Error(result?.error || `Could not load reports (HTTP ${response.status}).`);
+        }
+        setReports(result.reports);
+      } catch (error) {
+        if (error?.name !== "AbortError") {
+          setLoadError(error?.message || t("impact.report.loadError"));
+        }
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    };
+
+    loadReports();
+    return () => controller.abort();
+  }, [t]);
+
   const reportMailto = `mailto:${REPORT_EMAIL}?subject=${encodeURIComponent(
     t("impact.report.mailSubject")
   )}`;
 
-  if (hasReportEntries) {
-    return <ImpactGrid category="Report" items={impacts} />;
+  if (loading) {
+    return (
+      <>
+        <h2 className="auvd-impact-category">{t("impact.report.heading")}</h2>
+        <p className="auvd-impact-empty" role="status">{t("impact.report.loading")}</p>
+      </>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <>
+        <h2 className="auvd-impact-category">{t("impact.report.heading")}</h2>
+        <p className="auvd-impact-empty" role="alert">
+          {loadError}
+        </p>
+      </>
+    );
+  }
+
+  const reportItems = reports.map((report) => ({
+    id: report.id,
+    category: "Report",
+    title: report.title,
+    date: report.reportDate,
+    showDate: true,
+    image: imageUrl(report.imageUrl),
+    description: report.description,
+    reportCategory: report.category,
+    fileUrl: report.fileUrl,
+    fileName: report.fileName,
+  }));
+  const allReports = [...impacts.filter((impact) => impact.category === "Report"), ...reportItems];
+
+  if (allReports.length > 0) {
+    return <ImpactGrid category="Report" items={allReports} />;
   }
 
   return (

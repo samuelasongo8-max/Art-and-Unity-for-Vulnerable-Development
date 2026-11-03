@@ -62,13 +62,19 @@ const ImpactGrid = ({ category, items }) => {
               date,
               excerptKey,
               tagKey,
+              tag,
               image,
               altKey,
               imageFit,
+              showDate,
+              description,
+              reportCategory,
+              fileUrl,
+              fileName,
             } = entry;
             const meta = findCategory(itemCategory);
             const TypeIcon = meta.Icon;
-            const title = titleKey ? t(titleKey) : "";
+            const title = titleKey ? t(titleKey) : entry.title || "";
 
             /* The meta row is rebuilt from parts so each one can be localized:
                the date with Intl (13 August 2026 -> 13 août 2026), the read
@@ -77,10 +83,11 @@ const ImpactGrid = ({ category, items }) => {
                semaines). */
             const metaParts = [];
             if (metaDateKey) {
-              // The first card carries a full ISO date rather than a month.
               metaParts.push(metaDateKey === "impact.items.one.date"
                 ? formatDate(date, i18n.language)
                 : t(metaDateKey));
+            } else if (showDate && date) {
+              metaParts.push(formatDate(date, i18n.language));
             }
             if (metaRead) {
               metaParts.push(t("impact.grid.minRead", { count: metaRead }));
@@ -90,6 +97,12 @@ const ImpactGrid = ({ category, items }) => {
               metaParts.push(weeks);
             }
             const metaText = metaParts.join(" · ");
+            const tagText = reportCategory
+              ? t(`impact.report.categories.${reportCategory}`, { defaultValue: reportCategory })
+              : tagKey
+                ? t(tagKey)
+                : tag;
+            const excerpt = excerptKey ? t(excerptKey) : description;
 
             /* Card 1 keeps its logo uncropped; everything else defaults to "cover". */
             const imageClass = `auvd-impact-card-image${
@@ -135,7 +148,7 @@ const ImpactGrid = ({ category, items }) => {
                     </span>
                   </p>
 
-                  {tagKey && <span className="auvd-impact-card-tag">{t(tagKey)}</span>}
+                  {tagText && <span className="auvd-impact-card-tag">{tagText}</span>}
 
                   {buttonLink ? (
                     <Link
@@ -149,7 +162,18 @@ const ImpactGrid = ({ category, items }) => {
                     <h3 className="auvd-impact-card-title">{title}</h3>
                   )}
 
-                  {excerptKey && <p className="auvd-impact-card-excerpt">{t(excerptKey)}</p>}
+                  {excerpt && <p className="auvd-impact-card-excerpt">{excerpt}</p>}
+                  {fileUrl ? (
+                    <a
+                      className="auvd-impact-card-button auvd-impact-card-download"
+                      href={fileUrl}
+                      download={fileName || true}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t("impact.report.download")}
+                    </a>
+                  ) : null}
                 </div>
               </article>
             );

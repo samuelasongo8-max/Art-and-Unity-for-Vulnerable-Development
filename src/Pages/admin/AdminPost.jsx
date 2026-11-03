@@ -239,6 +239,17 @@ const AdminPost = () => {
   const reportImageRef = useRef(null);
   const reportSuccessTimer = useRef(null);
 
+  const [cuTitle, setCuTitle] = useState("");
+  const [cuDate, setCuDate] = useState("");
+  const [cuImage, setCuImage] = useState(null);
+  const [cuImagePreview, setCuImagePreview] = useState(null);
+  const [cuText, setCuText] = useState("");
+  const [cuErrors, setCuErrors] = useState({});
+  const [cuSuccess, setCuSuccess] = useState(false);
+  const [cuSubmitting, setCuSubmitting] = useState(false);
+  const cuImageRef = useRef(null);
+  const cuSuccessTimer = useRef(null);
+
   /* ---- THE FEATURED IMAGE ----
      `image` in the form is always the stored URL that goes into MongoDB, never a
      temporary preview. `imageName` is the administrator's own filename, shown so
@@ -497,6 +508,7 @@ const AdminPost = () => {
 
   useEffect(() => () => {
     if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
+    if (cuSuccessTimer.current) clearTimeout(cuSuccessTimer.current);
   }, []);
 
   const validateReport = () => {
@@ -524,6 +536,8 @@ const AdminPost = () => {
 
   const handleReportSubmit = async (event) => {
     event.preventDefault();
+    if (reportSubmitting) return;
+
     const errors = validateReport();
     if (Object.keys(errors).length > 0) {
       setReportErrors(errors);
@@ -542,13 +556,29 @@ const AdminPost = () => {
     formData.append("reportFile", reportFile);
     if (reportImage) formData.append("reportImage", reportImage);
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+    let response;
+    try {
+      response = await fetch(apiUrl("/api/reports"), {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+    } catch (error) {
+      setReportErrors({
+        submit: `Could not reach the report service: ${error?.message ?? "Network error."}`,
+      });
+      setReportSubmitting(false);
+      return;
     }
 
-    // TODO: Replace with real API call when backend ready
-    // POST /api/reports
-    // await axios.post('/api/reports', formData, { withCredentials: true })
+    const result = await readJson(response);
+    if (!response.ok || !result?.ok) {
+      setReportErrors({
+        submit: result?.error || `Could not save the report (HTTP ${response.status}).`,
+      });
+      setReportSubmitting(false);
+      return;
+    }
 
     setReportSuccess(true);
     setReportSubmitting(false);
@@ -566,6 +596,71 @@ const AdminPost = () => {
     reportSuccessTimer.current = setTimeout(() => {
       setReportSuccess(false);
       reportSuccessTimer.current = null;
+    }, 4000);
+  };
+
+  const handleCuImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setCuImage(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        setCuImagePreview(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const validateCommunityUpdate = () => {
+    const errors = {};
+    if (!cuTitle.trim()) errors.cuTitle = "Title is required";
+    if (!cuDate) errors.cuDate = "Date is required";
+    if (!cuText.trim()) errors.cuText = "Text is required";
+    return errors;
+  };
+
+  const handleCuSubmit = async (event) => {
+    event.preventDefault();
+    const errors = validateCommunityUpdate();
+    if (Object.keys(errors).length > 0) {
+      setCuErrors(errors);
+      setCuSuccess(false);
+      return;
+    }
+
+    setCuSubmitting(true);
+    setCuErrors({});
+
+    const formData = new FormData();
+    formData.append("title", cuTitle);
+    formData.append("date", cuDate);
+    formData.append("text", cuText);
+    if (cuImage) formData.append("image", cuImage);
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
+    // TODO: Replace with real API call when ready
+    // POST /api/community-updates
+    // await axios.post('/api/community-updates', formData, { withCredentials: true })
+
+    setCuSuccess(true);
+    setCuSubmitting(false);
+    setCuTitle("");
+    setCuDate("");
+    setCuText("");
+    setCuImage(null);
+    setCuImagePreview(null);
+    setCuErrors({});
+    if (cuImageRef.current) cuImageRef.current.value = "";
+
+    if (cuSuccessTimer.current) clearTimeout(cuSuccessTimer.current);
+    cuSuccessTimer.current = setTimeout(() => {
+      setCuSuccess(false);
+      cuSuccessTimer.current = null;
     }, 4000);
   };
 
@@ -849,7 +944,8 @@ const AdminPost = () => {
         ) : null}
 
         {reportFormOpen ? (
-          <section id="admin-report-section" className="admin-report-section">
+          <>
+            <section id="admin-report-section" className="admin-report-section">
           {reportSuccess ? (
             <div className="admin-report-success" role="status" aria-live="polite">
               Report submitted successfully!
@@ -862,6 +958,12 @@ const AdminPost = () => {
             encType="multipart/form-data"
             noValidate
           >
+            {reportErrors.submit ? (
+              <div className="admin-report-error" role="alert">
+                {reportErrors.submit}
+              </div>
+            ) : null}
+
             <div className="admin-report-field">
               <label className="admin-report-label" htmlFor="ar-title">
                 Before Report Title <span className="required">*</span>
@@ -1012,7 +1114,140 @@ const AdminPost = () => {
               {reportSubmitting ? "Submitting..." : "Submit Report"}
             </button>
           </form>
-          </section>
+            </section>
+            <hr className="admin-section-divider" />
+            <section className="admin-cu-section">
+            <h2 className="admin-cu-title">Community Update</h2>
+
+            {cuSuccess ? (
+              <div className="admin-cu-success" role="status" aria-live="polite">
+                Community Update posted successfully!
+              </div>
+            ) : null}
+
+            <form
+              onSubmit={handleCuSubmit}
+              className="admin-cu-form"
+              encType="multipart/form-data"
+              noValidate
+            >
+              <div className="admin-cu-field">
+                <label className="admin-cu-label" htmlFor="cu-title">
+                  Title <span className="required">*</span>
+                </label>
+                <input
+                  id="cu-title"
+                  type="text"
+                  className="admin-cu-input"
+                  placeholder="Enter community update title"
+                  value={cuTitle}
+                  onChange={(event) => {
+                    setCuTitle(event.target.value);
+                    setCuErrors((current) => ({ ...current, cuTitle: "" }));
+                  }}
+                  aria-invalid={Boolean(cuErrors.cuTitle)}
+                  aria-describedby={cuErrors.cuTitle ? "cu-title-error" : undefined}
+                />
+                {cuErrors.cuTitle ? (
+                  <span id="cu-title-error" className="admin-cu-error" role="alert">
+                    {cuErrors.cuTitle}
+                  </span>
+                ) : null}
+              </div>
+
+              <div className="admin-cu-field">
+                <label className="admin-cu-label" htmlFor="cu-date">
+                  Date <span className="required">*</span>
+                </label>
+                <input
+                  id="cu-date"
+                  type="date"
+                  className="admin-cu-input"
+                  value={cuDate}
+                  onChange={(event) => {
+                    setCuDate(event.target.value);
+                    setCuErrors((current) => ({ ...current, cuDate: "" }));
+                  }}
+                  aria-invalid={Boolean(cuErrors.cuDate)}
+                  aria-describedby={cuErrors.cuDate ? "cu-date-error" : undefined}
+                />
+                {cuErrors.cuDate ? (
+                  <span id="cu-date-error" className="admin-cu-error" role="alert">
+                    {cuErrors.cuDate}
+                  </span>
+                ) : null}
+              </div>
+
+              <div className="admin-cu-field">
+                <label className="admin-cu-label" htmlFor="cu-image">
+                  Image <span className="admin-cu-optional">(optional)</span>
+                </label>
+                <input
+                  id="cu-image"
+                  type="file"
+                  accept="image/*"
+                  className="admin-cu-file"
+                  ref={cuImageRef}
+                  onChange={handleCuImageChange}
+                />
+                <p className="admin-cu-hint">Accepted: JPG, PNG, WEBP, GIF</p>
+
+                {cuImagePreview ? (
+                  <div className="admin-cu-preview-wrap">
+                    <img
+                      src={cuImagePreview}
+                      alt="Community update preview"
+                      className="admin-cu-preview-img"
+                    />
+                    <button
+                      type="button"
+                      className="admin-cu-remove-img"
+                      onClick={() => {
+                        setCuImage(null);
+                        setCuImagePreview(null);
+                        if (cuImageRef.current) cuImageRef.current.value = "";
+                      }}
+                    >
+                      Remove image
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="admin-cu-field">
+                <label className="admin-cu-label" htmlFor="cu-text">
+                  Text <span className="required">*</span>
+                </label>
+                <textarea
+                  id="cu-text"
+                  className="admin-cu-textarea"
+                  placeholder="Write your community update here..."
+                  rows={4}
+                  value={cuText}
+                  onChange={(event) => {
+                    setCuText(event.target.value);
+                    setCuErrors((current) => ({ ...current, cuText: "" }));
+                  }}
+                  aria-invalid={Boolean(cuErrors.cuText)}
+                  aria-describedby={cuErrors.cuText ? "cu-text-error" : undefined}
+                />
+                {cuErrors.cuText ? (
+                  <span id="cu-text-error" className="admin-cu-error" role="alert">
+                    {cuErrors.cuText}
+                  </span>
+                ) : null}
+              </div>
+
+              <button
+                type="submit"
+                className="admin-cu-submit"
+                disabled={cuSubmitting}
+              >
+                {cuSubmitting ? "Posting..." : "Submit Community Update"}
+              </button>
+            </form>
+            </section>
+          </>
         ) : null}
       </div>
     </main>
