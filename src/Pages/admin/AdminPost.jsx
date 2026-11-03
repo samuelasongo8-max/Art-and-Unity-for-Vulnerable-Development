@@ -1,4 +1,5 @@
 import { apiUrl, imageUrl } from "../../utils/api";
+import { getDriveImageUrl } from "../../utils/reportLinks";
 import SafeImage from "../../components/SafeImage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -229,9 +230,19 @@ const AdminPost = () => {
   const [reportDate, setReportDate] = useState("");
   const [reportDesc, setReportDesc] = useState("");
   const [reportFileUrl, setReportFileUrl] = useState("");
+  const [reportFileName, setReportFileName] = useState("");
   const [reportImageUrl, setReportImageUrl] = useState("");
+  const [reportImageError, setReportImageError] = useState(false);
+  const [reportImageLoaded, setReportImageLoaded] = useState(false);
+  const [reportEditingId, setReportEditingId] = useState(null);
+  const [reports, setReports] = useState([]);
+  const [reportsStatus, setReportsStatus] = useState("loading");
+  const [reportsError, setReportsError] = useState("");
+  const [reportDeleteError, setReportDeleteError] = useState("");
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [reportErrors, setReportErrors] = useState({});
-  const [reportSuccess, setReportSuccess] = useState(false);
+  const [reportSuccess, setReportSuccess] = useState("");
   const [reportSubmitting, setReportSubmitting] = useState(false);
   const [reportFormOpen, setReportFormOpen] = useState(false);
   const reportSuccessTimer = useRef(null);
@@ -281,6 +292,25 @@ const AdminPost = () => {
     }
   }, []);
 
+  const refreshReports = useCallback(async () => {
+    setReportsStatus("loading");
+    try {
+      const response = await fetch(apiUrl("/api/reports"), { credentials: "include" });
+      const result = await readJson(response);
+      if (!response.ok || !result?.ok || !Array.isArray(result.reports)) {
+        throw new Error(result?.error || `Could not load reports (HTTP ${response.status}).`);
+      }
+
+      setReports(result.reports);
+      setReportsStatus("ready");
+      setReportsError("");
+    } catch (error) {
+      console.error(`[admin] could not load reports: ${error?.message ?? error}`);
+      setReportsStatus("error");
+      setReportsError("Could not load reports. Check your connection and reload.");
+    }
+  }, []);
+
   /* The auth gate. Runs once, before anything else is requested. */
   useEffect(() => {
     let cancelled = false;
@@ -295,6 +325,7 @@ const AdminPost = () => {
           setAuth("allowed");
           /* Only now, with the session confirmed, is the list fetched. */
           refreshPosts();
+          refreshReports();
         } else {
           /* 401 is the normal answer for someone who simply is not signed in,
              not an error worth logging. */
@@ -315,7 +346,7 @@ const AdminPost = () => {
     return () => {
       cancelled = true;
     };
-  }, [refreshPosts]);
+  }, [refreshPosts, refreshReports]);
 
   /* Redirect to the login form once we know there is no session. replace:true
      so the dashboard is not left in history for the back button to return to. */
@@ -536,7 +567,7 @@ const AdminPost = () => {
     const errors = validateReport();
     if (Object.keys(errors).length > 0) {
       setReportErrors(errors);
-      setReportSuccess(false);
+      setReportSuccess("");
       return;
     }
 
@@ -544,37 +575,45 @@ const AdminPost = () => {
     setReportErrors({});
 
     try {
-      const response = await fetch(apiUrl("/api/reports"), {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: reportTitle,
-          category: reportCategory,
-          reportDate,
-          description: reportDesc,
-          fileUrl: reportFileUrl,
-          fileName: reportTitle,
-          imageUrl: reportImageUrl,
-        }),
-      });
+      const response = await fetch(
+        apiUrl(reportEditingId ? `/api/reports/${reportEditingId}` : "/api/reports"),
+        {
+          method: reportEditingId ? "PUT" : "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: reportTitle,
+            category: reportCategory,
+            reportDate,
+            description: reportDesc,
+            fileUrl: reportFileUrl,
+            fileName: reportFileName.trim() || reportTitle,
+            imageUrl: getDriveImageUrl(reportImageUrl),
+          }),
+        }
+      );
 
       const result = await readJson(response);
       if (!response.ok || !result?.ok) {
         throw new Error(result?.error || `Could not save the report (HTTP ${response.status}).`);
       }
 
-      setReportSuccess(true);
+      setReportSuccess(reportEditingId ? "Report updated successfully!" : "Report submitted successfully!");
       setReportTitle("");
       setReportCategory("");
       setReportDate("");
       setReportDesc("");
       setReportFileUrl("");
+      setReportFileName("");
       setReportImageUrl("");
+      setReportImageError(false);
+      setReportImageLoaded(false);
+      setReportEditingId(null);
+      await refreshReports();
 
       if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
       reportSuccessTimer.current = setTimeout(() => {
-        setReportSuccess(false);
+        setReportSuccess("");
         reportSuccessTimer.current = null;
       }, 4000);
     } catch (error) {
@@ -584,6 +623,63 @@ const AdminPost = () => {
       });
     } finally {
       setReportSubmitting(false);
+    }
+  };
+
+  const handleReportEdit = (report) => {
+    setReportTitle(report.title);
+    setReportCategory(report.category);
+    setReportDate(report.reportDate);
+    setReportDesc(report.description || "");
+    setReportFileUrl(report.fileUrl);
+    setReportFileName(report.fileName || report.title);
+    setReportImageUrl(report.imageUrl || "");
+    setReportImageError(false);
+    setReportImageLoaded(false);
+    setReportEditingId(report.id);
+    setReportErrors({});
+    setReportSuccess("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleReportCancelEdit = () => {
+    setReportTitle("");
+    setReportCategory("");
+    setReportDate("");
+    setReportDesc("");
+    setReportFileUrl("");
+    setReportFileName("");
+    setReportImageUrl("");
+    setReportImageError(false);
+    setReportImageLoaded(false);
+    setReportEditingId(null);
+    setReportErrors({});
+    setReportSuccess("");
+  };
+
+  const handleReportDelete = async (id) => {
+    setDeleteLoading(true);
+    setReportDeleteError("");
+
+    try {
+      const response = await fetch(apiUrl(`/api/reports/${id}`), {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const result = await readJson(response);
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || `Could not delete report (HTTP ${response.status}).`);
+      }
+
+      if (reportEditingId === id) handleReportCancelEdit();
+      setDeleteConfirm(null);
+      setReportDeleteError("");
+      await refreshReports();
+    } catch (error) {
+      console.error("Report delete error:", error);
+      setReportDeleteError(error?.message || "Could not delete the report. Try again.");
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -936,10 +1032,13 @@ const AdminPost = () => {
             <section id="admin-report-section" className="admin-report-section">
           {reportSuccess ? (
             <div className="admin-report-success" role="status" aria-live="polite">
-              Report submitted successfully!
+              {reportSuccess}
             </div>
           ) : null}
 
+          <h2 className="admin-report-title">
+            {reportEditingId ? "Edit Report" : "Make a Report"}
+          </h2>
           <form
             onSubmit={handleReportSubmit}
             className="admin-report-form"
@@ -953,7 +1052,7 @@ const AdminPost = () => {
 
             <div className="admin-report-field">
               <label className="admin-report-label" htmlFor="ar-title">
-                Before Report Title <span className="required">*</span>
+                Report Title <span className="required">*</span>
               </label>
               <input
                 id="ar-title"
@@ -981,17 +1080,47 @@ const AdminPost = () => {
                 id="ar-image-url"
                 type="url"
                 className="admin-report-input"
-                placeholder="https://drive.google.com/..."
+                placeholder="https://drive.google.com/file/d/.../view"
                 value={reportImageUrl}
                 onChange={(event) => {
                   setReportImageUrl(event.target.value);
+                  setReportImageError(false);
+                  setReportImageLoaded(false);
                   setReportErrors((current) => ({ ...current, imageUrl: "" }));
                 }}
                 aria-invalid={Boolean(reportErrors.imageUrl)}
               />
-              <p className="admin-report-hint">Optional: paste a direct image link for the report cover</p>
+              <p className="admin-report-hint">
+                Paste a Google Drive image link. Make sure sharing is set to “Anyone with the link”.
+              </p>
               {reportErrors.imageUrl ? (
                 <span className="admin-report-error" role="alert">{reportErrors.imageUrl}</span>
+              ) : null}
+              {reportImageUrl.trim() ? (
+                <div className="admin-report-img-preview">
+                  <p className="admin-report-preview-label">Preview:</p>
+                  <img
+                    key={getDriveImageUrl(reportImageUrl)}
+                    src={getDriveImageUrl(reportImageUrl)}
+                    alt="Report cover preview"
+                    className="admin-report-preview-img"
+                    onLoad={() => {
+                      setReportImageError(false);
+                      setReportImageLoaded(true);
+                    }}
+                    onError={() => {
+                      setReportImageError(true);
+                      setReportImageLoaded(false);
+                    }}
+                  />
+                  {reportImageError ? (
+                    <p className="admin-report-img-error" role="status">
+                      Image could not load. Check that the Drive file is shared with “Anyone with the link”.
+                    </p>
+                  ) : reportImageLoaded ? (
+                    <p className="admin-report-img-ok" role="status">Image loaded successfully</p>
+                  ) : null}
+                </div>
               ) : null}
             </div>
 
@@ -1078,14 +1207,118 @@ const AdminPost = () => {
               ) : null}
             </div>
 
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-report-file-name">
+                Download File Name <span className="admin-report-optional">(optional)</span>
+              </label>
+              <input
+                id="ar-report-file-name"
+                type="text"
+                className="admin-report-input"
+                placeholder="Defaults to the report title"
+                value={reportFileName}
+                onChange={(event) => setReportFileName(event.target.value)}
+              />
+            </div>
+
             <button
               type="submit"
               className="admin-report-submit"
               disabled={reportSubmitting}
             >
-              {reportSubmitting ? "Submitting..." : "Submit Report"}
+              {reportSubmitting
+                ? reportEditingId ? "Saving..." : "Submitting..."
+                : reportEditingId ? "Save Changes" : "Submit Report"}
             </button>
+            {reportEditingId ? (
+              <button
+                type="button"
+                className="auvd-admin-secondary admin-report-cancel"
+                onClick={handleReportCancelEdit}
+                disabled={reportSubmitting}
+              >
+                Cancel Editing
+              </button>
+            ) : null}
           </form>
+            </section>
+            <section className="auvd-admin-panel admin-report-list-section">
+              <h2 className="auvd-admin-panel-title">Reports ({reports.length})</h2>
+              {reportDeleteError ? (
+                <p className="auvd-admin-dash-error" role="alert">{reportDeleteError}</p>
+              ) : null}
+
+              {reportsStatus === "loading" ? (
+                <p className="auvd-admin-muted" role="status">Loading reports...</p>
+              ) : reportsStatus === "error" ? (
+                <p className="auvd-admin-dash-error" role="alert">{reportsError}</p>
+              ) : reports.length === 0 ? (
+                <p className="auvd-admin-muted">No reports yet.</p>
+              ) : (
+                <ul className="auvd-admin-list">
+                  {reports.map((report) => (
+                    <li className="auvd-admin-list-item" key={report.id}>
+                      {report.imageUrl ? (
+                        <SafeImage
+                          className="auvd-admin-thumb"
+                          src={imageUrl(report.imageUrl)}
+                          alt=""
+                          fallbackLabel="Image unavailable"
+                        />
+                      ) : null}
+                      <div className="auvd-admin-list-body">
+                        <p className="auvd-admin-list-caption">{report.title}</p>
+                        <p className="auvd-admin-list-meta">
+                          {report.reportDate} &middot; {report.category}
+                        </p>
+                      </div>
+                      <div className="auvd-admin-list-buttons">
+                        <button
+                          type="button"
+                          className="auvd-admin-secondary"
+                          onClick={() => handleReportEdit(report)}
+                          disabled={reportSubmitting || deleteLoading}
+                        >
+                          Edit
+                        </button>
+                        {deleteConfirm === report.id ? (
+                          <>
+                            <span className="auvd-admin-list-meta">Delete this report?</span>
+                            <button
+                              type="button"
+                              className="auvd-admin-danger"
+                              onClick={() => handleReportDelete(report.id)}
+                              disabled={deleteLoading}
+                            >
+                              {deleteLoading ? "Deleting..." : "Confirm"}
+                            </button>
+                            <button
+                              type="button"
+                              className="auvd-admin-secondary"
+                              onClick={() => setDeleteConfirm(null)}
+                              disabled={deleteLoading}
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <button
+                            type="button"
+                            className="auvd-admin-danger"
+                            onClick={() => {
+                              setDeleteConfirm(report.id);
+                              setReportDeleteError("");
+                            }}
+                            disabled={reportSubmitting || deleteLoading}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </section>
             <hr className="admin-section-divider" />
             <section className="admin-cu-section">

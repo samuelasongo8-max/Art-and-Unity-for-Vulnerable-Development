@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { impacts } from "../OurImpact";
 import ImpactGrid from "./ImpactGrid";
 import { apiUrl, imageUrl } from "../../utils/api";
+import { getDriveImageUrl } from "../../utils/reportLinks";
 
 const REPORT_EMAIL = "artandunityforvulnerable.org@gmail.com";
 
@@ -79,7 +80,7 @@ const Report = () => {
     title: report.title,
     date: report.reportDate,
     showDate: true,
-    image: imageUrl(report.imageUrl),
+    image: imageUrl(getDriveImageUrl(report.imageUrl)),
     description: report.description,
     reportCategory: report.category,
     fileUrl: getDownloadUrl(report.fileUrl),
