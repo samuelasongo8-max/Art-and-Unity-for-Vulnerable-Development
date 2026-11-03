@@ -52,11 +52,11 @@ function ScrollToTop() {
   return null;
 }
 
-/* The two admin routes are internal pages and deliberately wear no public
+/* The admin routes are internal pages and deliberately wear no public
    chrome. That is not only a styling preference: the Navbar is
    `position: fixed` at z-index 100, so rendering it over /admin/post physically
    covered the "Log out" button and made it unclickable. The check lives here,
-   in one place, so the two routes can never drift apart again. */
+   in one place, so the routes can never drift apart again. */
 const ADMIN_PATHS = ["/admin/login", "/admin/post", "/admin/news"];
 
 const Chrome = () => {
@@ -141,10 +141,9 @@ const Chrome = () => {
 
                 Neither renders <Navbar> or <Footer> — see ADMIN_PATHS above for
                 why that is a correctness requirement, not just taste.
-                /admin/post is only a route guard — every write it performs is
-                independently checked server-side by lib/requireAdmin.js, and the
-                dashboard itself verifies the session via GET /api/admin/me
-                before showing anything. */}
+                Every admin page verifies the session via GET /api/admin/me
+                before showing anything, and each server-backed write is
+                independently checked by lib/requireAdmin.js. */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/post" element={<AdminPost />} />
             {/* News Management: a separate admin page for news created from the
