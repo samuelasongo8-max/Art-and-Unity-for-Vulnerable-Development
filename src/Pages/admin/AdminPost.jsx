@@ -1,6 +1,6 @@
 import { apiUrl, imageUrl } from "../../utils/api";
 import SafeImage from "../../components/SafeImage";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
@@ -223,6 +223,21 @@ const AdminPost = () => {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
   const [notice, setNotice] = useState("");
+
+  const [reportTitle, setReportTitle] = useState("");
+  const [reportCategory, setReportCategory] = useState("");
+  const [reportDate, setReportDate] = useState("");
+  const [reportDesc, setReportDesc] = useState("");
+  const [reportFile, setReportFile] = useState(null);
+  const [reportErrors, setReportErrors] = useState({});
+  const [reportSuccess, setReportSuccess] = useState(false);
+  const [reportSubmitting, setReportSubmitting] = useState(false);
+  const [reportFormOpen, setReportFormOpen] = useState(false);
+  const reportFileRef = useRef(null);
+  const [reportImage, setReportImage] = useState(null);
+  const [reportImagePreview, setReportImagePreview] = useState(null);
+  const reportImageRef = useRef(null);
+  const reportSuccessTimer = useRef(null);
 
   /* ---- THE FEATURED IMAGE ----
      `image` in the form is always the stored URL that goes into MongoDB, never a
@@ -480,6 +495,80 @@ const AdminPost = () => {
     navigate("/", { replace: true });
   };
 
+  useEffect(() => () => {
+    if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
+  }, []);
+
+  const validateReport = () => {
+    const errors = {};
+    if (!reportTitle.trim()) errors.reportTitle = "Report title is required";
+    if (!reportCategory) errors.reportCategory = "Please select a category";
+    if (!reportDate) errors.reportDate = "Report date is required";
+    if (!reportFile) errors.reportFile = "Please upload a report file";
+    return errors;
+  };
+
+  const handleReportImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setReportImage(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        setReportImagePreview(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleReportSubmit = async (event) => {
+    event.preventDefault();
+    const errors = validateReport();
+    if (Object.keys(errors).length > 0) {
+      setReportErrors(errors);
+      setReportSuccess(false);
+      return;
+    }
+
+    setReportSubmitting(true);
+    setReportErrors({});
+
+    const formData = new FormData();
+    formData.append("title", reportTitle);
+    formData.append("category", reportCategory);
+    formData.append("reportDate", reportDate);
+    formData.append("description", reportDesc);
+    formData.append("reportFile", reportFile);
+    if (reportImage) formData.append("reportImage", reportImage);
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
+    // TODO: Replace with real API call when backend ready
+    // POST /api/reports
+    // await axios.post('/api/reports', formData, { withCredentials: true })
+
+    setReportSuccess(true);
+    setReportSubmitting(false);
+    setReportTitle("");
+    setReportCategory("");
+    setReportDate("");
+    setReportDesc("");
+    setReportFile(null);
+    setReportImage(null);
+    setReportImagePreview(null);
+    if (reportFileRef.current) reportFileRef.current.value = "";
+    if (reportImageRef.current) reportImageRef.current.value = "";
+
+    if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
+    reportSuccessTimer.current = setTimeout(() => {
+      setReportSuccess(false);
+      reportSuccessTimer.current = null;
+    }, 4000);
+  };
+
   /* ---- The gate. Nothing below this line renders until the session is
      confirmed, so the form and the Edit/Delete buttons are never briefly
      visible to someone who is not signed in. ---- */
@@ -497,23 +586,38 @@ const AdminPost = () => {
     <main className="auvd-admin">
       <header className="auvd-admin-header">
         <div>
-          <h1 className="auvd-admin-title">Post</h1>
+          <h1 className="auvd-admin-title">{reportFormOpen ? "Make a Report" : "Post"}</h1>
           <p className="auvd-admin-subtitle">
-            Add, edit and delete the posts shown on /our-impact/post.
+            {reportFormOpen
+              ? "Complete the form below to prepare a report."
+              : "Add, edit and delete the posts shown on /our-impact/post."}
           </p>
         </div>
-        <button type="button" className="auvd-admin-logout" onClick={handleLogout}>
-          Log out
-        </button>
+        <div className="auvd-admin-header-actions">
+          <button type="button" className="auvd-admin-logout" onClick={handleLogout}>
+            Log out
+          </button>
+          <button
+            type="button"
+            className={reportFormOpen ? "auvd-admin-secondary" : "auvd-admin-primary"}
+            onClick={() => setReportFormOpen((open) => !open)}
+            aria-expanded={reportFormOpen}
+            aria-controls="admin-report-section"
+          >
+            {reportFormOpen ? "Back to Dashboard" : "Make a Report"}
+          </button>
+        </div>
       </header>
 
-      {notice ? (
+      {!reportFormOpen && notice ? (
         <p className="auvd-admin-notice" role="status" aria-live="polite">
           {notice}
         </p>
       ) : null}
 
-      <div className="auvd-admin-grid">
+      <div className={`auvd-admin-grid${reportFormOpen ? " auvd-admin-grid--report" : ""}`}>
+        {!reportFormOpen ? (
+          <>
         {/* ===== FORM ===== */}
         <section className="auvd-admin-panel">
           <h2 className="auvd-admin-panel-title">
@@ -741,6 +845,175 @@ const AdminPost = () => {
             below the Posts list above. This is the same component the standalone
             page used, so there is one Blog Management system, not two. */}
         <BlogManagement />
+          </>
+        ) : null}
+
+        {reportFormOpen ? (
+          <section id="admin-report-section" className="admin-report-section">
+          {reportSuccess ? (
+            <div className="admin-report-success" role="status" aria-live="polite">
+              Report submitted successfully!
+            </div>
+          ) : null}
+
+          <form
+            onSubmit={handleReportSubmit}
+            className="admin-report-form"
+            encType="multipart/form-data"
+            noValidate
+          >
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-title">
+                Before Report Title <span className="required">*</span>
+              </label>
+              <input
+                id="ar-title"
+                type="text"
+                className="admin-report-input"
+                placeholder="Enter report title"
+                value={reportTitle}
+                onChange={(event) => {
+                  setReportTitle(event.target.value);
+                  setReportErrors((current) => ({ ...current, reportTitle: "" }));
+                }}
+                aria-invalid={Boolean(reportErrors.reportTitle)}
+              />
+              {reportErrors.reportTitle ? (
+                <span className="admin-report-error" role="alert">{reportErrors.reportTitle}</span>
+              ) : null}
+            </div>
+
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-report-image">
+                Report Image
+                <span className="admin-report-optional">(optional)</span>
+              </label>
+              <input
+                id="ar-report-image"
+                type="file"
+                accept="image/*"
+                className="admin-report-file"
+                ref={reportImageRef}
+                onChange={handleReportImageChange}
+              />
+              <p className="admin-report-hint">Accepted formats: JPG, PNG, WEBP, GIF</p>
+
+              {reportImagePreview ? (
+                <div className="admin-report-image-preview-wrap">
+                  <img
+                    src={reportImagePreview}
+                    alt="Report preview"
+                    className="admin-report-image-preview"
+                  />
+                  <button
+                    type="button"
+                    className="admin-report-image-remove"
+                    onClick={() => {
+                      setReportImage(null);
+                      setReportImagePreview(null);
+                      if (reportImageRef.current) reportImageRef.current.value = "";
+                    }}
+                  >
+                    Remove image
+                  </button>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-category">
+                Category <span className="required">*</span>
+              </label>
+              <select
+                id="ar-category"
+                className="admin-report-select"
+                value={reportCategory}
+                onChange={(event) => {
+                  setReportCategory(event.target.value);
+                  setReportErrors((current) => ({ ...current, reportCategory: "" }));
+                }}
+                aria-invalid={Boolean(reportErrors.reportCategory)}
+              >
+                <option value="" disabled>Select a category</option>
+                <option value="annual">Annual Report</option>
+                <option value="financial">Financial Report</option>
+                <option value="activity">Activity Report</option>
+                <option value="other">Other</option>
+              </select>
+              {reportErrors.reportCategory ? (
+                <span className="admin-report-error" role="alert">{reportErrors.reportCategory}</span>
+              ) : null}
+            </div>
+
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-report-date">
+                Report Date <span className="required">*</span>
+              </label>
+              <input
+                id="ar-report-date"
+                type="date"
+                className="admin-report-input"
+                value={reportDate}
+                onChange={(event) => {
+                  setReportDate(event.target.value);
+                  setReportErrors((current) => ({ ...current, reportDate: "" }));
+                }}
+                aria-invalid={Boolean(reportErrors.reportDate)}
+              />
+              {reportErrors.reportDate ? (
+                <span className="admin-report-error" role="alert">{reportErrors.reportDate}</span>
+              ) : null}
+            </div>
+
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-description">
+                Description <span className="admin-report-optional">(optional)</span>
+              </label>
+              <textarea
+                id="ar-description"
+                className="admin-report-textarea"
+                placeholder="Brief description of the report"
+                rows={4}
+                value={reportDesc}
+                onChange={(event) => setReportDesc(event.target.value)}
+              />
+            </div>
+
+            <div className="admin-report-field">
+              <label className="admin-report-label" htmlFor="ar-report-file">
+                Report File <span className="required">*</span>
+              </label>
+              <input
+                id="ar-report-file"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                className="admin-report-file"
+                ref={reportFileRef}
+                onChange={(event) => {
+                  setReportFile(event.target.files?.[0] ?? null);
+                  setReportErrors((current) => ({ ...current, reportFile: "" }));
+                }}
+                aria-invalid={Boolean(reportErrors.reportFile)}
+              />
+              {reportFile ? (
+                <p className="admin-report-filename">{reportFile.name}</p>
+              ) : null}
+              {reportErrors.reportFile ? (
+                <span className="admin-report-error" role="alert">{reportErrors.reportFile}</span>
+              ) : null}
+              <p className="admin-report-hint">Accepted formats: PDF, DOC, DOCX</p>
+            </div>
+
+            <button
+              type="submit"
+              className="admin-report-submit"
+              disabled={reportSubmitting}
+            >
+              {reportSubmitting ? "Submitting..." : "Submit Report"}
+            </button>
+          </form>
+          </section>
+        ) : null}
       </div>
     </main>
   );
