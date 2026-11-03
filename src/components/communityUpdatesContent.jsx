@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { updates } from "../data/updates";
-import { getDriveImageUrl } from "../utils/reportLinks";
+import { getDriveImageUrl } from "../utils/driveImage";
 
 export { updates };
 

@@ -47,15 +47,6 @@ export default function UpdateDetail() {
   useEffect(() => {
     let cancelled = false;
 
-    if (staticUpdate) {
-      setDatabaseUpdate(null);
-      setLoadedSlug(slug);
-      setDetailStatus("ready");
-      return () => {
-        cancelled = true;
-      };
-    }
-
     const loadUpdate = async () => {
       setDetailStatus("loading");
       setDatabaseUpdate(null);
@@ -64,21 +55,35 @@ export default function UpdateDetail() {
           apiUrl(`/api/updates/${encodeURIComponent(slug || "")}`),
           { cache: "no-store" }
         );
+        if (response.status === 404 && staticUpdate) {
+          if (!cancelled) {
+            setLoadedSlug(slug);
+            setDetailStatus("ready");
+          }
+          return;
+        }
+
         const result = await response.json().catch(() => null);
         if (!response.ok || !result?.ok || !result.update) {
           throw new Error(result?.error || `Could not load this update (HTTP ${response.status}).`);
         }
 
+        const update = toCommunityUpdate(result.update);
+        if (!update) {
+          throw new Error("The update response was invalid.");
+        }
+
         if (!cancelled) {
-          setDatabaseUpdate(toCommunityUpdate(result.update));
+          setDatabaseUpdate(update);
           setLoadedSlug(slug);
           setDetailStatus("ready");
         }
       } catch (error) {
         if (!cancelled) {
-          console.error(`[updates] could not load "${slug}": ${error?.message ?? error}`);
+          const log = staticUpdate ? console.warn : console.error;
+          log(`[updates] could not load "${slug}": ${error?.message ?? error}`);
           setLoadedSlug(slug);
-          setDetailStatus("error");
+          setDetailStatus(staticUpdate ? "ready" : "error");
         }
       }
     };
@@ -89,7 +94,7 @@ export default function UpdateDetail() {
     };
   }, [slug, staticUpdate]);
 
-  const update = staticUpdate || (loadedSlug === slug ? databaseUpdate : null);
+  const update = loadedSlug === slug ? databaseUpdate || staticUpdate : null;
 
   if (!update && (detailStatus === "loading" || loadedSlug !== slug)) {
     return (

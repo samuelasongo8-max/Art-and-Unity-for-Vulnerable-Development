@@ -1,5 +1,5 @@
 import { apiUrl, imageUrl } from "../../utils/api";
-import { getDriveImageUrl } from "../../utils/reportLinks";
+import { getDriveImageUrl } from "../../utils/driveImage";
 import SafeImage from "../../components/SafeImage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";

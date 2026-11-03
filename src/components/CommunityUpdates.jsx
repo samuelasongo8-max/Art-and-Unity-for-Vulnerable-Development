@@ -87,13 +87,24 @@ export default function CommunityUpdates({ variant }) {
     setProgress(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
   };
 
-  const cards = [...databaseUpdates, ...staticUpdates].map((update) => {
+  const newestFirst = [...databaseUpdates].sort((first, second) => {
+    const firstDate = Date.parse(first.createdAt || first.date || "");
+    const secondDate = Date.parse(second.createdAt || second.date || "");
+    if (!Number.isFinite(firstDate)) return Number.isFinite(secondDate) ? 1 : 0;
+    if (!Number.isFinite(secondDate)) return -1;
+    return secondDate - firstDate;
+  });
+  const databaseSlugs = new Set(newestFirst.map((update) => update.slug));
+  const cards = [
+    ...newestFirst,
+    ...staticUpdates.filter((update) => !update.slug || !databaseSlugs.has(update.slug)),
+  ].map((update) => {
     const meta = [update.date ? formatPostDate(update.date) : null, update.place]
       .filter(Boolean)
       .join(" · ");
     return (
-      <article className="p1-updates-card" key={update.slug || update.title}>
-        <Link to={update.to} className="p1-updates-img-link">
+      <Link to={update.to} className="p1-updates-card" key={update.slug || update.title}>
+        <div className="p1-updates-img-link">
           {update.image ? (
             <SafeImage
               className="p1-updates-card-image"
@@ -104,16 +115,14 @@ export default function CommunityUpdates({ variant }) {
           ) : (
             <Placeholder label={update.alt} />
           )}
-        </Link>
-        <h3>
-          <Link to={update.to}>{update.title}</Link>
-        </h3>
+        </div>
+        <h3>{update.title}</h3>
         {meta ? <p className="p1-updates-card-meta">{meta}</p> : null}
         <p className="p1-updates-card-preview">{update.preview}</p>
-        <Link to={update.to} className="p1-updates-readmore">
+        <span className="p1-updates-readmore">
           {update.readMore || "Read more"} <span aria-hidden="true">›</span>
-        </Link>
-      </article>
+        </span>
+      </Link>
     );
   });
 

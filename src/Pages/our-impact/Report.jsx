@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { impacts } from "../OurImpact";
 import ImpactGrid from "./ImpactGrid";
 import { apiUrl, imageUrl } from "../../utils/api";
-import { getDriveImageUrl } from "../../utils/reportLinks";
+import { getDriveImageUrl } from "../../utils/driveImage";
 
 const REPORT_EMAIL = "artandunityforvulnerable.org@gmail.com";
 
