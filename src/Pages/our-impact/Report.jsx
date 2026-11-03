@@ -6,6 +6,17 @@ import { apiUrl, imageUrl } from "../../utils/api";
 
 const REPORT_EMAIL = "artandunityforvulnerable.org@gmail.com";
 
+function getDownloadUrl(url) {
+  if (!url) return "";
+
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/?#]+)/i);
+  if (driveMatch) {
+    return `https://drive.google.com/uc?export=download&id=${encodeURIComponent(driveMatch[1])}`;
+  }
+
+  return url;
+}
+
 const Report = () => {
   const { t } = useTranslation();
   const [reports, setReports] = useState([]);
@@ -71,7 +82,7 @@ const Report = () => {
     image: imageUrl(report.imageUrl),
     description: report.description,
     reportCategory: report.category,
-    fileUrl: report.fileUrl,
+    fileUrl: getDownloadUrl(report.fileUrl),
     fileName: report.fileName,
   }));
   const allReports = [...impacts.filter((impact) => impact.category === "Report"), ...reportItems];

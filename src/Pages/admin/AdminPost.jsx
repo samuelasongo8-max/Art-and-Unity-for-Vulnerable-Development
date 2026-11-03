@@ -228,15 +228,12 @@ const AdminPost = () => {
   const [reportCategory, setReportCategory] = useState("");
   const [reportDate, setReportDate] = useState("");
   const [reportDesc, setReportDesc] = useState("");
-  const [reportFile, setReportFile] = useState(null);
+  const [reportFileUrl, setReportFileUrl] = useState("");
+  const [reportImageUrl, setReportImageUrl] = useState("");
   const [reportErrors, setReportErrors] = useState({});
   const [reportSuccess, setReportSuccess] = useState(false);
   const [reportSubmitting, setReportSubmitting] = useState(false);
   const [reportFormOpen, setReportFormOpen] = useState(false);
-  const reportFileRef = useRef(null);
-  const [reportImage, setReportImage] = useState(null);
-  const [reportImagePreview, setReportImagePreview] = useState(null);
-  const reportImageRef = useRef(null);
   const reportSuccessTimer = useRef(null);
 
   const [cuTitle, setCuTitle] = useState("");
@@ -516,22 +513,20 @@ const AdminPost = () => {
     if (!reportTitle.trim()) errors.reportTitle = "Report title is required";
     if (!reportCategory) errors.reportCategory = "Please select a category";
     if (!reportDate) errors.reportDate = "Report date is required";
-    if (!reportFile) errors.reportFile = "Please upload a report file";
+    if (!isValidHttpUrl(reportFileUrl)) errors.fileUrl = "Enter a valid report link";
+    if (reportImageUrl.trim() && !isValidHttpUrl(reportImageUrl)) {
+      errors.imageUrl = "Enter a valid cover image link";
+    }
     return errors;
   };
 
-  const handleReportImageChange = (event) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setReportImage(file);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") {
-        setReportImagePreview(reader.result);
-      }
-    };
-    reader.readAsDataURL(file);
+  const isValidHttpUrl = (value) => {
+    try {
+      const url = new URL(value.trim());
+      return url.protocol === "http:" || url.protocol === "https:";
+    } catch {
+      return false;
+    }
   };
 
   const handleReportSubmit = async (event) => {
@@ -548,55 +543,48 @@ const AdminPost = () => {
     setReportSubmitting(true);
     setReportErrors({});
 
-    const formData = new FormData();
-    formData.append("title", reportTitle);
-    formData.append("category", reportCategory);
-    formData.append("reportDate", reportDate);
-    formData.append("description", reportDesc);
-    formData.append("reportFile", reportFile);
-    if (reportImage) formData.append("reportImage", reportImage);
-
-    let response;
     try {
-      response = await fetch(apiUrl("/api/reports"), {
+      const response = await fetch(apiUrl("/api/reports"), {
         method: "POST",
         credentials: "include",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: reportTitle,
+          category: reportCategory,
+          reportDate,
+          description: reportDesc,
+          fileUrl: reportFileUrl,
+          fileName: reportTitle,
+          imageUrl: reportImageUrl,
+        }),
       });
+
+      const result = await readJson(response);
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || `Could not save the report (HTTP ${response.status}).`);
+      }
+
+      setReportSuccess(true);
+      setReportTitle("");
+      setReportCategory("");
+      setReportDate("");
+      setReportDesc("");
+      setReportFileUrl("");
+      setReportImageUrl("");
+
+      if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
+      reportSuccessTimer.current = setTimeout(() => {
+        setReportSuccess(false);
+        reportSuccessTimer.current = null;
+      }, 4000);
     } catch (error) {
+      console.error("Report submit error:", error);
       setReportErrors({
-        submit: `Could not reach the report service: ${error?.message ?? "Network error."}`,
+        submit: error?.message || "Failed to submit the report. Try again.",
       });
+    } finally {
       setReportSubmitting(false);
-      return;
     }
-
-    const result = await readJson(response);
-    if (!response.ok || !result?.ok) {
-      setReportErrors({
-        submit: result?.error || `Could not save the report (HTTP ${response.status}).`,
-      });
-      setReportSubmitting(false);
-      return;
-    }
-
-    setReportSuccess(true);
-    setReportSubmitting(false);
-    setReportTitle("");
-    setReportCategory("");
-    setReportDate("");
-    setReportDesc("");
-    setReportFile(null);
-    setReportImage(null);
-    setReportImagePreview(null);
-    if (reportFileRef.current) reportFileRef.current.value = "";
-    if (reportImageRef.current) reportImageRef.current.value = "";
-
-    if (reportSuccessTimer.current) clearTimeout(reportSuccessTimer.current);
-    reportSuccessTimer.current = setTimeout(() => {
-      setReportSuccess(false);
-      reportSuccessTimer.current = null;
-    }, 4000);
   };
 
   const handleCuImageChange = (event) => {
@@ -955,7 +943,6 @@ const AdminPost = () => {
           <form
             onSubmit={handleReportSubmit}
             className="admin-report-form"
-            encType="multipart/form-data"
             noValidate
           >
             {reportErrors.submit ? (
@@ -986,39 +973,25 @@ const AdminPost = () => {
             </div>
 
             <div className="admin-report-field">
-              <label className="admin-report-label" htmlFor="ar-report-image">
-                Report Image
+              <label className="admin-report-label" htmlFor="ar-image-url">
+                Cover Image Link
                 <span className="admin-report-optional">(optional)</span>
               </label>
               <input
-                id="ar-report-image"
-                type="file"
-                accept="image/*"
-                className="admin-report-file"
-                ref={reportImageRef}
-                onChange={handleReportImageChange}
+                id="ar-image-url"
+                type="url"
+                className="admin-report-input"
+                placeholder="https://drive.google.com/..."
+                value={reportImageUrl}
+                onChange={(event) => {
+                  setReportImageUrl(event.target.value);
+                  setReportErrors((current) => ({ ...current, imageUrl: "" }));
+                }}
+                aria-invalid={Boolean(reportErrors.imageUrl)}
               />
-              <p className="admin-report-hint">Accepted formats: JPG, PNG, WEBP, GIF</p>
-
-              {reportImagePreview ? (
-                <div className="admin-report-image-preview-wrap">
-                  <img
-                    src={reportImagePreview}
-                    alt="Report preview"
-                    className="admin-report-image-preview"
-                  />
-                  <button
-                    type="button"
-                    className="admin-report-image-remove"
-                    onClick={() => {
-                      setReportImage(null);
-                      setReportImagePreview(null);
-                      if (reportImageRef.current) reportImageRef.current.value = "";
-                    }}
-                  >
-                    Remove image
-                  </button>
-                </div>
+              <p className="admin-report-hint">Optional: paste a direct image link for the report cover</p>
+              {reportErrors.imageUrl ? (
+                <span className="admin-report-error" role="alert">{reportErrors.imageUrl}</span>
               ) : null}
             </div>
 
@@ -1082,28 +1055,27 @@ const AdminPost = () => {
             </div>
 
             <div className="admin-report-field">
-              <label className="admin-report-label" htmlFor="ar-report-file">
-                Report File <span className="required">*</span>
+              <label className="admin-report-label" htmlFor="ar-report-file-url">
+                Report File Link <span className="required">*</span>
               </label>
               <input
-                id="ar-report-file"
-                type="file"
-                accept=".pdf,.doc,.docx"
-                className="admin-report-file"
-                ref={reportFileRef}
+                id="ar-report-file-url"
+                type="url"
+                className="admin-report-input"
+                placeholder="https://drive.google.com/..."
+                value={reportFileUrl}
                 onChange={(event) => {
-                  setReportFile(event.target.files?.[0] ?? null);
-                  setReportErrors((current) => ({ ...current, reportFile: "" }));
+                  setReportFileUrl(event.target.value);
+                  setReportErrors((current) => ({ ...current, fileUrl: "" }));
                 }}
-                aria-invalid={Boolean(reportErrors.reportFile)}
+                aria-invalid={Boolean(reportErrors.fileUrl)}
               />
-              {reportFile ? (
-                <p className="admin-report-filename">{reportFile.name}</p>
+              <p className="admin-report-hint">
+                Upload your PDF to Google Drive, click “Share” → “Anyone with the link” → paste the link here
+              </p>
+              {reportErrors.fileUrl ? (
+                <span className="admin-report-error" role="alert">{reportErrors.fileUrl}</span>
               ) : null}
-              {reportErrors.reportFile ? (
-                <span className="admin-report-error" role="alert">{reportErrors.reportFile}</span>
-              ) : null}
-              <p className="admin-report-hint">Accepted formats: PDF, DOC, DOCX</p>
             </div>
 
             <button
